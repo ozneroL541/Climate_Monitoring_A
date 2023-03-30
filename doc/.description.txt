@@ -1,0 +1,1 @@
+La directory doc contenente il manuale utente e il manuale tecnico in formato .pdf
