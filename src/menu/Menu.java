@@ -1,8 +1,10 @@
 package src.menu;
 
 public class Menu {
+    // Menu string
     private String menu = null;
-    private static String s[] = {
+    // Options array
+    private static String options[] = {
         "Ricerca aree",
         "Visualizzazione i parametri climatici associati",
         "Registrazione (Solo operatori autorizzati)",
@@ -11,24 +13,29 @@ public class Menu {
         "Inserirmento valori dei parametri climatici (Solo operatori autorizzati)",
         "Uscita"
     };
-    private static String separatore = " - ";
-    private static String out = "";
-
+    // Separator String
+    private static String separator = " - ";
+    // Object constructor
     public Menu(){
         menu = MenuMaker();
     }
-    public static String MenuMaker() {
-        for (int i = 0; i < s.length; i++) {
-            out += (i + 1) +  separatore + s[i] + '\n';
+    // This method makes the string menu with numbers and with the separator
+    // example:  "1 - Option1/n2 - option2" ...
+    private static String MenuMaker() {
+        String out = "";
+        for (int i = 0; i < options.length; i++) {
+            out += (i + 1) +  separator + options[i] + '\n';
         }
         return out;
     }
+    // This method returns the menu string and, if it doesn't exist it makes it before return
     public String getMenu() {
         if ( menu == null )
             menu = MenuMaker();
         return menu;
     }
+    // Check if the integer number corrisponds to the Exit command
     public boolean isQuit( int n ) {
-        return s[n].equals("Uscita");
+        return options[n].equals("Uscita");
     }
 }
