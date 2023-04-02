@@ -6,7 +6,7 @@ public class Menu {
     // Options array
     private static String options[] = {
         "Ricerca aree",
-        "Visualizzazione i parametri climatici associati",
+        "Visualizzazione parametri climatici associati",
         "Registrazione (Solo operatori autorizzati)",
         "Login (Solo operatori autorizzati)",
         "Creazione centri di monitoraggio (Solo operatori autorizzati)",
