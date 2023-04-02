@@ -30,6 +30,7 @@ public class Menu {
     }
     // This method returns the menu string and, if it doesn't exist it makes it before return
     public String getMenu() {
+        // Before return check if menu is null then makes it
         if ( menu == null )
             menu = MenuMaker();
         return menu;
@@ -37,5 +38,10 @@ public class Menu {
     // Check if the integer number corrisponds to the Exit command
     public boolean isQuit( int n ) {
         return options[n-1].equals("Uscita");
+    }
+    // Return the Number of Options of the Menu
+    // It's the max (which is the last) number displayed by the Menu
+    public int NumberOfOptions() {
+        return options.length + 1;
     }
 }
