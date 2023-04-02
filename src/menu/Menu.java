@@ -3,6 +3,8 @@ package src.menu;
 public class Menu {
     // Menu string
     private String menu = null;
+    // Exit Option
+    private static String exit = "Esci";
     // Options array
     private static String options[] = {
         "Ricerca aree",
@@ -11,7 +13,7 @@ public class Menu {
         "Login (Solo operatori autorizzati)",
         "Creazione centri di monitoraggio (Solo operatori autorizzati)",
         "Inserirmento valori dei parametri climatici (Solo operatori autorizzati)",
-        "Uscita"
+        exit
     };
     // Separator String
     private static String separator = " - ";
@@ -37,7 +39,7 @@ public class Menu {
     }
     // Check if the integer number corrisponds to the Exit command
     public boolean isQuit( int n ) {
-        return options[n-1].equals("Uscita");
+        return options[n-1].equals(exit);
     }
     // Return the Number of Options of the Menu
     // It's the max (which is the last) number displayed by the Menu
