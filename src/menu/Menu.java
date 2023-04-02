@@ -36,6 +36,6 @@ public class Menu {
     }
     // Check if the integer number corrisponds to the Exit command
     public boolean isQuit( int n ) {
-        return options[n].equals("Uscita");
+        return options[n-1].equals("Uscita");
     }
 }
