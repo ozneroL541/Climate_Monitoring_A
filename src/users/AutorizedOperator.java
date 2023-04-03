@@ -1,5 +1,5 @@
 package src.users;
-import src.MonitoringCentre.MonitoringCentre;
+import src.monitoringcentre.MonitoringCentre;
 
 public class AutorizedOperator extends User {
     private String nome;

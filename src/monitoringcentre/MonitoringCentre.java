@@ -1,4 +1,4 @@
-package src.MonitoringCentre;
+package src.monitoringcentre;
 
 public class MonitoringCentre {
     public MonitoringCentre(){
