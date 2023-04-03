@@ -9,50 +9,42 @@
 
 package src.menu;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Menu {
     // Menu string
     private String menu = null;
-    // Exit Option
-    private static String exit = "Esci";
-    // Options array
-    private static String options[] = {
-        "Ricerca aree",
-        "Visualizzazione parametri climatici associati",
-        "Registrazione (Solo operatori autorizzati)",
-        "Login (Solo operatori autorizzati)",
-        "Creazione centri di monitoraggio (Solo operatori autorizzati)",
-        "Inserirmento valori dei parametri climatici (Solo operatori autorizzati)",
-        exit
-    };
-    // Separator String
-    private static String separator = " - ";
+    // Number of options
+    private short op_number = 0;
     // Object constructor
     public Menu(){
-        menu = MenuMaker();
-    }
-    // This method makes the string menu with numbers and with the separator
-    // example:  "1 - Option1/n2 - option2" ...
-    private static String MenuMaker() {
-        String out = "";
-        for (int i = 0; i < options.length; i++) {
-            out += (i + 1) +  separator + options[i] + '\n';
+        String filename = "menu.txt";
+        StringBuilder str_maker = new StringBuilder();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String current_line;
+            while ((current_line = br.readLine()) != null) {
+                op_number++;
+                str_maker.append(current_line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return out;
+        menu = str_maker.toString();
     }
     // This method returns the menu string and, if it doesn't exist it makes it before return
     public String getMenu() {
-        // Before return check if menu is null then makes it
-        if ( menu == null )
-            menu = MenuMaker();
         return menu;
     }
-    // Check if the integer number corrisponds to the Exit command
+    //Check if the integer number corrisponds to the Exit command
     public boolean isQuit( int n ) {
-        return options[n-1].equals(exit);
+        return n == op_number;
     }
     // Return the Number of Options of the Menu
     // It's the max (which is the last) number displayed by the Menu
     public int NumberOfOptions() {
-        return options.length + 1;
+        return (int) op_number;
     }
 }
