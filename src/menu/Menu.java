@@ -20,19 +20,24 @@ public class Menu {
     private short op_number = 0;
     // Object constructor
     public Menu(){
+        // File name of the menu
         String filename = "menu.txt";
+        // String builder object
         StringBuilder str_maker = new StringBuilder();
-
+        // Exception
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            // Current line
             String current_line;
+            // While not EOF
             while ((current_line = br.readLine()) != null) {
-                op_number++;
+                // Create the string
                 str_maker.append(current_line).append("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        menu = str_maker.toString();
+        // Return the String made to the menu
+        this.menu = str_maker.toString();
     }
     // This method returns the menu string and, if it doesn't exist it makes it before return
     public String getMenu() {
