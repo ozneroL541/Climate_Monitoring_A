@@ -9,41 +9,42 @@
 
 package src.menu;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class Menu {
     // Menu string
     private String menu = null;
     // Number of options
     private short op_number = 0;
     // Number of the exit option
-    private short exit_number = 0;
+    private short exit_number = 7;
+    // Exit Option
+    private final String exit = "Esci";
     // Object constructor
     public Menu(){
-        // File name of the menu
-        String filename = "menu.txt";
-        // String builder object
-        StringBuilder str_maker = new StringBuilder();
-        // Exception
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            // Current line
-            String current_line;
-            // While not EOF
-            while ((current_line = br.readLine()) != null) {
-                // Create the string
-                str_maker.append(current_line).append("\n");
-                // Increment option number
-                this.op_number++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Options array
+        String[] options = {
+            "Ricerca aree",
+            "Visualizzazione parametri climatici associati",
+            "Registrazione (Solo operatori autorizzati)",
+            "Login (Solo operatori autorizzati)",
+            "Creazione centri di monitoraggio (Solo operatori autorizzati)",
+            "Inserirmento valori dei parametri climatici (Solo operatori autorizzati)",
+            exit
+        };
+        // Separator string
+        String separator = " - ";
+        // Initialize menu
+        menu = "";
+        // For every element in the options array
+        for ( short i = 0; i < options.length; i++ ) {
+            // Create the menu string
+            this.menu += (i + 1) +  separator + options[i] + '\n';
+            // If the current option string is equal to exit than 
+            if ( exit.equals(options[i]) )
+                // The exit option number is the current number
+                exit_number = (short) (i + 1);
         }
-        // Return the String made to the menu
-        this.menu = str_maker.toString();
-        // The exit number is the last one
-        this.exit_number = this.op_number;
+        // Number of options is the number of elements of the array
+        this.op_number = (short) options.length;
     }
     // This method returns the menu string and, if it doesn't exist it makes it before return
     public String getMenu() {
