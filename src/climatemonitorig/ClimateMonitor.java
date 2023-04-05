@@ -59,10 +59,9 @@ public class ClimateMonitor {
                     break;
                 default:
                     // Esci
-                    mainmenu_input = (short) menu.NumberOfOptions();
+                    mainmenu_input = menu.NumberOfOptions();
                     break;
             }
         }
-        
     }
 }

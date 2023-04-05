@@ -18,6 +18,8 @@ public class Menu {
     private String menu = null;
     // Number of options
     private short op_number = 0;
+    // Number of the exit option
+    private short exit_number = 0;
     // Object constructor
     public Menu(){
         // File name of the menu
@@ -32,24 +34,28 @@ public class Menu {
             while ((current_line = br.readLine()) != null) {
                 // Create the string
                 str_maker.append(current_line).append("\n");
+                // Increment option number
+                this.op_number++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         // Return the String made to the menu
         this.menu = str_maker.toString();
+        // The exit number is the last one
+        this.exit_number = this.op_number;
     }
     // This method returns the menu string and, if it doesn't exist it makes it before return
     public String getMenu() {
         return menu;
     }
     //Check if the integer number corrisponds to the Exit command
-    public boolean isQuit( int n ) {
-        return n == op_number;
+    public boolean isQuit( short n ) {
+        return n == exit_number;
     }
     // Return the Number of Options of the Menu
     // It's the max (which is the last) number displayed by the Menu
-    public int NumberOfOptions() {
-        return (int) op_number;
+    public short NumberOfOptions() {
+        return op_number;
     }
 }
