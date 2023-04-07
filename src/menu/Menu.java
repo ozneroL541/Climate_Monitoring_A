@@ -15,7 +15,7 @@ public class Menu {
     // Number of options
     private short op_number = 0;
     // Number of the exit option
-    private short exit_number = 7;
+    private short exit_number = 0;
     // Exit Option
     private final String exit = "Esci";
     // Object constructor
