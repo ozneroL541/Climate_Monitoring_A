@@ -54,6 +54,10 @@ public class Menu {
     public boolean isQuit( short n ) {
         return n == exit_number;
     }
+    // Return the Number of the Exit Option
+    public short getQuit() {
+        return exit_number;
+    }
     // Return the Number of Options of the Menu
     // It's the max (which is the last) number displayed by the Menu
     public short NumberOfOptions() {

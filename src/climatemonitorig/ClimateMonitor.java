@@ -58,8 +58,8 @@ public class ClimateMonitor {
                     // Esci
                     break;
                 default:
-                    // Esci
-                    mainmenu_input = menu.NumberOfOptions();
+                    // Exit
+                    mainmenu_input = menu.getQuit();
                     break;
             }
         }
