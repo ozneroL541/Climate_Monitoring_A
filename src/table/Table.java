@@ -3,24 +3,6 @@ package src.table;
 public class Table {
     // Number of categories
     private final short n_categories = 7;
-    private final String[] climate_categories = {
-        "Vento",
-        "Umidità",
-        "Pressione",
-        "Temperatura",
-        "Precipitazioni",
-        "Altitudine dei ghiacciai",
-        "Massa dei ghiacciai"
-    };
-    private final String[] explanations = {
-        "Velocità del vento (km/h), suddivisa in fasce ",
-        "% di Umidità, suddivisa in fasce",
-        "In hPa, suddivisa in fasce",
-        "In °C, suddivisa in fasce",
-        "In mm di pioggia, suddivisa in fasce",
-        "In m, suddivisa in piogge",
-        "In kg, suddivisa in fasce",
-    };
     // Category's scores
     private short[] scores = { 1, 1, 1, 1, 1, 1, 1, };
     // Category's notes
@@ -76,5 +58,40 @@ public class Table {
                 }
             }
         }
+    }
+    @Override
+    public String toString() {
+        // Name of the climate categories
+        final String[] climate_categories = {
+            "Vento                   ",
+            "Umidità                 ",
+            "Pressione               ",
+            "Temperatura             ",
+            "Precipitazioni          ",
+            "Altitudine dei ghiacciai",
+            "Massa dei ghiacciai     ",
+        };
+        // Explanation of the climate categories
+        final String[] explanations = {
+            "Velocità del vento (km/h), suddivisa in fasce ",
+            "% di Umidità, suddivisa in fasce              ",
+            "In hPa, suddivisa in fasce                    ",
+            "In °C, suddivisa in fasce                     ",
+            "In mm di pioggia, suddivisa in fasce          ",
+            "In m, suddivisa in piogge                     ",
+            "In kg, suddivisa in fasce                     ",
+        };
+        // Header Table
+        final String table_header = "Climate Category        \tExplanation                                   \tScore\tNotes (max 256 characters)";
+        // Output string
+        String str = "";
+        // Start adding the header to the output string
+        str += table_header;
+        // For every category
+        for ( short i = 0; i < this.n_categories; i++ ) {
+            // Add the line of the table
+            str += "\n" + climate_categories[i] + "\t" + explanations[i] + "\t  " + this.scores[i] + "\t" + this.notes[i];
+        }
+        return str;
     }
 }
