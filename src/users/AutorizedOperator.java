@@ -15,7 +15,7 @@ public class AutorizedOperator extends User {
     private String cognome;
     private String codice_fiscale;
     private String email_address;
-    private int userid;
+    private short userid;
     private String passwd;
     private MonitoringCentre centre;
 
