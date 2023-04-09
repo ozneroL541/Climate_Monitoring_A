@@ -35,26 +35,14 @@ public class ClimateMonitor {
                     // TODO
                     break;
                 case 2:
-                    // Visualizzazione parametri climatici associati
+                    // Login
                     // TODO
                     break;
                 case 3:
-                    // Registrazione (Solo operatori autorizzati)
+                    // Registrazione
                     // TODO
                     break;
                 case 4:
-                    // Login (Solo operatori autorizzati)
-                    // TODO
-                    break;
-                case 5:
-                    // Creazione centri di monitoraggio (Solo operatori autorizzati)
-                    // TODO
-                    break;
-                case 6:
-                    // Inserirmento valori dei parametri climatici (Solo operatori autorizzati)
-                    // TODO
-                    break;
-                case 7:
                     // Esci
                     break;
                 default:
