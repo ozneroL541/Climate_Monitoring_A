@@ -23,11 +23,8 @@ public class Menu {
         // Options array
         String[] options = {
             "Ricerca aree",
-            "Visualizzazione parametri climatici associati",
-            "Registrazione (Solo operatori autorizzati)",
-            "Login (Solo operatori autorizzati)",
-            "Creazione centri di monitoraggio (Solo operatori autorizzati)",
-            "Inserirmento valori dei parametri climatici (Solo operatori autorizzati)",
+            "Login",
+            "Registrazione",
             exit
         };
         // Separator string
