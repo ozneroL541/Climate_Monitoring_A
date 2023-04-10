@@ -7,16 +7,12 @@
  * Sede: Como
 ***************************************/
 
-package src.users;
+package src.GeographicArea;
 
-public class User {
-    public User() {
-        //TODO
-    }
-    public void registrazione() {
-        //TODO
-    }
-    public void autenticazione() {
-        //TODO
-    }
+public class GeographicArea {
+    private int geoname_id = 0;
+    private String name = "";
+    private String ascii_name = "";
+    private String country_code = "";
+    private double [] coordinates = { 0.0, 0.0 };
 }
