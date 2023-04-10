@@ -11,12 +11,19 @@ package src.users;
 import src.monitoringcentre.MonitoringCentre;
 
 public class AutorizedOperator extends User {
+    // Name
     private String nome;
+    // Surname
     private String cognome;
+    // Fiscal Code
     private String codice_fiscale;
+    // e-mail address
     private String email_address;
+    // User Identity Code
     private short userid;
+    // User Password
     private String passwd;
+    // Monitoring Centre
     private MonitoringCentre centre;
 
     public AutorizedOperator() {
