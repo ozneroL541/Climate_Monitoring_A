@@ -48,7 +48,9 @@ public class ClimateMonitor {
                     break;
                 default:
                     // Exit
-                    mainmenu_input = menu.getQuit();
+                    mainmenu_input = 0;
+                    // Error Message
+                    // TODO
                     break;
             }
         }
