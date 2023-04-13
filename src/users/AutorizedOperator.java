@@ -8,6 +8,19 @@
 ***************************************/
 
 package src.users;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
 import src.monitoringcentre.MonitoringCentre;
 
 public class AutorizedOperator extends User {
@@ -26,10 +39,120 @@ public class AutorizedOperator extends User {
     // Monitoring Centre
     private MonitoringCentre centre;
 
+    // To read input
+    private Scanner in=new Scanner(System.in);
+    // Make the path platform independent
+    //private final String filePath="data" + File.separator + "OperatoriRegistrati.csv";    //corretto
+    private final String filePath="data" + File.separator + "prova.txt";        //per testing
+
+    private File file;
+    //probabilmente inutili
+    // To read files
+    private BufferedReader leggi;
+    // To write files
+    private BufferedWriter scrivi;
+
     public AutorizedOperator() {
-        //TODO
+
+        file=new File(this.filePath);
+
+        //setReadingWritingFiles();
+
+        //IL FILE IN DATA è SCRITTO MALE
+
+        
+
+        /*
+        try {
+            FileReader leggi=new FileReader(s);
+
+            int data;
+            data=leggi.read();
+            while(data!=-1){
+                System.out.print((char)data);
+                data = leggi.read();
+            }
+
+            leggi.close();
+            //System.out.println("qualcosa: "+ leggi.read());
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("a");
+        } catch (IOException ex) {
+            System.out.println("b");
+        }*/
+        
     }
 
+    public void registrazione() {
+        System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
+        // Insert nome
+        System.out.print("Inserire il nome: ");
+        this.nome=in.nextLine();
+        // Insert cognome
+        System.out.print("Inserire il cognome: ");
+        this.cognome=in.nextLine();
+        // Insert codice fiscale
+        System.out.print("Inserire il codice fiscale: ");
+        String codFisc="";
+        do{
+            codFisc=in.nextLine();
+            if(!ControlloCodiceFiscale(codFisc)){
+                System.out.print("Codice fiscale non valido.\nReinserire: ");
+            }
+        }while(!ControlloCodiceFiscale(codFisc));
+        this.codice_fiscale=codFisc;
+        // Insert email
+        System.out.print("Inserire la mail: ");
+        String email="";
+        do{
+            email=in.nextLine();
+            if(!ControlloEmail(email)){
+                System.out.print("Email non valida.\nReinserire: ");
+            }
+        }while(!ControlloEmail(email));
+        this.email_address=email;
+
+        //insert monitoring centre
+        //TODO
+        this.centre=null;
+
+        // Insert password
+        System.out.print("Inserire la password: ");
+        this.passwd=in.nextLine();
+
+        // Set the userid
+        this.userid=setUserId();
+
+        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + this.userid + " e la password scelta");
+    }
+
+    public void autenticazione() {
+        //TODO
+    }
+    //set the userid
+    private short setUserId(){
+        long id=0;
+        //if the file doesn't exist, create it and add the first operator with userid 00001, else add the operator with incremental userid
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Errore nella creazione del file");
+            }
+            id=1;
+        }else{
+
+            try {
+                id=(Files.lines(Paths.get(this.filePath)).count());
+                id++;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } 
+        }
+        return (short)id;
+    }
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
         // Output declaration
@@ -90,4 +213,28 @@ public class AutorizedOperator extends User {
         }
         return check;
     }
+    // Check email
+    private static boolean ControlloEmail(String email){
+        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        return Pattern.compile(regexPattern).matcher(email).matches();
+    }
+    // Initialize objects for reading/writing files
+    private void setReadingWritingFiles(){
+        file=new File(this.filePath);
+
+        /*
+        try {
+            leggi=new BufferedReader(new FileReader(this.filePath));
+        } catch (FileNotFoundException e) {
+            System.out.println("File non trovato");
+        }
+ 
+        try {
+            scrivi=new BufferedWriter(new FileWriter(this.filePath, true));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
+    }
+
 }

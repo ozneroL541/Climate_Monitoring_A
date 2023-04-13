@@ -4,7 +4,12 @@ import src.users.*;
 public class TestMain {
 
     public static void main(String[] args){
-        System.out.print("Benvenuto nel login!");
+        
+        AutorizedOperator op=new AutorizedOperator();
+        op.registrazione();
+        //return to login or to main menu
+
+
     }
     
 }
