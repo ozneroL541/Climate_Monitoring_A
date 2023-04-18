@@ -16,7 +16,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -43,7 +45,8 @@ public class AutorizedOperator extends User {
     private Scanner in=new Scanner(System.in);
     // Make the path platform independent
     //private final String filePath="data" + File.separator + "OperatoriRegistrati.csv";    //corretto
-    private final String filePath="data" + File.separator + "prova.txt";        //per testing
+    //private final String filePath="data" + File.separator + "prova.txt";        //per testing
+    private Path filepath=FileSystems.getDefault().getPath("data", "prova.txt");
 
     private File file;
     //probabilmente inutili
@@ -54,7 +57,8 @@ public class AutorizedOperator extends User {
 
     public AutorizedOperator() {
 
-        file=new File(this.filePath);
+        
+        file=new File(this.filepath.toFile().toString());
 
         //setReadingWritingFiles();
 
@@ -144,7 +148,7 @@ public class AutorizedOperator extends User {
         }else{
 
             try {
-                id=(Files.lines(Paths.get(this.filePath)).count());
+                id=(Files.lines(Paths.get(this.filepath.toFile().toString())).count());
                 id++;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -220,7 +224,7 @@ public class AutorizedOperator extends User {
     }
     // Initialize objects for reading/writing files
     private void setReadingWritingFiles(){
-        file=new File(this.filePath);
+        file=new File(this.filepath.toFile().toString());
 
         /*
         try {
