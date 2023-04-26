@@ -7,7 +7,7 @@
  * Sede: Como
 ***************************************/
 
-package src.GeographicArea;
+package src.geographicarea;
 
 public class GeographicArea {
     // Geoname ID
