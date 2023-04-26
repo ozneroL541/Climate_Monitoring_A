@@ -21,8 +21,6 @@ public class ClimateMonitor {
         while ( ! menu.isQuit(mainmenu_input) ) {
             // Output the menu
             System.out.println(menu.getMenu());
-            // Initialize the main menu input to zero
-            mainmenu_input = 0;
             // While the input is not valid
             while ( mainmenu_input < 1 && mainmenu_input > menu.NumberOfOptions() ) {
                 // input
@@ -48,7 +46,6 @@ public class ClimateMonitor {
                     break;
                 default:
                     // Exit
-                    mainmenu_input = 0;
                     // Error Message
                     // TODO
                     break;
