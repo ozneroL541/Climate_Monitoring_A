@@ -123,7 +123,7 @@ public class AutorizedOperator extends User {
         // Add the operator to the file
         aggiungiOperatore();
         
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + this.userid + " e la password scelta");
+        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", this.userid) + " e la password scelta");
     }
 
     public void autenticazione() {
