@@ -242,6 +242,7 @@ public class AutorizedOperator extends User {
         
         //TODO
         //rendere scrivi locale, rimuovere scrivi attributo delle classe
+        BufferedWriter scrivi;
 
         try {
             scrivi=new BufferedWriter(new FileWriter(file, true));
