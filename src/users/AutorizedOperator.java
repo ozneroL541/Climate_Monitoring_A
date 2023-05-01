@@ -46,28 +46,17 @@ public class AutorizedOperator extends User {
     // To read input
     private Scanner in=new Scanner(System.in);
     // Make the path platform independent
-    //private final String filePath="data" + File.separator + "OperatoriRegistrati.csv";    //corretto
-    //private final String filePath="data" + File.separator + "prova.txt";        //per testing
-    //private Path filepath=FileSystems.getDefault().getPath("data", "prova.txt");
     private Path filepath=FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv");
 
     private File file;
-    //probabilmente inutili
+    //TODO
+    //rimuove non appena faccio la lettura 
     // To read files
     private BufferedReader leggi;
-    // To write files
-    private BufferedWriter scrivi;
 
     public AutorizedOperator() {
-
-        
+  
         file=new File(this.filepath.toFile().toString());
-
-        //setReadingWritingFiles();
-
-        //IL FILE IN DATA è SCRITTO MALE
-
-        
 
         /*
         try {
@@ -134,7 +123,6 @@ public class AutorizedOperator extends User {
         // Add the operator to the file
         aggiungiOperatore();
         
-
         System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + this.userid + " e la password scelta");
     }
 

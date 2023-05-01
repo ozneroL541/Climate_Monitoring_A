@@ -7,6 +7,6 @@ public class TestMain {
         
         AutorizedOperator op=new AutorizedOperator();
         op.registrazione();
-        //return to login or to main menua
+        //return to login or to main menu
     }
 }
