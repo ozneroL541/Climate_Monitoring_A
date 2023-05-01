@@ -23,6 +23,8 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import javax.annotation.processing.SupportedOptions;
+
 import src.monitoringcentre.MonitoringCentre;
 
 public class AutorizedOperator extends User {
@@ -46,7 +48,8 @@ public class AutorizedOperator extends User {
     // Make the path platform independent
     //private final String filePath="data" + File.separator + "OperatoriRegistrati.csv";    //corretto
     //private final String filePath="data" + File.separator + "prova.txt";        //per testing
-    private Path filepath=FileSystems.getDefault().getPath("data", "prova.txt");
+    //private Path filepath=FileSystems.getDefault().getPath("data", "prova.txt");
+    private Path filepath=FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv");
 
     private File file;
     //probabilmente inutili
@@ -128,6 +131,10 @@ public class AutorizedOperator extends User {
         // Set the userid
         this.userid=setUserId();
 
+        // Add the operator to the file
+        aggiungiOperatore();
+        
+
         System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + this.userid + " e la password scelta");
     }
 
@@ -146,7 +153,6 @@ public class AutorizedOperator extends User {
             }
             id=1;
         }else{
-
             try {
                 id=(Files.lines(Paths.get(this.filepath.toFile().toString())).count());
                 id++;
@@ -240,5 +246,23 @@ public class AutorizedOperator extends User {
             e.printStackTrace();
         }*/
     }
+    // Add the current instance of AutorizedOperator to the file OperatoriRegistrati.csv
+    private void aggiungiOperatore(){
 
+        String s=String.format("%05d", this.userid);
+        s=s + "," + this.nome + "," + this.cognome + "," + this.codice_fiscale + "," + this.email_address + "," + this.passwd + "," + this.centre + "\n";
+        
+        //TODO
+        //rendere scrivi locale, rimuovere scrivi attributo delle classe
+
+        try {
+            scrivi=new BufferedWriter(new FileWriter(file, true));
+            scrivi.append(s);
+            scrivi.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
