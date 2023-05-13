@@ -45,7 +45,6 @@ public class ClimateMonitor {
                     // Esci
                     break;
                 default:
-                    // Exit
                     // Error Message
                     System.out.println("Il valore inserito non è corretto.\nInserire un numero valido per continuare.");
                     break;
