@@ -7,7 +7,7 @@
  * Sede: Como
 ***************************************/
 
-package src.climatemonitorig;
+package src.climatemonitoring;
 import src.menu.Menu;
 
 public class ClimateMonitor {
