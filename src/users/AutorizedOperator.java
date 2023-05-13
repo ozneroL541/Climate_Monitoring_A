@@ -9,7 +9,13 @@
 
 package src.users;
 import src.monitoringcentre.MonitoringCentre;
-
+/**
+ * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
+ * un utente con privilegi speciali.
+ * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
+ * @author Lorenzo Radice
+ * @version 0.0.0
+ */
 public class AutorizedOperator extends User {
     // Name
     private String nome;
@@ -25,7 +31,9 @@ public class AutorizedOperator extends User {
     private String passwd;
     // Monitoring Centre
     private MonitoringCentre centre;
-
+    /**
+     * Costruisce un operatore autorizzato
+     */
     public AutorizedOperator() {
         //TODO
     }

@@ -8,13 +8,17 @@
 ***************************************/
 
 package src.climatemonitoring;
-import src.menu.Menu;
-
+import src.menu.MainMenu;
+/**
+ * Classe che contiene il Main del programma
+ * @author Lorenzo Radice
+ * @version 0.0.0
+ */
 public class ClimateMonitor {
     // MAIN
     public static void main(String[] args) {
         // Menu Object cration
-        Menu menu = new Menu();
+        MainMenu menu = new MainMenu();
         // Short integer for the menu options
         short mainmenu_input = 0;
         // While exit is not selected
