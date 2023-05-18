@@ -121,7 +121,7 @@ public class AutorizedOperator extends User {
         this.userid=setUserId();
 
         // Add the operator to the file
-        aggiungiOperatore();
+        aggiungiOperatore(false);
         
         System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", this.userid) + " e la password scelta");
     }
@@ -136,6 +136,7 @@ public class AutorizedOperator extends User {
         if(!file.exists()){
             try {
                 file.createNewFile();
+                aggiungiOperatore(true);
             } catch (IOException e) {
                 System.out.println("Errore nella creazione del file");
             }
@@ -143,7 +144,7 @@ public class AutorizedOperator extends User {
         }else{
             try {
                 id=(Files.lines(Paths.get(this.filepath.toFile().toString())).count());
-                id++;
+                //id++;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -234,12 +235,19 @@ public class AutorizedOperator extends User {
             e.printStackTrace();
         }*/
     }
-    // Add the current instance of AutorizedOperator to the file OperatoriRegistrati.csv
-    private void aggiungiOperatore(){
 
-        String s=String.format("%05d", this.userid);
-        s=s + "," + this.nome + "," + this.cognome + "," + this.codice_fiscale + "," + this.email_address + "," + this.passwd + "," + this.centre + "\n";
-        
+    // Add the current instance of AutorizedOperator to the file OperatoriRegistrati.csv
+    private void aggiungiOperatore(boolean nuovoFile){
+
+        String s;
+
+        if(nuovoFile){
+            s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
+        }else{
+            s=String.format("%05d", this.userid);
+            s=s + "," + this.nome + "," + this.cognome + "," + this.codice_fiscale + "," + this.email_address + "," + this.passwd + "," + this.centre + "\n";
+        }
+
         //TODO
         //rendere scrivi locale, rimuovere scrivi attributo delle classe
         BufferedWriter scrivi;
