@@ -23,6 +23,8 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import com.opencsv.CSVReader;
+
 import javax.annotation.processing.SupportedOptions;
 
 import src.monitoringcentre.MonitoringCentre;
@@ -46,19 +48,16 @@ public class AutorizedOperator extends User {
     // To read input
     private Scanner in=new Scanner(System.in);
     // Make the path platform independent
-    private Path filepath=FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv");
+    private static Path filepath=FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv");
 
-    private File file;
+    private static File file=new File(filepath.toFile().toString());;
+
     //TODO
     //rimuove non appena faccio la lettura 
     // To read files
     private BufferedReader leggi;
 
     public AutorizedOperator() {
-  
-        //TODO
-        //rendere attributo 
-        file=new File(this.filepath.toFile().toString());
 
         /*
         try {
@@ -222,8 +221,10 @@ public class AutorizedOperator extends User {
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
     // Initialize objects for reading/writing files
+    //TODO
+    //va eliminata
     private void setReadingWritingFiles(){
-        file=new File(this.filepath.toFile().toString());
+        //file=new File(this.filepath.toFile().toString());
 
         /*
         try {
@@ -266,4 +267,30 @@ public class AutorizedOperator extends User {
             e.printStackTrace();
         }
     }
+
+    public static void leggiOperatori(){
+
+        file=new File(filepath.toFile().toString());
+
+        try{
+
+            FileReader freader= new FileReader(file);//created an object of freader class
+            //@SuppressWarnings("resource")
+            CSVReader creader= new CSVReader(freader);// created creader object by parsing freader as a parameter
+            String [] nextRecord;// created an array of type String
+            //read data line by line
+            while((nextRecord = creader.readNext())!=null){
+
+                for(String token: nextRecord)
+                System.out.print(token +"\t"); //will bring the value of cell seperated by tab space
+                System.out.println();
+            }
+
+            creader.close();
+            System.out.println();
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+    }
+
 }
