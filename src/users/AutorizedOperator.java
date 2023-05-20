@@ -56,6 +56,8 @@ public class AutorizedOperator extends User {
 
     public AutorizedOperator() {
   
+        //TODO
+        //rendere attributo 
         file=new File(this.filepath.toFile().toString());
 
         /*
@@ -81,6 +83,8 @@ public class AutorizedOperator extends User {
     }
 
     public void registrazione() {
+        //TODO
+        //migliorare la grafica
         System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
         // Insert nome
         System.out.print("Inserire il nome: ");
