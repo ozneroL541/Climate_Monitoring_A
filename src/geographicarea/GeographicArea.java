@@ -37,6 +37,10 @@ public class GeographicArea {
     private double [] coordinates = { 0.0, 0.0 };
     // Reasearch Areas for ID
     public int ricercaPerID( int id ) {
+        String is_str = ((Integer) id).toString();
+        return researchStringForCol(0, is_str);
+    }
+    private int researchStringForCol( int col, String str ) {
         int line = 0;
         try{
             // CSV Reader
@@ -45,10 +49,18 @@ public class GeographicArea {
             String [] nextRecord;
             // Found flag
             boolean found = false;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are more than col exit code -2
+            if ( nextRecord.length >= col )
+                return -2;
+            // First line will not contain any researched element so, increment and go on
+            // Line increment
+            line++;
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null && found ){
                 // When the first cell equals the id exit the while
-                if ( id == Integer.parseInt(nextRecord[0]) ) {
+                if ( nextRecord[col].equals(str) ) {
                     found = true;
                 }
                 // Line increment
