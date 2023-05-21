@@ -10,7 +10,10 @@
 package src.geographicarea;
 
 import java.io.File;
+import java.io.FileReader;
 import java.nio.file.FileSystems;
+import com.opencsv.CSVReader;
+import javax.annotation.processing.SupportedOptions;
 
 /**
  * Un oggetto della class <code>GeographicArea</code>
@@ -33,8 +36,31 @@ public class GeographicArea {
     // Coordinates
     private double [] coordinates = { 0.0, 0.0 };
     // Reasearch Areas for ID
-    public int ricercaPerID() {
+    public int ricercaPerID( int id ) {
         int line = 0;
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Found flag
+            boolean found = false;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null && found ){
+                // When the first cell equals the id exit the while
+                if ( id == Integer.parseInt(nextRecord[0]) ) {
+                    found = true;
+                }
+                // Line increment
+                line++;
+            }
+            creader.close();
+            // If the line hasn't been found return -1 as error
+            if ( nextRecord == null && ! found )
+                line = -1;
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
         return line;
     }
 }
