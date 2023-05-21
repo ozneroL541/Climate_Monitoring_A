@@ -24,7 +24,7 @@ import javax.annotation.processing.SupportedOptions;
  */
 public class GeographicArea {
     // Areas File
-    private final File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
+    private final static File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
     // Geoname ID
     private int geoname_id = 0;
     // Name
@@ -36,11 +36,11 @@ public class GeographicArea {
     // Coordinates
     private double [] coordinates = { 0.0, 0.0 };
     // Reasearch Areas for ID
-    public int ricercaPerID( int id ) {
+    public static int ricercaPerID( int id ) {
         String is_str = ((Integer) id).toString();
         return researchStringForCol(0, is_str);
     }
-    private int researchStringForCol( int col, String str ) {
+    private static int researchStringForCol( int col, String str ) {
         int line = 0;
         try{
             // CSV Reader
@@ -51,14 +51,14 @@ public class GeographicArea {
             boolean found = false;
             // Read first line
             nextRecord = creader.readNext();
-            // If columns are more than col exit code -2
-            if ( nextRecord.length >= col )
+            // If columns are less than col exit code -2
+            if ( nextRecord.length <= col )
                 return -2;
             // First line will not contain any researched element so, increment and go on
             // Line increment
             line++;
             // Read data line by line
-            while( (nextRecord = creader.readNext()) != null && found ){
+            while( (nextRecord = creader.readNext()) != null && !found ){
                 // When the first cell equals the id exit the while
                 if ( nextRecord[col].equals(str) ) {
                     found = true;
@@ -74,5 +74,10 @@ public class GeographicArea {
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
         return line;
+    }
+
+    public static void main(String[] args) {
+        int linea = GeographicArea.ricercaPerID(5278083);
+        System.out.println(linea);
     }
 }
