@@ -75,9 +75,4 @@ public class GeographicArea {
         }
         return line;
     }
-
-    public static void main(String[] args) {
-        int linea = GeographicArea.ricercaPerID(5278083);
-        System.out.println(linea);
-    }
 }
