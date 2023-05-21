@@ -46,9 +46,8 @@ public class AutorizedOperator extends User {
     private MonitoringCentre centre;
 
     // To read input
-    private Scanner in=new Scanner(System.in);
+    private Scanner in = new Scanner(System.in);
     // Make the path platform independent
-    private final static Path filepath = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv");
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
 
     //TODO
@@ -145,7 +144,7 @@ public class AutorizedOperator extends User {
             id=1;
         }else{
             try {
-                id=(Files.lines(Paths.get(this.filepath.toFile().toString())).count());
+                id=(Files.lines(this.file.toPath()).count());
                 //id++;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
