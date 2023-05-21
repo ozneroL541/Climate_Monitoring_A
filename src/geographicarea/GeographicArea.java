@@ -8,6 +8,10 @@
 ***************************************/
 
 package src.geographicarea;
+
+import java.io.File;
+import java.nio.file.FileSystems;
+
 /**
  * Un oggetto della class <code>GeographicArea</code>
  * rappresenta un area geografica identificata con id,
@@ -16,6 +20,8 @@ package src.geographicarea;
  * @version 0.0.0
  */
 public class GeographicArea {
+    // Areas File
+    private final File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
     // Geoname ID
     private int geoname_id = 0;
     // Name
@@ -26,4 +32,9 @@ public class GeographicArea {
     private String country_code = "";
     // Coordinates
     private double [] coordinates = { 0.0, 0.0 };
+    // Reasearch Areas for ID
+    public int ricercaPerID() {
+        int line = 0;
+        return line;
+    }
 }
