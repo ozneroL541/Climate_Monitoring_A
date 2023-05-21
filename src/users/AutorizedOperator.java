@@ -48,9 +48,8 @@ public class AutorizedOperator extends User {
     // To read input
     private Scanner in=new Scanner(System.in);
     // Make the path platform independent
-    private static Path filepath=FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv");
-
-    private static File file=new File(filepath.toFile().toString());;
+    private final static Path filepath = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv");
+    private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
 
     //TODO
     //rimuove non appena faccio la lettura 
@@ -269,12 +268,9 @@ public class AutorizedOperator extends User {
     }
 
     public static void leggiOperatori(){
-
-        file=new File(filepath.toFile().toString());
-
         try{
 
-            FileReader freader= new FileReader(file);//created an object of freader class
+            FileReader freader = new FileReader(file);//created an object of freader class
             //@SuppressWarnings("resource")
             CSVReader creader= new CSVReader(freader);// created creader object by parsing freader as a parameter
             String [] nextRecord;// created an array of type String
