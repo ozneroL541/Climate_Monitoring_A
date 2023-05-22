@@ -40,6 +40,11 @@ public class GeographicArea {
         String is_str = ((Integer) id).toString();
         return researchStringForCol(0, is_str);
     }
+
+    public static int ricercaPerNome(String nome){
+        return researchStringForCol(1, nome);
+    }
+
     private static int researchStringForCol( int col, String str ) {
         int line = 0;
         try{
