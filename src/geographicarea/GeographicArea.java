@@ -38,14 +38,14 @@ public class GeographicArea {
     // Reasearch Areas for ID
     public static int ricercaPerID( int id ) {
         String is_str = ((Integer) id).toString();
-        return researchStringForCol(0, is_str);
+        return researchStringInCol(0, is_str);
     }
     // Research Areas for Name
     public static int ricercaPerNome(String name){
-        return researchStringForCol(1, name);
+        return researchStringInCol(1, name);
     }
     // Research a String in a Column
-    private static int researchStringForCol( int col, String str ) {
+    private static int researchStringInCol( int col, String str ) {
         int line = 0;
         try{
             // CSV Reader
