@@ -8,7 +8,11 @@
 ***************************************/
 
 package src.monitoringcentre;
-
+/**
+ * Classe che contiene il centro di monitoraggio.
+ * @author Lorenzo Radice
+ * @version 0.0.0
+ */
 public class MonitoringCentre {
     public MonitoringCentre(){
         //TODO

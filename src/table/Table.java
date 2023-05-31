@@ -8,7 +8,13 @@
 ***************************************/
 
 package src.table;
-
+/**
+ * Un oggetto della classe <code>Table</code> rappresenta una tabella
+ * che contiene i valori dei prametri rilevati da una zona geografica.
+ * La tabella ha 7 categorie per i valori inseriti.
+ * @author Lorenzo Radice
+ * @version 0.0.0
+ */
 public class Table {
     // Number of categories
     private final short n_categories = 7;
@@ -16,9 +22,17 @@ public class Table {
     private short[] scores = { 1, 1, 1, 1, 1, 1, 1, };
     // Category's notes
     private String[] notes = { "", "", "", "", "", "", "", };
-    // Void Constructor
+    /**
+     * Costruttore vuoto
+     */
     public Table() {}
-    // Constructor without notes
+    /**
+     * Costruttore senza note.
+     * Costruisce la tabella utilizzando solo i valori dei parametri.
+     * I valori vanno inseriti come un'array di shorts.
+     * L'array deve essere di lunghezza pari al numero categorie.
+     * @param s array dei parametri
+     */
     public Table( short[] s ) {
         // If the lenght of the array is not equals to the number of the categories lunch an exception
         if ( s.length != this.n_categories ) {
@@ -38,7 +52,15 @@ public class Table {
             }
         }
     }
-    // Complete constructor
+    /**
+     * Costruttore completo.
+     * Costruisce la tabella utilizzando sia i valori dei parametri che possibili note.
+     * I valori vanno inseriti come un'array di shorts.
+     * Le note vanno inserite come un array di stringhe.
+     * Gli array inseriti devono essere di lunghezza pari al numero di categorie.
+     * @param s array dei parametri
+     * @param note array delle note
+     */
     public Table( short[] s, String[] note ) {
         // If the lenght of the arraies is not equals to the number of the categories lunch exceptions
         if ( s.length != this.n_categories ) {
@@ -68,6 +90,9 @@ public class Table {
             }
         }
     }
+    /**
+     * Restituisce la tabella sotto formato di stringa
+     */
     @Override
     public String toString() {
         // Name of the climate categories

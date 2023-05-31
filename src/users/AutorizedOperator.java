@@ -28,7 +28,13 @@ import com.opencsv.CSVReader;
 import javax.annotation.processing.SupportedOptions;
 
 import src.monitoringcentre.MonitoringCentre;
-
+/**
+ * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
+ * un utente con privilegi speciali.
+ * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
+ * @author Lorenzo Radice
+ * @version 0.0.0
+ */
 public class AutorizedOperator extends User {
     // Name
     private String nome;
@@ -45,6 +51,7 @@ public class AutorizedOperator extends User {
     // Monitoring Centre
     private MonitoringCentre centre;
 
+
     // To read input
     private Scanner in = new Scanner(System.in);
     // Make the path platform independent
@@ -54,7 +61,9 @@ public class AutorizedOperator extends User {
     //rimuove non appena faccio la lettura 
     // To read files
     private BufferedReader leggi;
-
+     /**
+     * Costruisce un operatore autorizzato
+     */
     public AutorizedOperator() {
 
         /*
