@@ -21,10 +21,4 @@ public class User {
     public User() {
         //TODO
     }
-    public void registrazione() {
-        //TODO
-    }
-    public void autenticazione() {
-        //TODO
-    }
 }
