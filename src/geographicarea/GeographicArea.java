@@ -35,14 +35,38 @@ public class GeographicArea {
     private String country_code = "";
     // Coordinates
     private double [] coordinates = { 0.0, 0.0 };
-    // Reasearch Areas for ID
+    /**
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto
+     * @param id Geoname ID
+     * @return Numero della riga
+    */
     public static int ricercaPerID( int id ) {
         String is_str = ((Integer) id).toString();
         return researchStringInCol(0, is_str);
     }
-    // Research Areas for Name
-    public static int ricercaPerNome(String name){
-        return researchStringInCol(1, name);
+    /**
+     * Ricerca un Nome nella aree di ricerca e ritorna la riga in cui è contenuto
+     * @param nome Nome
+     * @return Numero della riga
+     */
+    public static int ricercaPerNome(String nome){
+        return researchStringInCol(1, nome);
+    }
+    /**
+     * Ricerca un Nome in formato ASCII nella aree di ricerca e ritorna la riga in cui è contenuto
+     * @param nome Nome in formato ASCII
+     * @return Numero della riga
+     */
+    public static int ricercaPerASCIINome(String ascii_n){
+        return researchStringInCol(2, ascii_n);
+    }
+    /**
+     * Ricerca un Country Code nella aree di ricerca e ritorna la riga in cui è contenuto
+     * @param nome Country Code
+     * @return Numero della riga
+     */
+    public static int ricercaPerCodice(String c_c){
+        return researchStringInCol(2, c_c);
     }
     // Research a String in a Column
     private static int researchStringInCol( int col, String str ) {
