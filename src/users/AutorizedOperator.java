@@ -223,26 +223,6 @@ public class AutorizedOperator extends User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-    // Initialize objects for reading/writing files
-    //TODO
-    //va eliminata
-    private void setReadingWritingFiles(){
-        //file=new File(this.filepath.toFile().toString());
-
-        /*
-        try {
-            leggi=new BufferedReader(new FileReader(this.filePath));
-        } catch (FileNotFoundException e) {
-            System.out.println("File non trovato");
-        }
- 
-        try {
-            scrivi=new BufferedWriter(new FileWriter(this.filePath, true));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }*/
-    }
 
     // Add the current instance of AutorizedOperator to the file OperatoriRegistrati.csv
     private void aggiungiOperatore(boolean nuovoFile){
