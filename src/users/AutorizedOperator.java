@@ -60,29 +60,7 @@ public class AutorizedOperator extends User {
      /**
      * Costruisce un operatore autorizzato
      */
-    public AutorizedOperator() {
-
-        /*
-        try {
-            FileReader leggi=new FileReader(s);
-
-            int data;
-            data=leggi.read();
-            while(data!=-1){
-                System.out.print((char)data);
-                data = leggi.read();
-            }
-
-            leggi.close();
-            //System.out.println("qualcosa: "+ leggi.read());
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("a");
-        } catch (IOException ex) {
-            System.out.println("b");
-        }*/
-        
-    }
+    public AutorizedOperator() {}
 
     public void registrazione() {
         //TODO
