@@ -62,6 +62,9 @@ public class AutorizedOperator extends User {
      */
     public AutorizedOperator() {}
 
+
+    //TODO
+    //rendere metodo statico
     public void registrazione() {
         //TODO
         //migliorare la grafica
@@ -79,8 +82,12 @@ public class AutorizedOperator extends User {
             codFisc=in.nextLine();
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
+            }else{
+                if(ricercaPerCodiceFiscale(codFisc)){
+                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+                }
             }
-        }while(!ControlloCodiceFiscale(codFisc));
+        }while(!ControlloCodiceFiscale(codFisc) || ricercaPerCodiceFiscale(codFisc));
         this.codice_fiscale=codFisc;
         // Insert email
         System.out.print("Inserire la mail: ");
@@ -89,8 +96,12 @@ public class AutorizedOperator extends User {
             email=in.nextLine();
             if(!ControlloEmail(email)){
                 System.out.print("Email non valida.\nReinserire: ");
+            }else{
+                if(ricercaPerEmail(email)){
+                    System.out.print("Email già utilizzata.\nReinserire: ");
+                }
             }
-        }while(!ControlloEmail(email));
+        }while(!ControlloEmail(email) || ricercaPerEmail(email));
         this.email_address=email;
 
         //insert monitoring centre
@@ -247,6 +258,44 @@ public class AutorizedOperator extends User {
         }catch(Exception e){ //to catch any exception inside try block
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
+    }
+
+    //return true if the Fiscal Code is present in the file
+    private static boolean ricercaPerCodiceFiscale(String cf) {
+        return researchStringInCol(3, cf);
+    }
+    //return true if the Email is present in the file
+    private static boolean ricercaPerEmail(String email) {
+        return researchStringInCol(4, email);
+    }
+    // Research a String in a Column
+    private static boolean researchStringInCol(int col, String str) {
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // When the first cell equals the id return true
+                if ( nextRecord[col].equals(str) ) {
+                    return true;
+                }
+            }
+            creader.close();
+            
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+        return false;
+    }
+
+    //TODO
+    //main per testare, da rimuove alla fine
+    public static void main(String []args){
+        
     }
 
 }
