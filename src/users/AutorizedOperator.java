@@ -57,10 +57,6 @@ public class AutorizedOperator extends User {
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
 
-    //TODO
-    //rimuove non appena faccio la lettura 
-    // To read files
-    private BufferedReader leggi;
      /**
      * Costruisce un operatore autorizzato
      */
@@ -260,8 +256,6 @@ public class AutorizedOperator extends User {
             s=s + "," + this.nome + "," + this.cognome + "," + this.codice_fiscale + "," + this.email_address + "," + this.passwd + "," + this.centre + "\n";
         }
 
-        //TODO
-        //rendere scrivi locale, rimuovere scrivi attributo delle classe
         BufferedWriter scrivi;
 
         try {
