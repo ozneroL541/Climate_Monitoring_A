@@ -53,7 +53,7 @@ public class AutorizedOperator extends User {
 
 
     // To read input
-    private Scanner in = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
 
@@ -62,19 +62,18 @@ public class AutorizedOperator extends User {
     */
     public AutorizedOperator() {}
 
-
     //TODO
-    //rendere metodo statico
-    public void registrazione() {
+    //java doc
+    public static void registrazione() {
         //TODO
         //migliorare la grafica
         System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
         // Insert nome
         System.out.print("Inserire il nome: ");
-        this.nome=in.nextLine();
+        String nome=in.nextLine();
         // Insert cognome
         System.out.print("Inserire il cognome: ");
-        this.cognome=in.nextLine();
+        String cognome=in.nextLine();
         // Insert codice fiscale
         System.out.print("Inserire il codice fiscale: ");
         String codFisc="";
@@ -88,7 +87,6 @@ public class AutorizedOperator extends User {
                 }
             }
         }while(!ControlloCodiceFiscale(codFisc) || presenzaCodiceFiscale(codFisc));
-        this.codice_fiscale=codFisc;
         // Insert email
         System.out.print("Inserire la mail: ");
         String email="";
@@ -102,43 +100,43 @@ public class AutorizedOperator extends User {
                 }
             }
         }while(!ControlloEmail(email) || presenzaEmail(email));
-        this.email_address=email;
 
         //insert monitoring centre
         //TODO
-        this.centre=null;
+        String centre=null;
 
         // Insert password
         System.out.print("Inserire la password: ");
-        this.passwd=in.nextLine();
+        String passwd=in.nextLine();
 
         // Set the userid
-        this.userid=setUserId();
+        short userid=setUserId();
 
         // Add the operator to the file
-        aggiungiOperatore(false);
+        aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
         
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", this.userid) + " e la password scelta");
+        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", userid) + " e la password scelta");
     }
 
     public void autenticazione() {
         //TODO
     }
+
     //set the userid
-    private short setUserId(){
+    private static short setUserId(){
         long id=0;
         //if the file doesn't exist, create it and add the first operator with userid 00001, else add the operator with incremental userid
         if(!file.exists()){
             try {
                 file.createNewFile();
-                aggiungiOperatore(true);
+                aggiungiOperatore();
             } catch (IOException e) {
                 System.out.println("Errore nella creazione del file");
             }
             id=1;
         }else{
             try {
-                id=(Files.lines(this.file.toPath()).count());
+                id=(Files.lines(file.toPath()).count());
                 //id++;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -147,6 +145,7 @@ public class AutorizedOperator extends User {
         }
         return (short)id;
     }
+
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
         // Output declaration
@@ -214,17 +213,28 @@ public class AutorizedOperator extends User {
     }
 
     // Add the current instance of AutorizedOperator to the file OperatoriRegistrati.csv
-    private void aggiungiOperatore(boolean nuovoFile){
+    private static void aggiungiOperatore(){
 
-        String s;
+        String s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
+        BufferedWriter scrivi;
 
-        if(nuovoFile){
-            s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
-        }else{
-            s=String.format("%05d", this.userid);
-            s=s + "," + this.nome + "," + this.cognome + "," + this.codice_fiscale + "," + this.email_address + "," + this.passwd + "," + this.centre + "\n";
+        try {
+            scrivi=new BufferedWriter(new FileWriter(file, true));
+            scrivi.append(s);
+            scrivi.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
+    }
+
+    private static void aggiungiOperatore(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
+
+        String s=String.format("%05d", userid);
+        s=s + "," + nome + "," + cognome + "," + codice_fiscale + "," + email_address + "," + passwd + "," + centre + "\n";
+        
         BufferedWriter scrivi;
 
         try {
@@ -289,7 +299,7 @@ public class AutorizedOperator extends User {
             creader.close();
             
         }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
+            //e.printStackTrace();//used to print a throwable class along with other dataset class
         }
         return false;
     }
@@ -297,7 +307,7 @@ public class AutorizedOperator extends User {
     //TODO
     //main per testare, da rimuove alla fine
     public static void main(String []args){
-        
+        registrazione();
     }
 
 }
