@@ -118,6 +118,8 @@ public class AutorizedOperator extends User {
         System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", userid) + " e la password scelta");
     }
 
+    //TODO
+    //java doc
     public void autenticazione() {
         //TODO
     }
@@ -145,7 +147,7 @@ public class AutorizedOperator extends User {
         }
         return (short)id;
     }
-
+    
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
         // Output declaration
@@ -206,13 +208,14 @@ public class AutorizedOperator extends User {
         }
         return check;
     }
+    
     // Check email
     private static boolean ControlloEmail(String email){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
 
-    // Add the current instance of AutorizedOperator to the file OperatoriRegistrati.csv
+    // Create the file OperatoriRegistrati.csv and set the header of it
     private static void aggiungiOperatore(){
 
         String s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
@@ -230,6 +233,7 @@ public class AutorizedOperator extends User {
 
     }
 
+    //Update the file OperatoriRegistrati with a new record
     private static void aggiungiOperatore(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
 
         String s=String.format("%05d", userid);
@@ -276,10 +280,12 @@ public class AutorizedOperator extends User {
     private static boolean presenzaCodiceFiscale(String cf) {
         return presenzaStringInCol(3, cf);
     }
+
     //return true if the Email is present in the file
     private static boolean presenzaEmail(String email) {
         return presenzaStringInCol(4, email);
     }
+    
     // Research a String in a Column, return true if finded
     private static boolean presenzaStringInCol(int col, String str) {
         try{
