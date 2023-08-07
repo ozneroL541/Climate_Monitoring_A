@@ -57,9 +57,9 @@ public class AutorizedOperator extends User {
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
 
-     /**
-     * Costruisce un operatore autorizzato
-     */
+    /**
+    * Costruisce un operatore autorizzato
+    */
     public AutorizedOperator() {}
 
 
@@ -83,11 +83,11 @@ public class AutorizedOperator extends User {
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
             }else{
-                if(ricercaPerCodiceFiscale(codFisc)){
+                if(presenzaCodiceFiscale(codFisc)){
                     System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                 }
             }
-        }while(!ControlloCodiceFiscale(codFisc) || ricercaPerCodiceFiscale(codFisc));
+        }while(!ControlloCodiceFiscale(codFisc) || presenzaCodiceFiscale(codFisc));
         this.codice_fiscale=codFisc;
         // Insert email
         System.out.print("Inserire la mail: ");
@@ -97,11 +97,11 @@ public class AutorizedOperator extends User {
             if(!ControlloEmail(email)){
                 System.out.print("Email non valida.\nReinserire: ");
             }else{
-                if(ricercaPerEmail(email)){
+                if(presenzaEmail(email)){
                     System.out.print("Email già utilizzata.\nReinserire: ");
                 }
             }
-        }while(!ControlloEmail(email) || ricercaPerEmail(email));
+        }while(!ControlloEmail(email) || presenzaEmail(email));
         this.email_address=email;
 
         //insert monitoring centre
@@ -238,6 +238,8 @@ public class AutorizedOperator extends User {
         }
     }
 
+    //TODO
+    //rendere privato(?)
     public static void leggiOperatori(){
         try{
 
@@ -261,15 +263,15 @@ public class AutorizedOperator extends User {
     }
 
     //return true if the Fiscal Code is present in the file
-    private static boolean ricercaPerCodiceFiscale(String cf) {
-        return researchStringInCol(3, cf);
+    private static boolean presenzaCodiceFiscale(String cf) {
+        return presenzaStringInCol(3, cf);
     }
     //return true if the Email is present in the file
-    private static boolean ricercaPerEmail(String email) {
-        return researchStringInCol(4, email);
+    private static boolean presenzaEmail(String email) {
+        return presenzaStringInCol(4, email);
     }
-    // Research a String in a Column
-    private static boolean researchStringInCol(int col, String str) {
+    // Research a String in a Column, return true if finded
+    private static boolean presenzaStringInCol(int col, String str) {
         try{
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
