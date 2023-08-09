@@ -49,6 +49,8 @@ public class AutorizedOperator extends User {
     // User Password
     private String passwd;
     // Monitoring Centre
+    //TODO
+    //cambiare il tipo della variabile in short
     private MonitoringCentre centre;
 
 
@@ -120,8 +122,54 @@ public class AutorizedOperator extends User {
 
     //TODO
     //java doc
-    public void autenticazione() {
+    //return true if authentication is successful
+    //TODO
+    //cambiare il tipo del ritorno in int per avere più codici di errore(?)
+    public boolean autenticazione() {
         //TODO
+        //migliorare la grafica
+        System.out.println("LOGIN\n");
+        System.out.print("Inserire l'user-Id: ");
+        String userid="";
+        do{
+            userid=in.nextLine();
+            
+            if(!presenzaUserId(userid)){
+                System.out.print("User-Id non riconosciuto.\nReinserire: ");
+            }
+            
+        }while(!presenzaUserId(userid));
+
+        int riga=ricercaPerUserId(userid);
+
+        String[] record=getRecord(riga);
+
+        if(record!=null){
+            System.out.print("Inserire la password: ");
+            String password=in.nextLine();
+            //if password match set the object's attributes
+            if(record[5].equals(password)){
+
+                this.userid=Short.valueOf(userid);
+                this.nome=record[1];
+                this.cognome=record[2];
+                this.codice_fiscale=record[3];
+                this.email_address=record[4];
+                this.passwd=password;
+                //TODO
+                //aggiungere quando i centri sono fatti
+                //this.centre=record[6].toString();
+                this.centre=null;   //usato temporaneamente, va cambiato
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            //TODO
+            //migliorare?
+            System.out.println("Errore");
+            return false;
+        }
     }
 
     //set the userid
@@ -215,6 +263,28 @@ public class AutorizedOperator extends User {
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
 
+    //return the record corresponding to the row passed as a parameter
+    private static String[] getRecord(int riga){
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            //read the previous lines
+            for(int i=1;i<riga;i++){
+                nextRecord=creader.readNext();
+            }
+            creader.close();
+
+            return nextRecord;
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+            return null;
+        }
+    }
+
     // Create the file OperatoriRegistrati.csv and set the header of it
     private static void aggiungiOperatore(){
 
@@ -253,7 +323,7 @@ public class AutorizedOperator extends User {
     }
 
     //TODO
-    //rendere privato(?)
+    //rendere privato(?) o rimuovere
     public static void leggiOperatori(){
         try{
 
@@ -285,6 +355,16 @@ public class AutorizedOperator extends User {
     private static boolean presenzaEmail(String email) {
         return presenzaStringInCol(4, email);
     }
+
+    //return true if the UserId is present in the file
+    private static boolean presenzaUserId(String userid) {
+        return presenzaStringInCol(0, userid);
+    }
+
+    //return the line of the record that match the userid
+    private static int ricercaPerUserId(String userid){
+        return researchStringInCol(0, userid);
+    }
     
     // Research a String in a Column, return true if finded
     private static boolean presenzaStringInCol(int col, String str) {
@@ -310,10 +390,54 @@ public class AutorizedOperator extends User {
         return false;
     }
 
+    // Research a String in a Column, return the line of the record
+    private static int researchStringInCol( int col, String str ) {
+        int line = 0;
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Found flag
+            boolean found = false;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit code -2
+            if ( nextRecord.length <= col )
+                return -2;
+            // First line will not contain any researched element so, increment and go on
+            // Line increment
+            line++;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null && !found ){
+                // When the first cell equals the id exit the while
+                if ( nextRecord[col].equals(str) ) {
+                    found = true;
+                }
+                // Line increment
+                line++;
+            }
+            creader.close();
+            // If the line hasn't been found return -1 as error
+            if ( nextRecord == null && ! found )
+                line = -1;
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+        return line;
+    }
+
     //TODO
     //main per testare, da rimuove alla fine
     public static void main(String []args){
-        registrazione();
+        AutorizedOperator a=new AutorizedOperator();
+        if(a.autenticazione()){
+            System.out.println("Autenticazione completata");
+            //resto dei metodi dell'operatore autorizzato
+        }else{
+            System.out.println("Autenticazione fallita");
+            //ritorno al menu di partenza(?)
+        }
     }
 
 }
