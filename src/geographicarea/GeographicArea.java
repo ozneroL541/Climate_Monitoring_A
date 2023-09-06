@@ -33,7 +33,7 @@ public class GeographicArea {
     private String ascii_name = "";
     // Country Code
     private String country_code = "";
-    // Countri Name
+    // Country Name
     private String country_name = "";
     // Coordinates
     private double [] coordinates = { 0.0, 0.0 };
@@ -100,7 +100,7 @@ public class GeographicArea {
     }
     /**
      * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
-     * @param nome Nome in formato ASCII
+     * @param ascii_n Nome in formato ASCII
      * @return Numero delle righe
      */
     private static Integer[] ricercaPerASCIINome(String ascii_n){
@@ -108,7 +108,7 @@ public class GeographicArea {
     }
     /**
      * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui è contenuto
-     * @param nome Nome
+     * @param n Nome
      * @return Numeri delle righe
      */
     public static Integer[] ricercaPerNomeGenerico( String n ){
@@ -124,13 +124,21 @@ public class GeographicArea {
     }
     /**
      * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui è contenuto
-     * @param nome Country Code
+     * @param c_c Country Code
      * @return Numero delle righe
      */
     public static Integer[] ricercaPerCodiceNazione(String c_c){
         return Research.AllStringInCol(file, IndexOf.country_code, c_c);
     }
-// Parse Coordinates
+    /**
+     * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * @param c_n Country Name
+     * @return Numero delle righe
+     */
+    public static Integer[] ricercaPerNazione(String c_n){
+        return Research.AllStringInCol(file, IndexOf.country_name, c_n);
+    }
+    // Parse Coordinates
     private static double[] parseCoordinates ( String coo ){
         // Output
         double [] c = new double[2];
@@ -194,6 +202,7 @@ public class GeographicArea {
         str += "Name:\t\t"       + this.name + "\n";
         str += "ASCII Name:\t"   + this.ascii_name + "\n";
         str += "Country Code:\t" + this.country_code + "\n";
+        str += "Country Name:\t" + this.country_name + "\n";
         str += "Latitude:\t"     + this.coordinates[0] + "\n" ;
         str += "Longitude:\t"    + this.coordinates[1];
         return str;
