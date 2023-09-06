@@ -363,7 +363,7 @@ public class AutorizedOperator extends User {
 
     //return the line of the record that match the userid
     private static int ricercaPerUserId(String userid){
-        return researchStringInCol(0, userid);
+        return researchAStringInCol(0, userid);
     }
     
     // Research a String in a Column, return true if finded
@@ -391,7 +391,7 @@ public class AutorizedOperator extends User {
     }
 
     // Research a String in a Column, return the line of the record
-    private static int researchStringInCol( int col, String str ) {
+    private static int researchAStringInCol( int col, String str ) {
         int line = 0;
         try{
             // CSV Reader

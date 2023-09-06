@@ -86,7 +86,7 @@ public class GeographicArea {
     */
     public static int ricercaPerID( int id ) {
         String is_str = ((Integer) id).toString();
-        return researchStringInCol(IndexOf.geoname_id, is_str);
+        return researchAStringInCol(IndexOf.geoname_id, is_str);
     }
     /**
      * Ricerca un Nome nelle aree di ricerca e ritorna la riga in cui è contenuto
@@ -94,7 +94,7 @@ public class GeographicArea {
      * @return Numero della riga
      */
     private static int ricercaPerNome(String nome){
-        return researchStringInCol(IndexOf.name, nome);
+        return researchAStringInCol(IndexOf.name, nome);
     }
     /**
      * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna la riga in cui è contenuto
@@ -102,7 +102,7 @@ public class GeographicArea {
      * @return Numero della riga
      */
     private static int ricercaPerASCIINome(String ascii_n){
-        return researchStringInCol(IndexOf.ascii_name, ascii_n);
+        return researchAStringInCol(IndexOf.ascii_name, ascii_n);
     }
     /**
      * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna la riga in cui è contenuto
@@ -126,10 +126,10 @@ public class GeographicArea {
      * @return Numero della riga
      */
     public static int ricercaPerCodice(String c_c){
-        return researchStringInCol(IndexOf.country_code, c_c);
+        return researchAStringInCol(IndexOf.country_code, c_c);
     }
-    // Research a String in a Column
-    private static int researchStringInCol( int col, String str ) {
+    // Research one String in a Column
+    private static int researchAStringInCol( int col, String str ) {
         // Set the line to 0
         int line = 0;
         try{
@@ -233,5 +233,10 @@ public class GeographicArea {
         str += "Latitude:\t"     + this.coordinates[0] + "\n" ;
         str += "Longitude:\t"    + this.coordinates[1];
         return str;
+    }
+
+    public static void main(String[] args) {
+        GeographicArea ga = new GeographicArea(GeographicArea.ricercaPerCodice("US"));
+        System.out.println(ga.toString());
     }
 }
