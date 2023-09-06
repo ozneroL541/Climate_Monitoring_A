@@ -165,6 +165,50 @@ public class GeographicArea {
         // Return the coordinates
         return c;
     }
+    /**
+     * Ritorna il Geoname ID come int
+     * @return geoname_id
+     */
+    public int getGeoname_id() {
+        return this.geoname_id;
+    }
+    /**
+     *  Ritorna il Name come String
+     * @return name
+     */
+    public String getName() {
+        return this.name;
+    }
+    /**
+     * Ritorna ASCII Name come String
+     * @return ascii_name
+     */
+    public String getAscii_name() {
+        return this.ascii_name;
+    }
+    /**
+     * Ritorna Country Code come String
+     * @return country_code
+     */
+    public String getCountry_code() {
+        return this.country_code;
+    }
+    /**
+     * Ritorna Country Name come String
+     * @return country_name
+     */
+    public String getCountry_name() {
+        return this.country_name;
+    }
+    /**
+     * Ritorna Coordinates come array di double.
+     * L'array contiene 2 elementi.
+     * Il primo elemento è la latitudine e il secondo è la longitudine.
+     * @return coordinates
+     */
+    public double[] getCoordinates() {
+        return this.coordinates;
+    }
     @Override
     public String toString() {
         String str = "";
