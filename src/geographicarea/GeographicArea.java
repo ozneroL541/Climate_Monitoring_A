@@ -166,4 +166,14 @@ public class GeographicArea {
         // Return the coordinates
         return c;
     }
+    @Override
+    public String toString() {
+        String str = "";
+        str += "Geoname ID: "   + this.geoname_id + "\n";
+        str += "Name: "         + this.name + "\n";
+        str += "ASCII Name: "   + this.ascii_name + "\n";
+        str += "Country Code"   + this.country_code + "\n";
+        str += "Coordinates"    + this.coordinates[0] + ", " + this.coordinates[1] + "\n";
+        return str;
+    }
 }
