@@ -66,7 +66,7 @@ public class GeographicArea {
      * @return Numero della riga
      */
     public static int ricercaPerCodice(String c_c){
-        return researchStringInCol(2, c_c);
+        return researchStringInCol(3, c_c);
     }
     // Research a String in a Column
     private static int researchStringInCol( int col, String str ) {
