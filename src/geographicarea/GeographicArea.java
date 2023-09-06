@@ -217,7 +217,7 @@ public class GeographicArea {
         str += "ASCII Name:\t"   + this.ascii_name + "\n";
         str += "Country Code:\t" + this.country_code + "\n";
         str += "Latitude:\t"     + this.coordinates[0] + "\n" ;
-        str += "Longitude:\t"    + this.coordinates[1] + "\n";
+        str += "Longitude:\t"    + this.coordinates[1];
         return str;
     }
 }
