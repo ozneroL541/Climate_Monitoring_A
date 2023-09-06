@@ -9,13 +9,11 @@
 
 package src.geographicarea;
 
-import java.beans.IndexedPropertyChangeEvent;
 import java.io.File;
 import java.io.FileReader;
-import java.io.Reader;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import com.opencsv.CSVReader;
-import javax.annotation.processing.SupportedOptions;
 
 /**
  * Un oggetto della class <code>GeographicArea</code>
@@ -91,23 +89,39 @@ public class GeographicArea {
         return researchStringInCol(IndexOf.geoname_id, is_str);
     }
     /**
-     * Ricerca un Nome nella aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un Nome nelle aree di ricerca e ritorna la riga in cui è contenuto
      * @param nome Nome
      * @return Numero della riga
      */
-    public static int ricercaPerNome(String nome){
+    private static int ricercaPerNome(String nome){
         return researchStringInCol(IndexOf.name, nome);
     }
     /**
-     * Ricerca un Nome in formato ASCII nella aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna la riga in cui è contenuto
      * @param nome Nome in formato ASCII
      * @return Numero della riga
      */
-    public static int ricercaPerASCIINome(String ascii_n){
+    private static int ricercaPerASCIINome(String ascii_n){
         return researchStringInCol(IndexOf.ascii_name, ascii_n);
     }
     /**
-     * Ricerca un Country Code nella aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna la riga in cui è contenuto
+     * @param nome Nome
+     * @return Numero della riga
+     */
+    public static int ricercaPerNomeGenerico( String n ){
+        // If is ASCII
+        if ( Charset.forName("US-ASCII").newEncoder().canEncode(n) ) {
+            // Use only ASCII research
+            return ricercaPerASCIINome(n);
+        // If is not ASCII
+        } else {
+            // Use non ASCII research
+            return ricercaPerNome(n);
+        }
+    }
+    /**
+     * Ricerca un Country Code nelle aree di ricerca e ritorna la riga in cui è contenuto
      * @param nome Country Code
      * @return Numero della riga
      */
