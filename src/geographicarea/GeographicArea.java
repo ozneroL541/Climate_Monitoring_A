@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
-import java.util.ArrayList;
+import src.research.Research;
 
 import com.opencsv.CSVReader;
 
@@ -88,7 +88,7 @@ public class GeographicArea {
     */
     public static int ricercaPerID( int id ) {
         String is_str = ((Integer) id).toString();
-        return researchAStringInCol(IndexOf.geoname_id, is_str);
+        return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
     /**
      * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -96,7 +96,7 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     private static Integer[] ricercaPerNome(String nome){
-        return researchStringInCol(IndexOf.name, nome);
+        return Research.AllStringInCol(file, IndexOf.name, nome);
     }
     /**
      * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -104,7 +104,7 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     private static Integer[] ricercaPerASCIINome(String ascii_n){
-        return researchStringInCol(IndexOf.ascii_name, ascii_n);
+        return Research.AllStringInCol(file, IndexOf.ascii_name, ascii_n);
     }
     /**
      * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -128,87 +128,9 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     public static Integer[] ricercaPerCodiceNazione(String c_c){
-        return researchStringInCol(IndexOf.country_code, c_c);
+        return Research.AllStringInCol(file, IndexOf.country_code, c_c);
     }
-    // TODO da implementare in interfaccia
-    // Research one String in a Column
-    private static int researchAStringInCol( int col, String str ) {
-        // Set the line to 0
-        int line = 0;
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Found flag
-            boolean found = false;
-            // Read first line
-            nextRecord = creader.readNext();
-            // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
-                return -2;
-            // First line will not contain any researched element so, increment and go on
-            // Line increment
-            line++;
-            // Read data line by line
-            while( (nextRecord = creader.readNext()) != null && !found ){
-                // When the first cell equals the id exit the while
-                if ( nextRecord[col].equals(str) ) {
-                    found = true;
-                }
-                // Line increment
-                line++;
-            }
-            creader.close();
-            // If the line hasn't been found return -1 as error
-            if ( nextRecord == null && ! found )
-                line = -1;
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
-        // Return the line
-        return line;
-    }
-    // Research all the String that match in a Column
-    private static Integer[] researchStringInCol( int col, String str ) {
-        // Set the line to 0
-        int line = 0;
-        // Create a list of int
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Read first line
-            nextRecord = creader.readNext();
-            // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
-                return null;
-            // First line will not contain any researched element so, increment and go on
-            // Line increment
-            line++;
-            // Read data line by line
-            while( (nextRecord = creader.readNext()) != null){
-                // When the first cell equals the id exit the while
-                if ( nextRecord[col].equals(str) ) {
-                    list.add(++line);
-                } else
-                    // Line increment
-                    line++;
-            }
-            creader.close();
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
-        // Create an array where store the list
-        Integer[] out = new Integer[list.size()];
-        list.toArray(out);
-        // Return the lines
-        return out;
-    }
-    // Parse Coordinates
+// Parse Coordinates
     private static double[] parseCoordinates ( String coo ){
         // Output
         double [] c = new double[2];
