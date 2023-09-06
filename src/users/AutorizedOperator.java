@@ -8,7 +8,7 @@
 ***************************************/
 
 package src.users;
-
+//TODO remove unused import
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -390,7 +390,7 @@ public class AutorizedOperator extends User {
         }
         return false;
     }
-    
+
     //TODO
     //main per testare, da rimuove alla fine
     public static void main(String []args){
