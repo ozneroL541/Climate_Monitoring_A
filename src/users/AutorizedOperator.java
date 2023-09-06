@@ -28,6 +28,7 @@ import com.opencsv.CSVReader;
 import javax.annotation.processing.SupportedOptions;
 
 import src.monitoringcentre.MonitoringCentre;
+import src.research.Research;
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
@@ -363,7 +364,7 @@ public class AutorizedOperator extends User {
 
     //return the line of the record that match the userid
     private static int ricercaPerUserId(String userid){
-        return researchAStringInCol(0, userid);
+        return Research.OneStringInCol(file, 0, userid);
     }
     
     // Research a String in a Column, return true if finded
@@ -389,44 +390,7 @@ public class AutorizedOperator extends User {
         }
         return false;
     }
-    //TODO da implementare in Interfaccia (ripetitivo): usato in GeographicArea
-    // Research a String in a Column, return the line of the record
-    private static int researchAStringInCol( int col, String str ) {
-        int line = 0;
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Found flag
-            boolean found = false;
-            // Read first line
-            nextRecord = creader.readNext();
-            // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
-                return -2;
-            // First line will not contain any researched element so, increment and go on
-            // Line increment
-            line++;
-            // Read data line by line
-            while( (nextRecord = creader.readNext()) != null && !found ){
-                // When the first cell equals the id exit the while
-                if ( nextRecord[col].equals(str) ) {
-                    found = true;
-                }
-                // Line increment
-                line++;
-            }
-            creader.close();
-            // If the line hasn't been found return -1 as error
-            if ( nextRecord == null && ! found )
-                line = -1;
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
-        return line;
-    }
-
+    
     //TODO
     //main per testare, da rimuove alla fine
     public static void main(String []args){
