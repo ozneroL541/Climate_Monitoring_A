@@ -55,7 +55,6 @@ public class GeographicArea {
      * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
      * @param line riga
      */
-    //TODO Testing, not tasted
     public GeographicArea ( int line ) {
         // Copy line
         int l = line;
@@ -68,7 +67,7 @@ public class GeographicArea {
             // Line read
             String [] nextRecord;
             // Read data line by line until you reach the correct one
-            while( (nextRecord = creader.readNext()) != null && --l <= 0 ){}
+            while( (nextRecord = creader.readNext()) != null && --l > 0 ){}
             // Seve the data
             this.geoname_id   = Integer.parseInt(nextRecord[IndexOf.geoname_id]);
             this.name         = nextRecord[IndexOf.name];
@@ -169,11 +168,12 @@ public class GeographicArea {
     @Override
     public String toString() {
         String str = "";
-        str += "Geoname ID: "   + this.geoname_id + "\n";
-        str += "Name: "         + this.name + "\n";
-        str += "ASCII Name: "   + this.ascii_name + "\n";
-        str += "Country Code"   + this.country_code + "\n";
-        str += "Coordinates"    + this.coordinates[0] + ", " + this.coordinates[1] + "\n";
+        str += "Geoname ID:\t"   + this.geoname_id + "\n";
+        str += "Name:\t\t"       + this.name + "\n";
+        str += "ASCII Name:\t"   + this.ascii_name + "\n";
+        str += "Country Code:\t" + this.country_code + "\n";
+        str += "Latitude:\t"     + this.coordinates[0] + "\n" ;
+        str += "Longitude:\t"    + this.coordinates[1] + "\n";
         return str;
     }
 }
