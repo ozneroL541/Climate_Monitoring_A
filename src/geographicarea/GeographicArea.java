@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
+
 import src.research.Research;
 
 import com.opencsv.CSVReader;
@@ -46,7 +48,7 @@ public class GeographicArea {
         public final static int ascii_name = 2;
         public final static int country_code = 3;
         public final static int country_name = 4;
-        public final static int coordinate = 5;
+        public final static int coordinates = 5;
     }
     /**
      * Costruttore di Area Geografica
@@ -74,7 +76,7 @@ public class GeographicArea {
             this.ascii_name   = nextRecord[IndexOf.ascii_name];
             this.country_code = nextRecord[IndexOf.country_code];
             this.country_name = nextRecord[IndexOf.country_name];
-            this.coordinates  = parseCoordinates(nextRecord[IndexOf.coordinate]);
+            this.coordinates  = Research.parseCoordinates(nextRecord[IndexOf.coordinates]);
             // Close creader
             creader.close();
         }catch(Exception e){ //to catch any exception inside try block
@@ -138,18 +140,61 @@ public class GeographicArea {
     public static Integer[] ricercaPerNazione(String c_n){
         return Research.AllStringInCol(file, IndexOf.country_name, c_n);
     }
-    // Parse Coordinates
-    private static double[] parseCoordinates ( String coo ){
-        // Output
-        double [] c = new double[2];
-        // Spitted string
-        String [] splitted = coo.split(", ");
-        // First coordinate
-        c[0] = Double.parseDouble(splitted[0]);
-        // Second coordinate
-        c[1] = Double.parseDouble(splitted[1]);
-        // Return the coordinates
-        return c;
+    /**
+     * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
+     * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
+     * @param c Coordinates
+     * @return Numero delle righe
+     * @see ricercaPerCoordinate(c)
+     */
+    public static Integer[] ricercaPerCoordinate( String c ){
+        // Pass to double
+        double [] coordinates = Research.parseCoordinates(c);
+        // Use search with doubles
+        return ricercaPerCoordinate(coordinates);
+    }
+    /**
+     * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
+     * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
+     * @param coo Coordinates
+     * @return Numero delle righe
+     */
+    public static Integer[] ricercaPerCoordinate( double [] coo ){
+        // If the lenght is wrong
+        if(coo.length != 2)
+            // Exit
+            return null;
+        // String of coordinates
+        String c = "";
+        // Make the string of coordinates
+        c += coo[0] + ", " + coo[1];
+        // Create a possible output
+        Integer[] out = new Integer[1];
+        // Make a precise research
+        out[0] = Research.OneStringInCol(file, IndexOf.coordinates, c);
+        // If the research has result
+        if ( out[0] > 0 )
+            // Exit
+            return out;
+        else {
+            // Set out to null
+            out = new Integer[0];
+            // Set range to 1km
+            double err = 1;
+            // Increaser multiplicator
+            double inc = 1;
+            // While there is no point of interest
+            while ( out.length <= 0 ) {
+                // Search the nearest point
+                out = Research.CoordinatesAdvanced(file, IndexOf.coordinates, coo, err);
+                // Increase the range
+                err += inc;
+                // Increase the increment: the increment is not linear
+                inc += err;
+            }
+            // Return the output
+            return out;
+        }
     }
     /**
      * Ritorna il Geoname ID come int
