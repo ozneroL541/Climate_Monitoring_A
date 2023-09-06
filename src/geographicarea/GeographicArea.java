@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.opencsv.CSVReader;
 
 /**
@@ -80,36 +83,36 @@ public class GeographicArea {
         }
     }
     /**
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param id Geoname ID
-     * @return Numero della riga
+     * @return Numero delle righe
     */
     public static int ricercaPerID( int id ) {
         String is_str = ((Integer) id).toString();
         return researchAStringInCol(IndexOf.geoname_id, is_str);
     }
     /**
-     * Ricerca un Nome nelle aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param nome Nome
-     * @return Numero della riga
+     * @return Numero delle righe
      */
-    private static int ricercaPerNome(String nome){
-        return researchAStringInCol(IndexOf.name, nome);
+    private static Integer[] ricercaPerNome(String nome){
+        return researchStringInCol(IndexOf.name, nome);
     }
     /**
-     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param nome Nome in formato ASCII
-     * @return Numero della riga
+     * @return Numero delle righe
      */
-    private static int ricercaPerASCIINome(String ascii_n){
-        return researchAStringInCol(IndexOf.ascii_name, ascii_n);
+    private static Integer[] ricercaPerASCIINome(String ascii_n){
+        return researchStringInCol(IndexOf.ascii_name, ascii_n);
     }
     /**
-     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param nome Nome
-     * @return Numero della riga
+     * @return Numeri delle righe
      */
-    public static int ricercaPerNomeGenerico( String n ){
+    public static Integer[] ricercaPerNomeGenerico( String n ){
         // If is ASCII
         if ( Charset.forName("US-ASCII").newEncoder().canEncode(n) ) {
             // Use only ASCII research
@@ -121,12 +124,12 @@ public class GeographicArea {
         }
     }
     /**
-     * Ricerca un Country Code nelle aree di ricerca e ritorna la riga in cui è contenuto
+     * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param nome Country Code
-     * @return Numero della riga
+     * @return Numero delle righe
      */
-    public static int ricercaPerCodice(String c_c){
-        return researchAStringInCol(IndexOf.country_code, c_c);
+    public static Integer[] ricercaPerCodiceNazione(String c_c){
+        return researchStringInCol(IndexOf.country_code, c_c);
     }
     // Research one String in a Column
     private static int researchAStringInCol( int col, String str ) {
@@ -165,6 +168,45 @@ public class GeographicArea {
         }
         // Return the line
         return line;
+    }
+    // Research all the String that match in a Column
+    private static Integer[] researchStringInCol( int col, String str ) {
+        // Set the line to 0
+        int line = 0;
+        // Create a list of int
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit code -2
+            if ( nextRecord.length <= col )
+                return null;
+            // First line will not contain any researched element so, increment and go on
+            // Line increment
+            line++;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // When the first cell equals the id exit the while
+                if ( nextRecord[col].equals(str) ) {
+                    list.add(++line);
+                } else
+                    // Line increment
+                    line++;
+            }
+            creader.close();
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+        // Create an array where store the list
+        Integer[] out = new Integer[list.size()];
+        list.toArray(out);
+        // Return the lines
+        return out;
     }
     // Parse Coordinates
     private static double[] parseCoordinates ( String coo ){
@@ -233,10 +275,5 @@ public class GeographicArea {
         str += "Latitude:\t"     + this.coordinates[0] + "\n" ;
         str += "Longitude:\t"    + this.coordinates[1];
         return str;
-    }
-
-    public static void main(String[] args) {
-        GeographicArea ga = new GeographicArea(GeographicArea.ricercaPerCodice("US"));
-        System.out.println(ga.toString());
     }
 }
