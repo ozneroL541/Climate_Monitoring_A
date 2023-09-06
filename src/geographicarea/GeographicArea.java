@@ -131,6 +131,7 @@ public class GeographicArea {
     public static Integer[] ricercaPerCodiceNazione(String c_c){
         return researchStringInCol(IndexOf.country_code, c_c);
     }
+    // TODO da implementare in interfaccia
     // Research one String in a Column
     private static int researchAStringInCol( int col, String str ) {
         // Set the line to 0

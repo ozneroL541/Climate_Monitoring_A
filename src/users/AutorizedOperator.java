@@ -389,7 +389,7 @@ public class AutorizedOperator extends User {
         }
         return false;
     }
-
+    //TODO da implementare in Interfaccia (ripetitivo): usato in GeographicArea
     // Research a String in a Column, return the line of the record
     private static int researchAStringInCol( int col, String str ) {
         int line = 0;
