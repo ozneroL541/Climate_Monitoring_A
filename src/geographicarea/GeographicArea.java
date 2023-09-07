@@ -285,16 +285,28 @@ public class GeographicArea {
         str += "Longitude:\t"    + this.coordinates[1];
         return str;
     }
+    /**
+     * Cerca delle area geografiche e ne ritorna una lista.
+     * Il primo parametro si riferisce al tipo di ricerca.
+     * Il secondo parametro è l'argomento della ricerca.
+     * @param s_number numero della ricerca
+     * @param arg argomento da ricercare
+     * @return lista dei risultati
+     */
     public static String SearchList( int s_number, String arg ) {
+        // Output Integer array
         Integer [] lines = new Integer[1];
+        // Search
         switch (s_number) {
             case IndexOf.geoname_id:
                 lines = ricercaPerID(arg);
                 break;
             case IndexOf.name:
                 lines = ricercaPerNome(arg);
+                break;
             case IndexOf.ascii_name:
                 lines = ricercaPerASCIINome(arg);
+                break;
             case IndexOf.generic_name:
                 lines = ricercaPerNomeGenerico(arg);
                 break;
