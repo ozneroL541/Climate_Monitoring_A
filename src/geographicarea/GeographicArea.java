@@ -46,6 +46,7 @@ public class GeographicArea {
         public final static int geoname_id = 0;
         public final static int name = 1;
         public final static int ascii_name = 2;
+        public final static int generic_name = 10;
         public final static int country_code = 3;
         public final static int country_name = 4;
         public final static int coordinates = 5;
@@ -84,13 +85,33 @@ public class GeographicArea {
         }
     }
     /**
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
      * @param id Geoname ID
-     * @return Numero delle righe
+     * @return Numero della riga
     */
     public static int ricercaPerID( int id ) {
         String is_str = ((Integer) id).toString();
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
+    }
+    /**
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * in un array di Integer di un elemento.
+     * Se non viene trovato nulla ritorna null.
+     * @param id Geoname ID
+     * @return Numero della riga
+     */
+    public static Integer[] ricercaPerID( String id ) {
+        // Output array
+        Integer [] o = new Integer[1];
+        // Research
+        o[0] = ricercaPerID(Integer.parseInt(id));
+        // If the output is valid
+        if ( o[0] >= 0 )
+            // Return the output
+            return o;
+        else
+            // Return nothing
+            return null;
     }
     /**
      * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -240,6 +261,18 @@ public class GeographicArea {
     public double[] getCoordinates() {
         return this.coordinates;
     }
+    /**
+     * Ritorna Coordinates come String.
+     * Il formato è il seguente:
+     * "latitudine, longitudine"
+     * @return coordinate
+     */
+    public String getCoordinatestoString() {
+        String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);;
+        s = s.replace(",", ".");
+        s = s.replace("*", ",");
+        return s;
+    }
     @Override
     public String toString() {
         String str = "";
@@ -251,5 +284,62 @@ public class GeographicArea {
         str += "Latitude:\t"     + this.coordinates[0] + "\n" ;
         str += "Longitude:\t"    + this.coordinates[1];
         return str;
+    }
+    public static String SearchList( int s_number, String arg ) {
+        Integer [] lines = new Integer[1];
+        switch (s_number) {
+            case IndexOf.geoname_id:
+                lines = ricercaPerID(arg);
+                break;
+            case IndexOf.name:
+                lines = ricercaPerNome(arg);
+            case IndexOf.ascii_name:
+                lines = ricercaPerASCIINome(arg);
+            case IndexOf.generic_name:
+                lines = ricercaPerNomeGenerico(arg);
+                break;
+            case IndexOf.country_code:
+                lines = ricercaPerCodiceNazione(arg);
+                break;
+            case IndexOf.country_name:
+                lines = ricercaPerNazione(arg);
+                break;
+            case IndexOf.coordinates:
+                lines = ricercaPerCoordinate(arg);
+                break;
+            default:
+                System.out.println("Errore: codice lista inesistente");
+                return null;
+        }
+        return toList(lines);
+    }
+    public static String toList( Integer[] lines ) {
+        String out = "N\tGeoname ID\tName\t\tASCII Name\tCountry Code\tCountry Name\tCoordinates";
+        // Geographic area object
+        GeographicArea ga;
+        // For every result
+        for (int i = 0; i < lines.length; i++) {
+            // Make a GeographicArea object
+            ga = new GeographicArea(lines[i]);
+            // Write the index
+            out += "\n" + ( i + 1 );
+            //Cut too long names
+            String[] nam = new String[3];
+            nam[0] = ga.getName();
+            nam[1] = ga.getAscii_name();
+            nam[2] = ga.getCountry_name();
+            for (int j = 0; j < nam.length; j++) {
+                if( nam[j].length() > 15 )
+                nam[j] = nam[j].substring(0, 15);
+            }
+            // Formatted output list
+            out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
+        }
+        return out;
+    }
+    public static void main(String[] args) {
+        GeographicArea ga;
+        Integer[] a =  GeographicArea.ricercaPerCoordinate("45.8102, 9.086");
+        System.out.println(GeographicArea.toList(a));
     }
 }
