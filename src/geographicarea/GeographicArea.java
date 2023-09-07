@@ -92,6 +92,9 @@ public class GeographicArea {
     public GeographicArea ( int id ) {
         // Copy ID
         this.geoname_id = id;
+        // Get a String of ID
+        String idString = "";
+        idString += id;
         try{
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
@@ -105,7 +108,7 @@ public class GeographicArea {
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null && !found ){
                 // When the first cell equals the id exit the while
-                if ( nextRecord[IndexOf.geoname_id].equals(id)) {
+                if ( nextRecord[IndexOf.geoname_id].equals(idString)) {
                     found = true;
                     this.name         = nextRecord[IndexOf.name];
                     this.ascii_name   = nextRecord[IndexOf.ascii_name];
