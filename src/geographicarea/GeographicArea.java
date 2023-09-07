@@ -105,7 +105,7 @@ public class GeographicArea {
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null && !found ){
                 // When the first cell equals the id exit the while
-                if ( nextRecord[IndexOf.geoname_id].equals(id) ) {
+                if ( nextRecord[IndexOf.geoname_id].equals(id)) {
                     found = true;
                     this.name         = nextRecord[IndexOf.name];
                     this.ascii_name   = nextRecord[IndexOf.ascii_name];
@@ -238,10 +238,10 @@ public class GeographicArea {
             out = new Integer[0];
             // Set range to 1km
             double err = 1;
-            // Set error limit
-            double limit = 1500;
             // Increaser multiplicator
             double inc = 1;
+            // Set error limit
+            double limit = 10000;
             // While there is no point of interest
             while ( out.length <= 0 && err < limit ) {
                 // Search the nearest point
@@ -251,8 +251,9 @@ public class GeographicArea {
                 // Increase the increment: the increment is not linear
                 inc += err;
             }
-            if ( err > limit )
+            if ( err > limit ){
                 return null;
+            }
             // Return the output
             return out;
         }
@@ -417,15 +418,5 @@ public class GeographicArea {
         // Formatted output list
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         return out;
-    }
-
-    //TODO remove main
-    public static void main(String[] args) {
-        Integer [] a = ricercaPerCoordinate("-175.00, 45.00");
-        if(a == null)
-            System.out.println(" è null");
-        for (int i = 0; i < a.length; i++) {
-            System.out.println(RunTimeLine(a[i], i+1));
-        }
     }
 }

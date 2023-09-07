@@ -130,9 +130,11 @@ public class Research {
         double[] c2 = new double[2];
         // Distance
         double dist = 0.0;
+        // Copy of coordinates
+        double[] c1 = new double[2];
         // Pre-compute coordinates
-        c[0] = Math.toRadians(c[0]);
-        c[1] = Math.toRadians(c[1]);
+        c1[0] = Math.toRadians(c[0]);
+        c1[1] = Math.toRadians(c[1]);
         try{
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
@@ -151,7 +153,7 @@ public class Research {
                 // Parse the coordinates just read
                 c2 = parseCoordinates(nextRecord[col]);
                 // Calculate distance betwee coordinates
-                dist = calculateDistance(c[0], c[1], c2[0], c2[1]);
+                dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
                 // When the first cell equals the id exit the while
                 if ( dist <= err) {
                     list.add(++line);
