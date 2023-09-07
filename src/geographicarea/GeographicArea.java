@@ -424,6 +424,8 @@ public class GeographicArea {
     //TODO remove main
     public static void main(String[] args) {
         Integer [] a = ricercaPerCoordinate("-175.00, 45.00");
+        if(a == null)
+            System.out.println(" è null");
         for (int i = 0; i < a.length; i++) {
             System.out.println(RunTimeLine(a[i], i+1));
         }
