@@ -420,4 +420,12 @@ public class GeographicArea {
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         return out;
     }
+
+    //TODO remove main
+    public static void main(String[] args) {
+        Integer [] a = ricercaPerCoordinate("-175.00, 45.00");
+        for (int i = 0; i < a.length; i++) {
+            System.out.println(RunTimeLine(a[i], i+1));
+        }
+    }
 }
