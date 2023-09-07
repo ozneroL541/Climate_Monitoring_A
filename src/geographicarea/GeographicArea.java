@@ -13,8 +13,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
-import java.util.ArrayList;
-
 import src.research.Research;
 
 import com.opencsv.CSVReader;
