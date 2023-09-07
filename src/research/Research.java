@@ -137,6 +137,7 @@ public class Research {
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null){
                 c2 = parseCoordinates(nextRecord[col]);
+                //TODO pre copmute coordinates
                 dist = calculateDistance(c[0], c[1], c2[0], c2[1]);
                 // When the first cell equals the id exit the while
                 if ( dist <= err) {
