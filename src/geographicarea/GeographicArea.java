@@ -337,9 +337,4 @@ public class GeographicArea {
         }
         return out;
     }
-    public static void main(String[] args) {
-        GeographicArea ga;
-        Integer[] a =  GeographicArea.ricercaPerCoordinate("45.8102, 9.086");
-        System.out.println(GeographicArea.toList(a));
-    }
 }
