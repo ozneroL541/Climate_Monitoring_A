@@ -71,7 +71,7 @@ public class GeographicArea {
             String [] nextRecord;
             // Read data line by line until you reach the correct one
             while( (nextRecord = creader.readNext()) != null && --l > 0 ){}
-            // Seve the data
+            // Save the data
             this.geoname_id   = Integer.parseInt(nextRecord[IndexOf.geoname_id]);
             this.name         = nextRecord[IndexOf.name];
             this.ascii_name   = nextRecord[IndexOf.ascii_name];
@@ -84,6 +84,44 @@ public class GeographicArea {
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
     }
+    /**
+     * Costruttore di Area Geografica
+     * Data un ID in input crea l'oggetto Area Geografica utilizzando i dati appartenenti al corrispondente.
+     * I dati che vengono salvati sono
+     * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
+     * @param id ID
+     */
+    public GeographicArea ( Integer id ) {
+        // Copy ID
+        this.geoname_id = id;
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Found flag
+            boolean found = false;
+            // Read first line
+            nextRecord = creader.readNext();
+            // First line will not contain any researched element so, increment and go on
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null && !found ){
+                // When the first cell equals the id exit the while
+                if ( nextRecord[IndexOf.geoname_id].equals(id) ) {
+                    found = true;
+                    this.name         = nextRecord[IndexOf.name];
+                    this.ascii_name   = nextRecord[IndexOf.ascii_name];
+                    this.country_code = nextRecord[IndexOf.country_code];
+                    this.country_name = nextRecord[IndexOf.country_name];
+                    this.coordinates  = Research.parseCoordinates(nextRecord[IndexOf.coordinates]);
+                }
+            }
+            creader.close();
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+    }
+
     /**
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
      * @param id Geoname ID
