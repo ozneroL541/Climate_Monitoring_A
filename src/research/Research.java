@@ -121,6 +121,9 @@ public class Research {
         double[] c2 = new double[2];
         // Distance
         double dist = 0.0;
+        // Pre-compute coordinates
+        c[0] = Math.toRadians(c[0]);
+        c[1] = Math.toRadians(c[1]);
         try{
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
@@ -136,8 +139,9 @@ public class Research {
             line++;
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null){
+                // Parse the coordinates just read
                 c2 = parseCoordinates(nextRecord[col]);
-                //TODO pre copmute coordinates
+                // Calculate distance betwee coordinates
                 dist = calculateDistance(c[0], c[1], c2[0], c2[1]);
                 // When the first cell equals the id exit the while
                 if ( dist <= err) {
@@ -160,8 +164,6 @@ public class Research {
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         double R = 6371; // Earth's radius in kilometers
         // Convert latitude and longitude from degrees to radians
-        lat1 = Math.toRadians(lat1);
-        lon1 = Math.toRadians(lon1);
         lat2 = Math.toRadians(lat2);
         lon2 = Math.toRadians(lon2);
         // Haversine formula
