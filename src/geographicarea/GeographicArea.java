@@ -58,7 +58,7 @@ public class GeographicArea {
      * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
      * @param line riga
      */
-    public GeographicArea ( int line ) {
+    public GeographicArea ( Integer line ) {
         // Copy line
         int l = line;
         // If columns are line is less than 0 exit
@@ -91,7 +91,7 @@ public class GeographicArea {
      * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
      * @param id ID
      */
-    public GeographicArea ( Integer id ) {
+    public GeographicArea ( int id ) {
         // Copy ID
         this.geoname_id = id;
         try{
@@ -240,10 +240,12 @@ public class GeographicArea {
             out = new Integer[0];
             // Set range to 1km
             double err = 1;
+            // Set error limit
+            double limit = 1500;
             // Increaser multiplicator
             double inc = 1;
             // While there is no point of interest
-            while ( out.length <= 0 ) {
+            while ( out.length <= 0 && err < limit ) {
                 // Search the nearest point
                 out = Research.CoordinatesAdvanced(file, IndexOf.coordinates, coo, err);
                 // Increase the range
@@ -251,6 +253,8 @@ public class GeographicArea {
                 // Increase the increment: the increment is not linear
                 inc += err;
             }
+            if ( err > limit )
+                return null;
             // Return the output
             return out;
         }
@@ -363,6 +367,11 @@ public class GeographicArea {
         }
         return toList(lines);
     }
+    /**
+     * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
+     * @param lines righe
+     * @return list
+     */
     public static String toList( Integer[] lines ) {
         String out = "N\tGeoname ID\tName\t\tASCII Name\tCountry Code\tCountry Name\tCoordinates";
         // Geographic area object
@@ -385,6 +394,30 @@ public class GeographicArea {
             // Formatted output list
             out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         }
+        return out;
+    }
+    // Testing Runtime List
+    private static String RunTimeLine( Integer line, int index ){
+        GeographicArea ga = new GeographicArea(line);
+        // Output string
+        String out = "";
+        // If is the first line
+        if( index <= 1 )
+        // Put a head
+            out += "N\tGeoname ID\tName\t\tASCII Name\tCountry Code\tCountry Name\tCoordinates\n";
+        // Write the index
+        out += index;
+        //Cut too long names
+        String[] nam = new String[3];
+        nam[0] = ga.getName();
+        nam[1] = ga.getAscii_name();
+        nam[2] = ga.getCountry_name();
+        for (int j = 0; j < nam.length; j++) {
+            if( nam[j].length() > 15 )
+            nam[j] = nam[j].substring(0, 15);
+        }
+        // Formatted output list
+        out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         return out;
     }
 }
