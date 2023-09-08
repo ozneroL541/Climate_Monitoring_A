@@ -304,7 +304,6 @@ public class AutorizedOperator extends User {
     //rendere privato(?) o rimuovere
     public static void leggiOperatori(){
         try{
-
             FileReader freader = new FileReader(file);//created an object of freader class
             //@SuppressWarnings("resource")
             CSVReader creader= new CSVReader(freader);// created creader object by passing freader as a parameter
