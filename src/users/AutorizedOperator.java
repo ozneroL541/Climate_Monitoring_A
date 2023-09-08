@@ -312,7 +312,7 @@ public class AutorizedOperator extends User {
             while((nextRecord = creader.readNext())!=null){
                 // For each cell in the line
                 for(String token: nextRecord)
-                System.out.print(token +"\t"); //will bring the value of cell seperated by tab space
+                    System.out.print(token +"\t"); //will bring the value of cell seperated by tab space
                 System.out.println();
             }
             // Close CSV reader
