@@ -310,12 +310,12 @@ public class AutorizedOperator extends User {
             String [] nextRecord;// created an array of type String
             //read data line by line
             while((nextRecord = creader.readNext())!=null){
-
+                // For each cell in the line
                 for(String token: nextRecord)
                 System.out.print(token +"\t"); //will bring the value of cell seperated by tab space
                 System.out.println();
             }
-
+            // Close CSV reader
             creader.close();
             System.out.println();
         }catch(Exception e){ //to catch any exception inside try block

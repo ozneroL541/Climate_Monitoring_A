@@ -57,30 +57,15 @@ public class GeographicArea {
      * @param line riga
      */
     public GeographicArea ( Integer line ) {
-        // Copy line
-        int l = line;
-        // If columns are line is less than 0 exit
-        if ( l <= 0 )
-            return;
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Read data line by line until you reach the correct one
-            while( (nextRecord = creader.readNext()) != null && --l > 0 ){}
-            // Save the data
-            this.geoname_id   = Integer.parseInt(nextRecord[IndexOf.geoname_id]);
-            this.name         = nextRecord[IndexOf.name];
-            this.ascii_name   = nextRecord[IndexOf.ascii_name];
-            this.country_code = nextRecord[IndexOf.country_code];
-            this.country_name = nextRecord[IndexOf.country_name];
-            this.coordinates  = Research.parseCoordinates(nextRecord[IndexOf.coordinates]);
-            // Close creader
-            creader.close();
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
+        // Copy the record in a auxiliary variable
+        String[] record = Research.getRecord(file, line);
+        // Save the datas
+        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+        this.name         = record[IndexOf.name];
+        this.ascii_name   = record[IndexOf.ascii_name];
+        this.country_code = record[IndexOf.country_code];
+        this.country_name = record[IndexOf.country_name];
+        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
      * Costruttore di Area Geografica
