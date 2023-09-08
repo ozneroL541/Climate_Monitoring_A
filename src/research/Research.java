@@ -233,8 +233,6 @@ public class Research {
         }
         return false;
     }
-
-    //return the record corresponding to the row passed as a parameter
     /**
      * Cerca in un file CSV la riga in input.
      * Ritorna un array di stringhe contenente le celle della riga.
