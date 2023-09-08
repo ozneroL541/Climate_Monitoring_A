@@ -299,11 +299,15 @@ public class GeographicArea {
      * Cerca delle area geografiche e ne ritorna una lista.
      * Il primo parametro si riferisce al tipo di ricerca.
      * Il secondo parametro è l'argomento della ricerca.
+     * Il terzo parametro chiede se la lista vada stampata runtime;
+     * se true la lista viene stampata durante l'esecuzione e
+     * alla fine viene ritornato null
      * @param s_number numero della ricerca
      * @param arg argomento da ricercare
+     * @param runtime_print stampare a runtime?
      * @return lista dei risultati
      */
-    public static String SearchList( int s_number, String arg ) {
+    public static String SearchList( int s_number, String arg, boolean runtime_print ) {
         // Output Integer array
         Integer [] lines = new Integer[1];
         // Search
@@ -332,6 +336,12 @@ public class GeographicArea {
             default:
                 System.out.println("Errore: codice lista inesistente");
                 return null;
+        }
+        if (runtime_print) {
+            for (int i = 0; i < lines.length; i++) {
+                System.out.println(RunTimeLine(lines[i], i + 1 ));
+            }
+            return null;
         }
         return toList(lines);
     }
