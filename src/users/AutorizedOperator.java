@@ -308,7 +308,7 @@ public class AutorizedOperator extends User {
      * CSVReader rendendo il codice più leggero e pulito.
      * 2 - Cerchiamo di non usare metodi che stampano cose tramite
      * System.out perché nel caso di debba cambiare l'output (ad 
-     * esempio passando ad un'interffaccia grafica o ad una console
+     * esempio passando ad un'interfaccia grafica o ad una console
      * interattiva) è meno complicato.
      * Per evitare questo il metodo può restituire una String
      * contenente l'output desiderato.
