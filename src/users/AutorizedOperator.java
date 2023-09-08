@@ -300,7 +300,19 @@ public class AutorizedOperator extends User {
         }
     }
 
-    //TODO
+    //TODO 
+    /*TODO Suggerimento da Lorenzo:
+     * 1 - Se modifichi questo metodo in modo da togliere CSVReader,
+     * per esempio usando metodi della classe Research o creandone
+     * uno nuovo nella classe research, si può togliere l'import di
+     * CSVReader rendendo il codice più leggero e pulito.
+     * 2 - Cerchiamo di non usare metodi che stampano cose tramite
+     * System.out perché nel caso di debba cambiare l'output (ad 
+     * esempio passando ad un'interffaccia grafica o ad una console
+     * interattiva) è meno complicato.
+     * Per evitare questo il metodo può restituire una String
+     * contenente l'output desiderato.
+     */
     //rendere privato(?) o rimuovere
     public static void leggiOperatori(){
         try{
