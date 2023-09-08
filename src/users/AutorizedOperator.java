@@ -307,7 +307,7 @@ public class AutorizedOperator extends User {
 
             FileReader freader = new FileReader(file);//created an object of freader class
             //@SuppressWarnings("resource")
-            CSVReader creader= new CSVReader(freader);// created creader object by parsing freader as a parameter
+            CSVReader creader= new CSVReader(freader);// created creader object by passing freader as a parameter
             String [] nextRecord;// created an array of type String
             //read data line by line
             while((nextRecord = creader.readNext())!=null){
