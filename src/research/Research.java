@@ -203,4 +203,62 @@ public class Research {
         // Return the coordinates
         return c;
     }
+    /**
+     * Questo metodo ricerca una stringa in un file CSV
+     * in una determinata colonna e
+     * restituisce true se è presente, false altrimenti.
+     * @param file file CSV
+     * @param col  colonna
+     * @param str  stringa
+     * @return true se la stringa è presente
+     */
+    public static boolean isStringInCol(File file, int col, String str) {
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // When the first cell equals the id return true
+                if ( nextRecord[col].equals(str) ) {
+                    return true;
+                }
+            }
+            creader.close();
+        }catch(Exception e){ //to catch any exception inside try block
+            //e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+        return false;
+    }
+
+    //return the record corresponding to the row passed as a parameter
+    /**
+     * Cerca in un file CSV la riga in input.
+     * Ritorna un array di stringhe contenente le celle della riga.
+     * @param file file CSV
+     * @param line riga
+     * @return array delle celle della riga
+     */
+    public static String[] getRecord(File file, int line){
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord = null;
+            // Read following lines
+            for(int i = 0; i < line; i++){
+                nextRecord = creader.readNext();
+            }
+            // Close the file reader
+            creader.close();
+            // Return the record
+            return nextRecord;
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+            return null;
+        }
+    }
 }
