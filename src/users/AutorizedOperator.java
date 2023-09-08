@@ -143,7 +143,7 @@ public class AutorizedOperator extends User {
 
         int riga=ricercaPerUserId(userid);
 
-        String[] record=getRecord(riga);
+        String[] record=Research.getRecord(file, riga);
 
         if(record!=null){
             System.out.print("Inserire la password: ");
@@ -263,29 +263,6 @@ public class AutorizedOperator extends User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-
-    //return the record corresponding to the row passed as a parameter
-    private static String[] getRecord(int riga){
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Read first line
-            nextRecord = creader.readNext();
-            //read the previous lines
-            for(int i=1;i<riga;i++){
-                nextRecord=creader.readNext();
-            }
-            creader.close();
-
-            return nextRecord;
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-            return null;
-        }
-    }
-
     // Create the file OperatoriRegistrati.csv and set the header of it
     private static void aggiungiOperatore(){
 
@@ -349,46 +326,22 @@ public class AutorizedOperator extends User {
 
     //return true if the Fiscal Code is present in the file
     private static boolean presenzaCodiceFiscale(String cf) {
-        return presenzaStringInCol(3, cf);
+        return Research.isStringInCol(file, 3, cf);
     }
 
     //return true if the Email is present in the file
     private static boolean presenzaEmail(String email) {
-        return presenzaStringInCol(4, email);
+        return Research.isStringInCol(file, 4, email);
     }
 
     //return true if the UserId is present in the file
     private static boolean presenzaUserId(String userid) {
-        return presenzaStringInCol(0, userid);
+        return Research.isStringInCol(file, 0, userid);
     }
 
     //return the line of the record that match the userid
     private static int ricercaPerUserId(String userid){
         return Research.OneStringInCol(file, 0, userid);
-    }
-    
-    // Research a String in a Column, return true if finded
-    private static boolean presenzaStringInCol(int col, String str) {
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Read first line
-            nextRecord = creader.readNext();
-            // Read data line by line
-            while( (nextRecord = creader.readNext()) != null){
-                // When the first cell equals the id return true
-                if ( nextRecord[col].equals(str) ) {
-                    return true;
-                }
-            }
-            creader.close();
-            
-        }catch(Exception e){ //to catch any exception inside try block
-            //e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
-        return false;
     }
 
     //TODO
