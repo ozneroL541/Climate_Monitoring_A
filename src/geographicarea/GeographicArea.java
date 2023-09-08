@@ -69,43 +69,24 @@ public class GeographicArea {
     }
     /**
      * Costruttore di Area Geografica
-     * Data un ID in input crea l'oggetto Area Geografica utilizzando i dati appartenenti al corrispondente.
+     * Fornito un dato in input crea l'oggetto Area Geografica utilizzando i dati appartenenti al corrispondente.
+     * Se viene fornito in input un ID e come secondo argomento 0 l'Area Geografica sarà univoca.
+     * Se viene fornito un qualsiasi altro dato verrà creata un'Area Geografica corrispondenta alla sua prima occorrenza.
      * I dati che vengono salvati sono
      * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
-     * @param id ID
+     * @param data dato
+     * @param col colonna
      */
-    public GeographicArea ( int id ) {
-        // Copy ID
-        this.geoname_id = id;
-        // Get a String of ID
-        String idString = "";
-        idString += id;
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Found flag
-            boolean found = false;
-            // Read first line
-            nextRecord = creader.readNext();
-            // First line will not contain any researched element so, increment and go on
-            // Read data line by line
-            while( (nextRecord = creader.readNext()) != null && !found ){
-                // When the first cell equals the id exit the while
-                if ( nextRecord[IndexOf.geoname_id].equals(idString)) {
-                    found = true;
-                    this.name         = nextRecord[IndexOf.name];
-                    this.ascii_name   = nextRecord[IndexOf.ascii_name];
-                    this.country_code = nextRecord[IndexOf.country_code];
-                    this.country_name = nextRecord[IndexOf.country_name];
-                    this.coordinates  = Research.parseCoordinates(nextRecord[IndexOf.coordinates]);
-                }
-            }
-            creader.close();
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
+    public GeographicArea ( String data, int col ) {
+        // Copy the record in a auxiliary variable
+        String[] record = Research.getRecordByData(file, col, data);
+        // Save the datas
+        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+        this.name         = record[IndexOf.name];
+        this.ascii_name   = record[IndexOf.ascii_name];
+        this.country_code = record[IndexOf.country_code];
+        this.country_name = record[IndexOf.country_name];
+        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
 
     /**

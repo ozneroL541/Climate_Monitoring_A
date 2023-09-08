@@ -259,4 +259,42 @@ public class Research {
             return null;
         }
     }
+    /**
+     * Cerca in un file CSV la stringa in input.
+     * Ritorna un array di stringhe delle celle adiacenti alla prima occorrenza.
+     * @param file file CSV
+     * @param col  colonna
+     * @param str  stringa
+     * @return line
+     */
+    public static String[] getRecordByData(File file, int col, String str){
+       String[] out = null; 
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Found flag
+            boolean found = false;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit code -2
+            if ( nextRecord.length <= col )
+                return null;
+            // First line will not contain any researched element so, increment and go on
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null && !found ){
+                // When the first cell equals the id exit the while
+                if ( nextRecord[col].equals(str) ) {
+                    found = true;
+                    out = nextRecord;
+                }
+            }
+            creader.close();
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+        // Return the record
+        return out;
+    }
 }
