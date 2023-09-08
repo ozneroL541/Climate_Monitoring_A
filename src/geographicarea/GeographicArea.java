@@ -10,12 +10,9 @@
 package src.geographicarea;
 
 import java.io.File;
-import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import src.research.Research;
-
-import com.opencsv.CSVReader;
 
 /**
  * Un oggetto della class <code>GeographicArea</code>
