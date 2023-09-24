@@ -8,7 +8,7 @@
 ***************************************/
 
 package src.users;
-
+//TODO remove unused import
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,6 +28,7 @@ import com.opencsv.CSVReader;
 import javax.annotation.processing.SupportedOptions;
 
 import src.monitoringcentre.MonitoringCentre;
+import src.research.Research;
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
@@ -49,32 +50,33 @@ public class AutorizedOperator extends User {
     // User Password
     private String passwd;
     // Monitoring Centre
+    //TODO
+    //cambiare il tipo della variabile in short
     private MonitoringCentre centre;
 
 
     // To read input
-    private Scanner in = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
 
-     /**
-     * Costruisce un operatore autorizzato
-     */
+    /**
+    * Costruisce un operatore autorizzato
+    */
     public AutorizedOperator() {}
 
-
     //TODO
-    //rendere metodo statico
-    public void registrazione() {
+    //java doc
+    public static void registrazione() {
         //TODO
         //migliorare la grafica
         System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
         // Insert nome
         System.out.print("Inserire il nome: ");
-        this.nome=in.nextLine();
+        String nome=in.nextLine();
         // Insert cognome
         System.out.print("Inserire il cognome: ");
-        this.cognome=in.nextLine();
+        String cognome=in.nextLine();
         // Insert codice fiscale
         System.out.print("Inserire il codice fiscale: ");
         String codFisc="";
@@ -83,12 +85,11 @@ public class AutorizedOperator extends User {
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
             }else{
-                if(ricercaPerCodiceFiscale(codFisc)){
+                if(presenzaCodiceFiscale(codFisc)){
                     System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                 }
             }
-        }while(!ControlloCodiceFiscale(codFisc) || ricercaPerCodiceFiscale(codFisc));
-        this.codice_fiscale=codFisc;
+        }while(!ControlloCodiceFiscale(codFisc) || presenzaCodiceFiscale(codFisc));
         // Insert email
         System.out.print("Inserire la mail: ");
         String email="";
@@ -97,48 +98,96 @@ public class AutorizedOperator extends User {
             if(!ControlloEmail(email)){
                 System.out.print("Email non valida.\nReinserire: ");
             }else{
-                if(ricercaPerEmail(email)){
+                if(presenzaEmail(email)){
                     System.out.print("Email già utilizzata.\nReinserire: ");
                 }
             }
-        }while(!ControlloEmail(email) || ricercaPerEmail(email));
-        this.email_address=email;
+        }while(!ControlloEmail(email) || presenzaEmail(email));
 
         //insert monitoring centre
         //TODO
-        this.centre=null;
+        String centre=null;
 
         // Insert password
         System.out.print("Inserire la password: ");
-        this.passwd=in.nextLine();
+        String passwd=in.nextLine();
 
         // Set the userid
-        this.userid=setUserId();
+        short userid=setUserId();
 
         // Add the operator to the file
-        aggiungiOperatore(false);
+        aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
         
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", this.userid) + " e la password scelta");
+        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", userid) + " e la password scelta");
     }
 
-    public void autenticazione() {
+    //TODO
+    //java doc
+    //return true if authentication is successful
+    //TODO
+    //cambiare il tipo del ritorno in int per avere più codici di errore(?)
+    public boolean autenticazione() {
         //TODO
+        //migliorare la grafica
+        System.out.println("LOGIN\n");
+        System.out.print("Inserire l'user-Id: ");
+        String userid="";
+        do{
+            userid=in.nextLine();
+            
+            if(!presenzaUserId(userid)){
+                System.out.print("User-Id non riconosciuto.\nReinserire: ");
+            }
+            
+        }while(!presenzaUserId(userid));
+
+        int riga=ricercaPerUserId(userid);
+
+        String[] record=Research.getRecord(file, riga);
+
+        if(record!=null){
+            System.out.print("Inserire la password: ");
+            String password=in.nextLine();
+            //if password match set the object's attributes
+            if(record[5].equals(password)){
+
+                this.userid=Short.valueOf(userid);
+                this.nome=record[1];
+                this.cognome=record[2];
+                this.codice_fiscale=record[3];
+                this.email_address=record[4];
+                this.passwd=password;
+                //TODO
+                //aggiungere quando i centri sono fatti
+                //this.centre=record[6].toString();
+                this.centre=null;   //usato temporaneamente, va cambiato
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            //TODO
+            //migliorare?
+            System.out.println("Errore");
+            return false;
+        }
     }
+
     //set the userid
-    private short setUserId(){
+    private static short setUserId(){
         long id=0;
         //if the file doesn't exist, create it and add the first operator with userid 00001, else add the operator with incremental userid
         if(!file.exists()){
             try {
                 file.createNewFile();
-                aggiungiOperatore(true);
+                aggiungiOperatore();
             } catch (IOException e) {
                 System.out.println("Errore nella creazione del file");
             }
             id=1;
         }else{
             try {
-                id=(Files.lines(this.file.toPath()).count());
+                id=(Files.lines(file.toPath()).count());
                 //id++;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -147,6 +196,7 @@ public class AutorizedOperator extends User {
         }
         return (short)id;
     }
+    
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
         // Output declaration
@@ -207,24 +257,36 @@ public class AutorizedOperator extends User {
         }
         return check;
     }
+    
     // Check email
     private static boolean ControlloEmail(String email){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
+    // Create the file OperatoriRegistrati.csv and set the header of it
+    private static void aggiungiOperatore(){
 
-    // Add the current instance of AutorizedOperator to the file OperatoriRegistrati.csv
-    private void aggiungiOperatore(boolean nuovoFile){
+        String s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
+        BufferedWriter scrivi;
 
-        String s;
+        try {
+            scrivi=new BufferedWriter(new FileWriter(file, true));
+            scrivi.append(s);
+            scrivi.close();
 
-        if(nuovoFile){
-            s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
-        }else{
-            s=String.format("%05d", this.userid);
-            s=s + "," + this.nome + "," + this.cognome + "," + this.codice_fiscale + "," + this.email_address + "," + this.passwd + "," + this.centre + "\n";
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
+    }
+
+    //Update the file OperatoriRegistrati with a new record
+    private static void aggiungiOperatore(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
+
+        String s=String.format("%05d", userid);
+        s=s + "," + nome + "," + cognome + "," + codice_fiscale + "," + email_address + "," + passwd + "," + centre + "\n";
+        
         BufferedWriter scrivi;
 
         try {
@@ -238,21 +300,34 @@ public class AutorizedOperator extends User {
         }
     }
 
+    //TODO 
+    /*TODO Suggerimento da Lorenzo:
+     * 1 - Se modifichi questo metodo in modo da togliere CSVReader,
+     * per esempio usando metodi della classe Research o creandone
+     * uno nuovo nella classe research, si può togliere l'import di
+     * CSVReader rendendo il codice più leggero e pulito.
+     * 2 - Cerchiamo di non usare metodi che stampano cose tramite
+     * System.out perché nel caso di debba cambiare l'output (ad 
+     * esempio passando ad un'interfaccia grafica o ad una console
+     * interattiva) è meno complicato.
+     * Per evitare questo il metodo può restituire una String
+     * contenente l'output desiderato.
+     */
+    //rendere privato(?) o rimuovere
     public static void leggiOperatori(){
         try{
-
             FileReader freader = new FileReader(file);//created an object of freader class
             //@SuppressWarnings("resource")
-            CSVReader creader= new CSVReader(freader);// created creader object by parsing freader as a parameter
+            CSVReader creader= new CSVReader(freader);// created creader object by passing freader as a parameter
             String [] nextRecord;// created an array of type String
             //read data line by line
             while((nextRecord = creader.readNext())!=null){
-
+                // For each cell in the line
                 for(String token: nextRecord)
-                System.out.print(token +"\t"); //will bring the value of cell seperated by tab space
+                    System.out.print(token +"\t"); //will bring the value of cell seperated by tab space
                 System.out.println();
             }
-
+            // Close CSV reader
             creader.close();
             System.out.println();
         }catch(Exception e){ //to catch any exception inside try block
@@ -261,41 +336,36 @@ public class AutorizedOperator extends User {
     }
 
     //return true if the Fiscal Code is present in the file
-    private static boolean ricercaPerCodiceFiscale(String cf) {
-        return researchStringInCol(3, cf);
+    private static boolean presenzaCodiceFiscale(String cf) {
+        return Research.isStringInCol(file, 3, cf);
     }
+
     //return true if the Email is present in the file
-    private static boolean ricercaPerEmail(String email) {
-        return researchStringInCol(4, email);
+    private static boolean presenzaEmail(String email) {
+        return Research.isStringInCol(file, 4, email);
     }
-    // Research a String in a Column
-    private static boolean researchStringInCol(int col, String str) {
-        try{
-            // CSV Reader
-            CSVReader creader = new CSVReader( new FileReader(file) );
-            // Line read
-            String [] nextRecord;
-            // Read first line
-            nextRecord = creader.readNext();
-            // Read data line by line
-            while( (nextRecord = creader.readNext()) != null){
-                // When the first cell equals the id return true
-                if ( nextRecord[col].equals(str) ) {
-                    return true;
-                }
-            }
-            creader.close();
-            
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
-        return false;
+
+    //return true if the UserId is present in the file
+    private static boolean presenzaUserId(String userid) {
+        return Research.isStringInCol(file, 0, userid);
+    }
+
+    //return the line of the record that match the userid
+    private static int ricercaPerUserId(String userid){
+        return Research.OneStringInCol(file, 0, userid);
     }
 
     //TODO
     //main per testare, da rimuove alla fine
     public static void main(String []args){
-        
+        AutorizedOperator a=new AutorizedOperator();
+        if(a.autenticazione()){
+            System.out.println("Autenticazione completata");
+            //resto dei metodi dell'operatore autorizzato
+        }else{
+            System.out.println("Autenticazione fallita");
+            //ritorno al menu di partenza(?)
+        }
     }
 
 }
