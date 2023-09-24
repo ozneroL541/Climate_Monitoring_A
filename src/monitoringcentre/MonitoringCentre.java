@@ -27,6 +27,7 @@ public class MonitoringCentre {
     private short userid;
 
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
+        //TODO controllare se esiste un centro con lo stesso indirizzo
         registraCentroAree(nome, indirizzo, areeInteresse, userid);
     }
 
@@ -49,8 +50,11 @@ public class MonitoringCentre {
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
-       
     
+    //TODO metodo per controllare se un centro esiste già in base a nome
+    //TODO getLista del nome dei centri (returna array di string)
+    //TODO aggiungere un'area ad un centro già esistente
+
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         String s = nome + ",";
         for (int i = 0; i < indirizzo.length; i++) {
