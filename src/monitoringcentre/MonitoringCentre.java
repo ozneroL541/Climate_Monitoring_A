@@ -49,6 +49,7 @@ public class MonitoringCentre {
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
+       
     
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         String s = nome + ",";
