@@ -14,7 +14,11 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
-
+/**
+ * Classe che contiene algoritmi statici di ricerca.
+ * @author Lorenzo Radice
+ * @version 1.0.0
+ */
 public class Research {
     /**
      * Questo metodo ricerca una stringa in un file CSV
