@@ -67,13 +67,16 @@ public class MonitoringCentre {
 
     private String[] getCentri(){
         String[] list;
-        //inserire ricerca centri
+        //TODO ricerca centri
         return list;
     }
 
     //TODO aggiungere un'area ad un centro già esistente
 
-
+    private void addArea(String area){
+        //TODO controllo esistenza del centro
+        //TODO aggiunta area 
+    }
 
 
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
