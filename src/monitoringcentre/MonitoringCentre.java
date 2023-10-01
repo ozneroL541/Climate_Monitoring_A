@@ -10,6 +10,7 @@
 package src.monitoringcentre;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,7 +29,7 @@ public class MonitoringCentre {
     private String [] areeInteresse;
     private short userid;
     Research res = new Research();
-    
+
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         //TODO controllare se esiste un centro con lo stesso indirizzo
         registraCentroAree(nome, indirizzo, areeInteresse, userid);
@@ -54,11 +55,11 @@ public class MonitoringCentre {
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
     
-    //TODO metodo per controllare se un centro esiste già in base a nome
-
+    //metodo per controllare se un centro esiste già in base a nome
     private boolean ExistingCenter(String name){
+        File f = new File("data\\CentroMonitoraggio.dati.csv");
         boolean exists = false;
-        
+        res.AllStringInCol(f, 0, name);
         return exists;
     }
 
