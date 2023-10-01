@@ -14,6 +14,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import src.research.Research;
+
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
@@ -52,8 +54,17 @@ public class MonitoringCentre {
     }
     
     //TODO metodo per controllare se un centro esiste già in base a nome
+
+
+
     //TODO getLista del nome dei centri (returna array di string)
+
+
+
     //TODO aggiungere un'area ad un centro già esistente
+
+
+
 
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         String s = nome + ",";
