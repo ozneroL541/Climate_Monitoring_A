@@ -27,7 +27,8 @@ public class MonitoringCentre {
     private String [] indirizzo = new String[5];
     private String [] areeInteresse;
     private short userid;
-
+    Research res = new Research();
+    
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         //TODO controllare se esiste un centro con lo stesso indirizzo
         registraCentroAree(nome, indirizzo, areeInteresse, userid);
@@ -55,7 +56,11 @@ public class MonitoringCentre {
     
     //TODO metodo per controllare se un centro esiste già in base a nome
 
-
+    private boolean ExistingCenter(String name){
+        boolean exists = false;
+        
+        return exists;
+    }
 
     //TODO getLista del nome dei centri (returna array di string)
 
