@@ -396,5 +396,15 @@ public class GeographicArea {
         return out;
     }
     //TODO Remove
-    public static void main(String[] args) {}
+    //TODO una volta che hai le righe decidi quante stamparne
+    public static void main(String[] args) {
+        GeographicArea ga;
+        String s = "";
+        Integer[] a;
+        
+        a = GeographicArea.ricercaPerNazione("Italy");
+        for (Integer integer : a) {
+            System.out.println(integer);
+        }
+    }
 }
