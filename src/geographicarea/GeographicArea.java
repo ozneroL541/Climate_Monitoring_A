@@ -12,6 +12,8 @@ package src.geographicarea;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
+import java.util.Scanner;
+
 import src.research.Research;
 
 /**
@@ -299,34 +301,53 @@ public class GeographicArea {
      * Il terzo parametro chiede se la lista vada stampata runtime;
      * se true la lista viene stampata durante l'esecuzione e
      * alla fine viene ritornato null
-     * @param s_number numero della ricerca
+     * @param col_index numero della ricerca
      * @param arg argomento da ricercare
      * @param runtime_print stampare a runtime?
      * @return lista dei risultati
      */
-    public static String SearchList( int s_number, String arg, boolean runtime_print ) {
+    public static String SearchList( int col_index, String arg, int runtime_print ) {
         // Output Integer array
         Integer [] lines = new Integer[1];
+        // Minimum run constant
+        final int min_run = 10;
+        // Huge number of lines
+        final int huge = 1000;
         // Search
-        switch (s_number) {
+        switch (col_index) {
+            // Univocal item
             case IndexOf.geoname_id:
                 lines = ricercaPerID(arg);
                 break;
+            // Multiple, but few, items
             case IndexOf.name:
                 lines = ricercaPerNome(arg);
                 break;
+            // Multiple, but few, items
             case IndexOf.ascii_name:
                 lines = ricercaPerASCIINome(arg);
                 break;
+            // Multiple, but few, items
             case IndexOf.generic_name:
                 lines = ricercaPerNomeGenerico(arg);
                 break;
+            // Huge list
             case IndexOf.country_code:
                 lines = ricercaPerCodiceNazione(arg);
+                // If the number of lines is huge force runtime_print
+                if ( lines.length > huge && runtime_print <= 0) {
+                    runtime_print = min_run;
+                }
                 break;
+            // Huge list
             case IndexOf.country_name:
                 lines = ricercaPerNazione(arg);
+                // If the number of lines is huge force runtime_print
+                if ( lines.length > huge && runtime_print <= 0) {
+                    runtime_print = min_run;
+                }
                 break;
+            // Multiple, but few, items
             case IndexOf.coordinates:
                 lines = ricercaPerCoordinate(arg);
                 break;
@@ -334,10 +355,35 @@ public class GeographicArea {
                 System.out.println("Errore: codice lista inesistente");
                 return null;
         }
-        if (runtime_print) {
-            for (int i = 0; i < lines.length; i++) {
-                System.out.println(RunTimeLine(lines[i], i + 1 ));
-            }
+        if (runtime_print > 0) {
+            // Limit of item to print
+            int limit = runtime_print;
+            // limit counter
+            int l = 0;
+            // Lines counter
+            int i = 0;
+            // String which
+            String ans = "N";
+            do {
+                for ( l = 0; l < limit && i < lines.length; i++) {
+                    System.out.println(RunTimeLine(lines[i], i + 1 ));
+                    l++;
+                }
+                // Input Scanner
+                Scanner sc = new Scanner(System.in);
+                // Output for Scanner
+                System.out.print("Vuoi stamparne ancora? ");
+                // Input
+                ans = sc.next();
+                // Up all the letters
+                ans = ans.toUpperCase();
+                // If quit, exit
+                if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
+                    l = -1;
+                    // Close input scanner
+                    sc.close();
+                }
+            } while ( l >= 0);
             return null;
         }
         return toList(lines);
@@ -396,15 +442,11 @@ public class GeographicArea {
         return out;
     }
     //TODO Remove
-    //TODO una volta che hai le righe decidi quante stamparne
     public static void main(String[] args) {
         GeographicArea ga;
         String s = "";
         Integer[] a;
         
-        a = GeographicArea.ricercaPerNazione("Italy");
-        for (Integer integer : a) {
-            System.out.println(integer);
-        }
+        GeographicArea.SearchList(IndexOf.country_code, "", 0);
     }
 }
