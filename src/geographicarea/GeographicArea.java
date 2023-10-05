@@ -295,22 +295,19 @@ public class GeographicArea {
         return str;
     }
     /**
-     * Cerca delle area geografiche e ne ritorna una lista.
+     * Cerca delle area geografiche e ne stampa la lista.
      * Il primo parametro si riferisce al tipo di ricerca.
      * Il secondo parametro è l'argomento della ricerca.
-     * Il terzo parametro chiede se la lista vada stampata runtime;
-     * se true la lista viene stampata durante l'esecuzione e
-     * alla fine viene ritornato null
+     * Il terzo parametro è il numero di aree da stampare in caso di lista troppo grande.
      * @param col_index numero della ricerca
      * @param arg argomento da ricercare
-     * @param runtime_print stampare a runtime?
-     * @return lista dei risultati
+     * @param runtime_print numero di item da stampare
      */
-    public static String SearchList( int col_index, String arg, int runtime_print ) {
+    public static void SearchList( int col_index, String arg, int runtime_print ) {
         // Output Integer array
         Integer [] lines = new Integer[1];
         // Minimum run constant
-        final int min_run = 10;
+        final int min_run = 1;
         // Huge number of lines
         final int huge = 1000;
         // Search
@@ -334,18 +331,10 @@ public class GeographicArea {
             // Huge list
             case IndexOf.country_code:
                 lines = ricercaPerCodiceNazione(arg);
-                // If the number of lines is huge force runtime_print
-                if ( lines.length > huge && runtime_print <= 0) {
-                    runtime_print = min_run;
-                }
                 break;
             // Huge list
             case IndexOf.country_name:
                 lines = ricercaPerNazione(arg);
-                // If the number of lines is huge force runtime_print
-                if ( lines.length > huge && runtime_print <= 0) {
-                    runtime_print = min_run;
-                }
                 break;
             // Multiple, but few, items
             case IndexOf.coordinates:
@@ -353,7 +342,11 @@ public class GeographicArea {
                 break;
             default:
                 System.out.println("Errore: codice lista inesistente");
-                return null;
+                return;
+        }
+        // If the number of lines is huge force runtime_print
+        if ( lines.length > huge && runtime_print <= 0) {
+            runtime_print = min_run;
         }
         if (runtime_print > 0) {
             // Limit of item to print
@@ -384,9 +377,8 @@ public class GeographicArea {
                     sc.close();
                 }
             } while ( l >= 0);
-            return null;
-        }
-        return toList(lines);
+        } else
+            System.out.println(toList(lines));
     }
     /**
      * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
