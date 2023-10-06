@@ -352,6 +352,7 @@ public class GeographicArea {
                 lines = ricercaPerCoordinate(arg);
                 break;
             default:
+                // Error
                 System.out.println("Errore: codice lista inesistente");
                 return;
         }
