@@ -458,4 +458,39 @@ public class GeographicArea {
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         return out;
     }
+    public static void printIndexesMenu() {
+        // Name of the possible researches
+        final String [] col_names = {
+            "Geoname ID",
+            "Name",
+            "ASCII Name",
+            "Country Code",
+            "Country Name",
+            "Coordinates",
+            "Generic Name"
+        };
+        // Counter
+        int i = 0;
+        // Array of possible selections
+        int[] ind = new int[7];
+        // Possible options
+        ind[i++] += IndexOf.geoname_id;
+        ind[i++] += IndexOf.real_name;
+        ind[i++] += IndexOf.ascii_name;
+        ind[i++] += IndexOf.country_code;
+        ind[i++] += IndexOf.country_name;
+        ind[i++] += IndexOf.coordinates;
+        ind[i++] += IndexOf.generic_name;
+        // Output String
+        String s = "";
+        // Create the Option menu
+        for ( i = 0; i < ind.length; i++) {
+            s += String.format("%2d - %s\n", ind[i], col_names[i]);
+        }
+        // Print Menu
+        System.out.println(s);
+    }
+    public static void main(String[] args) {
+        GeographicArea.printIndexesMenu();
+    }
 }
