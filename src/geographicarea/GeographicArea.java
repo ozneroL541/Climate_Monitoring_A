@@ -107,19 +107,15 @@ public class GeographicArea {
     public static Integer[] ricercaPerID( String id ) {
         // Output array
         Integer [] o = new Integer[1];
-        try {
-            // Research
-            o[0] = ricercaPerID(Integer.parseInt(id));
-            // If the output is valid
-            if ( o[0] >= 0 )
-                // Return the output
-                return o;
-            else
-                // Return nothing
-                return null;
-        } catch (Exception e) {
+        // Research
+        o[0] = ricercaPerID(Integer.parseInt(id));
+        // If the output is valid
+        if ( o[0] >= 0 )
+            // Return the output
+            return o;
+        else
+            // Return nothing
             return null;
-        }
     }
     /**
      * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -454,6 +450,6 @@ public class GeographicArea {
         Integer[] a;
         */
         // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf.geoname_id, "", 0);
+        GeographicArea.SearchList(IndexOf.country_code, "gauf493t9fihs", 0);
     }
 }
