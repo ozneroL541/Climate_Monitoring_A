@@ -188,10 +188,16 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     public static Integer[] ricercaPerCoordinate( double [] coo ){
-        // If coordinates are not two
-        if (coo == null || coo.length != 2)
+        // If coordinates do not exist abort
+        if (coo == null) {
             // Exit
             return null;
+        }
+        // If coordinates are less than 2 abort
+        if ( coo.length != 2 ) {
+            // Exit
+            return null;
+        }
         // If the coordinates are not in the range of the Earth
         if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
             // Exit
