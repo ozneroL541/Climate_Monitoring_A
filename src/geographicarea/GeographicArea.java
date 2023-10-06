@@ -12,6 +12,8 @@ package src.geographicarea;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
+import java.util.Scanner;
+
 import src.research.Research;
 
 /**
@@ -19,7 +21,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -105,15 +107,19 @@ public class GeographicArea {
     public static Integer[] ricercaPerID( String id ) {
         // Output array
         Integer [] o = new Integer[1];
-        // Research
-        o[0] = ricercaPerID(Integer.parseInt(id));
-        // If the output is valid
-        if ( o[0] >= 0 )
-            // Return the output
-            return o;
-        else
-            // Return nothing
+        try {
+            // Research
+            o[0] = ricercaPerID(Integer.parseInt(id));
+            // If the output is valid
+            if ( o[0] >= 0 )
+                // Return the output
+                return o;
+            else
+                // Return nothing
+                return null;
+        } catch (Exception e) {
             return null;
+        }
     }
     /**
      * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -183,10 +189,15 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     public static Integer[] ricercaPerCoordinate( double [] coo ){
-        // If the lenght is wrong
-        if(coo.length != 2)
+        // If coordinates are not two
+        if (coo == null || coo.length != 2)
             // Exit
             return null;
+        // If the coordinates are not in the range of the Earth
+        if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
+            // Exit
+            return null;
+        }
         // String of coordinates
         String c = "";
         // Make the string of coordinates
@@ -217,6 +228,7 @@ public class GeographicArea {
                 // Increase the increment: the increment is not linear
                 inc += err;
             }
+            // If the error is bigger than the security limit abort
             if ( err > limit ){
                 return null;
             }
@@ -293,54 +305,109 @@ public class GeographicArea {
         return str;
     }
     /**
-     * Cerca delle area geografiche e ne ritorna una lista.
+     * Cerca delle area geografiche e ne stampa la lista.
      * Il primo parametro si riferisce al tipo di ricerca.
      * Il secondo parametro è l'argomento della ricerca.
-     * Il terzo parametro chiede se la lista vada stampata runtime;
-     * se true la lista viene stampata durante l'esecuzione e
-     * alla fine viene ritornato null
-     * @param s_number numero della ricerca
+     * Il terzo parametro è il numero di aree da stampare in caso di lista troppo grande.
+     * @param col_index numero della ricerca
      * @param arg argomento da ricercare
-     * @param runtime_print stampare a runtime?
-     * @return lista dei risultati
+     * @param runtime_print numero di item da stampare
      */
-    public static String SearchList( int s_number, String arg, boolean runtime_print ) {
+    public static void SearchList( int col_index, String arg, int runtime_print ) {
         // Output Integer array
         Integer [] lines = new Integer[1];
+        // Minimum run constant
+        final int min_run = 10;
+        // Huge number of lines
+        final int huge = 250;
         // Search
-        switch (s_number) {
+        switch (col_index) {
+            // Univocal item
             case IndexOf.geoname_id:
                 lines = ricercaPerID(arg);
+                // Impossible to have more than one case
+                runtime_print = -1;
                 break;
+            // Multiple, but few, items
             case IndexOf.name:
                 lines = ricercaPerNome(arg);
                 break;
+            // Multiple, but few, items
             case IndexOf.ascii_name:
                 lines = ricercaPerASCIINome(arg);
                 break;
+            // Multiple, but few, items
             case IndexOf.generic_name:
                 lines = ricercaPerNomeGenerico(arg);
                 break;
+            // Huge list
             case IndexOf.country_code:
                 lines = ricercaPerCodiceNazione(arg);
                 break;
+            // Huge list
             case IndexOf.country_name:
                 lines = ricercaPerNazione(arg);
                 break;
+            // Multiple, but few, items
             case IndexOf.coordinates:
                 lines = ricercaPerCoordinate(arg);
                 break;
             default:
                 System.out.println("Errore: codice lista inesistente");
-                return null;
+                return;
         }
-        if (runtime_print) {
-            for (int i = 0; i < lines.length; i++) {
-                System.out.println(RunTimeLine(lines[i], i + 1 ));
+        // Print if there is something
+        if (lines != null && lines.length > 0) {
+            // If the number of lines is huge force runtime_print
+            if ( lines.length > huge && runtime_print <= 0) {
+                runtime_print = min_run;
             }
-            return null;
+            // If runtime print is enable print in runtime mode
+            if ( runtime_print > 0 ) {
+                // Limit of item to print
+                int limit = runtime_print;
+                // limit counter
+                int l = 0;
+                // Lines counter
+                int i = 0;
+                // String which
+                String ans = "N";
+                do {
+                    for ( l = 0; l < limit && i < lines.length; i++) {
+                        // Print runtime the string
+                        System.out.println(RunTimeLine(lines[i], i + 1 ));
+                        // Increase limit counter
+                        l++;
+                    }
+                    // If you can still pront something
+                    if ( i < lines.length ) {
+                        // Input Scanner
+                        Scanner sc = new Scanner(System.in);
+                        // Output for Scanner
+                        System.out.print("\nContinuare l'elenco(S/N)? ");
+                        // Input
+                        ans = sc.next();
+                        // Up all the letters
+                        ans = ans.toUpperCase();
+                        // If quit, exit
+                        if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
+                            // Exit
+                            l = -1;
+                            // Close input scanner
+                            sc.close();
+                        }
+                        // Add a line
+                        System.out.println();
+                    } else
+                        // Exit the loop
+                        l = -1;
+                } while ( l >= 0);
+            } else
+                System.out.println(toList(lines));
+        } else {
+            // Message if there is no output
+            System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
         }
-        return toList(lines);
     }
     /**
      * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
@@ -348,26 +415,10 @@ public class GeographicArea {
      * @return list
      */
     public static String toList( Integer[] lines ) {
-        String out = "N\tGeoname ID\tName\t\tASCII Name\tCountry Code\tCountry Name\tCoordinates";
-        // Geographic area object
-        GeographicArea ga;
+        String out = "";
         // For every result
         for (int i = 0; i < lines.length; i++) {
-            // Make a GeographicArea object
-            ga = new GeographicArea(lines[i]);
-            // Write the index
-            out += "\n" + ( i + 1 );
-            //Cut too long names
-            String[] nam = new String[3];
-            nam[0] = ga.getName();
-            nam[1] = ga.getAscii_name();
-            nam[2] = ga.getCountry_name();
-            for (int j = 0; j < nam.length; j++) {
-                if( nam[j].length() > 15 )
-                nam[j] = nam[j].substring(0, 15);
-            }
-            // Formatted output list
-            out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
+            out += RunTimeLine(lines[i], i+1) + "\n";
         }
         return out;
     }
@@ -381,7 +432,7 @@ public class GeographicArea {
         // Put a head
             out += "N\tGeoname ID\tName\t\tASCII Name\tCountry Code\tCountry Name\tCoordinates\n";
         // Write the index
-        out += index;
+        out += String.format("%5d", index);
         //Cut too long names
         String[] nam = new String[3];
         nam[0] = ga.getName();
@@ -394,5 +445,15 @@ public class GeographicArea {
         // Formatted output list
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         return out;
+    }
+    //TODO Remove
+    public static void main(String[] args) {
+        /*
+        GeographicArea ga;
+        String s = "";
+        Integer[] a;
+        */
+        // Modifica gli argomenti a questo metodo
+        GeographicArea.SearchList(IndexOf.geoname_id, "", 0);
     }
 }

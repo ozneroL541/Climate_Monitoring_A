@@ -17,7 +17,7 @@ import com.opencsv.CSVReader;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 1.0.0
+ * @version 0.2.0
  */
 public class Research {
     /**
@@ -25,8 +25,8 @@ public class Research {
      * in una determinata colonna e
      * restituisce la riga corrispondente alla sua prima occorrenza.
      * @param file file CSV
-     * @param col  colonna
-     * @param str  stringa
+     * @param col colonna
+     * @param str stringa
      * @return line
      */
     public static int OneStringInCol( File file, int col, String str ) {
@@ -76,6 +76,54 @@ public class Research {
      * @return array di Integer contenente le righe
      */
     public static Integer[] AllStringInCol( File file, int col, String str ) {
+        // Set the line to 0
+        int line = 0;
+        // Create a list of int
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit code -2
+            if ( nextRecord.length <= col )
+                return null;
+            // First line will not contain any researched element so, increment and go on
+            // Line increment
+            line++;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // When the first cell equals the id exit the while
+                if ( nextRecord[col].equals(str) ) {
+                    list.add(++line);
+                } else
+                    // Line increment
+                    line++;
+            }
+            creader.close();
+        }catch(Exception e){ //to catch any exception inside try block
+            e.printStackTrace();//used to print a throwable class along with other dataset class
+        }
+        // Create an array where store the list
+        Integer[] out = new Integer[list.size()];
+        list.toArray(out);
+        // Return the lines
+        return out;
+    }
+    //TODO Method
+    /**
+     * Questo metodo ricerca una stringa in un file CSV
+     * in una determinata colonna e
+     * restituisce ogni riga in cui occorre.
+     * @param file file CSV
+     * @param col colonna
+     * @param str stringa
+     * @return array di Integer contenente le righe
+     */
+    public static Integer[] bigSearch( File file, int col, String str ) {
         // Set the line to 0
         int line = 0;
         // Create a list of int
@@ -191,7 +239,8 @@ public class Research {
         return distance;
     }
     /**
-     * Divide la stringa in coordinate
+     * Divide la stringa in coordinate.
+     * In caso di errore ritorna null.
      * @param coo string
      * @return un array con 2 coordinate
      */
@@ -200,12 +249,20 @@ public class Research {
         double [] c = new double[2];
         // Spitted string
         String [] splitted = coo.split(", ");
-        // First coordinate
-        c[0] = Double.parseDouble(splitted[0]);
-        // Second coordinate
-        c[1] = Double.parseDouble(splitted[1]);
-        // Return the coordinates
-        return c;
+        // If the string is not splitted abort
+        if ( splitted.length != 2 )
+            return null;
+        // If parsing don't work return null
+        try {
+            // First coordinate
+            c[0] = Double.parseDouble(splitted[0]);
+            // Second coordinate
+            c[1] = Double.parseDouble(splitted[1]);
+            // Return the coordinates
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
     }
     /**
      * Questo metodo ricerca una stringa in un file CSV
