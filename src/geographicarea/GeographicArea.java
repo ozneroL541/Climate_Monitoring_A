@@ -347,7 +347,7 @@ public class GeographicArea {
                 return;
         }
         // Print if there is something
-        if (lines != null) {
+        if (lines != null && lines.length > 0) {
             // If the number of lines is huge force runtime_print
             if ( lines.length > huge && runtime_print <= 0) {
                 runtime_print = min_run;
@@ -394,8 +394,10 @@ public class GeographicArea {
                 } while ( l >= 0);
             } else
                 System.out.println(toList(lines));
+        } else {
+            // Message if there is no output
+            System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
         }
-        // You can put an else here to print a message if there is no output
     }
     /**
      * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
@@ -442,6 +444,6 @@ public class GeographicArea {
         Integer[] a;
         */
         // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf.coordinates, "35.6569, 76.869", 0);
+        GeographicArea.SearchList(IndexOf.coordinates, "vvnòdvndvo", 0);
     }
 }
