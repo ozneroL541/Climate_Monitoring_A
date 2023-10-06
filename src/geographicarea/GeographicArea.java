@@ -346,51 +346,56 @@ public class GeographicArea {
                 System.out.println("Errore: codice lista inesistente");
                 return;
         }
-        // If the number of lines is huge force runtime_print
-        if ( lines.length > huge && runtime_print <= 0) {
-            runtime_print = min_run;
-        }
-        if (runtime_print > 0) {
-            // Limit of item to print
-            int limit = runtime_print;
-            // limit counter
-            int l = 0;
-            // Lines counter
-            int i = 0;
-            // String which
-            String ans = "N";
-            do {
-                for ( l = 0; l < limit && i < lines.length; i++) {
-                    // Print runtime the string
-                    System.out.println(RunTimeLine(lines[i], i + 1 ));
-                    // Increase limit counter
-                    l++;
-                }
-                // If you can still pront something
-                if ( i < lines.length ) {
-                    // Input Scanner
-                    Scanner sc = new Scanner(System.in);
-                    // Output for Scanner
-                    System.out.print("\nContinuare l'elenco(S/N)? ");
-                    // Input
-                    ans = sc.next();
-                    // Up all the letters
-                    ans = ans.toUpperCase();
-                    // If quit, exit
-                    if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
-                        // Exit
-                        l = -1;
-                        // Close input scanner
-                        sc.close();
+        // Print if there is something
+        if (lines.length > 0) {
+            // If the number of lines is huge force runtime_print
+            if ( lines.length > huge && runtime_print <= 0) {
+                runtime_print = min_run;
+            }
+            // If runtime print is enable print in runtime mode
+            if ( runtime_print > 0 ) {
+                // Limit of item to print
+                int limit = runtime_print;
+                // limit counter
+                int l = 0;
+                // Lines counter
+                int i = 0;
+                // String which
+                String ans = "N";
+                do {
+                    for ( l = 0; l < limit && i < lines.length; i++) {
+                        // Print runtime the string
+                        System.out.println(RunTimeLine(lines[i], i + 1 ));
+                        // Increase limit counter
+                        l++;
                     }
-                    // Add a line
-                    System.out.println();
-                } else
-                    // Exit the loop
-                    l = -1;
-            } while ( l >= 0);
-        } else
-            System.out.println(toList(lines));
+                    // If you can still pront something
+                    if ( i < lines.length ) {
+                        // Input Scanner
+                        Scanner sc = new Scanner(System.in);
+                        // Output for Scanner
+                        System.out.print("\nContinuare l'elenco(S/N)? ");
+                        // Input
+                        ans = sc.next();
+                        // Up all the letters
+                        ans = ans.toUpperCase();
+                        // If quit, exit
+                        if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
+                            // Exit
+                            l = -1;
+                            // Close input scanner
+                            sc.close();
+                        }
+                        // Add a line
+                        System.out.println();
+                    } else
+                        // Exit the loop
+                        l = -1;
+                } while ( l >= 0);
+            } else
+                System.out.println(toList(lines));
+        }
+        // You can put an else here to print a message if there is no output
     }
     /**
      * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
