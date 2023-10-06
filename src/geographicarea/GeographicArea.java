@@ -445,14 +445,4 @@ public class GeographicArea {
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         return out;
     }
-    //TODO Remove
-    public static void main(String[] args) {
-        /*
-        GeographicArea ga;
-        String s = "";
-        Integer[] a;
-        */
-        // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf.geoname_id, "", 0);
-    }
 }
