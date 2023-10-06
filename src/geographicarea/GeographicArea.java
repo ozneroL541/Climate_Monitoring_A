@@ -40,7 +40,7 @@ public class GeographicArea {
     // Indexes in CSV file
     private final static class IndexOf {
         public final static int geoname_id = 0;
-        public final static int name = 1;
+        public final static int real_name = 1;
         public final static int ascii_name = 2;
         public final static int generic_name = 10;
         public final static int country_code = 3;
@@ -59,7 +59,7 @@ public class GeographicArea {
         String[] record = Research.getRecord(file, line);
         // Save the datas
         this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
-        this.name         = record[IndexOf.name];
+        this.name         = record[IndexOf.real_name];
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
@@ -80,7 +80,7 @@ public class GeographicArea {
         String[] record = Research.getRecordByData(file, col, data);
         // Save the datas
         this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
-        this.name         = record[IndexOf.name];
+        this.name         = record[IndexOf.real_name];
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
@@ -125,8 +125,8 @@ public class GeographicArea {
      * @param nome Nome
      * @return Numero delle righe
      */
-    private static Integer[] ricercaPerNome(String nome){
-        return Research.AllStringInCol(file, IndexOf.name, nome);
+    private static Integer[] ricercaPerRealeNome(String nome){
+        return Research.AllStringInCol(file, IndexOf.real_name, nome);
     }
     /**
      * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -149,7 +149,7 @@ public class GeographicArea {
         // If is not ASCII
         } else {
             // Use non ASCII research
-            return ricercaPerNome(n);
+            return ricercaPerRealeNome(n);
         }
     }
     /**
@@ -328,8 +328,8 @@ public class GeographicArea {
                 runtime_print = -1;
                 break;
             // Multiple, but few, items
-            case IndexOf.name:
-                lines = ricercaPerNome(arg);
+            case IndexOf.real_name:
+                lines = ricercaPerRealeNome(arg);
                 break;
             // Multiple, but few, items
             case IndexOf.ascii_name:
