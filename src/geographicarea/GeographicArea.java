@@ -403,26 +403,10 @@ public class GeographicArea {
      * @return list
      */
     public static String toList( Integer[] lines ) {
-        String out = "N\tGeoname ID\tName\t\tASCII Name\tCountry Code\tCountry Name\tCoordinates";
-        // Geographic area object
-        GeographicArea ga;
+        String out = "";
         // For every result
         for (int i = 0; i < lines.length; i++) {
-            // Make a GeographicArea object
-            ga = new GeographicArea(lines[i]);
-            // Write the index
-            out += "\n" + ( i + 1 );
-            //Cut too long names
-            String[] nam = new String[3];
-            nam[0] = ga.getName();
-            nam[1] = ga.getAscii_name();
-            nam[2] = ga.getCountry_name();
-            for (int j = 0; j < nam.length; j++) {
-                if( nam[j].length() > 15 )
-                nam[j] = nam[j].substring(0, 15);
-            }
-            // Formatted output list
-            out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
+            out += RunTimeLine(lines[i], i+1) + "\n";
         }
         return out;
     }
@@ -458,6 +442,6 @@ public class GeographicArea {
         Integer[] a;
         */
         // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf., "", 0);
+        GeographicArea.SearchList(IndexOf.coordinates, "35.6569, 76.869", 0);
     }
 }
