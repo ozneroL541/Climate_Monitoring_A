@@ -239,7 +239,8 @@ public class Research {
         return distance;
     }
     /**
-     * Divide la stringa in coordinate
+     * Divide la stringa in coordinate.
+     * In caso di errore ritorna null.
      * @param coo string
      * @return un array con 2 coordinate
      */
@@ -248,12 +249,20 @@ public class Research {
         double [] c = new double[2];
         // Spitted string
         String [] splitted = coo.split(", ");
-        // First coordinate
-        c[0] = Double.parseDouble(splitted[0]);
-        // Second coordinate
-        c[1] = Double.parseDouble(splitted[1]);
-        // Return the coordinates
-        return c;
+        // If the string is not splitted abort
+        if ( splitted.length != 2 )
+            return null;
+        // If parsing don't work return null
+        try {
+            // First coordinate
+            c[0] = Double.parseDouble(splitted[0]);
+            // Second coordinate
+            c[1] = Double.parseDouble(splitted[1]);
+            // Return the coordinates
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
     }
     /**
      * Questo metodo ricerca una stringa in un file CSV

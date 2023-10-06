@@ -185,10 +185,15 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     public static Integer[] ricercaPerCoordinate( double [] coo ){
-        // If the lenght is wrong
-        if(coo.length != 2)
+        // If coordinates are not two
+        if (coo == null || coo.length != 2)
             // Exit
             return null;
+        // If the coordinates are not in the range of the Earth
+        if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
+            // Exit
+            return null;
+        }
         // String of coordinates
         String c = "";
         // Make the string of coordinates
@@ -219,6 +224,7 @@ public class GeographicArea {
                 // Increase the increment: the increment is not linear
                 inc += err;
             }
+            // If the error is bigger than the security limit abort
             if ( err > limit ){
                 return null;
             }
@@ -444,6 +450,6 @@ public class GeographicArea {
         Integer[] a;
         */
         // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf.coordinates, "vvnòdvndvo", 0);
+        GeographicArea.SearchList(IndexOf.country_code, "gauf493t9fihs", 0);
     }
 }
