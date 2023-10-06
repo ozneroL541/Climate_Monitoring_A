@@ -347,7 +347,7 @@ public class GeographicArea {
                 return;
         }
         // Print if there is something
-        if (lines.length > 0) {
+        if (lines != null) {
             // If the number of lines is huge force runtime_print
             if ( lines.length > huge && runtime_print <= 0) {
                 runtime_print = min_run;
@@ -458,6 +458,6 @@ public class GeographicArea {
         Integer[] a;
         */
         // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf.country_code, "", 0);
+        GeographicArea.SearchList(IndexOf., "", 0);
     }
 }
