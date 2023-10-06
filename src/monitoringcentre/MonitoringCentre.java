@@ -66,7 +66,7 @@ public class MonitoringCentre {
     //TODO getLista del nome dei centri (returna array di string)
 
     private String[] getCentri(){
-        String[] list;
+        String[] list = null;
         //TODO ricerca centri
         return list;
     }
