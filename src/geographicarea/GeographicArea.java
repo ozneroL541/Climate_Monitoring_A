@@ -453,6 +453,6 @@ public class GeographicArea {
         Integer[] a;
         */
         // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf.country_code, "IT", 0);
+        GeographicArea.SearchList(IndexOf.country_code, "", 0);
     }
 }
