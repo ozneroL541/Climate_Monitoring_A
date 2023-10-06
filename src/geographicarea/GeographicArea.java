@@ -307,14 +307,16 @@ public class GeographicArea {
         // Output Integer array
         Integer [] lines = new Integer[1];
         // Minimum run constant
-        final int min_run = 1;
+        final int min_run = 10;
         // Huge number of lines
-        final int huge = 1000;
+        final int huge = 250;
         // Search
         switch (col_index) {
             // Univocal item
             case IndexOf.geoname_id:
                 lines = ricercaPerID(arg);
+                // Impossible to have more than one case
+                runtime_print = -1;
                 break;
             // Multiple, but few, items
             case IndexOf.name:
@@ -359,23 +361,33 @@ public class GeographicArea {
             String ans = "N";
             do {
                 for ( l = 0; l < limit && i < lines.length; i++) {
+                    // Print runtime the string
                     System.out.println(RunTimeLine(lines[i], i + 1 ));
+                    // Increase limit counter
                     l++;
                 }
-                // Input Scanner
-                Scanner sc = new Scanner(System.in);
-                // Output for Scanner
-                System.out.print("Vuoi stamparne ancora? ");
-                // Input
-                ans = sc.next();
-                // Up all the letters
-                ans = ans.toUpperCase();
-                // If quit, exit
-                if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
+                // If you can still pront something
+                if ( i < lines.length ) {
+                    // Input Scanner
+                    Scanner sc = new Scanner(System.in);
+                    // Output for Scanner
+                    System.out.print("\nContinuare l'elenco(S/N)? ");
+                    // Input
+                    ans = sc.next();
+                    // Up all the letters
+                    ans = ans.toUpperCase();
+                    // If quit, exit
+                    if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
+                        // Exit
+                        l = -1;
+                        // Close input scanner
+                        sc.close();
+                    }
+                    // Add a line
+                    System.out.println();
+                } else
+                    // Exit the loop
                     l = -1;
-                    // Close input scanner
-                    sc.close();
-                }
             } while ( l >= 0);
         } else
             System.out.println(toList(lines));
@@ -419,7 +431,7 @@ public class GeographicArea {
         // Put a head
             out += "N\tGeoname ID\tName\t\tASCII Name\tCountry Code\tCountry Name\tCoordinates\n";
         // Write the index
-        out += index;
+        out += String.format("%5d", index);
         //Cut too long names
         String[] nam = new String[3];
         nam[0] = ga.getName();
@@ -441,6 +453,6 @@ public class GeographicArea {
         Integer[] a;
         */
         // Modifica gli argomenti a questo metodo
-        GeographicArea.SearchList(IndexOf.country_code, "", 0);
+        GeographicArea.SearchList(IndexOf.country_code, "IT", 0);
     }
 }
