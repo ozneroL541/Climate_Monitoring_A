@@ -21,6 +21,7 @@ import src.research.Research;
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
  * @version 0.0.3
+ * @version 0.0.2
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -66,11 +67,20 @@ public class MonitoringCentre {
     //TODO getLista del nome dei centri (returna array di string)
 
 
-
     //TODO aggiungere un'area ad un centro già esistente
 
+    private String[] getCentri(){
+        String[] list = null;
+        //TODO ricerca centri
+        return list;
+    }
 
-
+    //TODO aggiungere un'area ad un centro già esistente
+  
+    private void addArea(String area){
+        //TODO controllo esistenza del centro
+        //TODO aggiunta area 
+    }
 
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         String s = nome + ",";
