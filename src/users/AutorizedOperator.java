@@ -32,8 +32,8 @@ import src.research.Research;
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
- * @author Lorenzo Radice
- * @version 0.0.0
+ * @author Giacomo Paredi
+ * @version 0.0.1
  */
 public class AutorizedOperator extends User {
     // Name
@@ -167,7 +167,7 @@ public class AutorizedOperator extends User {
         }else{
             //TODO
             //migliorare?
-            System.out.println("Errore");
+            System.err.println("Errore");
             return false;
         }
     }
@@ -181,7 +181,7 @@ public class AutorizedOperator extends User {
                 file.createNewFile();
                 aggiungiOperatore();
             } catch (IOException e) {
-                System.out.println("Errore nella creazione del file");
+                System.err.println("Errore nella creazione del file");
             }
             id=1;
         }else{
