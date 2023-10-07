@@ -230,21 +230,26 @@ public class GeographicArea {
             out = new Integer[0];
             // Set range to 1km
             double err = 1;
-            // Increaser multiplicator
-            double inc = 1;
             // Set error limit
-            double limit = 10000;
+            final double limit = 7500.00;
             // While there is no point of interest
             while ( out.length <= 0 && err < limit ) {
                 // Search the nearest point
                 out = Research.CoordinatesAdvanced(file, IndexOf.coordinates, coo, err);
-                // Increase the range
-                err += inc;
-                // Increase the increment: the increment is not linear
-                inc += err;
+                // Double the range
+                err *= 2;
+                /*
+                if ( err < 1000 )
+                    // Double the range
+                    err *= 2;
+                else
+                // Increase linearly
+                    err += 250;
+                */
             }
             // If the error is bigger than the security limit abort
             if ( err > limit ){
+                System.err.println("Nessuna Area Geografica nel raggio di " + limit + "km");
                 return null;
             }
             // Return the output
@@ -334,7 +339,7 @@ public class GeographicArea {
         // Minimum run constant
         final int min_run = 10;
         // Huge number of lines
-        final int huge = 250;
+        final int huge = 20;
         // Search
         switch (col_index) {
             // Univocal item
@@ -507,6 +512,6 @@ public class GeographicArea {
         }
     }
     public static void main(String[] args) {
-        GeographicArea.SearchList(IndexOf.coordinates, "14 , 64", 0);        
+        GeographicArea.SearchList(IndexOf.coordinates, "-14 , 64", 0);        
     }
 }
