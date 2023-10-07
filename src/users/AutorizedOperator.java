@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
+// TODO: Remove and pass everything throw research
 import com.opencsv.CSVReader;
 
 import javax.annotation.processing.SupportedOptions;
