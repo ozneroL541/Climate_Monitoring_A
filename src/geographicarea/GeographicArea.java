@@ -491,6 +491,7 @@ public class GeographicArea {
         for ( i = 0; i < ind.length; i++) {
             s += String.format("%2d - %s\n", ind[i], col_names[i]);
         }
+        s = s.substring(0, s.length() -2 );
         // Print Menu
         System.out.println(s);
     }
