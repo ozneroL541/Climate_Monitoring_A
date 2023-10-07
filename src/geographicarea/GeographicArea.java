@@ -511,7 +511,4 @@ public class GeographicArea {
             System.out.println(s);
         }
     }
-    public static void main(String[] args) {
-        GeographicArea.SearchList(IndexOf.coordinates, "-14 , 64", 0);        
-    }
 }
