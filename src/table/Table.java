@@ -12,7 +12,7 @@ package src.table;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.0.0
+ * @version 0.0.1
  */
 public class Table {
     // Number of categories
@@ -34,9 +34,9 @@ public class Table {
      */
     public Table( short[] s ) {
         // If the lenght of the array is not equals to the number of the categories lunch an exception
-        if ( s.length != this.n_categories ) {
-            // TODO
-            // Exception because the lenght is not valid
+        if ( s == null || s.length != this.n_categories ) {
+            // Error output because the lenght is not valid
+            System.err.println("Errore: lunghezza array valori parametri tabella errata.");
         } else {
             // For every category assign the correct score
             for ( short i = 0; i < this.n_categories; i++) {
@@ -45,8 +45,8 @@ public class Table {
                     this.scores[i] = s[i];
                     // Else lunch an exception
                 } else {
-                    // TODO
                     // Exception, scores must be between 1 and 5
+                    System.err.println("Errore: valori fuori intervallo(1-5).");
                 }
             }
         }
@@ -62,12 +62,12 @@ public class Table {
      */
     public Table( short[] s, String[] note ) {
         // If the lenght of the arraies is not equals to the number of the categories lunch exceptions
-        if ( s.length != this.n_categories ) {
-            // TODO
+        if ( s == null || s.length != this.n_categories ) {
             // Exception because the lenght is not valid
-        } else if ( note.length != n_categories ) {
-            // TODO
+            System.err.println("Errore: lunghezza array valori parametri tabella errata.");
+        } else if ( note == null || note.length != n_categories ) {
             // Exception because the lenght is not valid
+            System.err.println("Errore: numero valori note tabella errati.");
         } else {
             // For every category
             for ( short i = 0; i < this.n_categories; i++) {
@@ -76,15 +76,15 @@ public class Table {
                     this.scores[i] = s[i];
                     // If the string is less than 256 assign it
                     if ( note[i].length() > 256 ) {
-                        // TODO
                         // Exception, note must be 256 character or less
+                        System.err.println("Lunghezza nota errata.\nLunghezza massima: 256 caratteri.");
                     } else {
                         // Assign the note
                         this.notes = note;
                     }
                 } else {
-                    // TODO
                     // Exception, scores must be between 1 and 5
+                    System.err.println("Errore: i valori fuori intervallo(1-5).");
                 }
             }
         }
