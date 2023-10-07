@@ -485,15 +485,20 @@ public class GeographicArea {
         ind[i++] += IndexOf.country_name;
         ind[i++] += IndexOf.coordinates;
         ind[i++] += IndexOf.generic_name;
-        // Output String
-        String s = "";
-        // Create the Option menu
-        for ( i = 0; i < ind.length; i++) {
-            s += String.format("%2d - %s\n", ind[i], col_names[i]);
+        // Error catcher
+        if ( ind.length != col_names.length ) {
+            System.out.println("Errore Opzioni Area Geografica.");
+        } else {
+            // Output String
+            String s = "";
+            // Create the Option menu
+            for ( i = 0; i < ind.length; i++) {
+                s += String.format("%2d - %s\n", ind[i], col_names[i]);
+            }
+            s = s.substring(0, s.length() -2 );
+            // Print Menu
+            System.out.println(s);
         }
-        s = s.substring(0, s.length() -2 );
-        // Print Menu
-        System.out.println(s);
     }
     public static void main(String[] args) {
         GeographicArea.printIndexesMenu();
