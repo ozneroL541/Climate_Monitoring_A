@@ -20,7 +20,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class GeographicArea {
     // Geoname ID
@@ -106,6 +106,7 @@ public class GeographicArea {
     public static Integer[] ricercaPerID( String id ) {
         // Output array
         Integer [] o = new Integer[1];
+        // Try parsing
         try {
             // Research
             o[0] = ricercaPerID(Integer.parseInt(id));
@@ -158,6 +159,9 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     public static Integer[] ricercaPerCodiceNazione(String c_c){
+        if ( ! ( c_c.length() < 3 )) {
+            System.err.println("Errore. Lunghezza Codice Nazione errata.");
+        }
         return Research.AllStringInCol(file, IndexOf.country_code, c_c);
     }
     /**
@@ -191,21 +195,21 @@ public class GeographicArea {
         // If coordinates do not exist abort
         if (coo == null) {
             // Error message
-            System.out.println("Formato coordinate incorretto.");
+            System.err.println("Formato coordinate incorretto.");
             //Exit
             return null;
         }
         // If coordinates are less than 2 abort
         if ( coo.length != 2 ) {
             // Error message
-            System.out.println("Errore coordinate.");
+            System.err.println("Errore coordinate.");
             // Exit
             return null;
         }
         // If the coordinates are not in the range of the Earth
         if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
             // Error message
-            System.out.println("Valori coordinate errati.");
+            System.err.println("Valori coordinate errati.");
             // Exit
             return null;
         }
@@ -365,7 +369,7 @@ public class GeographicArea {
                 break;
             default:
                 // Error
-                System.out.println("Errore: codice lista inesistente");
+                System.err.println("Errore: codice lista inesistente");
                 return;
         }
         // Print if there is something
@@ -391,12 +395,14 @@ public class GeographicArea {
                         // Increase limit counter
                         l++;
                     }
+                    // Print remaining resoults
+                    System.out.println("Risultati rimanenti: " + ( lines.length - i ));
                     // If you can still pront something
                     if ( i < lines.length ) {
                         // Input Scanner
                         Scanner sc = new Scanner(System.in);
                         // Output for Scanner
-                        System.out.print("\nContinuare l'elenco(S/N)? ");
+                        System.out.print("Continuare l'elenco(S/N)? ");
                         // Input
                         ans = sc.next();
                         // Up all the letters
@@ -487,7 +493,7 @@ public class GeographicArea {
         ind[i++] += IndexOf.generic_name;
         // Error catcher
         if ( ind.length != col_names.length ) {
-            System.out.println("Errore Opzioni Area Geografica.");
+            System.err.println("Errore Opzioni Area Geografica.");
         } else {
             // Output String
             String s = "";
@@ -495,12 +501,12 @@ public class GeographicArea {
             for ( i = 0; i < ind.length; i++) {
                 s += String.format("%2d - %s\n", ind[i], col_names[i]);
             }
-            s = s.substring(0, s.length() -2 );
+            s = s.substring(0, s.length() -1 );
             // Print Menu
             System.out.println(s);
         }
     }
     public static void main(String[] args) {
-        GeographicArea.printIndexesMenu();
+        GeographicArea.SearchList(IndexOf.coordinates, "14 , 64", 0);        
     }
 }
