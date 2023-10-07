@@ -445,7 +445,7 @@ public class GeographicArea {
         }
         return out;
     }
-    // Testing Runtime List
+    // Runtime List
     private static String RunTimeLine( Integer line, int index ){
         GeographicArea ga = new GeographicArea(line);
         // Output string
