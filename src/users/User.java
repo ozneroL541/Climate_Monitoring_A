@@ -8,6 +8,7 @@
 
 package src.users;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import src.geographicarea.GeographicArea;
@@ -16,7 +17,7 @@ import src.geographicarea.GeographicArea;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class User {
     /**
@@ -29,15 +30,17 @@ public class User {
      * Permette all'utente di effettuare la ricerca di aree geografiche.
      * @author Lorenzo Radice
      */
-    public void Ricerca() {
+    public static void Ricerca() {
         // Loop exit variable
         boolean exit = true;
         // Input integer
         int in = -1;
+        // Input
+        Scanner sc = new Scanner(System.in);
         // While exit is false
         do {
             // Input
-            try (Scanner sc = new Scanner(System.in)) {
+            try {
                 // Print indexes menu
                 GeographicArea.printIndexesMenu();
                 // Output
@@ -46,6 +49,8 @@ public class User {
                 System.out.print  ("Inserire il codice: ");
                 // Input integer
                 in = sc.nextInt();
+                // Collect trash
+                sc.nextLine();
                 // If the chosen integer exist 
                 if (GeographicArea.IndexExist(in)) {
                     // Research Argument
@@ -57,8 +62,12 @@ public class User {
                         arg = sc.nextLine();
                         // If the argument is correct
                         if (GeographicArea.argumentCorrect(arg, in)) {
+                            // New Line
+                            System.out.println();
                             // Search
                             GeographicArea.SearchList(in, arg, 0);
+                            // Exit true
+                            exit = true;
                         } else {
                             // Output
                             System.out.print("Reinserire il parametro: ");
@@ -69,14 +78,32 @@ public class User {
                 } else {
                     // Error output
                     System.out.println("L'indice selezionato non è disponibile.");
-                    System.out.println("");
+                    System.out.println();
                     // Not exit
                     exit = false;
                 }
+            } catch ( InputMismatchException e) {
+                // Reset input scanner
+                sc.nextLine();
+                // Error Output
+                System.err.println("Inserimento non valido.\nInserire uno dei numeri mostrati per selezionare un'opzione.");
+                // New line
+                System.out.println();
+                // Not exit
+                exit = false;
             } catch (Exception e) {
-                // Input Exception
+                // Output Exception
                 e.printStackTrace();
+                // Exit 
+                exit = true;
             }
         } while (!exit);
+        // Close Scanner
+        sc.close();
     }
+
+    public static void main(String[] args) {
+        User.Ricerca();
+    }
+
 }

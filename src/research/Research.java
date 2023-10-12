@@ -16,7 +16,7 @@ import com.opencsv.CSVReader;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class Research {
     /**
@@ -41,8 +41,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
+            if ( nextRecord.length <= col ) {
+                // Error Output
+                System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\nExit: -2");
+                // Error
                 return -2;
+            }
             // First line will not contain any researched element so, increment and go on
             // Line increment
             line++;

@@ -20,7 +20,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.3.0
+ * @version 0.3.1
  */
 public class GeographicArea {
     // Geoname ID
@@ -110,20 +110,20 @@ public class GeographicArea {
         try {
             // Research
             o[0] = ricercaPerID(Integer.parseInt(id));
+            // ID not found
+            if ( o[0] == null || o [0] == -1 ) {
+                // Return null
+                return null;
+            }
             // Integer is valid only if it is positive
             if ( o[0] < 0 ) {
                 // Error output
                 System.err.println("Il Geoname ID inserito non è valido.");
                 // Return nothing
                 return null;
-            }
-            // If the output is valid
-            if ( o[0] >= 0 )
+            } else
                 // Return the output
                 return o;
-            else
-                // Return nothing
-                return null;
         } catch (Exception e) {
             // Error Output
             System.err.println("Il Geoname ID deve essere formato solo da numeri.\nIl Geoname ID inserito è errato.");
@@ -550,6 +550,10 @@ public class GeographicArea {
      * @return true se l'argomento è valido
      */
     public static boolean argumentCorrect( String str, int col_index ) {
+        // If str in null exit
+        if (str == null || str.length() < 1) {
+            return false;
+        }
         // Search
         switch (col_index) {
             // Check Geoname ID
@@ -561,7 +565,7 @@ public class GeographicArea {
                     // Integer is valid only if it is positive
                     if ( id < 0 ) {
                         // Error output
-                        System.out.println("Il Geoname ID inserito non è valido.");
+                        System.out.println( "Il Geoname ID inserito non è valido.");
                         // Return false
                         return false;
                     }
@@ -597,15 +601,20 @@ public class GeographicArea {
             // Check Country Code
             case IndexOf.country_code:
                 // Check cc lenght
-                if ( str.length() == 2 ) {
-                    // Return True
-                    return true;
-                } else {
+                if ( str.length() != 2 ) {
                     // Error Ouptut
                     System.out.println("Lunghezza Country Code errata.");
                     System.out.println("Il Country Code deve essere di 2 caratteri.");
                     // Return False
                     return false;
+                } else if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
+                    // Error output
+                    System.out.println("Il codeice inserito deve essere formato solo da caratteri ASCII.");
+                    // Return False
+                    return false;
+                } else {
+                    // Return True
+                    return true;
                 }
             // Check Coordinates
             case IndexOf.coordinates:
