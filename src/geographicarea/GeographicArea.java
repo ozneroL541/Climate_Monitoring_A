@@ -13,8 +13,6 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.util.Scanner;
 
-import org.apache.commons.lang3.StringUtils;
-
 import src.research.Research;
 
 /**
