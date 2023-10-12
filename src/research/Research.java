@@ -60,7 +60,7 @@ public class Research {
             if ( nextRecord == null && ! found )
                 line = -1;
         }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
         }
         // Return the line
         return line;
@@ -104,7 +104,7 @@ public class Research {
             }
             creader.close();
         }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
         }
         // Create an array where store the list
         Integer[] out = new Integer[list.size()];
@@ -166,7 +166,7 @@ public class Research {
             }
             creader.close();
         }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
         }
         // Create an array where store the list
         Integer[] out = new Integer[list.size()];
@@ -241,7 +241,7 @@ public class Research {
             }
             creader.close();
         }catch(Exception e){ //to catch any exception inside try block
-            //e.printStackTrace();//used to print a throwable class along with other dataset class
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
         }
         return false;
     }
@@ -267,7 +267,7 @@ public class Research {
             // Return the record
             return nextRecord;
         }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
             return null;
         }
     }
@@ -304,7 +304,7 @@ public class Research {
             }
             creader.close();
         }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
         }
         // Return the record
         return out;
