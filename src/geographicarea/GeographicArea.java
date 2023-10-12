@@ -13,6 +13,8 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.StringUtils;
+
 import src.research.Research;
 
 /**
@@ -20,7 +22,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.2.2
+ * @version 0.3.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -86,13 +88,13 @@ public class GeographicArea {
         this.country_name = record[IndexOf.country_name];
         this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
-
     /**
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
      * @param id Geoname ID
      * @return Numero della riga
     */
     public static int ricercaPerID( int id ) {
+        // Translate id into string
         String is_str = ((Integer) id).toString();
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
@@ -110,6 +112,13 @@ public class GeographicArea {
         try {
             // Research
             o[0] = ricercaPerID(Integer.parseInt(id));
+            // Integer is valid only if it is positive
+            if ( o[0] < 0 ) {
+                // Error output
+                System.err.println("Il Geoname ID inserito non è valido.");
+                // Return nothing
+                return null;
+            }
             // If the output is valid
             if ( o[0] >= 0 )
                 // Return the output
@@ -118,6 +127,9 @@ public class GeographicArea {
                 // Return nothing
                 return null;
         } catch (Exception e) {
+            // Error Output
+            System.err.println("Il Geoname ID deve essere formato solo da numeri.\nIl Geoname ID inserito è errato.");
+            // Return nothing
             return null;
         }
     }
@@ -159,10 +171,7 @@ public class GeographicArea {
      * @return Numero delle righe
      */
     public static Integer[] ricercaPerCodiceNazione(String c_c){
-        if ( ! ( c_c.length() < 3 )) {
-            System.err.println("Errore. Lunghezza Codice Nazione errata.");
-        }
-        return Research.AllStringInCol(file, IndexOf.country_code, c_c);
+        return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
     }
     /**
      * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui è contenuto
@@ -509,6 +518,125 @@ public class GeographicArea {
             s = s.substring(0, s.length() -1 );
             // Print Menu
             System.out.println(s);
+        }
+    }
+    /**
+     * Controlla se nell'indice selezionato esiste.
+     * @param in input
+     * @return true se l'indice esiste
+     */
+    public static boolean IndexExist( int in ) {
+        // If index exist return true
+        if (in == IndexOf.geoname_id)
+            return true;
+        if (in == IndexOf.real_name)
+            return true;
+        if (in == IndexOf.ascii_name)
+            return true;
+        if (in == IndexOf.country_code)
+            return true;
+        if (in == IndexOf.country_name)
+            return true;
+        if (in == IndexOf.coordinates)
+            return true;
+        if (in == IndexOf.generic_name)
+            return true;
+        // The index does not exist: return false
+        return false;
+    }
+    /**
+     * Controlla la correttezza dell'argomento.
+     * Se l'argomento è valido restituisce true altrimenti false.
+     * @param str argomento
+     * @param col_index indice della colonna
+     * @return true se l'argomento è valido
+     */
+    public static boolean argumentCorrect( String str, int col_index ) {
+        // Search
+        switch (col_index) {
+            // Check Geoname ID
+            case IndexOf.geoname_id:
+                // Try parsing
+                try {
+                    // Research
+                    Integer id = Integer.parseInt(str);
+                    // Integer is valid only if it is positive
+                    if ( id < 0 ) {
+                        // Error output
+                        System.out.println("Il Geoname ID inserito non è valido.");
+                        // Return false
+                        return false;
+                    }
+                // Parsing Error
+                } catch (Exception e) {
+                    // Error output
+                    System.out.println("Il Geoname ID deve essere formato solo da numeri.\nIl Geoname ID inserito è errato.");
+                    // Return false
+                    return false;
+                }
+                // Return true
+                return true;
+            // Check Real Name
+            case IndexOf.real_name:
+            // Check Generic name
+            case IndexOf.generic_name:
+                // Return True
+                return true;
+            // Check ASCII name
+            case IndexOf.ascii_name:
+            // Check Country Name
+            case IndexOf.country_name:
+                // If is ASCII return true
+                if (Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
+                    // Return True
+                    return true;
+                } else {
+                    // Error output
+                    System.out.println("Il nome inserito deve essere formato solo da caratteri ASCII.");
+                    // Return False
+                    return false;
+                }
+            // Check Country Code
+            case IndexOf.country_code:
+                // Check cc lenght
+                if ( str.length() == 2 ) {
+                    // Return True
+                    return true;
+                } else {
+                    // Error Ouptut
+                    System.out.println("Lunghezza Country Code errata.");
+                    System.out.println("Il Country Code deve essere di 2 caratteri.");
+                    // Return False
+                    return false;
+                }
+            // Check Coordinates
+            case IndexOf.coordinates:
+                // Try Parsing
+                try {
+                    // Pass to double
+                    double [] coo = Research.parseCoordinates(str);
+                    // If the coordinates are not in the range of the Earth
+                    if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
+                        // Error message
+                        System.out.println("Valori coordinate errati.");
+                        System.out.println("La latitudine deve essere compresa tra -90.00 e 90.00.");
+                        System.out.println("La longitudine deve essere compresa tra -180.00 e 180.00.");
+                        // Return False
+                        return false;
+                    }
+                } catch (Exception e) {
+                    // Error message
+                    System.out.println("Formato Coordinate incorretto.");
+                    System.out.println("Il formato delle coordinate deve essere il seguente: \"lat, lon\".");
+                    // Return False
+                    return false;
+                }
+                // Return True
+                return true;
+            default:
+                // Error
+                System.err.println("Errore: codice lista inesistente");
+                return false;
         }
     }
 }
