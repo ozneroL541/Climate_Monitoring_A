@@ -86,24 +86,24 @@ public class GeographicArea {
         this.country_name = record[IndexOf.country_name];
         this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
-    /**
+    /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
      * @param id Geoname ID
      * @return Numero della riga
     */
-    public static int ricercaPerID( int id ) {
+    private static int ricercaPerID( int id ) {
         // Translate id into string
         String is_str = ((Integer) id).toString();
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
-    /**
+    /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * in un array di Integer di un elemento.
      * Se non viene trovato nulla ritorna null.
      * @param id Geoname ID
      * @return Numero della riga
      */
-    public static Integer[] ricercaPerID( String id ) {
+    private static Integer[] ricercaPerID( String id ) {
         // Output array
         Integer [] o = new Integer[1];
         // Try parsing
@@ -131,7 +131,7 @@ public class GeographicArea {
             return null;
         }
     }
-    /**
+    /*
      * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param nome Nome
      * @return Numeri elle righe
@@ -139,7 +139,7 @@ public class GeographicArea {
     private static Integer[] ricercaPerRealeNome(String nome){
         return Research.AllStringInCol(file, IndexOf.real_name, nome);
     }
-    /**
+    /*
      * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param ascii_n Nome in formato ASCII
      * @return Numeri delle righe
@@ -147,12 +147,12 @@ public class GeographicArea {
     private static Integer[] ricercaPerASCIINome(String ascii_n){
         return Research.AllStringInCol(file, IndexOf.ascii_name, ascii_n);
     }
-    /**
+    /*
      * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param n Nome
      * @return Numeri delle righe
      */
-    public static Integer[] ricercaPerNomeGenerico( String n ){
+    private static Integer[] ricercaPerNomeGenerico( String n ){
         // If is ASCII
         if ( Charset.forName("US-ASCII").newEncoder().canEncode(n) ) {
             // Use only ASCII research
@@ -163,42 +163,42 @@ public class GeographicArea {
             return ricercaPerRealeNome(n);
         }
     }
-    /**
+    /*
      * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param c_c Country Code
      * @return Numeri delle righe
      */
-    public static Integer[] ricercaPerCodiceNazione(String c_c){
+    private static Integer[] ricercaPerCodiceNazione(String c_c){
         return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
     }
-    /**
+    /*
      * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param c_n Country Name
      * @return Numeri delle righe
      */
-    public static Integer[] ricercaPerNazione(String c_n){
+    private static Integer[] ricercaPerNazione(String c_n){
         return Research.AllStringInCol(file, IndexOf.country_name, c_n);
     }
-    /**
+    /*
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
      * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
      * @param c Coordinates
      * @return Numeri delle righe
      * @see ricercaPerCoordinate
      */
-    public static Integer[] ricercaPerCoordinate( String c ){
+    private static Integer[] ricercaPerCoordinate( String c ){
         // Pass to double
         double [] coordinates = Research.parseCoordinates(c);
         // Use search with doubles
         return ricercaPerCoordinate(coordinates);
     }
-    /**
+    /*
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
      * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
      * @param coo Coordinates
      * @return Numeri delle righe
      */
-    public static Integer[] ricercaPerCoordinate( double [] coo ){
+    private static Integer[] ricercaPerCoordinate( double [] coo ){
         // If coordinates do not exist abort
         if (coo == null) {
             // Error message
@@ -263,39 +263,39 @@ public class GeographicArea {
             return out;
         }
     }
-    /**
+    /*
      * Ritorna il Geoname ID come int
      * @return geoname_id
      */
-    public int getGeoname_id() {
+    private int getGeoname_id() {
         return this.geoname_id;
     }
-    /**
-     *  Ritorna il Name come String
+    /*
+     * Ritorna il Name come String
      * @return name
      */
-    public String getName() {
+    private String getName() {
         return this.name;
     }
-    /**
+    /*
      * Ritorna ASCII Name come String
      * @return ascii_name
      */
-    public String getAscii_name() {
+    private String getAscii_name() {
         return this.ascii_name;
     }
-    /**
+    /*
      * Ritorna Country Code come String
      * @return country_code
      */
-    public String getCountry_code() {
+    private String getCountry_code() {
         return this.country_code;
     }
-    /**
+    /*
      * Ritorna Country Name come String
      * @return country_name
      */
-    public String getCountry_name() {
+    private String getCountry_name() {
         return this.country_name;
     }
     /**
@@ -307,13 +307,13 @@ public class GeographicArea {
     public double[] getCoordinates() {
         return this.coordinates;
     }
-    /**
+    /*
      * Ritorna Coordinates come String.
      * Il formato &egrave il seguente:
      * "<em>latitudine, longitudine</em>"
      * @return coordinate
      */
-    public String getCoordinatestoString() {
+    private String getCoordinatestoString() {
         // Copy coordinates
         String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);;
         s = s.replace(",", ".");
