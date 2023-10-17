@@ -263,39 +263,39 @@ public class GeographicArea {
             return out;
         }
     }
-    /*
+    /**
      * Ritorna il Geoname ID come int
      * @return geoname_id
      */
-    private int getGeoname_id() {
+    public int getGeoname_id() {
         return this.geoname_id;
     }
-    /*
+    /**
      * Ritorna il Name come String
      * @return name
      */
-    private String getName() {
+    public String getName() {
         return this.name;
     }
-    /*
+    /**
      * Ritorna ASCII Name come String
      * @return ascii_name
      */
-    private String getAscii_name() {
+    public String getAscii_name() {
         return this.ascii_name;
     }
-    /*
+    /**
      * Ritorna Country Code come String
      * @return country_code
      */
-    private String getCountry_code() {
+    public String getCountry_code() {
         return this.country_code;
     }
-    /*
+    /**
      * Ritorna Country Name come String
      * @return country_name
      */
-    private String getCountry_name() {
+    public String getCountry_name() {
         return this.country_name;
     }
     /**
@@ -307,13 +307,13 @@ public class GeographicArea {
     public double[] getCoordinates() {
         return this.coordinates;
     }
-    /*
+    /**
      * Ritorna Coordinates come String.
      * Il formato &egrave il seguente:
      * "<em>latitudine, longitudine</em>"
      * @return coordinate
      */
-    private String getCoordinatestoString() {
+    public String getCoordinatestoString() {
         // Copy coordinates
         String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);;
         s = s.replace(",", ".");
