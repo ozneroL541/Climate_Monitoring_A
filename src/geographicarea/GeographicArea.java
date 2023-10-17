@@ -166,7 +166,7 @@ public class GeographicArea {
     /**
      * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param c_c Country Code
-     * @return Numero delle righe
+     * @return Numeri delle righe
      */
     public static Integer[] ricercaPerCodiceNazione(String c_c){
         return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
@@ -174,7 +174,7 @@ public class GeographicArea {
     /**
      * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param c_n Country Name
-     * @return Numero delle righe
+     * @return Numeri delle righe
      */
     public static Integer[] ricercaPerNazione(String c_n){
         return Research.AllStringInCol(file, IndexOf.country_name, c_n);
@@ -183,8 +183,8 @@ public class GeographicArea {
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
      * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
      * @param c Coordinates
-     * @return Numero delle righe
-     * @see ricercaPerCoordinate(c)
+     * @return Numeri delle righe
+     * @see ricercaPerCoordinate
      */
     public static Integer[] ricercaPerCoordinate( String c ){
         // Pass to double
@@ -196,7 +196,7 @@ public class GeographicArea {
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
      * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
      * @param coo Coordinates
-     * @return Numero delle righe
+     * @return Numeri delle righe
      */
     public static Integer[] ricercaPerCoordinate( double [] coo ){
         // If coordinates do not exist abort
@@ -337,6 +337,9 @@ public class GeographicArea {
      * Il primo parametro si riferisce al tipo di ricerca.
      * Il secondo parametro &egrave l'argomento della ricerca.
      * Il terzo parametro &egrave il numero di aree da stampare in caso di lista troppo grande.
+     * Se <code>runtime_print</code> è 0 o negativo il numero di aree stampate sarà di valore fissato.
+     * Numero massimo di aree stampabili insieme:    20
+     * Numero di aree stampate in caso di <code>runtime_print == 0</code>:   10
      * @param col_index numero della ricerca
      * @param arg argomento da ricercare
      * @param runtime_print numero di item da stampare
@@ -440,12 +443,12 @@ public class GeographicArea {
             System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
         }
     }
-    /**
+    /*
      * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
      * @param lines righe
      * @return list
      */
-    public static String toList( Integer[] lines ) {
+    private static String toList( Integer[] lines ) {
         String out = "";
         // For every result
         for (int i = 0; i < lines.length; i++) {
@@ -544,7 +547,7 @@ public class GeographicArea {
         return false;
     }
     /**
-     * Controlla la correttezza dell'argomento.
+     * Controlla la correttezza dell'argomento, campo dell'area geografica.
      * Se l'argomento &egrave valido restituisce true altrimenti false.
      * @param str argomento
      * @param col_index indice della colonna
