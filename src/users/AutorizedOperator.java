@@ -31,7 +31,7 @@ import src.research.Research;
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
- * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
+ * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
  * @version 0.0.1
  */
@@ -306,9 +306,9 @@ public class AutorizedOperator extends User {
      * uno nuovo nella classe research, si può togliere l'import di
      * CSVReader rendendo il codice più leggero e pulito.
      * 2 - Cerchiamo di non usare metodi che stampano cose tramite
-     * System.out perché nel caso di debba cambiare l'output (ad 
+     * System.out perch&egrave nel caso di debba cambiare l'output (ad 
      * esempio passando ad un'interfaccia grafica o ad una console
-     * interattiva) è meno complicato.
+     * interattiva) &egrave meno complicato.
      * Per evitare questo il metodo può restituire una String
      * contenente l'output desiderato.
      */

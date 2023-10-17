@@ -16,7 +16,7 @@ import java.util.Scanner;
 import src.research.Research;
 
 /**
- * Un oggetto della class <code>GeographicArea</code>
+ * Un oggetto della classe <code>GeographicArea</code>
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
@@ -87,7 +87,7 @@ public class GeographicArea {
         this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
      * @param id Geoname ID
      * @return Numero della riga
     */
@@ -97,7 +97,7 @@ public class GeographicArea {
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
     /**
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * in un array di Integer di un elemento.
      * Se non viene trovato nulla ritorna null.
      * @param id Geoname ID
@@ -132,23 +132,23 @@ public class GeographicArea {
         }
     }
     /**
-     * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param nome Nome
-     * @return Numero delle righe
+     * @return Numeri elle righe
      */
     private static Integer[] ricercaPerRealeNome(String nome){
         return Research.AllStringInCol(file, IndexOf.real_name, nome);
     }
     /**
-     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param ascii_n Nome in formato ASCII
-     * @return Numero delle righe
+     * @return Numeri delle righe
      */
     private static Integer[] ricercaPerASCIINome(String ascii_n){
         return Research.AllStringInCol(file, IndexOf.ascii_name, ascii_n);
     }
     /**
-     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param n Nome
      * @return Numeri delle righe
      */
@@ -164,7 +164,7 @@ public class GeographicArea {
         }
     }
     /**
-     * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param c_c Country Code
      * @return Numero delle righe
      */
@@ -172,7 +172,7 @@ public class GeographicArea {
         return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
     }
     /**
-     * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui è contenuto
+     * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
      * @param c_n Country Name
      * @return Numero delle righe
      */
@@ -301,7 +301,7 @@ public class GeographicArea {
     /**
      * Ritorna Coordinates come array di double.
      * L'array contiene 2 elementi.
-     * Il primo elemento è la latitudine e il secondo è la longitudine.
+     * Il primo elemento &egrave la latitudine e il secondo &egrave la longitudine.
      * @return coordinates
      */
     public double[] getCoordinates() {
@@ -309,7 +309,7 @@ public class GeographicArea {
     }
     /**
      * Ritorna Coordinates come String.
-     * Il formato è il seguente:
+     * Il formato &egrave il seguente:
      * "latitudine, longitudine"
      * @return coordinate
      */
@@ -334,8 +334,8 @@ public class GeographicArea {
     /**
      * Cerca delle area geografiche e ne stampa la lista.
      * Il primo parametro si riferisce al tipo di ricerca.
-     * Il secondo parametro è l'argomento della ricerca.
-     * Il terzo parametro è il numero di aree da stampare in caso di lista troppo grande.
+     * Il secondo parametro &egrave l'argomento della ricerca.
+     * Il terzo parametro &egrave il numero di aree da stampare in caso di lista troppo grande.
      * @param col_index numero della ricerca
      * @param arg argomento da ricercare
      * @param runtime_print numero di item da stampare
@@ -544,10 +544,10 @@ public class GeographicArea {
     }
     /**
      * Controlla la correttezza dell'argomento.
-     * Se l'argomento è valido restituisce true altrimenti false.
+     * Se l'argomento &egrave valido restituisce true altrimenti false.
      * @param str argomento
      * @param col_index indice della colonna
-     * @return true se l'argomento è valido
+     * @return true se l'argomento &egrave valido
      */
     public static boolean argumentCorrect( String str, int col_index ) {
         // If str in null exit
