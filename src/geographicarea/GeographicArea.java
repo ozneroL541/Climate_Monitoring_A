@@ -39,13 +39,13 @@ public class GeographicArea {
     private final static File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
     // Indexes in CSV file
     private final static class IndexOf {
-        public final static int geoname_id = 0;
-        public final static int real_name = 1;
-        public final static int ascii_name = 2;
-        public final static int generic_name = 10;
-        public final static int country_code = 3;
-        public final static int country_name = 4;
-        public final static int coordinates = 5;
+        private final static int geoname_id = 0;
+        private final static int real_name = 1;
+        private final static int ascii_name = 2;
+        private final static int generic_name = 10;
+        private final static int country_code = 3;
+        private final static int country_name = 4;
+        private final static int coordinates = 5;
     }
     /**
      * Costruttore di Area Geografica
@@ -310,10 +310,11 @@ public class GeographicArea {
     /**
      * Ritorna Coordinates come String.
      * Il formato &egrave il seguente:
-     * "latitudine, longitudine"
+     * "<em>latitudine, longitudine</em>"
      * @return coordinate
      */
     public String getCoordinatestoString() {
+        // Copy coordinates
         String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);;
         s = s.replace(",", ".");
         s = s.replace("*", ",");
