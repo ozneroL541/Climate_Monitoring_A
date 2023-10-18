@@ -24,6 +24,10 @@ public class Research {
      * Questo metodo ricerca una stringa in un file CSV
      * in una determinata colonna e
      * restituisce la riga corrispondente alla sua prima occorrenza.
+     * In caso non venga trovata un'occorrenza restituisce: -1
+     * In caso la colonna in argomento sia maggiore delle colonne del file restituisce: -2
+     * In caso il file non esista restituisce -3
+     * Altri errori: -4
      * @param file file CSV
      * @param col colonna
      * @param str stringa
@@ -44,7 +48,7 @@ public class Research {
             // If columns are less than col exit code -2
             if ( nextRecord.length <= col ) {
                 // Error Output
-                System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\nExit: -2");
+                System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\n");
                 // Error
                 return -2;
             }
@@ -72,13 +76,13 @@ public class Research {
             // Error Output
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
             // Return null
-            return -2;
+            return -3;
         }catch(Exception e){
             // Print Error
             e.printStackTrace();
             System.err.println();
             // Return null
-            return -3;
+            return -4;
         }
         // Return the line
         return line;
