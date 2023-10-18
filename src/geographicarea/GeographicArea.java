@@ -20,7 +20,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.3.1
+ * @version 0.4.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -234,29 +234,23 @@ public class GeographicArea {
             return out;
         else {
             // Set out to null
-            out = new Integer[0];
+            out = null;
             // Set range to 1km
             double err = 1;
             // Set error limit
             final double limit = 7500.00;
             // While there is no point of interest
-            while ( out.length <= 0 && err < limit ) {
+            do {
                 // Search the nearest point
                 out = Research.CoordinatesAdvanced(file, IndexOf.coordinates, coo, err);
                 // Double the range
                 err *= 2;
-                /*
-                if ( err < 1000 )
-                    // Double the range
-                    err *= 2;
-                else
-                // Increase linearly
-                    err += 250;
-                */
-            }
+            } while ( out != null && out.length <= 0 && err < limit );
             // If the error is bigger than the security limit abort
             if ( err > limit ){
+                // Error Output
                 System.err.println("Nessuna Area Geografica nel raggio di " + limit + "km");
+                // Return null
                 return null;
             }
             // Return the output

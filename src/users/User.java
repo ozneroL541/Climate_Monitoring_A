@@ -101,8 +101,4 @@ public class User {
         // Close Scanner
         sc.close();
     }
-    // TODO Remove Test Main
-    public static void main(String[] args) {
-        User.Ricerca();
-    }
 }
