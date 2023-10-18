@@ -141,8 +141,17 @@ public class AutorizedOperator extends User {
         }while(!presenzaUserId(userid));
 
         int riga = ricercaPerUserId(userid);
+        // TODO: remove the following comment
+        /*
+         * Changed by Radice Lorenzo
+         * 
+         * I initialized record to null and add an if statment to assign it.
+         * As the Research.OneStringInCol(file, 0, userid()
+         * in case of error the exception should be checked before using another method
+         * which could cause the same exception twice uselessly.
+         */
         String[] record = null;
-        if(riga >= 0)
+        if(riga > 0)
             record = Research.getRecord(file, riga);
 
         if(record!=null){
@@ -334,7 +343,9 @@ public class AutorizedOperator extends User {
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
     }
-
+    /*TODO I think the following 4 methods are useless because they return a static method
+     * Lorenzo Radice
+    */
     //return true if the Fiscal Code is present in the file
     private static boolean presenzaCodiceFiscale(String cf) {
         return Research.isStringInCol(file, 3, cf);
