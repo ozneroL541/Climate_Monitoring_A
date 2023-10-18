@@ -9,6 +9,7 @@
 package src.research;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -107,8 +108,14 @@ public class Research {
                     line++;
             }
             creader.close();
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace(); //used to print a throwable class along with other dataset class
+        }catch(FileNotFoundException e){ // If file not found
+            String f_str = file.getName();
+            String f_path = file.getParent();
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
         }
         // Create an array where store the list
         Integer[] out = new Integer[list.size()];
