@@ -14,7 +14,7 @@ import java.nio.file.FileSystems;
 import java.util.Scanner;
 
 import src.research.Research;
-
+// TODO Make it work without data folder managing the exceptions
 /**
  * Un oggetto della classe <code>GeographicArea</code>
  * rappresenta un area geografica identificata con id,
