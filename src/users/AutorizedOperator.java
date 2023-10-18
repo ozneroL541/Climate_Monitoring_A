@@ -140,9 +140,10 @@ public class AutorizedOperator extends User {
             
         }while(!presenzaUserId(userid));
 
-        int riga=ricercaPerUserId(userid);
-
-        String[] record=Research.getRecord(file, riga);
+        int riga = ricercaPerUserId(userid);
+        String[] record = null;
+        if(riga >= 0)
+            record = Research.getRecord(file, riga);
 
         if(record!=null){
             System.out.print("Inserire la password: ");
@@ -351,6 +352,7 @@ public class AutorizedOperator extends User {
 
     //return the line of the record that match the userid
     private static int ricercaPerUserId(String userid){
+        //TODO manage exception: if error this function now return negative numbers
         return Research.OneStringInCol(file, 0, userid);
     }
 

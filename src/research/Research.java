@@ -9,6 +9,7 @@
 package src.research;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ import com.opencsv.CSVReader;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.2.1
+ * @version 0.3.0
  */
 public class Research {
     /**
@@ -63,8 +64,21 @@ public class Research {
             // If the line hasn't been found return -1 as error
             if ( nextRecord == null && ! found )
                 line = -1;
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace(); //used to print a throwable class along with other dataset class
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return -2;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return -3;
         }
         // Return the line
         return line;
@@ -107,8 +121,21 @@ public class Research {
                     line++;
             }
             creader.close();
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace(); //used to print a throwable class along with other dataset class
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
         }
         // Create an array where store the list
         Integer[] out = new Integer[list.size()];
@@ -169,8 +196,15 @@ public class Research {
                     line++;
             }
             creader.close();
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace(); //used to print a throwable class along with other dataset class
+        }catch(FileNotFoundException e){ // If file not found
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
         }
         // Create an array where store the list
         Integer[] out = new Integer[list.size()];
@@ -270,8 +304,20 @@ public class Research {
             creader.close();
             // Return the record
             return nextRecord;
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace(); //used to print a throwable class along with other dataset class
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
             return null;
         }
     }
