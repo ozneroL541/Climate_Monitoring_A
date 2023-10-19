@@ -84,11 +84,11 @@ public class AutorizedOperator extends User {
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
             }else{
-                if(presenzaCodiceFiscale(codFisc)){
+                if(Research.isStringInCol(file, 3, codFisc)){
                     System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                 }
             }
-        }while(!ControlloCodiceFiscale(codFisc) || presenzaCodiceFiscale(codFisc));
+        }while(!ControlloCodiceFiscale(codFisc) || Research.isStringInCol(file, 3, codFisc));   //check if fiscal code is correct and if it is unique in the file
         // Insert email
         System.out.print("Inserire la mail: ");
         String email="";
@@ -97,11 +97,11 @@ public class AutorizedOperator extends User {
             if(!ControlloEmail(email)){
                 System.out.print("Email non valida.\nReinserire: ");
             }else{
-                if(presenzaEmail(email)){
+                if(Research.isStringInCol(file, 4, email)){
                     System.out.print("Email già utilizzata.\nReinserire: ");
                 }
             }
-        }while(!ControlloEmail(email) || presenzaEmail(email));
+        }while(!ControlloEmail(email) || Research.isStringInCol(file, 4, email));   //check if email is correct and if it is unique in the file
 
         //insert monitoring centre
         //TODO
@@ -134,13 +134,15 @@ public class AutorizedOperator extends User {
         do{
             userid=in.nextLine();
             
-            if(!presenzaUserId(userid)){
+            //check if userdId exist in the file
+            if(!Research.isStringInCol(file, 0, userid)){
                 System.out.print("User-Id non riconosciuto.\nReinserire: ");
             }
             
-        }while(!presenzaUserId(userid));
+        }while(!Research.isStringInCol(file, 0, userid));   //loop if userdId does not exist in the file
 
-        int riga = ricercaPerUserId(userid);
+        //return the column where UserId is
+        int riga=Research.OneStringInCol(file, 0, userid);
         // TODO: remove the following comment
         /*
          * Changed by Radice Lorenzo
