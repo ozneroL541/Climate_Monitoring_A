@@ -134,20 +134,37 @@ public class AutorizedOperator extends User {
     //java doc
     //return true if authentication is successful
     //TODO
-    //cambiare il tipo del ritorno in int per avere più codici di errore(?)
+    /*cambiare il tipo del ritorno in int per avere più codici di errore(?)
+     * Ritornare vari numeri negativi a seconda dell'errore.
+    */
     public boolean autenticazione() {
+        // If file doesn't exist exit
+        if ( ! file.exists() ){
+            // Error Output
+            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
+            // Error return
+            return false;
+        }
+        // Attempt limit
+        final int limit = 3;
+        // Counter 
+        int c = 0;
         //TODO
         //migliorare la grafica
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
         String userid = in.nextLine();
-        
         // loop if userdId does not exist in the file
-        while(!Research.isStringInCol(file, 0, userid)) {
+        while(!Research.isStringInCol(file, 0, userid) && c < limit) {
             System.out.print("User-ID non riconosciuto.\nReinserire: ");
             userid = in.nextLine();
+            c++;
         }
-
+        // Check before go on
+        if ( c > limit ) {
+            // Exit
+            return false;
+        }
         //return the column where UserId is
         int riga=Research.OneStringInCol(file, 0, userid);
         // Initialize record
