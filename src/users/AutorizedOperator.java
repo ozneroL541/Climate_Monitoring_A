@@ -82,7 +82,10 @@ public class AutorizedOperator extends User {
         System.out.print("Inserire il codice fiscale: ");
         String codFisc="";
         do{
+            // Input Fiscal Code
             codFisc=in.nextLine();
+            // Upper case Fiscal Code
+            codFisc = codFisc.toUpperCase();
             //check if fiscal code is correct
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
