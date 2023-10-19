@@ -67,6 +67,8 @@ public class AutorizedOperator extends User {
     //TODO
     //java doc
     public static void registrazione() {
+        // Exit loop
+        boolean exit = false;
         //TODO
         //migliorare la grafica
         System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
@@ -84,28 +86,26 @@ public class AutorizedOperator extends User {
             //check if fiscal code is correct
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
-            }else{
-                //check if fiscal code is unique in the file
-                if(Research.isStringInCol(file, 3, codFisc)){
-                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
-                }
+            }else if(Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+                System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+            } else {
+                // Exit the loop
+                exit = true;
             }
-        }while(!ControlloCodiceFiscale(codFisc) || Research.isStringInCol(file, 3, codFisc));   //loop if fiscal code is wrong or if it is not unique in the file
+        }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
         // Insert email
         System.out.print("Inserire l'indirizzo e-mail: ");
         String email="";
+        exit = false;
         do{
             email=in.nextLine();
-             //check if email is correct
+            //check if email is correct
             if(!ControlloEmail(email)){
                 System.out.print("Indirizzo non valido.\nReinserire: ");
-            }else{
-                 //check if email is unique in the file
-                if(Research.isStringInCol(file, 4, email)){
-                    System.out.print("Indirizzo già utilizzato.\nReinserire: ");
-                }
+            }else if(Research.isStringInCol(file, 4, email)){
+                System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
             }
-        }while(!ControlloEmail(email) || Research.isStringInCol(file, 4, email));   //loop if email is wrong and if it is not unique in the file
+        } while( ! exit );   //loop if email is wrong and if it is not unique in the file
 
         //insert monitoring centre
         //TODO
@@ -121,7 +121,7 @@ public class AutorizedOperator extends User {
         // Add the operator to the file
         aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
         
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", userid) + " e la password scelta");
+        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente UserID: " + String.format("%05d", userid) + " e la password scelta");
     }
 
     //TODO
