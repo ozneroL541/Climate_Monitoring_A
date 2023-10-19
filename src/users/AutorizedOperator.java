@@ -104,6 +104,9 @@ public class AutorizedOperator extends User {
                 System.out.print("Indirizzo non valido.\nReinserire: ");
             }else if(Research.isStringInCol(file, 4, email)){
                 System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
+            } else {
+                // Exit loop
+                exit = true;
             }
         } while( ! exit );   //loop if email is wrong and if it is not unique in the file
 
@@ -346,6 +349,7 @@ public class AutorizedOperator extends User {
     //TODO
     //main per testare, da rimuove alla fine
     public static void main(String []args){
+        /*
         AutorizedOperator a=new AutorizedOperator();
         if(a.autenticazione()){
             System.out.println("Autenticazione completata");
@@ -354,6 +358,8 @@ public class AutorizedOperator extends User {
             System.out.println("Autenticazione fallita");
             //ritorno al menu di partenza(?)
         }
+        */
+        AutorizedOperator.registrazione();
     }
 
 }
