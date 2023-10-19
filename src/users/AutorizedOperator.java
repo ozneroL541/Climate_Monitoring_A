@@ -350,30 +350,7 @@ public class AutorizedOperator extends User {
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
     }
-    /*TODO I think the following 4 methods are useless because they return a static method
-     * Lorenzo Radice
-    */
-    //return true if the Fiscal Code is present in the file
-    private static boolean presenzaCodiceFiscale(String cf) {
-        return Research.isStringInCol(file, 3, cf);
-    }
-
-    //return true if the Email is present in the file
-    private static boolean presenzaEmail(String email) {
-        return Research.isStringInCol(file, 4, email);
-    }
-
-    //return true if the UserId is present in the file
-    private static boolean presenzaUserId(String userid) {
-        return Research.isStringInCol(file, 0, userid);
-    }
-
-    //return the line of the record that match the userid
-    private static int ricercaPerUserId(String userid){
-        //TODO manage exception: if error this function now return negative numbers
-        return Research.OneStringInCol(file, 0, userid);
-    }
-
+    
     //TODO
     //main per testare, da rimuove alla fine
     public static void main(String []args){
