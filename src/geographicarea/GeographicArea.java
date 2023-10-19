@@ -629,11 +629,17 @@ public class GeographicArea {
                         // Return False
                         return false;
                     }
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     // Error message
                     System.out.println("Formato Coordinate incorretto.");
                     System.out.println("Il formato delle coordinate deve essere il seguente: \"lat, lon\".");
                     // Return False
+                    return false;
+                } catch ( Exception e ) {
+                    // Not managed exception
+                    // Error
+                    e.printStackTrace();
+                    // Return false
                     return false;
                 }
                 // Return True
