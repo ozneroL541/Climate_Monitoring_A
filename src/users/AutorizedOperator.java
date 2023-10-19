@@ -147,19 +147,12 @@ public class AutorizedOperator extends User {
 
         //return the column where UserId is
         int riga=Research.OneStringInCol(file, 0, userid);
-        // TODO: remove the following comment
-        /*
-         * Changed by Radice Lorenzo
-         * 
-         * I initialized record to null and add an if statment to assign it.
-         * As the Research.OneStringInCol(file, 0, userid()
-         * in case of error the exception should be checked before using another method
-         * which could cause the same exception twice uselessly.
-         */
+        // Initialize record
         String[] record = null;
+        // Check if the research returned a valid result
         if(riga > 0)
             record = Research.getRecord(file, riga);
-
+        // If the result is valis
         if(record!=null){
             System.out.print("Inserire la password: ");
             String password=in.nextLine();
