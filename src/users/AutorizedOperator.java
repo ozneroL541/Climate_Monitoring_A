@@ -136,6 +136,9 @@ public class AutorizedOperator extends User {
     //TODO
     /*cambiare il tipo del ritorno in int per avere più codici di errore(?)
      * Ritornare vari numeri negativi a seconda dell'errore.
+     * 0 se è avvenuta l'autenticazione
+     * 
+     * Perché non è static?
     */
     public boolean autenticazione() {
         // If file doesn't exist exit
@@ -163,6 +166,7 @@ public class AutorizedOperator extends User {
         }
         // Check before go on
         if ( c > limit ) {
+            //TODO Output
             // Exit
             return false;
         }
@@ -367,7 +371,6 @@ public class AutorizedOperator extends User {
     //TODO
     // main per testare, da rimuove alla fine
     public static void main(String []args){
-        /*
         AutorizedOperator a=new AutorizedOperator();
         if(a.autenticazione()){
             System.out.println("Autenticazione completata");
@@ -376,8 +379,6 @@ public class AutorizedOperator extends User {
             System.out.println("Autenticazione fallita");
             //ritorno al menu di partenza(?)
         }
-        */
-        AutorizedOperator.registrazione();
     }
 
 }
