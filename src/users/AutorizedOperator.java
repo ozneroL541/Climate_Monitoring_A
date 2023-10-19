@@ -92,7 +92,7 @@ public class AutorizedOperator extends User {
             }
         }while(!ControlloCodiceFiscale(codFisc) || Research.isStringInCol(file, 3, codFisc));   //loop if fiscal code is wrong or if it is not unique in the file
         // Insert email
-        System.out.print("Inserire la mail: ");
+        System.out.print("Inserire l'indirizzo e-mail: ");
         String email="";
         do{
             email=in.nextLine();
