@@ -127,7 +127,7 @@ public class AutorizedOperator extends User {
         // Add the operator to the file
         aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
         
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente UserID: " + String.format("%05d", userid) + " e la password scelta");
+        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + String.format("%05d", userid) + " e la password scelta");
     }
 
     //TODO
