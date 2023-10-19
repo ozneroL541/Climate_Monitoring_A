@@ -329,7 +329,7 @@ public class AutorizedOperator extends User {
         }
     }
 
-    //TODO 
+    //TODO Delete all this
     /*TODO Suggerimento da Lorenzo:
      * 1 - Se modifichi questo metodo in modo da togliere CSVReader,
      * per esempio usando metodi della classe Research o creandone
@@ -365,7 +365,7 @@ public class AutorizedOperator extends User {
     }*/
     
     //TODO
-    //main per testare, da rimuove alla fine
+    // main per testare, da rimuove alla fine
     public static void main(String []args){
         /*
         AutorizedOperator a=new AutorizedOperator();
