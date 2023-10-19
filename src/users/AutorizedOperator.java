@@ -139,17 +139,14 @@ public class AutorizedOperator extends User {
         //TODO
         //migliorare la grafica
         System.out.println("LOGIN\n");
-        System.out.print("Inserire l'user-Id: ");
-        String userid="";
-        do{
-            userid=in.nextLine();
-            
-            //check if userdId exist in the file
-            if(!Research.isStringInCol(file, 0, userid)){
-                System.out.print("User-Id non riconosciuto.\nReinserire: ");
-            }
-            
-        }while(!Research.isStringInCol(file, 0, userid));   //loop if userdId does not exist in the file
+        System.out.print("Inserire l'User-ID: ");
+        String userid = in.nextLine();
+        
+        // loop if userdId does not exist in the file
+        while(!Research.isStringInCol(file, 0, userid)) {
+            System.out.print("User-ID non riconosciuto.\nReinserire: ");
+            userid = in.nextLine();
+        }
 
         //return the column where UserId is
         int riga=Research.OneStringInCol(file, 0, userid);
