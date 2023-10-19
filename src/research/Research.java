@@ -347,7 +347,8 @@ public class Research {
      * @return line
      */
     public static String[] getRecordByData(File file, int col, String str){
-       String[] out = null; 
+        // Output String
+        String[] out = null; 
         try{
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
@@ -365,7 +366,9 @@ public class Research {
             while( (nextRecord = creader.readNext()) != null && !found ){
                 // When the first cell equals the id exit the while
                 if ( nextRecord[col].equals(str) ) {
+                    // String found -> exit
                     found = true;
+                    // Return record whose string belongs
                     out = nextRecord;
                 }
             }
