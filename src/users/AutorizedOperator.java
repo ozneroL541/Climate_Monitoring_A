@@ -98,11 +98,11 @@ public class AutorizedOperator extends User {
             email=in.nextLine();
              //check if email is correct
             if(!ControlloEmail(email)){
-                System.out.print("Email non valida.\nReinserire: ");
+                System.out.print("Indirizzo non valido.\nReinserire: ");
             }else{
                  //check if email is unique in the file
                 if(Research.isStringInCol(file, 4, email)){
-                    System.out.print("Email già utilizzata.\nReinserire: ");
+                    System.out.print("Indirizzo già utilizzato.\nReinserire: ");
                 }
             }
         }while(!ControlloEmail(email) || Research.isStringInCol(file, 4, email));   //loop if email is wrong and if it is not unique in the file
