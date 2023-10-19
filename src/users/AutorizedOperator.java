@@ -33,7 +33,7 @@ import src.research.Research;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class AutorizedOperator extends User {
     // Name
@@ -195,7 +195,7 @@ public class AutorizedOperator extends User {
         if(!file.exists()){
             try {
                 file.createNewFile();
-                aggiungiOperatore();
+                addHeader();
             } catch (IOException e) {
                 System.err.println("Errore nella creazione del file");
             }
@@ -279,14 +279,14 @@ public class AutorizedOperator extends User {
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
     // Create the file OperatoriRegistrati.csv and set the header of it
-    private static void aggiungiOperatore(){
-
-        String s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
+    private static void addHeader(){
+        // File Header
+        final String header = "Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
         BufferedWriter scrivi;
 
         try {
             scrivi=new BufferedWriter(new FileWriter(file, true));
-            scrivi.append(s);
+            scrivi.append(header);
             scrivi.close();
 
         } catch (IOException e) {
@@ -300,7 +300,7 @@ public class AutorizedOperator extends User {
     private static void aggiungiOperatore(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
 
         String s=String.format("%05d", userid);
-        s=s + "," + nome + "," + cognome + "," + codice_fiscale + "," + email_address + "," + passwd + "," + centre + "\n";
+        s += "," + nome + "," + cognome + "," + codice_fiscale + "," + email_address + "," + passwd + "," + centre + "\n";
         
         BufferedWriter scrivi;
 
@@ -327,7 +327,6 @@ public class AutorizedOperator extends User {
      * interattiva) &egrave meno complicato.
      * Per evitare questo il metodo può restituire una String
      * contenente l'output desiderato.
-     */
     //TODO
     //eliminare il metodo (era per fare debug) (forse si può tenere ma rendere privato?)
     public static void leggiOperatori(){
@@ -349,7 +348,7 @@ public class AutorizedOperator extends User {
         }catch(Exception e){ //to catch any exception inside try block
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
-    }
+    }*/
     
     //TODO
     //main per testare, da rimuove alla fine
