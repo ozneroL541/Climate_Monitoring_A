@@ -81,27 +81,31 @@ public class AutorizedOperator extends User {
         String codFisc="";
         do{
             codFisc=in.nextLine();
+            //check if fiscal code is correct
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
             }else{
+                //check if fiscal code is unique in the file
                 if(Research.isStringInCol(file, 3, codFisc)){
                     System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                 }
             }
-        }while(!ControlloCodiceFiscale(codFisc) || Research.isStringInCol(file, 3, codFisc));   //check if fiscal code is correct and if it is unique in the file
+        }while(!ControlloCodiceFiscale(codFisc) || Research.isStringInCol(file, 3, codFisc));   //loop if fiscal code is wrong or if it is not unique in the file
         // Insert email
         System.out.print("Inserire la mail: ");
         String email="";
         do{
             email=in.nextLine();
+             //check if email is correct
             if(!ControlloEmail(email)){
                 System.out.print("Email non valida.\nReinserire: ");
             }else{
+                 //check if email is unique in the file
                 if(Research.isStringInCol(file, 4, email)){
                     System.out.print("Email già utilizzata.\nReinserire: ");
                 }
             }
-        }while(!ControlloEmail(email) || Research.isStringInCol(file, 4, email));   //check if email is correct and if it is unique in the file
+        }while(!ControlloEmail(email) || Research.isStringInCol(file, 4, email));   //loop if email is wrong and if it is not unique in the file
 
         //insert monitoring centre
         //TODO
@@ -324,7 +328,8 @@ public class AutorizedOperator extends User {
      * Per evitare questo il metodo può restituire una String
      * contenente l'output desiderato.
      */
-    //rendere privato(?) o rimuovere
+    //TODO
+    //eliminare il metodo (era per fare debug) (forse si può tenere ma rendere privato?)
     public static void leggiOperatori(){
         try{
             FileReader freader = new FileReader(file);//created an object of freader class
