@@ -89,7 +89,7 @@ public class AutorizedOperator extends User {
             //check if fiscal code is correct
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
-            }else if(Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+            }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
                 System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
             } else {
                 // Exit the loop
@@ -105,7 +105,7 @@ public class AutorizedOperator extends User {
             //check if email is correct
             if(!ControlloEmail(email)){
                 System.out.print("Indirizzo non valido.\nReinserire: ");
-            }else if(Research.isStringInCol(file, 4, email)){
+            }else if( file.exists() && Research.isStringInCol(file, 4, email)){
                 System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
             } else {
                 // Exit loop
@@ -371,6 +371,11 @@ public class AutorizedOperator extends User {
     //TODO
     // main per testare, da rimuove alla fine
     public static void main(String []args){
+
+        AutorizedOperator.Ricerca();
+        AutorizedOperator.registrazione();
+        
+        /*
         AutorizedOperator a=new AutorizedOperator();
         if(a.autenticazione()){
             System.out.println("Autenticazione completata");
@@ -379,6 +384,6 @@ public class AutorizedOperator extends User {
             System.out.println("Autenticazione fallita");
             //ritorno al menu di partenza(?)
         }
+        */
     }
-
 }
