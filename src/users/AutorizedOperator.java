@@ -145,6 +145,7 @@ public class AutorizedOperator extends User {
             // Error return
             return false;
         }
+        // TODO Implement max attempt number // ehi, it's me bitch ;-)
         // Attempt limit
         final int limit = 3;
         // Counter 
