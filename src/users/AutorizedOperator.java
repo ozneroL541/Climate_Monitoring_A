@@ -33,7 +33,7 @@ import src.research.Research;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class AutorizedOperator extends User {
     // Name
@@ -67,6 +67,8 @@ public class AutorizedOperator extends User {
     //TODO
     //java doc
     public static void registrazione() {
+        // Exit loop
+        boolean exit = false;
         //TODO
         //migliorare la grafica
         System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
@@ -80,32 +82,36 @@ public class AutorizedOperator extends User {
         System.out.print("Inserire il codice fiscale: ");
         String codFisc="";
         do{
+            // Input Fiscal Code
             codFisc=in.nextLine();
+            // Upper case Fiscal Code
+            codFisc = codFisc.toUpperCase();
             //check if fiscal code is correct
             if(!ControlloCodiceFiscale(codFisc)){
                 System.out.print("Codice fiscale non valido.\nReinserire: ");
-            }else{
-                //check if fiscal code is unique in the file
-                if(Research.isStringInCol(file, 3, codFisc)){
-                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
-                }
+            }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+                System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+            } else {
+                // Exit the loop
+                exit = true;
             }
-        }while(!ControlloCodiceFiscale(codFisc) || Research.isStringInCol(file, 3, codFisc));   //loop if fiscal code is wrong or if it is not unique in the file
+        }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
         // Insert email
-        System.out.print("Inserire la mail: ");
+        System.out.print("Inserire l'indirizzo e-mail: ");
         String email="";
+        exit = false;
         do{
             email=in.nextLine();
-             //check if email is correct
+            //check if email is correct
             if(!ControlloEmail(email)){
-                System.out.print("Email non valida.\nReinserire: ");
-            }else{
-                 //check if email is unique in the file
-                if(Research.isStringInCol(file, 4, email)){
-                    System.out.print("Email già utilizzata.\nReinserire: ");
-                }
+                System.out.print("Indirizzo non valido.\nReinserire: ");
+            }else if( file.exists() && Research.isStringInCol(file, 4, email)){
+                System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
+            } else {
+                // Exit loop
+                exit = true;
             }
-        }while(!ControlloEmail(email) || Research.isStringInCol(file, 4, email));   //loop if email is wrong and if it is not unique in the file
+        } while( ! exit );   //loop if email is wrong and if it is not unique in the file
 
         //insert monitoring centre
         //TODO
@@ -121,45 +127,57 @@ public class AutorizedOperator extends User {
         // Add the operator to the file
         aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
         
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente userid: " + String.format("%05d", userid) + " e la password scelta");
+        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + String.format("%05d", userid) + " e la password scelta");
     }
 
     //TODO
     //java doc
     //return true if authentication is successful
     //TODO
-    //cambiare il tipo del ritorno in int per avere più codici di errore(?)
+    /*cambiare il tipo del ritorno in int per avere più codici di errore(?)
+     * Ritornare vari numeri negativi a seconda dell'errore.
+     * 0 se è avvenuta l'autenticazione
+     * 
+     * Perché non è static?
+    */
     public boolean autenticazione() {
+        // If file doesn't exist exit
+        if ( ! file.exists() ){
+            // Error Output
+            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
+            // Error return
+            return false;
+        }
+        // TODO Implement max attempt number // ehi, it's me bitch ;-)
+        // Attempt limit
+        final int limit = 3;
+        // Counter 
+        int c = 0;
         //TODO
         //migliorare la grafica
         System.out.println("LOGIN\n");
-        System.out.print("Inserire l'user-Id: ");
-        String userid="";
-        do{
-            userid=in.nextLine();
-            
-            //check if userdId exist in the file
-            if(!Research.isStringInCol(file, 0, userid)){
-                System.out.print("User-Id non riconosciuto.\nReinserire: ");
-            }
-            
-        }while(!Research.isStringInCol(file, 0, userid));   //loop if userdId does not exist in the file
-
+        System.out.print("Inserire l'User-ID: ");
+        String userid = in.nextLine();
+        // loop if userdId does not exist in the file
+        while(!Research.isStringInCol(file, 0, userid) && c < limit) {
+            System.out.print("User-ID non riconosciuto.\nReinserire: ");
+            userid = in.nextLine();
+            c++;
+        }
+        // Check before go on
+        if ( c > limit ) {
+            //TODO Output
+            // Exit
+            return false;
+        }
         //return the column where UserId is
         int riga=Research.OneStringInCol(file, 0, userid);
-        // TODO: remove the following comment
-        /*
-         * Changed by Radice Lorenzo
-         * 
-         * I initialized record to null and add an if statment to assign it.
-         * As the Research.OneStringInCol(file, 0, userid()
-         * in case of error the exception should be checked before using another method
-         * which could cause the same exception twice uselessly.
-         */
+        // Initialize record
         String[] record = null;
+        // Check if the research returned a valid result
         if(riga > 0)
             record = Research.getRecord(file, riga);
-
+        // If the result is valis
         if(record!=null){
             System.out.print("Inserire la password: ");
             String password=in.nextLine();
@@ -195,7 +213,7 @@ public class AutorizedOperator extends User {
         if(!file.exists()){
             try {
                 file.createNewFile();
-                aggiungiOperatore();
+                addHeader();
             } catch (IOException e) {
                 System.err.println("Errore nella creazione del file");
             }
@@ -279,14 +297,14 @@ public class AutorizedOperator extends User {
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
     // Create the file OperatoriRegistrati.csv and set the header of it
-    private static void aggiungiOperatore(){
-
-        String s="Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
+    private static void addHeader(){
+        // File Header
+        final String header = "Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
         BufferedWriter scrivi;
 
         try {
             scrivi=new BufferedWriter(new FileWriter(file, true));
-            scrivi.append(s);
+            scrivi.append(header);
             scrivi.close();
 
         } catch (IOException e) {
@@ -300,7 +318,7 @@ public class AutorizedOperator extends User {
     private static void aggiungiOperatore(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
 
         String s=String.format("%05d", userid);
-        s=s + "," + nome + "," + cognome + "," + codice_fiscale + "," + email_address + "," + passwd + "," + centre + "\n";
+        s += "," + nome + "," + cognome + "," + codice_fiscale + "," + email_address + "," + passwd + "," + centre + "\n";
         
         BufferedWriter scrivi;
 
@@ -315,7 +333,7 @@ public class AutorizedOperator extends User {
         }
     }
 
-    //TODO 
+    //TODO Delete all this
     /*TODO Suggerimento da Lorenzo:
      * 1 - Se modifichi questo metodo in modo da togliere CSVReader,
      * per esempio usando metodi della classe Research o creandone
@@ -327,7 +345,6 @@ public class AutorizedOperator extends User {
      * interattiva) &egrave meno complicato.
      * Per evitare questo il metodo può restituire una String
      * contenente l'output desiderato.
-     */
     //TODO
     //eliminare il metodo (era per fare debug) (forse si può tenere ma rendere privato?)
     public static void leggiOperatori(){
@@ -349,11 +366,16 @@ public class AutorizedOperator extends User {
         }catch(Exception e){ //to catch any exception inside try block
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
-    }
+    }*/
     
     //TODO
-    //main per testare, da rimuove alla fine
+    // main per testare, da rimuove alla fine
     public static void main(String []args){
+
+        AutorizedOperator.Ricerca();
+        AutorizedOperator.registrazione();
+        
+        /*
         AutorizedOperator a=new AutorizedOperator();
         if(a.autenticazione()){
             System.out.println("Autenticazione completata");
@@ -362,6 +384,6 @@ public class AutorizedOperator extends User {
             System.out.println("Autenticazione fallita");
             //ritorno al menu di partenza(?)
         }
+        */
     }
-
 }

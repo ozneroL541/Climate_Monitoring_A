@@ -17,7 +17,7 @@ import com.opencsv.CSVReader;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.3.0
+ * @version 0.3.1
  */
 public class Research {
     /**
@@ -194,6 +194,7 @@ public class Research {
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
                 // When the first cell equals the id exit the while
                 if ( dist <= err) {
+                    // Increment line and add the line to the list
                     list.add(++line);
                 } else
                     // Line increment
@@ -254,6 +255,7 @@ public class Research {
             // Return the coordinates
             return c;
         } catch (Exception e) {
+            // In case of error return null
             return null;
         }
     }
@@ -277,13 +279,24 @@ public class Research {
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null){
                 // When the first cell equals the id return true
-                if ( nextRecord[col].equals(str) ) {
+                if ( nextRecord[col].equals(str) )
                     return true;
-                }
             }
             creader.close();
-        }catch(Exception e){ //to catch any exception inside try block
+        } catch (FileNotFoundException e ) {
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return false
+            return false;
+        } catch (Exception e) { //to catch any exception inside try block
+            // Not managed Error
             e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return false;
+            return false;
         }
         return false;
     }
@@ -334,7 +347,8 @@ public class Research {
      * @return line
      */
     public static String[] getRecordByData(File file, int col, String str){
-       String[] out = null; 
+        // Output String
+        String[] out = null; 
         try{
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
@@ -352,13 +366,27 @@ public class Research {
             while( (nextRecord = creader.readNext()) != null && !found ){
                 // When the first cell equals the id exit the while
                 if ( nextRecord[col].equals(str) ) {
+                    // String found -> exit
                     found = true;
+                    // Return record whose string belongs
                     out = nextRecord;
                 }
             }
             creader.close();
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
         }catch(Exception e){ //to catch any exception inside try block
+            // Not managed exception error
             e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return null
+            return null;
         }
         // Return the record
         return out;
