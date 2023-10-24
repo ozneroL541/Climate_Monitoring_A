@@ -98,7 +98,5 @@ public class User {
                 exit = true;
             }
         } while (!exit);
-        // Close Scanner
-        sc.close();
     }
 }

@@ -71,7 +71,8 @@ public class AutorizedOperator extends User {
         boolean exit = false;
         // Max number of operators
         final int max_operators = 99999;
-        try (Scanner in = new Scanner(System.in)) {
+        try {
+            Scanner in = new Scanner(System.in);
             // Check if number of operators exceded
             if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
                 // Error Output
@@ -175,7 +176,8 @@ public class AutorizedOperator extends User {
         //migliorare la grafica
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
-        try (Scanner in = new Scanner(System.in)){
+        try {
+            Scanner in = new Scanner(System.in);
             String userid = in.nextLine();
             // loop if userdId does not exist in the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
