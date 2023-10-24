@@ -234,9 +234,7 @@ public class Table {
         String str_in = "";
         // Short input
         short short_in = 0;
-        try {
-            // Input
-            Scanner sc = new Scanner(System.in);
+        try (Scanner sc = new Scanner(System.in)){
             // Output question
             System.out.print(question);
             // Input Score
