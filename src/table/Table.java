@@ -238,7 +238,7 @@ public class Table {
             // Input
             Scanner sc = new Scanner(System.in);
             // Output question
-            System.out.println(question);
+            System.out.print(question);
             // Input Score
             do {
                 // Integer Input
@@ -259,7 +259,7 @@ public class Table {
                     // Exit
                     exit = true;
                 }
-            } while (exit);
+            } while ( ! exit);
             // Note question
             System.out.println("Vuoi inserire una nota(S/N)?");
             // Answer input
@@ -287,13 +287,15 @@ public class Table {
                         // Exit
                         exit = true;
                     }
-                } while (exit);
+                } while ( ! exit);
             } else {
                 data_in.note = null;
             }
         } catch ( InputMismatchException e ) {
             // Error output
             e.printStackTrace();
+            // Return null
+            return null;
         } catch (Exception e) {
             // Error output
             e.printStackTrace();
@@ -311,8 +313,10 @@ public class Table {
         return (str.length() <= max_char_notes);
     }
 
+    //TODO Remove test main
     public static void main(String[] args) {
-        Table t = new Table();
+        Table t = null;
+        t = Table.MakeTable();
         System.out.println(t.toString());
     }
 }
