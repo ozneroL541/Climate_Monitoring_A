@@ -16,7 +16,7 @@ import java.util.Scanner;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class Table {
     // Number of categories
@@ -175,32 +175,26 @@ public class Table {
         return str;
     }
     /**
-     * Chiede all'utante di inserire i parametri della ricerca e ritorna la tabella che li contiene
+     * Chiede all'utante di inserire i parametri della ricerca e ritorna la tabella che li contiene.
      */
     public static Table MakeTable() {
-        // Input scores
-        Integer[] scores = new Integer[n_categories];
-        // Input notes
-        String[] notes = new String[n_categories];
         // Datas Input
         Data[] datas = new Data[n_categories];
-        // TODO
-        try {
-            // Input
-            Scanner sc = new Scanner(System.in);
-            //TODO
-
-            
-        } catch ( InputMismatchException e ) {
-            // Error output
-            e.printStackTrace();
-        } catch (Exception e) {
-            // Error output
-            e.printStackTrace();
+        // Table
+        Table t = null;
+        // For every category
+        for (short i = 0; i < n_categories; i++) {
+            // If one input is null
+            if ( (datas[i] = askData(i)) == null )
+                // Return null
+                return null;
         }
-        return null;
+        // Make Table
+        t = new Table(datas);
+        // Return datas
+        return t;
     }
-    private Data askData( short index ) {
+    private static Data askData( short index ) {
         // Input data
         Data data_in = null;
         // Question to the user
