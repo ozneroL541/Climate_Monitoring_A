@@ -1,0 +1,3 @@
+Links
+https://www.matematicamente.it/forum/viewtopic.php?t=186924#:~:text=distanza%20%3D%20sqrt((x2%20%2D%20x1,z2%20%2D%20z1)%5E2)%3B
+
