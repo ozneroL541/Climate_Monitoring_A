@@ -122,7 +122,6 @@ public class AutorizedOperator extends User {
             // Insert password
             System.out.print("Inserire la password: ");
             passwd=in.nextLine();
-            in.close();
         } catch (InputMismatchException e) {
             e.printStackTrace();
         } catch ( Exception e ) {
