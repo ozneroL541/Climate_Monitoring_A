@@ -7,6 +7,10 @@
 ***************************************/
 
 package src.table;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * Un oggetto della classe <code>Table</code> rappresenta una tabella
  * che contiene i valori dei prametri rilevati da una zona geografica.
@@ -126,5 +130,23 @@ public class Table {
             str += "\n" + climate_categories[i] + "\t" + explanations[i] + "\t  " + this.scores[i] + "\t" + this.notes[i];
         }
         return str;
+    }
+    /**
+     * Chiede all'utante di inserire i parametri della ricerca e ritorna la tabella che li contiene
+     */
+    public static Table MakeTable() {
+        // TODO
+        try {
+            // Input
+            Scanner sc = new Scanner(System.in);
+            //TODO
+        } catch ( InputMismatchException e ) {
+            // Error output
+            e.printStackTrace();
+        }catch (Exception e) {
+            // Error output
+            e.printStackTrace();
+        }
+        return null;
     }
 }
