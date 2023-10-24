@@ -69,59 +69,69 @@ public class AutorizedOperator extends User {
         String nome = "", cognome = "", codFisc = "", email = "", centre = "", passwd = "";
         // Exit loop
         boolean exit = false;
-        //TODO
-        //migliorare la grafica
-        System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
+        // Max number of operators
+        final int max_operators = 99999;
         try {
-            Scanner in = new Scanner(System.in);
-            // Insert nome
-            System.out.print("Inserire il nome: ");
-            nome=in.nextLine();
-            // Insert cognome
-            System.out.print("Inserire il cognome: ");
-            cognome=in.nextLine();
-            // Insert codice fiscale
-            System.out.print("Inserire il codice fiscale: ");
-            codFisc="";
-            do{
-                // Input Fiscal Code
-                codFisc=in.nextLine();
-                // Upper case Fiscal Code
-                codFisc = codFisc.toUpperCase();
-                //check if fiscal code is correct
-                if(!ControlloCodiceFiscale(codFisc)){
-                    System.out.print("Codice fiscale non valido.\nReinserire: ");
-                }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
-                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
-                } else {
-                    // Exit the loop
-                    exit = true;
-                }
-            }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
-            // Insert email
-            System.out.print("Inserire l'indirizzo e-mail: ");
-            email="";
-            exit = false;
-            do{
-                email=in.nextLine();
-                //check if email is correct
-                if(!ControlloEmail(email)){
-                    System.out.print("Indirizzo non valido.\nReinserire: ");
-                }else if( file.exists() && Research.isStringInCol(file, 4, email)){
-                    System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
-                } else {
-                    // Exit loop
-                    exit = true;
-                }
-            } while( ! exit );   //loop if email is wrong and if it is not unique in the file
+            // Check if number of operators exceded
+            if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
+                // Error Output
+                System.err.println("Numero massimo di operatori raggiunto.\nNon è possibile effettuare la registrazione");
+            } else {
+                //TODO
+                //migliorare la grafica
+                System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
+                Scanner in = new Scanner(System.in);
+                // Insert nome
+                System.out.print("Inserire il nome: ");
+                nome=in.nextLine();
+                // Insert cognome
+                System.out.print("Inserire il cognome: ");
+                cognome=in.nextLine();
+                // Insert codice fiscale
+                System.out.print("Inserire il codice fiscale: ");
+                codFisc="";
+                do{
+                    // Input Fiscal Code
+                    codFisc=in.nextLine();
+                    // Upper case Fiscal Code
+                    codFisc = codFisc.toUpperCase();
+                    //check if fiscal code is correct
+                    if(!ControlloCodiceFiscale(codFisc)){
+                        System.out.print("Codice fiscale non valido.\nReinserire: ");
+                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+                        System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+                    } else {
+                        // Exit the loop
+                        exit = true;
+                    }
+                }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
+                // Insert email
+                System.out.print("Inserire l'indirizzo e-mail: ");
+                email="";
+                exit = false;
+                do{
+                    email=in.nextLine();
+                    //check if email is correct
+                    if(!ControlloEmail(email)){
+                        System.out.print("Indirizzo non valido.\nReinserire: ");
+                    }else if( file.exists() && Research.isStringInCol(file, 4, email)){
+                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
+                    } else {
+                        // Exit loop
+                        exit = true;
+                    }
+                } while( ! exit );   //loop if email is wrong and if it is not unique in the file
 
-            //insert monitoring centre
-            //TODO
-            centre=null;
+                //insert monitoring centre
+                //TODO
+                centre=null;
 
-            // Insert password
-            System.out.print("Inserire la password: ");
-            passwd=in.nextLine();
+                // Insert password
+                System.out.print("Inserire la password: ");
+                passwd=in.nextLine();
+            }
+        } catch ( IOException e ){
+            e.printStackTrace();
         } catch (InputMismatchException e) {
             e.printStackTrace();
         } catch ( Exception e ) {
@@ -151,12 +161,6 @@ public class AutorizedOperator extends User {
         if ( ! file.exists() ){
             // Error Output
             System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
-            // Error return
-            return false;
-        }
-        if ( false/* TODO: Condition */ ) {
-            // Error Output
-            System.err.println("Numero massimo di operatori raggiunto.\nNon è possibile effettuare la registrazione");
             // Error return
             return false;
         }
@@ -393,7 +397,7 @@ public class AutorizedOperator extends User {
     // main per testare, da rimuove alla fine
     public static void main(String []args){
 
-        AutorizedOperator.Ricerca();
+        //AutorizedOperator.Ricerca();
         AutorizedOperator.registrazione();
         
         AutorizedOperator a=new AutorizedOperator();
