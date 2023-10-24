@@ -54,7 +54,7 @@ public class Table {
     /**
      * Costruttore completo.
      * Costruisce la tabella utilizzando sia i valori dei parametri che possibili note.
-     * I valori vanno inseriti come un'array di shorts.
+     * I valori vanno inseriti come un array di shorts.
      * Le note vanno inserite come un array di stringhe.
      * Gli array inseriti devono essere di lunghezza pari al numero di categorie.
      * @param s array dei parametri
