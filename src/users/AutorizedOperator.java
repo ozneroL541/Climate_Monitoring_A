@@ -391,7 +391,6 @@ public class AutorizedOperator extends User {
         AutorizedOperator.Ricerca();
         AutorizedOperator.registrazione();
         
-        /*
         AutorizedOperator a=new AutorizedOperator();
         if(a.autenticazione()){
             System.out.println("Autenticazione completata");
@@ -400,6 +399,5 @@ public class AutorizedOperator extends User {
             System.out.println("Autenticazione fallita");
             //ritorno al menu di partenza(?)
         }
-        */
     }
 }
