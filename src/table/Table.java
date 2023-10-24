@@ -21,6 +21,12 @@ import java.util.Scanner;
 public class Table {
     // Number of categories
     private final short n_categories = 7;
+    // Max characters number for notes
+    private final short max_char_notes = 256;
+    // Min score
+    private final short min_score = 1;
+    // Max score
+    private final short max_score = 5;
     // Category's scores
     private short[] scores = { 1, 1, 1, 1, 1, 1, 1, };
     // Category's notes
@@ -45,7 +51,7 @@ public class Table {
             // For every category assign the correct score
             for ( short i = 0; i < this.n_categories; i++) {
                 // If the score is valid assign it
-                if ( s[i] >= 1  && s[i] <= 5 ) {
+                if ( s[i] >= min_score  && s[i] <= max_score ) {
                     this.scores[i] = s[i];
                     // Else lunch an exception
                 } else {
@@ -76,10 +82,10 @@ public class Table {
             // For every category
             for ( short i = 0; i < this.n_categories; i++) {
                 // If the score is valid assign it
-                if ( s[i] >= 1  && s[i] <= 5 ) {
+                if ( s[i] >= min_score  && s[i] <= max_score ) {
                     this.scores[i] = s[i];
                     // If the string is less than 256 assign it
-                    if ( note[i].length() > 256 ) {
+                    if ( note[i].length() > max_char_notes ) {
                         // Exception, note must be 256 character or less
                         System.err.println("Lunghezza nota errata.\nLunghezza massima: 256 caratteri.");
                     } else {
@@ -140,6 +146,7 @@ public class Table {
             // Input
             Scanner sc = new Scanner(System.in);
             //TODO
+            
         } catch ( InputMismatchException e ) {
             // Error output
             e.printStackTrace();

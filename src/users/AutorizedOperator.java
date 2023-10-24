@@ -400,16 +400,16 @@ public class AutorizedOperator extends User {
     // main per testare, da rimuove alla fine
     public static void main(String []args){
 
-        //AutorizedOperator.Ricerca();
-        AutorizedOperator.registrazione();
+        AutorizedOperator.Ricerca();
+        //AutorizedOperator.registrazione();
         
-        AutorizedOperator a=new AutorizedOperator();
+        /*AutorizedOperator a=new AutorizedOperator();
         if(a.autenticazione()){
             System.out.println("Autenticazione completata");
             //resto dei metodi dell'operatore autorizzato
         }else{
             System.out.println("Autenticazione fallita");
             //ritorno al menu di partenza(?)
-        }
+        }*/
     }
 }
