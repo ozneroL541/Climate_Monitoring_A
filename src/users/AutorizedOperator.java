@@ -131,10 +131,13 @@ public class AutorizedOperator extends User {
                 passwd=in.nextLine();
             }
         } catch ( IOException e ){
+            // Print Error
             e.printStackTrace();
         } catch (InputMismatchException e) {
+            // Print Error
             e.printStackTrace();
         } catch ( Exception e ) {
+            // Print Error
             e.printStackTrace();
         }
         // Set the userid
