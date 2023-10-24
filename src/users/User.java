@@ -35,10 +35,12 @@ public class User {
         boolean exit = true;
         // Input integer
         int in = -1;
+        // Input
+        Scanner sc = new Scanner(System.in);
         // While exit is false
         do {
             // Input
-            try (Scanner sc = new Scanner(System.in)) {
+            try {
                 // Print indexes menu
                 GeographicArea.printIndexesMenu();
                 // Output
@@ -81,6 +83,8 @@ public class User {
                     exit = false;
                 }
             } catch ( InputMismatchException e) {
+                // Reset input scanner
+                sc.nextLine();
                 // Error Output
                 System.err.println("Inserimento non valido.\nInserire uno dei numeri mostrati per selezionare un'opzione.");
                 // New line
@@ -94,5 +98,7 @@ public class User {
                 exit = true;
             }
         } while (!exit);
+        // Close Scanner
+        sc.close();
     }
 }

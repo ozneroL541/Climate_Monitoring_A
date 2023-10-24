@@ -71,7 +71,7 @@ public class AutorizedOperator extends User {
         boolean exit = false;
         // Max number of operators
         final int max_operators = 99999;
-        try {
+        try (Scanner in = new Scanner(System.in)) {
             // Check if number of operators exceded
             if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
                 // Error Output
@@ -80,7 +80,6 @@ public class AutorizedOperator extends User {
                 //TODO
                 //migliorare la grafica
                 System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
-                Scanner in = new Scanner(System.in);
                 // Insert nome
                 System.out.print("Inserire il nome: ");
                 nome=in.nextLine();
@@ -176,8 +175,7 @@ public class AutorizedOperator extends User {
         //migliorare la grafica
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
-        try {
-            Scanner in = new Scanner(System.in);
+        try (Scanner in = new Scanner(System.in)){
             String userid = in.nextLine();
             // loop if userdId does not exist in the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
@@ -401,15 +399,15 @@ public class AutorizedOperator extends User {
     public static void main(String []args){
 
         AutorizedOperator.Ricerca();
-        //AutorizedOperator.registrazione();
+        AutorizedOperator.registrazione();
         
-        /*AutorizedOperator a=new AutorizedOperator();
+        AutorizedOperator a = new AutorizedOperator();
         if(a.autenticazione()){
             System.out.println("Autenticazione completata");
             //resto dei metodi dell'operatore autorizzato
         }else{
             System.out.println("Autenticazione fallita");
             //ritorno al menu di partenza(?)
-        }*/
+        }
     }
 }
