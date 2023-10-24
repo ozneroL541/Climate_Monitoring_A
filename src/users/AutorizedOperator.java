@@ -19,6 +19,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 // TODO: Remove and pass everything throw research
@@ -53,9 +54,6 @@ public class AutorizedOperator extends User {
     //cambiare il tipo della variabile in short
     private MonitoringCentre centre;
 
-
-    // To read input
-    private static Scanner in = new Scanner(System.in);
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
 
@@ -67,60 +65,69 @@ public class AutorizedOperator extends User {
     //TODO
     //java doc
     public static void registrazione() {
+        // Datas
+        String nome = "", cognome = "", codFisc = "", email = "", centre = "", passwd = "";
         // Exit loop
         boolean exit = false;
         //TODO
         //migliorare la grafica
         System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
-        // Insert nome
-        System.out.print("Inserire il nome: ");
-        String nome=in.nextLine();
-        // Insert cognome
-        System.out.print("Inserire il cognome: ");
-        String cognome=in.nextLine();
-        // Insert codice fiscale
-        System.out.print("Inserire il codice fiscale: ");
-        String codFisc="";
-        do{
-            // Input Fiscal Code
-            codFisc=in.nextLine();
-            // Upper case Fiscal Code
-            codFisc = codFisc.toUpperCase();
-            //check if fiscal code is correct
-            if(!ControlloCodiceFiscale(codFisc)){
-                System.out.print("Codice fiscale non valido.\nReinserire: ");
-            }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
-                System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
-            } else {
-                // Exit the loop
-                exit = true;
-            }
-        }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
-        // Insert email
-        System.out.print("Inserire l'indirizzo e-mail: ");
-        String email="";
-        exit = false;
-        do{
-            email=in.nextLine();
-            //check if email is correct
-            if(!ControlloEmail(email)){
-                System.out.print("Indirizzo non valido.\nReinserire: ");
-            }else if( file.exists() && Research.isStringInCol(file, 4, email)){
-                System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
-            } else {
-                // Exit loop
-                exit = true;
-            }
-        } while( ! exit );   //loop if email is wrong and if it is not unique in the file
+        try {
+            Scanner in = new Scanner(System.in);
+            // Insert nome
+            System.out.print("Inserire il nome: ");
+            nome=in.nextLine();
+            // Insert cognome
+            System.out.print("Inserire il cognome: ");
+            cognome=in.nextLine();
+            // Insert codice fiscale
+            System.out.print("Inserire il codice fiscale: ");
+            codFisc="";
+            do{
+                // Input Fiscal Code
+                codFisc=in.nextLine();
+                // Upper case Fiscal Code
+                codFisc = codFisc.toUpperCase();
+                //check if fiscal code is correct
+                if(!ControlloCodiceFiscale(codFisc)){
+                    System.out.print("Codice fiscale non valido.\nReinserire: ");
+                }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+                } else {
+                    // Exit the loop
+                    exit = true;
+                }
+            }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
+            // Insert email
+            System.out.print("Inserire l'indirizzo e-mail: ");
+            email="";
+            exit = false;
+            do{
+                email=in.nextLine();
+                //check if email is correct
+                if(!ControlloEmail(email)){
+                    System.out.print("Indirizzo non valido.\nReinserire: ");
+                }else if( file.exists() && Research.isStringInCol(file, 4, email)){
+                    System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
+                } else {
+                    // Exit loop
+                    exit = true;
+                }
+            } while( ! exit );   //loop if email is wrong and if it is not unique in the file
 
-        //insert monitoring centre
-        //TODO
-        String centre=null;
+            //insert monitoring centre
+            //TODO
+            centre=null;
 
-        // Insert password
-        System.out.print("Inserire la password: ");
-        String passwd=in.nextLine();
-
+            // Insert password
+            System.out.print("Inserire la password: ");
+            passwd=in.nextLine();
+            in.close();
+        } catch (InputMismatchException e) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
         // Set the userid
         short userid=setUserId();
 
@@ -157,51 +164,60 @@ public class AutorizedOperator extends User {
         //migliorare la grafica
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
-        String userid = in.nextLine();
-        // loop if userdId does not exist in the file
-        while(!Research.isStringInCol(file, 0, userid) && c < limit) {
-            System.out.print("User-ID non riconosciuto.\nReinserire: ");
-            userid = in.nextLine();
-            c++;
-        }
-        // Check before go on
-        if ( c > limit ) {
-            //TODO Output
-            // Exit
-            return false;
-        }
-        //return the column where UserId is
-        int riga=Research.OneStringInCol(file, 0, userid);
-        // Initialize record
-        String[] record = null;
-        // Check if the research returned a valid result
-        if(riga > 0)
-            record = Research.getRecord(file, riga);
-        // If the result is valis
-        if(record!=null){
-            System.out.print("Inserire la password: ");
-            String password=in.nextLine();
-            //if password match set the object's attributes
-            if(record[5].equals(password)){
-
-                this.userid=Short.valueOf(userid);
-                this.nome=record[1];
-                this.cognome=record[2];
-                this.codice_fiscale=record[3];
-                this.email_address=record[4];
-                this.passwd=password;
-                //TODO
-                //aggiungere quando i centri sono fatti
-                //this.centre=record[6].toString();
-                this.centre=null;   //usato temporaneamente, va cambiato
-                return true;
-            }else{
+        try {
+            Scanner in = new Scanner(System.in);
+            String userid = in.nextLine();
+            // loop if userdId does not exist in the file
+            while(!Research.isStringInCol(file, 0, userid) && c < limit) {
+                System.out.print("User-ID non riconosciuto.\nReinserire: ");
+                userid = in.nextLine();
+                c++;
+            }
+            // Check before go on
+            if ( c > limit ) {
+                //TODO Output
+                // Exit
                 return false;
             }
-        }else{
-            //TODO
-            //migliorare?
-            System.err.println("Errore");
+            //return the column where UserId is
+            int riga=Research.OneStringInCol(file, 0, userid);
+            // Initialize record
+            String[] record = null;
+            // Check if the research returned a valid result
+            if(riga > 0)
+                record = Research.getRecord(file, riga);
+            // If the result is valis
+            if(record!=null){
+                System.out.print("Inserire la password: ");
+                String password=in.nextLine();
+                //if password match set the object's attributes
+                if(record[5].equals(password)){
+
+                    this.userid=Short.valueOf(userid);
+                    this.nome=record[1];
+                    this.cognome=record[2];
+                    this.codice_fiscale=record[3];
+                    this.email_address=record[4];
+                    this.passwd=password;
+                    //TODO
+                    //aggiungere quando i centri sono fatti
+                    //this.centre=record[6].toString();
+                    this.centre=null;   //usato temporaneamente, va cambiato
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                //TODO
+                //migliorare?
+                System.err.println("Errore");
+                return false;
+            }
+        } catch( InputMismatchException e ){
+            e.printStackTrace();
+            return false;
+        }catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
