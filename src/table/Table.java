@@ -58,7 +58,7 @@ public class Table {
             // For every category assign the correct score
             for ( short i = 0; i < n_categories; i++) {
                 // If the score is valid assign it
-                if ( s[i] >= min_score  && s[i] <= max_score ) {
+                if ( Table.isScoreCorrect(s[i]) ) {
                     this.scores[i] = s[i];
                     // Else lunch an exception
                 } else {
@@ -89,15 +89,16 @@ public class Table {
             // For every category
             for ( short i = 0; i < n_categories; i++) {
                 // If the score is valid assign it
-                if ( s[i] >= min_score  && s[i] <= max_score ) {
+                if ( Table.isScoreCorrect(s[i]) ) {
+                    // Assign Score
                     this.scores[i] = s[i];
                     // If the string is less than 256 assign it
-                    if ( note[i].length() > max_char_notes ) {
-                        // Exception, note must be 256 character or less
-                        System.err.println("Lunghezza nota errata.\nLunghezza massima: 256 caratteri.");
-                    } else {
+                    if ( Table.isNoteShort(note[i]) ) {
                         // Assign the note
                         this.notes[i] = note[i];
+                    } else {
+                        // Exception, note must be 256 character or less
+                        System.err.println("Lunghezza nota errata.\nLunghezza massima: 256 caratteri.");
                     }
                 } else {
                     // Exception, scores must be between 1 and 5
@@ -193,13 +194,128 @@ public class Table {
         } catch ( InputMismatchException e ) {
             // Error output
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             // Error output
             e.printStackTrace();
         }
         return null;
     }
-
+    private Data askData( short index ) {
+        // Input data
+        Data data_in = null;
+        // Question to the user
+        String question = "Inserire ";
+        // Complete question
+        switch (index) {
+            case 0:
+                question += "Vento:\t";
+                break;
+            case 1:
+                question += "Umidità:\t";
+                break;
+            case 2:
+                question += "Pressione:\t";
+                break;
+            case 3:
+                question += "Temperatura:\t";
+                break;
+            case 4:
+                question += "Precipitazioni:\t";
+                break;
+            case 5:
+                question += "Altitudine ghiacchiai:\t";
+                break;
+            case 6:
+                question += "Massa dei ghiacciai:\t";
+                break;
+            default:
+                System.err.println("Indice errato.");
+                return null;
+        }
+        // Exit condition
+        boolean exit = true;
+        // Integer input
+        Integer integ_in = 0;
+        // String input
+        String str_in = "";
+        // Short input
+        short short_in = 0;
+        try {
+            // Input
+            Scanner sc = new Scanner(System.in);
+            // Output question
+            System.out.println(question);
+            // Input Score
+            do {
+                // Integer Input
+                integ_in = sc.nextInt();
+                // Pass input as a short
+                short_in = integ_in.shortValue();
+                // Check the input
+                if ( ! Table.isScoreCorrect(short_in) ) {
+                    // Do not exit
+                    exit = false;
+                    // Error message
+                    System.out.println("Valore non valido.\nInserire un valore compreso tra " + min_score + " e " + max_score + ".");
+                    // Reinsert
+                    System.out.println("Reinserire:\t");
+                } else {
+                    // Assign it to the data
+                    data_in.score = short_in;
+                    // Exit
+                    exit = true;
+                }
+            } while (exit);
+            // Note question
+            System.out.println("Vuoi inserire una nota(S/N)?");
+            // Answer input
+            str_in = sc.nextLine();
+            // Uppercase
+            str_in = str_in.toUpperCase();
+            if ( str_in.charAt(0) == 'S' || str_in.charAt(0) == 'Y' ) {
+                // Request input
+                System.out.println("Inserire nota: ");
+                // Input Note
+                do {
+                    // Note input
+                    str_in = sc.nextLine();
+                    // Check the input
+                    if ( ! Table.isNoteShort(str_in) ) {
+                        // Do not exit
+                        exit = false;
+                        // Error message
+                        System.out.println("La nota non può essere più lunga di " + max_char_notes + " caratteri.");
+                        // Reinsert
+                        System.out.println("Reinserire:\t");
+                    } else {
+                        // Assign it to the note of data
+                        data_in.note = str_in;
+                        // Exit
+                        exit = true;
+                    }
+                } while (exit);
+            } else {
+                data_in.note = null;
+            }
+        } catch ( InputMismatchException e ) {
+            // Error output
+            e.printStackTrace();
+        } catch (Exception e) {
+            // Error output
+            e.printStackTrace();
+            // Return null
+            return null;
+        }
+        return data_in;
+    }
+    // Check if the score is in the correct range
+    private static boolean isScoreCorrect( short i ) {
+        return ( i >= min_score && i <= max_score );
+    }
+    // Check if the note is shorter than the max
+    private static boolean isNoteShort( String str ) {
+        return (str.length() <= max_char_notes);
+    }
 
     public static void main(String[] args) {
         Table t = new Table();
