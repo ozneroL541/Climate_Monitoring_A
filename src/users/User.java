@@ -38,9 +38,7 @@ public class User {
         // While exit is false
         do {
             // Input
-            try {
-                // Input
-                Scanner sc = new Scanner(System.in);
+            try (Scanner sc = new Scanner(System.in)) {
                 // Print indexes menu
                 GeographicArea.printIndexesMenu();
                 // Output
