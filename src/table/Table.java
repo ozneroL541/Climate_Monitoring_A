@@ -239,6 +239,7 @@ public class Table {
             System.out.print(question);
             // Input Score
             do {
+                // TODO fix this input
                 // Integer Input
                 integ_in = sc.nextInt();
                 // Pass input as a short
