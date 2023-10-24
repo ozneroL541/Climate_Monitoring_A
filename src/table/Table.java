@@ -240,6 +240,7 @@ public class Table {
             // Input Score
             do {
                 // TODO fix this input
+                // Hint: make the catch inner, put the Scanner out of the try
                 // Integer Input
                 integ_in = sc.nextInt();
                 // Pass input as a short
@@ -288,6 +289,7 @@ public class Table {
                     }
                 } while ( ! exit);
             } else {
+                // No note provided 
                 data_in.note = null;
             }
         } catch ( InputMismatchException e ) {
@@ -305,10 +307,12 @@ public class Table {
     }
     // Check if the score is in the correct range
     private static boolean isScoreCorrect( short i ) {
+        // Return true if the score is in the correct range
         return ( i >= min_score && i <= max_score );
     }
     // Check if the note is shorter than the max
     private static boolean isNoteShort( String str ) {
+        // Return true if the length of the string is acceptable
         return (str.length() <= max_char_notes);
     }
 
