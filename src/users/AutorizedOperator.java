@@ -154,6 +154,12 @@ public class AutorizedOperator extends User {
             // Error return
             return false;
         }
+        if ( false/* TODO: Condition */ ) {
+            // Error Output
+            System.err.println("Numero massimo di operatori raggiunto.\nNon è possibile effettuare la registrazione");
+            // Error return
+            return false;
+        }
         // TODO Implement max attempt number // ehi, it's me bitch ;-)
         // Attempt limit
         final int limit = 3;
