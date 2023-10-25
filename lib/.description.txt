@@ -1,1 +1,1 @@
-La directory src contenente le librerie del progetto
+La directory lib contenente le librerie del progretto
