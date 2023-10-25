@@ -383,39 +383,4 @@ public class AutorizedOperator extends User {
             e.printStackTrace();
         }
     }
-
-    //TODO Delete all this
-    /*TODO Suggerimento da Lorenzo:
-     * 1 - Se modifichi questo metodo in modo da togliere CSVReader,
-     * per esempio usando metodi della classe Research o creandone
-     * uno nuovo nella classe research, si può togliere l'import di
-     * CSVReader rendendo il codice più leggero e pulito.
-     * 2 - Cerchiamo di non usare metodi che stampano cose tramite
-     * System.out perch&egrave nel caso di debba cambiare l'output (ad 
-     * esempio passando ad un'interfaccia grafica o ad una console
-     * interattiva) &egrave meno complicato.
-     * Per evitare questo il metodo può restituire una String
-     * contenente l'output desiderato.
-    //TODO
-    //eliminare il metodo (era per fare debug) (forse si può tenere ma rendere privato?)
-    public static void leggiOperatori(){
-        try{
-            FileReader freader = new FileReader(file);//created an object of freader class
-            //@SuppressWarnings("resource")
-            CSVReader creader= new CSVReader(freader);// created creader object by passing freader as a parameter
-            String [] nextRecord;// created an array of type String
-            //read data line by line
-            while((nextRecord = creader.readNext())!=null){
-                // For each cell in the line
-                for(String token: nextRecord)
-                    System.out.print(token +"\t"); //will bring the value of cell seperated by tab space
-                System.out.println();
-            }
-            // Close CSV reader
-            creader.close();
-            System.out.println();
-        }catch(Exception e){ //to catch any exception inside try block
-            e.printStackTrace();//used to print a throwable class along with other dataset class
-        }
-    }*/
 }
