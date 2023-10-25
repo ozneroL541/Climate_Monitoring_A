@@ -36,7 +36,7 @@ import src.research.Research;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class AutorizedOperator extends User {
     // Name

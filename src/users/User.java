@@ -19,7 +19,7 @@ import src.geographicarea.GeographicArea;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare &egrave descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class User {
     /**
@@ -100,9 +100,5 @@ public class User {
                 exit = true;
             }
         } while (!exit);
-    }
-    // TODO Remove test main
-    public static void main(String[] args) {
-        User.Ricerca();
     }
 }
