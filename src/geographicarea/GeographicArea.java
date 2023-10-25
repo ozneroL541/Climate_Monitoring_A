@@ -180,7 +180,7 @@ public class GeographicArea {
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerNazione(String c_n){
-        return Research.AllStringInCol(file, IndexOf.country_name, c_n);
+        return Research.AllStringInCol_notCaseS(file, IndexOf.country_name, c_n);
     }
     /*
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
