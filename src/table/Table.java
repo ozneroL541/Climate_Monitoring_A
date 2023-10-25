@@ -110,6 +110,7 @@ public class Table {
         }
     } 
     // TODO: Bug does not pass notes
+    // TODO Make this method private 
     public Table( Data_SN[] d ) {
         if ( d == null || d.length != n_categories ) {
             // Exception because the lenght is not valid
