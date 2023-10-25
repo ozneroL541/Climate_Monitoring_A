@@ -177,8 +177,6 @@ public class AutorizedOperator extends User {
     /*cambiare il tipo del ritorno in int per avere più codici di errore(?)
      * Ritornare vari numeri negativi a seconda dell'errore.
      * 0 se è avvenuta l'autenticazione
-     * 
-     * Perché non è static?
     */
     public boolean autenticazione() {
         // If file doesn't exist exit
@@ -188,7 +186,6 @@ public class AutorizedOperator extends User {
             // Error return
             return false;
         }
-        // TODO Implement max attempt number // ehi, it's me bitch ;-)
         // Attempt limit
         final int limit = 3;
         // Counter 
@@ -421,21 +418,4 @@ public class AutorizedOperator extends User {
             e.printStackTrace();//used to print a throwable class along with other dataset class
         }
     }*/
-    
-    //TODO
-    // main per testare, da rimuove alla fine
-    public static void main(String []args){
-
-        //AutorizedOperator.Ricerca();
-        AutorizedOperator.registrazione();
-        
-        AutorizedOperator a = new AutorizedOperator();
-        if(a.autenticazione()){
-            System.out.println("Autenticazione completata");
-            //resto dei metodi dell'operatore autorizzato
-        }else{
-            System.out.println("Autenticazione fallita");
-            //ritorno al menu di partenza(?)
-        }
-    }
 }
