@@ -324,6 +324,11 @@ public class AutorizedOperator extends User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
+
+    private static boolean onlyLettersInString(String s){
+        return s.matches("[a-zA-Z]+");
+    }
+
     // Create the file OperatoriRegistrati.csv and set the header of it
     private static void addHeader(){
         // File Header
@@ -399,7 +404,7 @@ public class AutorizedOperator extends User {
     //TODO
     // main per testare, da rimuove alla fine
     public static void main(String []args){
-
+        
         AutorizedOperator.Ricerca();
         //AutorizedOperator.registrazione();
         
