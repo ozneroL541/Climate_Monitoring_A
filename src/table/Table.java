@@ -108,10 +108,7 @@ public class Table {
                 }
             }
         }
-    }
-    /*
-     * Costruttore con classe privata Data
-     */
+    } 
     // TODO: Bug does not pass notes
     public Table( Data_SN[] d ) {
         if ( d == null || d.length != n_categories ) {
