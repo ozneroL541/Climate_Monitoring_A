@@ -97,7 +97,7 @@ public class Table {
                     // If the string is less than 256 assign it
                     if ( Table.isNoteShort(note[i]) ) {
                         // Assign the note
-                        this.notes[i] = note[i];
+                        this.notes[i] += note[i];
                     } else {
                         // Exception, note must be 256 character or less
                         System.err.println("Lunghezza nota errata.\nLunghezza massima: " + max_char_notes + " caratteri.");
@@ -109,9 +109,8 @@ public class Table {
             }
         }
     } 
-    // TODO: Bug does not pass notes
-    // TODO Make this method private 
-    public Table( Data_SN[] d ) {
+    // Creates a Table using the private class Data_SN
+    private Table( Data_SN[] d ) {
         if ( d == null || d.length != n_categories ) {
             // Exception because the lenght is not valid
             System.err.println("Errore: lunghezza array valori dati tabella errata.");
@@ -123,13 +122,16 @@ public class Table {
                     this.scores[i] = d[i].score;
                     // If note not null
                     if ( d[i].note == null || d[i].note.isEmpty() ) {
+                        // Assign null to note
                         this.notes[i] = "";
                     } else if ( Table.isNoteShort(d[i].note) ) {
+                        // Assign the note
+                        this.notes[i] += d[i].note;
+                    } else {
+                        // Assign null to note
+                        this.notes[i] = "";
                         // Exception, note must be 256 character or less
                         System.err.println("Lunghezza nota errata.\nLunghezza massima: " + max_char_notes + " caratteri.");
-                    } else {
-                        // Assign the note
-                        this.notes[i] = d[i].note;
                     }
                 } else {
                     // Exception, scores must be between 1 and 5
@@ -258,7 +260,7 @@ public class Table {
                     System.out.println("Valore non valido.");
                     System.out.println("Inserire un numero compreso tra " + min_score + " e " + max_score + ".");
                     // Reinsert
-                    System.out.print("Reinserire:\t");
+                    System.out.print("Reinserire:\t\t\t");
                 } else {
                     // Reset input scanner
                     sc.nextLine();
@@ -274,7 +276,7 @@ public class Table {
                 System.err.println("Valore non valido.");
                 System.err.println("Inserire un numero compreso tra " + min_score + " e " + max_score + ".");
                 // Reinsert
-                System.err.print("Reinserire:\t");
+                System.err.print("Reinserire:\t\t\t");
                 // Do not exit
                 exit = false;
             } catch (Exception e) {
@@ -285,14 +287,14 @@ public class Table {
             }
         } while ( ! exit);
         // Note question
-        System.out.println("Vuoi inserire una nota(S/N)?");
+        System.out.print("Vuoi inserire una nota(S/N)?\t");
         // Answer input
         str_in = sc.nextLine();
         // Uppercase
         str_in = str_in.toUpperCase();
         if ( str_in != null && ! str_in.isEmpty() && (str_in.charAt(0) == 'S' || str_in.charAt(0) == 'Y') ) {
             // Request input
-            System.out.println("Inserire nota: ");
+            System.out.print("Inserire nota:\t\t\t");
             // Input Note
             do {
                 try {
@@ -305,7 +307,7 @@ public class Table {
                         // Error message
                         System.out.println("La nota non può essere più lunga di " + max_char_notes + " caratteri.");
                         // Reinsert
-                        System.out.print("Reinserire:\t");
+                        System.out.print("Reinserire:\t\t\t");
                     } else {
                         // Assign it to the note of data
                         data_in.note = str_in;
@@ -316,7 +318,7 @@ public class Table {
                     // Error message
                     System.err.println("Inserimento non valido.");
                     // Reinsert
-                    System.err.print("Reinserire:\t");
+                    System.err.print("Reinserire:\t\t\t");
                     // Do not exit
                     exit = false;
                 } catch (Exception e) {
@@ -341,7 +343,7 @@ public class Table {
     // Check if the note is shorter than the max
     private static boolean isNoteShort( String str ) {
         // Return true if the length of the string is acceptable
-        return ( str != null && (! str.isEmpty()) && str.length() <= max_char_notes);
+        return (str.length() <= max_char_notes);
     }
 
     //TODO Remove test main
