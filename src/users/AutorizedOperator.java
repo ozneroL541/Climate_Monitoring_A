@@ -8,28 +8,19 @@
 
 package src.users;
 //TODO remove unused import
-import java.io.BufferedReader;
+import src.Input.InputScanner;
+import src.monitoringcentre.MonitoringCentre;
+import src.research.Research;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
-// TODO: Remove and pass everything throw research
-import com.opencsv.CSVReader;
 
-import javax.annotation.processing.SupportedOptions;
-
-import src.Input.InputScanner;
-import src.monitoringcentre.MonitoringCentre;
-import src.research.Research;
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
