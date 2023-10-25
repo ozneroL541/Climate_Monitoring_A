@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 // TODO: Remove and pass everything throw research
@@ -71,8 +72,8 @@ public class AutorizedOperator extends User {
         boolean exit = false;
         // Max number of operators
         final int max_operators = 99999;
-        try {
-            Scanner in = new Scanner(System.in);
+        // Input
+        try (Scanner in = new Scanner(System.in);) {
             // Check if number of operators exceded
             if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
                 // Error Output
@@ -157,6 +158,10 @@ public class AutorizedOperator extends User {
         } catch (InputMismatchException e) {
             // Print Error
             e.printStackTrace();
+        } catch ( NoSuchElementException e ){
+            // Print Error
+            e.printStackTrace();
+            System.err.println(e.toString());
         } catch ( Exception e ) {
             // Print Error
             e.printStackTrace();
@@ -194,8 +199,8 @@ public class AutorizedOperator extends User {
         //migliorare la grafica
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
-        try {
-            Scanner in = new Scanner(System.in);
+        // Input
+        try (Scanner in = new Scanner(System.in)) {
             String userid = in.nextLine();
             // loop if userdId does not exist in the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
@@ -381,6 +386,18 @@ public class AutorizedOperator extends User {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    //TODO Remove Test main
+    public static void main(String[] args) {
+        AutorizedOperator.Ricerca();
+        AutorizedOperator.registrazione();
+        AutorizedOperator a = new AutorizedOperator();
+        if (a.autenticazione()) {
+            System.out.println("Autenticazione Riuscita.");
+        } else {
+            System.out.println("Autenticazione Fallita.");
         }
     }
 }
