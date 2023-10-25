@@ -28,7 +28,7 @@ public class Table {
     // Max score
     private final static short max_score = 5;
     // Category's scores
-    private short[] scores = { 1, 1, 1, 1, 1, 1, 1 };
+    private short[] scores = { 0, 0, 0, 0, 0, 0, 0 };
     // Category's notes
     private String[] notes = { "", "", "", "", "", "", "" };
     // Score and note
@@ -111,7 +111,7 @@ public class Table {
      * Costruttore con classe privata Data
      */
     public Table( Data[] d ) {
-        if ( d == null && d.length != n_categories ) {
+        if ( d == null || d.length != n_categories ) {
             // Exception because the lenght is not valid
             System.err.println("Errore: lunghezza array valori dati tabella errata.");
         } else {
