@@ -11,6 +11,8 @@ package src.users;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import src.Input.InputScanner;
+
 import src.geographicarea.GeographicArea;
 
 /**
@@ -36,7 +38,7 @@ public class User {
         // Input integer
         int in = -1;
         // Input
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = InputScanner.input_scanner;
         // While exit is false
         do {
             // Input

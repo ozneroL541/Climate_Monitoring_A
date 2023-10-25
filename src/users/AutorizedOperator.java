@@ -28,6 +28,7 @@ import com.opencsv.CSVReader;
 
 import javax.annotation.processing.SupportedOptions;
 
+import src.Input.InputScanner;
 import src.monitoringcentre.MonitoringCentre;
 import src.research.Research;
 /**
@@ -73,7 +74,7 @@ public class AutorizedOperator extends User {
         // Max number of operators
         final int max_operators = 99999;
         // Input
-        Scanner in = new Scanner(System.in);
+        Scanner in = InputScanner.input_scanner;
         try {
             // Check if number of operators exceded
             if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
@@ -201,7 +202,7 @@ public class AutorizedOperator extends User {
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
         // Input
-        Scanner in = new Scanner(System.in);
+        Scanner in = InputScanner.input_scanner;
         try {
             String userid = in.nextLine();
             // loop if userdId does not exist in the file
