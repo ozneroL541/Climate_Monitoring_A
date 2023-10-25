@@ -21,7 +21,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 // TODO: Remove and pass everything throw research
 import com.opencsv.CSVReader;
@@ -73,8 +72,6 @@ public class AutorizedOperator extends User {
         boolean exit = false;
         // Max number of operators
         final int max_operators = 99999;
-        // Input
-        Scanner in = InputScanner.input_scanner;
         try {
             // Check if number of operators exceded
             if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
@@ -88,7 +85,7 @@ public class AutorizedOperator extends User {
                 // Insert name
                 System.out.print("Inserire il nome: ");
                 do{
-                    nome=in.nextLine();
+                    nome=InputScanner.input_scanner.nextLine();
                     //check if name contains only letters
                     if(!onlyLettersInString(nome)){
                         System.out.print("Nome non valido.\nReinserire: ");
@@ -101,7 +98,7 @@ public class AutorizedOperator extends User {
                 // Insert last name
                 System.out.print("Inserire il cognome: ");
                 do{
-                    cognome=in.nextLine();
+                    cognome=InputScanner.input_scanner.nextLine();
                     //check if last name contains only letters
                     if(!onlyLettersInString(cognome)){
                         System.out.print("Cognome non valido.\nReinserire: ");
@@ -116,35 +113,35 @@ public class AutorizedOperator extends User {
                 codFisc="";
                 do{
                     // Input Fiscal Code
-                    codFisc=in.nextLine();
+                    codFisc=InputScanner.input_scanner.nextLine();
                     // Upper case Fiscal Code
                     codFisc = codFisc.toUpperCase();
                     //check if fiscal code is correct
                     if(!ControlloCodiceFiscale(codFisc)){
                         System.out.print("Codice fiscale non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique InputScanner.input_scanner the file
                         System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                     } else {
                         // Exit the loop
                         exit = true;
                     }
-                }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
+                }while( ! exit );   //loop if fiscal code is wrong or if it is not unique InputScanner.input_scanner the file
                 // Insert email
                 System.out.print("Inserire l'indirizzo e-mail: ");
                 email="";
                 exit = false;
                 do{
-                    email=in.nextLine();
+                    email=InputScanner.input_scanner.nextLine();
                     //check if email is correct
                     if(!ControlloEmail(email)){
                         System.out.print("Indirizzo non valido.\nReinserire: ");
                     }else if( file.exists() && Research.isStringInCol(file, 4, email)){
-                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
+                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique InputScanner.input_scanner the file
                     } else {
                         // Exit loop
                         exit = true;
                     }
-                } while( ! exit );   //loop if email is wrong and if it is not unique in the file
+                } while( ! exit );   //loop if email is wrong and if it is not unique InputScanner.input_scanner the file
 
                 //insert monitoring centre
                 //TODO
@@ -152,7 +149,7 @@ public class AutorizedOperator extends User {
 
                 // Insert password
                 System.out.print("Inserire la password: ");
-                passwd=in.nextLine();
+                passwd=InputScanner.input_scanner.nextLine();
             }
         } catch ( IOException e ){
             // Print Error
@@ -201,14 +198,12 @@ public class AutorizedOperator extends User {
         //migliorare la grafica
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
-        // Input
-        Scanner in = InputScanner.input_scanner;
         try {
-            String userid = in.nextLine();
-            // loop if userdId does not exist in the file
+            String userid = InputScanner.input_scanner.nextLine();
+            // loop if userdId does not exist InputScanner.input_scanner the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
                 System.out.print("User-ID non riconosciuto.\nReinserire: ");
-                userid = in.nextLine();
+                userid = InputScanner.input_scanner.nextLine();
                 c++;
             }
             // Check before go on
@@ -227,7 +222,7 @@ public class AutorizedOperator extends User {
             // If the result is valis
             if(record!=null){
                 System.out.print("Inserire la password: ");
-                String password=in.nextLine();
+                String password=InputScanner.input_scanner.nextLine();
                 //if password match set the object's attributes
                 if(record[5].equals(password)){
 
