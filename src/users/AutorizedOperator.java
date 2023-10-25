@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.10.1
+ * @version 0.10.2
  */
 public class AutorizedOperator extends User {
     // Name
