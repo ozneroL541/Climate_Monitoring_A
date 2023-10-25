@@ -8,12 +8,9 @@
 
 package src.users;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import src.Input.InputScanner;
-
 import src.geographicarea.GeographicArea;
+import java.util.InputMismatchException;
 
 /**
  * Un oggetto della classe <code>User</code> rappresenta un utente.
@@ -37,8 +34,6 @@ public class User {
         boolean exit = true;
         // Input integer
         int in = -1;
-        // Input
-        Scanner sc = InputScanner.input_scanner;
         // While exit is false
         do {
             // Input
@@ -50,9 +45,9 @@ public class User {
                 // Output for input
                 System.out.print  ("Inserire il codice: ");
                 // Input integer
-                in = sc.nextInt();
+                in = InputScanner.input_scanner.nextInt();
                 // Collect trash
-                sc.nextLine();
+                InputScanner.input_scanner.nextLine();
                 // If the chosen integer exist 
                 if (GeographicArea.IndexExist(in)) {
                     // Research Argument
@@ -61,7 +56,7 @@ public class User {
                     System.out.print("Inserire il parametro per la ricerca: ");
                     do {
                         // Input string
-                        arg = sc.nextLine();
+                        arg = InputScanner.input_scanner.nextLine();
                         // If the argument is correct
                         if (GeographicArea.argumentCorrect(arg, in)) {
                             // New Line
@@ -86,7 +81,7 @@ public class User {
                 }
             } catch ( InputMismatchException e) {
                 // Reset input scanner
-                sc.nextLine();
+                InputScanner.input_scanner.nextLine();
                 // Error Output
                 System.err.println("\nInserimento non valido.\nInserire uno dei numeri mostrati per selezionare un'opzione.");
                 // New line
