@@ -11,13 +11,15 @@ package src.users;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import src.Input.InputScanner;
+
 import src.geographicarea.GeographicArea;
 
 /**
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare &egrave descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class User {
     /**
@@ -36,7 +38,7 @@ public class User {
         // Input integer
         int in = -1;
         // Input
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = InputScanner.input_scanner;
         // While exit is false
         do {
             // Input
@@ -98,9 +100,5 @@ public class User {
                 exit = true;
             }
         } while (!exit);
-    }
-    // TODO Remove test main
-    public static void main(String[] args) {
-        User.Ricerca();
     }
 }
