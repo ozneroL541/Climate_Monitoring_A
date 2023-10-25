@@ -32,7 +32,7 @@ public class Table {
     // Category's notes
     private String[] notes = { "", "", "", "", "", "", "" };
     // Score and note
-    public static class Data_SN {
+    private static class Data_SN {
         // Score
         public short score = 0;
         // Note
@@ -109,7 +109,10 @@ public class Table {
             }
         }
     } 
-    // Creates a Table using the private class Data_SN
+    /*
+     * Crea una tabella utilizzando la classe privata Data_SN
+     * @param d datas
+     */
     private Table( Data_SN[] d ) {
         if ( d == null || d.length != n_categories ) {
             // Exception because the lenght is not valid
@@ -344,12 +347,5 @@ public class Table {
     private static boolean isNoteShort( String str ) {
         // Return true if the length of the string is acceptable
         return (str.length() <= max_char_notes);
-    }
-
-    //TODO Remove test main
-    public static void main(String[] args) {
-        Table t = null;
-        t = Table.MakeTable();
-        System.out.println(t.toString());
     }
 }
