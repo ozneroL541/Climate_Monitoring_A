@@ -17,7 +17,7 @@ import com.opencsv.CSVReader;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.3.1
+ * @version 0.10.0
  */
 public class Research {
     /**

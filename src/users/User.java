@@ -17,7 +17,7 @@ import src.geographicarea.GeographicArea;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare &egrave descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.1.1
+ * @version 0.10.0
  */
 public class User {
     /**

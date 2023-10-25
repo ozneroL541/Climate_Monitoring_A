@@ -16,7 +16,7 @@ import java.util.Scanner;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.0.3
+ * @version 0.10.0
  */
 public class Table {
     // Number of categories
