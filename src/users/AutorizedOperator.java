@@ -401,7 +401,7 @@ public class AutorizedOperator extends User {
     public static void main(String []args){
 
         AutorizedOperator.Ricerca();
-        AutorizedOperator.registrazione();
+        //AutorizedOperator.registrazione();
         
         AutorizedOperator a = new AutorizedOperator();
         if(a.autenticazione()){

@@ -32,11 +32,13 @@ public class Table {
     // Category's notes
     private String[] notes = { "", "", "", "", "", "", "" };
     // Score and note
-    private class Data {
+    public static class Data_SN {
         // Score
-        private short score = 0;
+        public short score = 0;
         // Note
-        private String note = "";
+        public String note = "";
+        // Costructor
+        public Data_SN(){}
     }
     /**
      * Costruttore vuoto
@@ -63,7 +65,7 @@ public class Table {
                     // Else lunch an exception
                 } else {
                     // Exception, scores must be between 1 and 5
-                    System.err.println("Errore: valori fuori intervallo(1-5).");
+                    System.err.println("Errore: valori fuori intervallo(" + min_score + "-" + max_score + ").");
                 }
             }
         }
@@ -98,11 +100,11 @@ public class Table {
                         this.notes[i] = note[i];
                     } else {
                         // Exception, note must be 256 character or less
-                        System.err.println("Lunghezza nota errata.\nLunghezza massima: 256 caratteri.");
+                        System.err.println("Lunghezza nota errata.\nLunghezza massima: " + max_char_notes + " caratteri.");
                     }
                 } else {
                     // Exception, scores must be between 1 and 5
-                    System.err.println("Errore: i valori fuori intervallo(1-5).");
+                    System.err.println("Errore: i valori fuori intervallo(" + min_score + "-" + max_score + ").");
                 }
             }
         }
@@ -110,7 +112,8 @@ public class Table {
     /*
      * Costruttore con classe privata Data
      */
-    public Table( Data[] d ) {
+    // TODO: Bug does not pass notes
+    public Table( Data_SN[] d ) {
         if ( d == null || d.length != n_categories ) {
             // Exception because the lenght is not valid
             System.err.println("Errore: lunghezza array valori dati tabella errata.");
@@ -118,12 +121,14 @@ public class Table {
             // For every category
             for (int i = 0; i < n_categories; i++) {
                 // If the score is valid assign it
-                if ( d[i].score >= min_score  && d[i].score <= max_score ) {
+                if ( Table.isScoreCorrect(d[i].score) ) {
                     this.scores[i] = d[i].score;
-                    // If the string is less than 256 assign it
-                    if ( d[i].note.length() > max_char_notes ) {
+                    // If note not null
+                    if ( d[i].note == null || d[i].note.isEmpty() ) {
+                        this.notes[i] = "";
+                    } else if ( Table.isNoteShort(d[i].note) ) {
                         // Exception, note must be 256 character or less
-                        System.err.println("Lunghezza nota errata.\nLunghezza massima: 256 caratteri.");
+                        System.err.println("Lunghezza nota errata.\nLunghezza massima: " + max_char_notes + " caratteri.");
                     } else {
                         // Assign the note
                         this.notes[i] = d[i].note;
@@ -179,11 +184,13 @@ public class Table {
      */
     public static Table MakeTable() {
         // Datas Input
-        Data[] datas = new Data[n_categories];
+        Data_SN[] datas = new Data_SN[n_categories];
         // Table
         Table t = null;
         // For every category
         for (short i = 0; i < n_categories; i++) {
+            // Initialize data
+            datas[i] = new Data_SN();
             // If one input is null
             if ( (datas[i] = askData(i)) == null )
                 // Return null
@@ -194,24 +201,25 @@ public class Table {
         // Return datas
         return t;
     }
-    private static Data askData( short index ) {
+    // Ask about datas
+    private static Data_SN askData( short index ) {
         // Input data
-        Data data_in = null;
+        Data_SN data_in = new Data_SN();
         // Question to the user
         String question = "Inserire ";
         // Complete question
         switch (index) {
             case 0:
-                question += "Vento:\t";
+                question += "Vento:\t\t\t";
                 break;
             case 1:
-                question += "Umidità:\t";
+                question += "Umidità:\t\t";
                 break;
             case 2:
-                question += "Pressione:\t";
+                question += "Pressione:\t\t";
                 break;
             case 3:
-                question += "Temperatura:\t";
+                question += "Temperatura:\t\t";
                 break;
             case 4:
                 question += "Precipitazioni:\t";
@@ -234,13 +242,13 @@ public class Table {
         String str_in = "";
         // Short input
         short short_in = 0;
-        try (Scanner sc = new Scanner(System.in)){
-            // Output question
-            System.out.print(question);
-            // Input Score
-            do {
-                // TODO fix this input
-                // Hint: make the catch inner, put the Scanner out of the try
+        // Input
+        Scanner sc = new Scanner(System.in);
+        // Output question
+        System.out.print(question);
+        // Input Score
+        do {
+            try{
                 // Integer Input
                 integ_in = sc.nextInt();
                 // Pass input as a short
@@ -250,27 +258,47 @@ public class Table {
                     // Do not exit
                     exit = false;
                     // Error message
-                    System.out.println("Valore non valido.\nInserire un valore compreso tra " + min_score + " e " + max_score + ".");
+                    System.out.println("Valore non valido.");
+                    System.out.println("Inserire un numero compreso tra " + min_score + " e " + max_score + ".");
                     // Reinsert
-                    System.out.println("Reinserire:\t");
+                    System.out.print("Reinserire:\t");
                 } else {
+                    // Reset input scanner
+                    sc.nextLine();
                     // Assign it to the data
                     data_in.score = short_in;
                     // Exit
                     exit = true;
                 }
-            } while ( ! exit);
-            // Note question
-            System.out.println("Vuoi inserire una nota(S/N)?");
-            // Answer input
-            str_in = sc.nextLine();
-            // Uppercase
-            str_in = str_in.toUpperCase();
-            if ( str_in.charAt(0) == 'S' || str_in.charAt(0) == 'Y' ) {
-                // Request input
-                System.out.println("Inserire nota: ");
-                // Input Note
-                do {
+            } catch ( InputMismatchException e ) {
+                // Reset input scanner
+                sc.nextLine();
+                // Error message
+                System.err.println("Valore non valido.");
+                System.err.println("Inserire un numero compreso tra " + min_score + " e " + max_score + ".");
+                // Reinsert
+                System.err.print("Reinserire:\t");
+                // Do not exit
+                exit = false;
+            } catch (Exception e) {
+                // Error output
+                e.printStackTrace();
+                // Return null
+                return null;
+            }
+        } while ( ! exit);
+        // Note question
+        System.out.println("Vuoi inserire una nota(S/N)?");
+        // Answer input
+        str_in = sc.nextLine();
+        // Uppercase
+        str_in = str_in.toUpperCase();
+        if ( str_in != null && ! str_in.isEmpty() && (str_in.charAt(0) == 'S' || str_in.charAt(0) == 'Y') ) {
+            // Request input
+            System.out.println("Inserire nota: ");
+            // Input Note
+            do {
+                try {
                     // Note input
                     str_in = sc.nextLine();
                     // Check the input
@@ -280,29 +308,32 @@ public class Table {
                         // Error message
                         System.out.println("La nota non può essere più lunga di " + max_char_notes + " caratteri.");
                         // Reinsert
-                        System.out.println("Reinserire:\t");
+                        System.out.print("Reinserire:\t");
                     } else {
                         // Assign it to the note of data
                         data_in.note = str_in;
                         // Exit
                         exit = true;
                     }
-                } while ( ! exit);
-            } else {
-                // No note provided 
-                data_in.note = null;
-            }
-        } catch ( InputMismatchException e ) {
-            // Error output
-            e.printStackTrace();
-            // Return null
-            return null;
-        } catch (Exception e) {
-            // Error output
-            e.printStackTrace();
-            // Return null
-            return null;
+                }  catch ( InputMismatchException e ) {
+                    // Error message
+                    System.err.println("Inserimento non valido.");
+                    // Reinsert
+                    System.err.print("Reinserire:\t");
+                    // Do not exit
+                    exit = false;
+                } catch (Exception e) {
+                    // Error output
+                    e.printStackTrace();
+                    // Return null
+                    return null;
+                }
+            } while ( ! exit);
+        } else {
+            // No note provided 
+            data_in.note = null;
         }
+        // Return datas
         return data_in;
     }
     // Check if the score is in the correct range
@@ -313,7 +344,7 @@ public class Table {
     // Check if the note is shorter than the max
     private static boolean isNoteShort( String str ) {
         // Return true if the length of the string is acceptable
-        return (str.length() <= max_char_notes);
+        return ( str != null && (! str.isEmpty()) && str.length() <= max_char_notes);
     }
 
     //TODO Remove test main
