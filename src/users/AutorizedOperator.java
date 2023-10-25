@@ -81,9 +81,9 @@ public class AutorizedOperator extends User {
                 //TODO
                 //migliorare la grafica
                 System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
-                // Insert nome
+                
+                // Insert name
                 System.out.print("Inserire il nome: ");
-
                 do{
                     nome=in.nextLine();
                     //check if name contains only letters
@@ -94,11 +94,20 @@ public class AutorizedOperator extends User {
                         exit=true;
                     }
                 }while(!exit);  //loop if name is wrong
-
-                
-                // Insert cognome
+                exit = false;
+                // Insert last name
                 System.out.print("Inserire il cognome: ");
-                cognome=in.nextLine();
+                do{
+                    cognome=in.nextLine();
+                    //check if last name contains only letters
+                    if(!onlyLettersInString(cognome)){
+                        System.out.print("Cognome non valido.\nReinserire: ");
+                    }else{
+                        //exit loop
+                        exit=true;
+                    }
+                }while(!exit);  //loop if last name is wrong
+                exit = false;
                 // Insert codice fiscale
                 System.out.print("Inserire il codice fiscale: ");
                 codFisc="";
