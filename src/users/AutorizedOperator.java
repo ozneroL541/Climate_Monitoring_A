@@ -83,7 +83,19 @@ public class AutorizedOperator extends User {
                 System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
                 // Insert nome
                 System.out.print("Inserire il nome: ");
-                nome=in.nextLine();
+
+                do{
+                    nome=in.nextLine();
+                    //check if name contains only letters
+                    if(!onlyLettersInString(nome)){
+                        System.out.print("Nome non valido.\nReinserire: ");
+                    }else{
+                        //exit loop
+                        exit=true;
+                    }
+                }while(!exit);  //loop if name is wrong
+
+                
                 // Insert cognome
                 System.out.print("Inserire il cognome: ");
                 cognome=in.nextLine();
@@ -404,9 +416,9 @@ public class AutorizedOperator extends User {
     //TODO
     // main per testare, da rimuove alla fine
     public static void main(String []args){
-        
-        AutorizedOperator.Ricerca();
-        //AutorizedOperator.registrazione();
+
+        //AutorizedOperator.Ricerca();
+        AutorizedOperator.registrazione();
         
         AutorizedOperator a = new AutorizedOperator();
         if(a.autenticazione()){
