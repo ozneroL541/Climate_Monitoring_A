@@ -1,1 +1,1 @@
-Put external resources here. 
+La directory resources contenente le risorse esterne del progetto.
