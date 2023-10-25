@@ -138,7 +138,6 @@ public class Table {
         }
     }
     /**
-    /**
      * Restituisce la tabella sotto formato di stringa
      */
     @Override
