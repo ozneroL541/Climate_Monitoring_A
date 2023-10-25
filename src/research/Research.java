@@ -101,7 +101,7 @@ public class Research {
         int line = 0;
         // Create a list of int
         ArrayList<Integer> list = new ArrayList<Integer>();
-        
+        // Try CSVReader
         try{
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
@@ -119,6 +119,69 @@ public class Research {
             while( (nextRecord = creader.readNext()) != null){
                 // When the first cell equals the id exit the while
                 if ( nextRecord[col].equals(str) ) {
+                    list.add(++line);
+                } else
+                    // Line increment
+                    line++;
+            }
+            creader.close();
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
+        }
+        // Create an array where store the list
+        Integer[] out = new Integer[list.size()];
+        list.toArray(out);
+        // Return the lines
+        return out;
+    }
+    /**
+     * Questo metodo ricerca una stringa in un file CSV
+     * in una determinata colonna e
+     * restituisce ogni riga in cui occorre.
+     * Questo metodo non è case-sensitive.
+     * @param file file CSV
+     * @param col colonna
+     * @param str stringa
+     * @return array di Integer contenente le righe
+     */
+    public static Integer[] AllStringInCol_notCaseS( File file, int col, String str ) {
+        // Upper String
+        str = str.toUpperCase();
+        // Set the line to 0
+        int line = 0;
+        // Create a list of int
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        // Try CSVReader
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit code -2
+            if ( nextRecord.length <= col )
+                return null;
+            // First line will not contain any researched element so, increment and go on
+            // Line increment
+            line++;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // When the first cell equals the id exit the while
+                if ( str.equals(nextRecord[col].toUpperCase()) ) {
                     list.add(++line);
                 } else
                     // Line increment

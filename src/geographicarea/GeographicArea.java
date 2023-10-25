@@ -145,7 +145,7 @@ public class GeographicArea {
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerASCIINome(String ascii_n){
-        return Research.AllStringInCol(file, IndexOf.ascii_name, ascii_n);
+        return Research.AllStringInCol_notCaseS(file, IndexOf.ascii_name, ascii_n);
     }
     /*
      * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
@@ -153,15 +153,18 @@ public class GeographicArea {
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerNomeGenerico( String n ){
+        // Index
+        short index = 0;
         // If is ASCII
         if ( Charset.forName("US-ASCII").newEncoder().canEncode(n) ) {
-            // Use only ASCII research
-            return ricercaPerASCIINome(n);
+            // Assign ASCII index
+            index = IndexOf.ascii_name;
         // If is not ASCII
         } else {
-            // Use non ASCII research
-            return ricercaPerRealeNome(n);
+            // Assign name index
+            index = IndexOf.real_name;
         }
+        return Research.AllStringInCol_notCaseS(file, index, n);
     }
     /*
      * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
