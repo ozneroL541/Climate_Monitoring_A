@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * Standard Input Scanner
- * Permette di creare Scanner del stdin.
+ * Permette di usare Scanner del stdin.
  * @author Lorenzo Radice
  * @version 0.10.1
  */
