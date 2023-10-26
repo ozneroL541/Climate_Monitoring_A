@@ -110,13 +110,13 @@ public class AutorizedOperator extends User {
                     //check if fiscal code is correct
                     if(!ControlloCodiceFiscale(codFisc)){
                         System.out.print("Codice fiscale non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique InputScanner.input_scanner the file
+                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
                         System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                     } else {
                         // Exit the loop
                         exit = true;
                     }
-                }while( ! exit );   //loop if fiscal code is wrong or if it is not unique InputScanner.input_scanner the file
+                }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
                 // Insert email
                 System.out.print("Inserire l'indirizzo e-mail: ");
                 email="";
@@ -127,12 +127,12 @@ public class AutorizedOperator extends User {
                     if(!ControlloEmail(email)){
                         System.out.print("Indirizzo non valido.\nReinserire: ");
                     }else if( file.exists() && Research.isStringInCol(file, 4, email)){
-                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique InputScanner.input_scanner the file
+                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
                     } else {
                         // Exit loop
                         exit = true;
                     }
-                } while( ! exit );   //loop if email is wrong and if it is not unique InputScanner.input_scanner the file
+                } while( ! exit );   //loop if email is wrong and if it is not unique in the file
 
                 //insert monitoring centre
                 //TODO
@@ -191,7 +191,7 @@ public class AutorizedOperator extends User {
         System.out.print("Inserire l'User-ID: ");
         try {
             String userid = InputScanner.input_scanner.nextLine();
-            // loop if userdId does not exist InputScanner.input_scanner the file
+            // loop if userdId does not exist in the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
                 System.out.print("User-ID non riconosciuto.\nReinserire: ");
                 userid = InputScanner.input_scanner.nextLine();
