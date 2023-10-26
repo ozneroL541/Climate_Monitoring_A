@@ -213,7 +213,7 @@ public class AutorizedOperator extends User {
             // If the result is valis
             if(record!=null){
                 System.out.print("Inserire la password: ");
-                String password=in.nextLine();
+                String password=InputScanner.input_scanner.nextLine();
                 //if password match set the object's attributes
                 if(record[5].equals(password)){
 
