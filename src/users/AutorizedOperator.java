@@ -199,12 +199,12 @@ public class AutorizedOperator extends User {
             String userid = in.nextLine();
             // loop if userdId does not exist in the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
-                System.out.print("User-ID non riconosciuto.\nReinserire: ");
+                System.out.print("User-ID non riconosciuto (tentativi rimasti: " + (limit-c) + ").\nReinserire: ");
                 userid = in.nextLine();
                 c++;
             }
             // Check before go on
-            if ( c > limit ) {
+            if ( c >= limit ) {
                 //TODO Output
                 // Exit
                 return false;
@@ -220,7 +220,19 @@ public class AutorizedOperator extends User {
             if(record!=null){
                 System.out.print("Inserire la password: ");
                 String password=in.nextLine();
-                //if password match set the object's attributes
+                c=0;
+                //loop if password does not match 
+                while(!record[5].equals(password) && c < limit) {
+                    System.out.print("Password non riconosciuta (tentativi rimasti: " + (limit-c) + ").\nReinserire: ");
+                    password = in.nextLine();
+                    c++;
+                }
+                // Check before go on
+                if(c>=limit){
+                    return false;
+                }
+
+                //set the object's attributes
                 if(record[5].equals(password)){
 
                     this.userid=Short.valueOf(userid);
@@ -240,7 +252,7 @@ public class AutorizedOperator extends User {
             }else{
                 //TODO
                 //migliorare?
-                System.err.println("Errore");
+                System.err.println("Errore aaaa");
                 return false;
             }
         } catch( InputMismatchException e ){
@@ -382,5 +394,13 @@ public class AutorizedOperator extends User {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    //TODO
+    //test main da rimuovere
+    public static void main(String []args){
+
+        AutorizedOperator a =new AutorizedOperator();
+        a.autenticazione();
     }
 }
