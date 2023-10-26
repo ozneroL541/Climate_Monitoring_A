@@ -20,7 +20,7 @@ import src.research.Research;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
