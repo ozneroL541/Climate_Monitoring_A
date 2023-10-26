@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.FileSystems;
 
 import src.research.Research;
 
@@ -28,6 +29,7 @@ public class MonitoringCentre {
     private String [] areeInteresse;
     private short userid;
     Research res = new Research();
+
 
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         //TODO controllare se esiste un centro con lo stesso indirizzo
@@ -64,9 +66,6 @@ public class MonitoringCentre {
 
     //TODO getLista del nome dei centri (returna array di string)
 
-
-    //TODO aggiungere un'area ad un centro già esistente
-
     private String[] getCentri(){
         String[] list = null;
         //TODO ricerca centri
@@ -75,7 +74,8 @@ public class MonitoringCentre {
 
     //TODO aggiungere un'area ad un centro già esistente
   
-    private void addArea(String area){
+    private void addArea(String area, String nome){
+
         //TODO controllo esistenza del centro
         //TODO aggiunta area 
     }
@@ -96,5 +96,15 @@ public class MonitoringCentre {
         } catch (IOException e) {
             //exception handling left as an exercise for the reader
         }
+    }
+
+    private boolean CenterExistence(String nome){
+        boolean exists = false;
+        if(res.AllStringInCol_notCaseS(f,0,nome)!=null)
+            exists = true;
+        else
+            exists = false;
+
+        return exists;
     }
 }
