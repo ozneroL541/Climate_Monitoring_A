@@ -30,14 +30,15 @@ public class MonitoringCentre {
     private short userid;
     Research res = new Research();
 
+     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
 
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
-        //TODO controllare se esiste un centro con lo stesso indirizzo
-        registraCentroAree(nome, indirizzo, areeInteresse, userid);
+        if(CenterExistence(nome))
+            registraCentroAree(nome, indirizzo, areeInteresse, userid);
     }
 
+    //costruttore vuoto
     public MonitoringCentre(){
-        
     }
 
     public void registraCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
@@ -64,20 +65,20 @@ public class MonitoringCentre {
         return exists;
     }
 
-    //TODO getLista del nome dei centri (returna array di string)
-
+    //getLista del nome dei centri (returna array di string)
     private String[] getCentri(){
         String[] list = null;
         //TODO ricerca centri
         return list;
     }
 
-    //TODO aggiungere un'area ad un centro già esistente
-  
+    //aggiunge un'area ad un centro già esistente
     private void addArea(String area, String nome){
 
-        //TODO controllo esistenza del centro
-        //TODO aggiunta area 
+        if(CenterExistence(nome)){
+            //TODO aggiunta area 
+        }
+        
     }
 
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
@@ -100,7 +101,7 @@ public class MonitoringCentre {
 
     private boolean CenterExistence(String nome){
         boolean exists = false;
-        if(res.AllStringInCol_notCaseS(f,0,nome)!=null)
+        if(res.AllStringInCol_notCaseS(f,0,nome)!=null) //controllare tipo di output del metodo richiamato
             exists = true;
         else
             exists = false;
