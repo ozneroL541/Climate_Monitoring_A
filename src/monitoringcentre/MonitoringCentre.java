@@ -101,7 +101,7 @@ public class MonitoringCentre {
 
     private boolean CenterExistence(String nome){
         boolean exists = false;
-        if(res.AllStringInCol_notCaseS(f,0,nome)!=null) //controllare tipo di output del metodo richiamato
+        if(res.isStringInCol(f,0,nome))
             exists = true;
         else
             exists = false;
