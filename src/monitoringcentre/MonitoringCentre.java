@@ -66,10 +66,8 @@ public class MonitoringCentre {
     }
 
     //getLista del nome dei centri (returna array di string)
-    private String[] getCentri(){
-        String[] list = null;
-        //TODO ricerca centri
-        return list;
+    public String[] getCentri(){
+        return res.getRecord(f,0);
     }
 
     //aggiunge un'area ad un centro già esistente
