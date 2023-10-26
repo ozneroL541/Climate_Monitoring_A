@@ -56,14 +56,6 @@ public class MonitoringCentre {
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
-    
-    //metodo per controllare se un centro esiste già in base a nome
-    private boolean ExistingCenter(String name){
-        File f = new File("data\\CentroMonitoraggio.dati.csv");
-        boolean exists = false;
-        res.AllStringInCol(f, 0, name);
-        return exists;
-    }
 
     //getLista del nome dei centri (returna array di string)
     public String[] getCentri(){
