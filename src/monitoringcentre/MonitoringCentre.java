@@ -63,7 +63,7 @@ public class MonitoringCentre {
     }
 
     //aggiunge un'area ad un centro già esistente
-    private void addArea(String area, String nome){
+    public void addArea(String area, String nome){
 
         if(CenterExistence(nome)){
             //TODO aggiunta area 
