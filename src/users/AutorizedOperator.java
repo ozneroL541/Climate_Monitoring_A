@@ -8,33 +8,25 @@
 
 package src.users;
 //TODO remove unused import
-import java.io.BufferedReader;
+import src.Input.InputScanner;
+import src.monitoringcentre.MonitoringCentre;
+import src.research.Research;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
-// TODO: Remove and pass everything throw research
-import com.opencsv.CSVReader;
 
-import javax.annotation.processing.SupportedOptions;
-
-import src.monitoringcentre.MonitoringCentre;
-import src.research.Research;
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.10.0
+ * @version 0.10.2
  */
 public class AutorizedOperator extends User {
     // Name
@@ -72,7 +64,6 @@ public class AutorizedOperator extends User {
         // Max number of operators
         final int max_operators = 99999;
         try {
-            Scanner in = new Scanner(System.in);
             // Check if number of operators exceded
             if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
                 // Error Output
@@ -85,7 +76,7 @@ public class AutorizedOperator extends User {
                 // Insert name
                 System.out.print("Inserire il nome: ");
                 do{
-                    nome=in.nextLine();
+                    nome=InputScanner.input_scanner.nextLine();
                     //check if name contains only letters
                     if(!onlyLettersInString(nome)){
                         System.out.print("Nome non valido.\nReinserire: ");
@@ -98,7 +89,7 @@ public class AutorizedOperator extends User {
                 // Insert last name
                 System.out.print("Inserire il cognome: ");
                 do{
-                    cognome=in.nextLine();
+                    cognome=InputScanner.input_scanner.nextLine();
                     //check if last name contains only letters
                     if(!onlyLettersInString(cognome)){
                         System.out.print("Cognome non valido.\nReinserire: ");
@@ -113,7 +104,7 @@ public class AutorizedOperator extends User {
                 codFisc="";
                 do{
                     // Input Fiscal Code
-                    codFisc=in.nextLine();
+                    codFisc=InputScanner.input_scanner.nextLine();
                     // Upper case Fiscal Code
                     codFisc = codFisc.toUpperCase();
                     //check if fiscal code is correct
@@ -131,7 +122,7 @@ public class AutorizedOperator extends User {
                 email="";
                 exit = false;
                 do{
-                    email=in.nextLine();
+                    email=InputScanner.input_scanner.nextLine();
                     //check if email is correct
                     if(!ControlloEmail(email)){
                         System.out.print("Indirizzo non valido.\nReinserire: ");
@@ -149,7 +140,7 @@ public class AutorizedOperator extends User {
 
                 // Insert password
                 System.out.print("Inserire la password: ");
-                passwd=in.nextLine();
+                passwd=InputScanner.input_scanner.nextLine();
             }
         } catch ( IOException e ){
             // Print Error
@@ -157,6 +148,10 @@ public class AutorizedOperator extends User {
         } catch (InputMismatchException e) {
             // Print Error
             e.printStackTrace();
+        } catch ( NoSuchElementException e ){
+            // Print Error
+            e.printStackTrace();
+            System.err.println(e.toString());
         } catch ( Exception e ) {
             // Print Error
             e.printStackTrace();
@@ -195,12 +190,11 @@ public class AutorizedOperator extends User {
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
         try {
-            Scanner in = new Scanner(System.in);
-            String userid = in.nextLine();
+            String userid = InputScanner.input_scanner.nextLine();
             // loop if userdId does not exist in the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
-                System.out.print("User-ID non riconosciuto (tentativi rimasti: " + (limit-c) + ").\nReinserire: ");
-                userid = in.nextLine();
+                System.out.print("User-ID non riconosciuto.\nReinserire: ");
+                userid = InputScanner.input_scanner.nextLine();
                 c++;
             }
             // Check before go on
@@ -219,20 +213,8 @@ public class AutorizedOperator extends User {
             // If the result is valis
             if(record!=null){
                 System.out.print("Inserire la password: ");
-                String password=in.nextLine();
-                c=0;
-                //loop if password does not match 
-                while(!record[5].equals(password) && c < limit) {
-                    System.out.print("Password non riconosciuta (tentativi rimasti: " + (limit-c) + ").\nReinserire: ");
-                    password = in.nextLine();
-                    c++;
-                }
-                // Check before go on
-                if(c>=limit){
-                    return false;
-                }
-
-                //set the object's attributes
+                String password=InputScanner.input_scanner.nextLine();
+                //if password match set the object's attributes
                 if(record[5].equals(password)){
 
                     this.userid=Short.valueOf(userid);
@@ -394,13 +376,5 @@ public class AutorizedOperator extends User {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-    //TODO
-    //test main da rimuovere
-    public static void main(String []args){
-
-        AutorizedOperator a =new AutorizedOperator();
-        a.autenticazione();
     }
 }
