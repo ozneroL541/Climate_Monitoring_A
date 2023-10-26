@@ -198,7 +198,7 @@ public class AutorizedOperator extends User {
                 c++;
             }
             // Check before go on
-            if ( c > limit ) {
+            if ( c >= limit ) {
                 //TODO Output
                 // Exit
                 return false;
@@ -213,7 +213,7 @@ public class AutorizedOperator extends User {
             // If the result is valis
             if(record!=null){
                 System.out.print("Inserire la password: ");
-                String password=InputScanner.input_scanner.nextLine();
+                String password=in.nextLine();
                 //if password match set the object's attributes
                 if(record[5].equals(password)){
 
@@ -234,7 +234,7 @@ public class AutorizedOperator extends User {
             }else{
                 //TODO
                 //migliorare?
-                System.err.println("Errore");
+                System.err.println("Errore aaaa");
                 return false;
             }
         } catch( InputMismatchException e ){
@@ -375,18 +375,6 @@ public class AutorizedOperator extends User {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-    }
-
-    //TODO Remove Test main
-    public static void main(String[] args) {
-        AutorizedOperator.Ricerca();
-        AutorizedOperator.registrazione();
-        AutorizedOperator a = new AutorizedOperator();
-        if (a.autenticazione()) {
-            System.out.println("Autenticazione Riuscita.");
-        } else {
-            System.out.println("Autenticazione Fallita.");
         }
     }
 }

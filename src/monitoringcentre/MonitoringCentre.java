@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.FileSystems;
 
 import src.research.Research;
 
@@ -29,13 +30,15 @@ public class MonitoringCentre {
     private short userid;
     Research res = new Research();
 
+     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
+
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
-        //TODO controllare se esiste un centro con lo stesso indirizzo
-        registraCentroAree(nome, indirizzo, areeInteresse, userid);
+        if(CenterExistence(nome))
+            registraCentroAree(nome, indirizzo, areeInteresse, userid);
     }
 
+    //costruttore vuoto
     public MonitoringCentre(){
-        
     }
 
     public void registraCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
@@ -53,31 +56,19 @@ public class MonitoringCentre {
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
-    
-    //metodo per controllare se un centro esiste già in base a nome
-    private boolean ExistingCenter(String name){
-        File f = new File("data\\CentroMonitoraggio.dati.csv");
-        boolean exists = false;
-        res.AllStringInCol(f, 0, name);
-        return exists;
+
+    //getLista del nome dei centri (returna array di string)
+    public String[] getCentri(){
+        return res.getRecord(f,0);
     }
 
-    //TODO getLista del nome dei centri (returna array di string)
+    //aggiunge un'area ad un centro già esistente
+    public void addArea(String area, String nome){
 
-
-    //TODO aggiungere un'area ad un centro già esistente
-
-    private String[] getCentri(){
-        String[] list = null;
-        //TODO ricerca centri
-        return list;
-    }
-
-    //TODO aggiungere un'area ad un centro già esistente
-  
-    private void addArea(String area){
-        //TODO controllo esistenza del centro
-        //TODO aggiunta area 
+        if(CenterExistence(nome)){
+            //TODO aggiunta area 
+        }
+        
     }
 
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
@@ -96,5 +87,15 @@ public class MonitoringCentre {
         } catch (IOException e) {
             //exception handling left as an exercise for the reader
         }
+    }
+
+    private boolean CenterExistence(String nome){
+        boolean exists = false;
+        if(res.isStringInCol(f,0,nome))
+            exists = true;
+        else
+            exists = false;
+
+        return exists;
     }
 }
