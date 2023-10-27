@@ -9,6 +9,9 @@ import java.util.Scanner;
  * @version 0.10.1
  */
 public class InputScanner {
-    // stdin scanner
+    /**
+     * A constant holding the maximum value an int can have, 231-1.
+     * Una costante Scanner che ha come sorgente di input stdin.
+    */
     public static final Scanner INPUT_SCANNER = new Scanner(System.in);
 }
