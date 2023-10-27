@@ -10,5 +10,5 @@ import java.util.Scanner;
  */
 public class InputScanner {
     // stdin scanner
-    public static final Scanner input_scanner = new Scanner(System.in);
+    public static final Scanner INPUT_SCANNER = new Scanner(System.in);
 }

@@ -76,7 +76,7 @@ public class AutorizedOperator extends User {
                 // Insert name
                 System.out.print("Inserire il nome: ");
                 do{
-                    nome=InputScanner.input_scanner.nextLine();
+                    nome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if name contains only letters
                     if(!onlyLettersInString(nome)){
                         System.out.print("Nome non valido.\nReinserire: ");
@@ -89,7 +89,7 @@ public class AutorizedOperator extends User {
                 // Insert last name
                 System.out.print("Inserire il cognome: ");
                 do{
-                    cognome=InputScanner.input_scanner.nextLine();
+                    cognome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if last name contains only letters
                     if(!onlyLettersInString(cognome)){
                         System.out.print("Cognome non valido.\nReinserire: ");
@@ -104,7 +104,7 @@ public class AutorizedOperator extends User {
                 codFisc="";
                 do{
                     // Input Fiscal Code
-                    codFisc=InputScanner.input_scanner.nextLine();
+                    codFisc=InputScanner.INPUT_SCANNER.nextLine();
                     // Upper case Fiscal Code
                     codFisc = codFisc.toUpperCase();
                     //check if fiscal code is correct
@@ -122,7 +122,7 @@ public class AutorizedOperator extends User {
                 email="";
                 exit = false;
                 do{
-                    email=InputScanner.input_scanner.nextLine();
+                    email=InputScanner.INPUT_SCANNER.nextLine();
                     //check if email is correct
                     if(!ControlloEmail(email)){
                         System.out.print("Indirizzo non valido.\nReinserire: ");
@@ -140,7 +140,7 @@ public class AutorizedOperator extends User {
 
                 // Insert password
                 System.out.print("Inserire la password: ");
-                passwd=InputScanner.input_scanner.nextLine();
+                passwd=InputScanner.INPUT_SCANNER.nextLine();
             }
         } catch ( IOException e ){
             // Print Error
@@ -190,11 +190,11 @@ public class AutorizedOperator extends User {
         System.out.println("LOGIN\n");
         System.out.print("Inserire l'User-ID: ");
         try {
-            String userid = InputScanner.input_scanner.nextLine();
+            String userid = InputScanner.INPUT_SCANNER.nextLine();
             // loop if userdId does not exist in the file
             while(!Research.isStringInCol(file, 0, userid) && c < limit) {
                 System.out.print("User-ID non riconosciuto.\nReinserire: ");
-                userid = InputScanner.input_scanner.nextLine();
+                userid = InputScanner.INPUT_SCANNER.nextLine();
                 c++;
             }
             // Check before go on
@@ -213,7 +213,7 @@ public class AutorizedOperator extends User {
             // If the result is valis
             if(record!=null){
                 System.out.print("Inserire la password: ");
-                String password=InputScanner.input_scanner.nextLine();
+                String password=InputScanner.INPUT_SCANNER.nextLine();
                 //if password match set the object's attributes
                 if(record[5].equals(password)){
 
