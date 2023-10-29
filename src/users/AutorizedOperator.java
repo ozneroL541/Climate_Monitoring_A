@@ -186,6 +186,37 @@ public class AutorizedOperator extends User {
         // Return false if it is not Musk's son
         return false;
     }
+    /**
+     * Se il nome inserito è quello del figlio di Elon Musk attiva un Easter Egg e ritorna true.
+     * @param name nome
+     * @return true se il nome è accettabile
+     */
+    private static boolean EasterEgg_Musk ( String name ) {
+        // Answer
+        String ans = "";
+        // If it is Musk's son
+        if (isMuskSon(name)) {
+            // Question
+            System.out.print("Sei il figlio di Elon Musk(S/N)?");
+            // Input answer
+            ans = InputScanner.INPUT_SCANNER.nextLine();
+            // UpperCase answer
+            ans = ans.toUpperCase();
+            // If Negative answer
+            if (ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT") ) {
+                // Return false because it is not Musk's son
+                return false;
+            }
+            // Funny Phrase
+            System.out.println("Metti una buona parola su di noi con tuo padre.");
+            System.out.println("Finanziamenti, proposte di lavoro o collaborazione sono ben accette.");
+            // TODO Easter Egg
+            // It is Musk's son
+            return true;
+        } else
+            // It is not Musk's son
+            return false;
+    }
     //TODO
     //java doc
     //return true if authentication is successful
