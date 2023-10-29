@@ -9,6 +9,7 @@
 package src.users;
 //TODO remove unused import
 import src.Input.InputScanner;
+import src.cryptography.Chiper;
 import src.monitoringcentre.MonitoringCentre;
 import src.research.Research;
 import java.io.BufferedWriter;
@@ -160,7 +161,8 @@ public class AutorizedOperator extends User {
         short userid=setUserId();
 
         // Add the operator to the file
-        aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
+        String[] record = data_toRecord(userid, nome, cognome, codFisc, email, passwd, centre);
+        scriviOperatore_cifrato(record);
         
         System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + String.format("%05d", userid) + " e la password scelta");
     }
@@ -376,5 +378,44 @@ public class AutorizedOperator extends User {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    //Update the file OperatoriRegistrati with a new record
+    private static String[] data_toRecord(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
+        String[] record = new String[7];
+        record[0] = String.format("%05d", userid);
+        record[1] = nome;
+        record[2] = cognome;
+        record[3] = codice_fiscale;
+        record[4] = email_address;
+        record[5] = passwd;
+        record[6] = centre;
+        return record;
+
+    }
+    //Update the file OperatoriRegistrati with a new record
+    private static void scriviOperatore_cifrato(String[] record ){
+
+        String[] c = Chiper.recordCipher_pw(record, 5);
+        String o = "";
+
+        for (String string : c) {
+            o += string + ",";
+        }
+        o = o.substring(0,o.length()-1);
+        BufferedWriter scrivi;
+
+        try {
+            scrivi=new BufferedWriter(new FileWriter(file, true));
+            scrivi.append(o);
+            scrivi.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        AutorizedOperator.registrazione();
     }
 }
