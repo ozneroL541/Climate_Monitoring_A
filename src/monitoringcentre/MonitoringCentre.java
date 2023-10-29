@@ -30,7 +30,7 @@ public class MonitoringCentre {
     private short userid;
     Research res = new Research();
 
-     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
+    private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
 
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         if(CenterExistence(nome))
@@ -80,7 +80,7 @@ public class MonitoringCentre {
             s = s + areeInteresse[i] + ",";
         }
         s = s + userid;
-        try(FileWriter fw = new FileWriter("data\\CentroMonitoraggio.dati.csv", true);
+        try(FileWriter fw = new FileWriter(f, true);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw)){
             out.println(s);
