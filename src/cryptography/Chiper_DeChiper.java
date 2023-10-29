@@ -7,7 +7,7 @@ import src.cryptography.AES;
  * @author Lorenzo Radice
  * @version 0.0.1
  */
-public class Chiper {
+public class Chiper_DeChiper {
     public static String[] recordCipher( String[] record, String password ) {
         final int length = record.length;
         String[] out = new String[record.length];
@@ -37,6 +37,19 @@ public class Chiper {
                 //e.printStackTrace();
             }
             j++;
+        }
+        return out;
+    }
+    public static String[] deCipher_Record( String [] record, String pw ) {
+        final int length = record.length;
+        String[] out = new String[record.length];
+        for ( int i = 0 ; i < length; i++ ) {
+            try {
+                out[i] = AES.decrypt(record[i], pw);
+            } catch (Exception e) {
+                out[i] = "";
+                e.printStackTrace();
+            }
         }
         return out;
     }

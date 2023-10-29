@@ -9,7 +9,8 @@
 package src.users;
 //TODO remove unused import
 import src.Input.InputScanner;
-import src.cryptography.Chiper;
+import src.cryptography.AES;
+import src.cryptography.Chiper_DeChiper;
 import src.monitoringcentre.MonitoringCentre;
 import src.research.Research;
 import java.io.BufferedWriter;
@@ -190,49 +191,27 @@ public class AutorizedOperator extends User {
         //TODO
         //migliorare la grafica
         System.out.println("LOGIN\n");
-        System.out.print("Inserire l'User-ID: ");
+        System.out.print("Inserire lo User-ID: ");
         try {
             String userid = InputScanner.INPUT_SCANNER.nextLine();
-            // loop if userdId does not exist in the file
-            while(!Research.isStringInCol(file, 0, userid) && c < limit) {
-                System.out.print("User-ID non riconosciuto.\nReinserire: ");
-                userid = InputScanner.INPUT_SCANNER.nextLine();
-                c++;
-            }
-            // Check before go on
-            if ( c >= limit ) {
-                //TODO Output
-                // Exit
-                return false;
-            }
+            System.out.print("Inserire la password: ");
+            String password=InputScanner.INPUT_SCANNER.nextLine();
+            // Encrypt userid to search
+            userid = AES.encrypt(userid, password);
+            // Search encrypted userid
             //return the column where UserId is
-            int riga=Research.OneStringInCol(file, 0, userid);
-            // Initialize record
-            String[] record = null;
-            // Check if the research returned a valid result
-            if(riga > 0)
-                record = Research.getRecord(file, riga);
+            String[] record = Research.getRecordByData(file, 0, userid);
             // If the result is valis
             if(record!=null){
-                System.out.print("Inserire la password: ");
-                String password=InputScanner.INPUT_SCANNER.nextLine();
-                //if password match set the object's attributes
-                if(record[5].equals(password)){
-
-                    this.userid=Short.valueOf(userid);
-                    this.nome=record[1];
-                    this.cognome=record[2];
-                    this.codice_fiscale=record[3];
-                    this.email_address=record[4];
-                    this.passwd=password;
-                    //TODO
-                    //aggiungere quando i centri sono fatti
-                    //this.centre=record[6].toString();
-                    this.centre=null;   //usato temporaneamente, va cambiato
-                    return true;
-                }else{
-                    return false;
-                }
+                record = Chiper_DeChiper.deCipher_Record(record, password);
+                System.err.println(record[0]);
+                this.userid=Short.valueOf(record[0]);
+                this.nome=record[1];
+                this.cognome=record[2];
+                this.codice_fiscale=record[3];
+                this.email_address=record[4];
+                this.passwd=password;
+                return true;
             }else{
                 //TODO
                 //migliorare?
@@ -395,7 +374,7 @@ public class AutorizedOperator extends User {
     //Update the file OperatoriRegistrati with a new record
     private static void scriviOperatore_cifrato(String[] record ){
 
-        String[] c = Chiper.recordCipher_pw(record, 5);
+        String[] c = Chiper_DeChiper.recordCipher_pw(record, 5);
         String o = "";
 
         for (String string : c) {
@@ -414,8 +393,13 @@ public class AutorizedOperator extends User {
             e.printStackTrace();
         }
     }
-
+    //TODO Remove TestMain
     public static void main(String[] args) {
-        AutorizedOperator.registrazione();
+        //AutorizedOperator.registrazione();
+        AutorizedOperator a = new AutorizedOperator();
+        if (a.autenticazione()) {
+            System.err.println("Autenticato");
+            System.out.println(a.toString());
+        }
     }
 }
