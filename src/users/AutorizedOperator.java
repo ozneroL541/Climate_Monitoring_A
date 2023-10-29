@@ -225,6 +225,7 @@ public class AutorizedOperator extends User {
                     this.passwd=password;
                     //TODO
                     //aggiungere quando i centri sono fatti
+                    System.out.println(record[6].toString());
                     //this.centre=record[6].toString();
                     this.centre=null;   //usato temporaneamente, va cambiato
                     return true;
@@ -376,5 +377,11 @@ public class AutorizedOperator extends User {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    public static void main(String[] args) {
+        AutorizedOperator.registrazione();
+        AutorizedOperator a = new AutorizedOperator();
+        a.autenticazione();
+        
     }
 }
