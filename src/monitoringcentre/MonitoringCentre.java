@@ -80,8 +80,8 @@ public class MonitoringCentre {
         }
         s = s + userid;
         try(FileWriter fw = new FileWriter(f, true);
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter out = new PrintWriter(bw)){
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw)){
             out.println(s);
         } catch (IOException e) {
             //exception handling left as an exercise for the reader
