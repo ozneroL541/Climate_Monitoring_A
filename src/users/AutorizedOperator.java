@@ -78,11 +78,14 @@ public class AutorizedOperator extends User {
                 do{
                     nome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if name contains only letters
-                    if(!onlyLettersInString(nome)){
-                        System.out.print("Nome non valido.\nReinserire: ");
-                    }else{
+                    if( EasterEgg_Musk(nome) || onlyLettersInString(nome) ){
                         //exit loop
                         exit=true;
+                    }else{
+                        // Error Output
+                        System.out.print("Nome non valido.\nReinserire: ");
+                        // Stay in loop
+                        exit = false;
                     }
                 }while(!exit);  //loop if name is wrong
                 exit = false;
@@ -427,6 +430,14 @@ public class AutorizedOperator extends User {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    // TODO Remove test main
+    public static void main(String[] args) {
+        AutorizedOperator a = new AutorizedOperator();
+        if (a.autenticazione()) {
+            System.err.println("Autenticato");
         }
     }
 }
