@@ -204,7 +204,6 @@ public class AutorizedOperator extends User {
             // If the result is valis
             if(record!=null){
                 record = Chiper_DeChiper.deCipher_Record(record, password);
-                System.err.println(record[0]);
                 this.userid=Short.valueOf(record[0]);
                 this.nome=record[1];
                 this.cognome=record[2];
@@ -395,7 +394,7 @@ public class AutorizedOperator extends User {
     }
     //TODO Remove TestMain
     public static void main(String[] args) {
-        //AutorizedOperator.registrazione();
+        AutorizedOperator.registrazione();
         AutorizedOperator a = new AutorizedOperator();
         if (a.autenticazione()) {
             System.err.println("Autenticato");
