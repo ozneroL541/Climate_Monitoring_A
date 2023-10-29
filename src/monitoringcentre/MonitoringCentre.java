@@ -28,7 +28,6 @@ public class MonitoringCentre {
     private String [] indirizzo = new String[5];
     private String [] areeInteresse;
     private short userid;
-    Research res = new Research();
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
 
@@ -59,7 +58,7 @@ public class MonitoringCentre {
 
     //getLista del nome dei centri (returna array di string)
     public String[] getCentri(){
-        return res.getRecord(f,0);
+        return Research.getRecord(f,0);
     }
 
     //aggiunge un'area ad un centro già esistente
@@ -91,7 +90,7 @@ public class MonitoringCentre {
 
     private boolean CenterExistence(String nome){
         boolean exists = false;
-        if(res.isStringInCol(f,0,nome))
+        if(Research.isStringInCol(f,0,nome))
             exists = true;
         else
             exists = false;
