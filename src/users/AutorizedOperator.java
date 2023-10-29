@@ -113,6 +113,7 @@ public class AutorizedOperator extends User {
                     if(!ControlloCodiceFiscale(codFisc)){
                         System.out.print("Codice fiscale non valido.\nReinserire: ");
                     }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+                        //TODO: Criptare il codice fiscale con password universale per effettuare questo controllo
                         System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                     } else {
                         // Exit the loop
@@ -129,6 +130,7 @@ public class AutorizedOperator extends User {
                     if(!ControlloEmail(email)){
                         System.out.print("Indirizzo non valido.\nReinserire: ");
                     }else if( file.exists() && Research.isStringInCol(file, 4, email)){
+                        //TODO: Criptare la mail con password universale per effettuare questo controllo
                         System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
                     } else {
                         // Exit loop
