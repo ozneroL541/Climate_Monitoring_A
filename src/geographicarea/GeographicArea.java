@@ -11,16 +11,15 @@ package src.geographicarea;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
-import java.util.Scanner;
-
 import src.research.Research;
+import src.Input.InputScanner;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class GeographicArea {
     // Geoname ID
@@ -412,20 +411,16 @@ public class GeographicArea {
                     System.out.println("Risultati rimanenti: " + ( lines.length - i ));
                     // If you can still pront something
                     if ( i < lines.length ) {
-                        // Input Scanner
-                        Scanner sc = new Scanner(System.in);
                         // Output for Scanner
                         System.out.print("Continuare l'elenco(S/N)? ");
                         // Input
-                        ans = sc.next();
+                        ans = InputScanner.INPUT_SCANNER.next();
                         // Up all the letters
                         ans = ans.toUpperCase();
                         // If quit, exit
                         if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
                             // Exit
                             l = -1;
-                            // Close input scanner
-                            sc.close();
                         }
                         // Add a line
                         System.out.println();

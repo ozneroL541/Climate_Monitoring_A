@@ -9,14 +9,14 @@
 package src.table;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
+import src.Input.InputScanner;
 
 /**
  * Un oggetto della classe <code>Table</code> rappresenta una tabella
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class Table {
     // Number of categories
@@ -244,15 +244,13 @@ public class Table {
         String str_in = "";
         // Short input
         short short_in = 0;
-        // Input
-        Scanner sc = new Scanner(System.in);
         // Output question
         System.out.print(question);
         // Input Score
         do {
             try{
                 // Integer Input
-                integ_in = sc.nextInt();
+                integ_in = InputScanner.INPUT_SCANNER.nextInt();
                 // Pass input as a short
                 short_in = integ_in.shortValue();
                 // Check the input
@@ -266,7 +264,7 @@ public class Table {
                     System.out.print("Reinserire:\t\t\t");
                 } else {
                     // Reset input scanner
-                    sc.nextLine();
+                    InputScanner.INPUT_SCANNER.nextLine();
                     // Assign it to the data
                     data_in.score = short_in;
                     // Exit
@@ -274,7 +272,7 @@ public class Table {
                 }
             } catch ( InputMismatchException e ) {
                 // Reset input scanner
-                sc.nextLine();
+                InputScanner.INPUT_SCANNER.nextLine();
                 // Error message
                 System.err.println("Valore non valido.");
                 System.err.println("Inserire un numero compreso tra " + min_score + " e " + max_score + ".");
@@ -292,7 +290,7 @@ public class Table {
         // Note question
         System.out.print("Vuoi inserire una nota(S/N)?\t");
         // Answer input
-        str_in = sc.nextLine();
+        str_in = InputScanner.INPUT_SCANNER.nextLine();
         // Uppercase
         str_in = str_in.toUpperCase();
         if ( str_in != null && ! str_in.isEmpty() && (str_in.charAt(0) == 'S' || str_in.charAt(0) == 'Y') ) {
@@ -302,7 +300,7 @@ public class Table {
             do {
                 try {
                     // Note input
-                    str_in = sc.nextLine();
+                    str_in = InputScanner.INPUT_SCANNER.nextLine();
                     // Check the input
                     if ( ! Table.isNoteShort(str_in) ) {
                         // Do not exit
