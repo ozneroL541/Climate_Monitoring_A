@@ -1,6 +1,5 @@
 package src.cryptography;
 
-import src.cryptography.AES;
 /**
  * Classe per cifrare.
  * @see src.cryptography.AES
@@ -8,6 +7,12 @@ import src.cryptography.AES;
  * @version 0.0.1
  */
 public class Chiper_DeChiper {
+    /**
+     * Cifra ogni singola stringa del record con la password.
+     * @param record record
+     * @param password password
+     * @return record cifrato
+     */
     public static String[] recordCipher( String[] record, String password ) {
         final int length = record.length;
         String[] out = new String[record.length];
@@ -21,6 +26,14 @@ public class Chiper_DeChiper {
         }
         return out;
     }
+    /**
+     * Ritorna un record cifrato.
+     * L'indice n viene si riferisce alla posizione nell'array contenente la password.
+     * La posizione contente la password non risulterà nell'array risultante.
+     * @param record record
+     * @param n indice
+     * @return
+     */
     public static String[] recordCipher_pw( String[] record, int n ) {
         final int length = record.length;
         String password = record[n];
@@ -40,6 +53,12 @@ public class Chiper_DeChiper {
         }
         return out;
     }
+    /**
+     * Decifra un record.
+     * @param record record
+     * @param pw password
+     * @return record decifrato
+     */
     public static String[] deCipher_Record( String [] record, String pw ) {
         final int length = record.length;
         String[] out = new String[record.length];
