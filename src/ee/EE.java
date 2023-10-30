@@ -5,7 +5,7 @@ import src.Input.InputScanner;
 /**
  * Controlla che i valori siano accettabili
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.10.2
  */
 public class EE {
     // Choose if enable the EasterEgg
@@ -22,9 +22,7 @@ public class EE {
                 case 1:
                     return EasterEgg_Musk(n);
                 case 2:
-                    return EasterEgg_42();
-                case 3:
-                    return is_EE_Index(n);
+                    return EasterEgg_42(n);
                 default:
                     return false;
             }
@@ -32,11 +30,23 @@ public class EE {
             return false;
         }
     }
-    /*
-     * Stampa l'output dell'Easter Egg.
-     * @return true
+    /**
+     * Controllo l'attivazione dell'Easter Egg 42 e lo attiva se la condizione è verificata.
+     * @param n input
+     * @return true se si attiva l'Easter Egg
      */
-    private static boolean EasterEgg_42() {
+    private static boolean EasterEgg_42(String n) {
+        if (n.equals("42")) {
+            System.out.println(EasterEgg_42_String());
+            return true;
+        } else
+            return false;
+    }
+    /**
+     * Ritorna l'Easter Egg 42
+     * @return la stringa easteregg
+     */
+    private static String EasterEgg_42_String() {
         // Create l'output
         String[] s1 = { "If you find something wrong in this program...\t",
                         "It's not a bug it's a feature!                \t" };
@@ -54,16 +64,7 @@ public class EE {
             out += "*";
         out += gr;
         // Print output
-        System.out.println( out + "\n" );
-        return true;
-    }
-    /*
-     * Controlla che l'indice inserito di accettabile per l'Easter Egg.
-     * @param index indice
-     * @return true se l'indice è accettabile
-     */
-    private static boolean is_EE_Index( String index ) {
-        return index.equals("42");
+        return out + "\n";
     }
     /*
      * Controlla se il nome inserito è il figlio di Elon Musk.
@@ -87,7 +88,7 @@ public class EE {
         // Return false if it is not Musk's son
         return false;
     }
-    /**
+    /*
      * Se il nome inserito è quello del figlio di Elon Musk attiva un Easter Egg e ritorna true.
      * @param name nome
      * @return true se il nome è accettabile

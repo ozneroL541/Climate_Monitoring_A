@@ -12,8 +12,6 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.util.Scanner;
-
-import src.ee.EE;
 import src.research.Research;
 
 /**
@@ -381,14 +379,6 @@ public class GeographicArea {
             case IndexOf.coordinates:
                 lines = ricercaPerCoordinate(arg);
                 break;
-            case 42:
-                if (EE.EE_switch(arg, 2)) {
-                    return;
-                } else {
-                    // Error
-                    System.err.println("Errore: codice lista inesistente");
-                    return;
-                }
             default:
                 // Error
                 System.err.println("Errore: codice lista inesistente");
@@ -549,8 +539,6 @@ public class GeographicArea {
             return true;
         if (in == IndexOf.generic_name)
             return true;
-        if ( EE.EE_switch(String.valueOf(in), 3))
-            return true;
         // The index does not exist: return false
         return false;
     }
@@ -577,7 +565,7 @@ public class GeographicArea {
                     // Integer is valid only if it is positive
                     if ( id < 0 ) {
                         // Error output
-                        System.out.println( "Il Geoname ID inserito non è valido.");
+                        System.out.println("Il Geoname ID inserito non è valido.");
                         // Return false
                         return false;
                     }
@@ -658,14 +646,6 @@ public class GeographicArea {
                 }
                 // Return True
                 return true;
-            case 42: 
-                if (EE.EE_switch("42", 3)) {
-                    return true;
-                } else {
-                    // Error
-                    System.err.println("Errore: codice lista inesistente");
-                    return false;
-                }
             default:
                 // Error
                 System.err.println("Errore: codice lista inesistente");

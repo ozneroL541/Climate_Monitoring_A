@@ -9,6 +9,7 @@
 package src.users;
 
 import src.Input.InputScanner;
+import src.ee.EE;
 import src.geographicarea.GeographicArea;
 import java.util.InputMismatchException;
 
@@ -48,6 +49,9 @@ public class User {
                 in = InputScanner.INPUT_SCANNER.nextInt();
                 // Collect trash
                 InputScanner.INPUT_SCANNER.nextLine();
+                // Check
+                if (EE.EE_switch(String.valueOf(in), 2))
+                    return;
                 // If the chosen integer exist 
                 if (GeographicArea.IndexExist(in)) {
                     // Research Argument
