@@ -9,6 +9,7 @@
 package src.users;
 //TODO remove unused import
 import src.Input.InputScanner;
+import src.ee.EE;
 import src.monitoringcentre.MonitoringCentre;
 import src.research.Research;
 import java.io.BufferedWriter;
@@ -78,7 +79,7 @@ public class AutorizedOperator extends User {
                 do{
                     nome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if name contains only letters
-                    if( EasterEgg_Musk(nome) || onlyLettersInString(nome) ){
+                    if( EE.EE_switch(nome, 1) || onlyLettersInString(nome) ){
                         //exit loop
                         exit=true;
                     }else{
@@ -166,59 +167,6 @@ public class AutorizedOperator extends User {
         aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
         
         System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + String.format("%05d", userid) + " e la password scelta");
-    }
-    /*
-     * Controlla se il nome inserito è il figlio di Elon Musk.
-     * @param n nome
-     * @return true se è il figlio di Musk
-     */
-    private static boolean isMuskSon ( String n ) {
-        // Possible writings of Musk's son name
-        final String[] musk_son = { "X Æ A-12", "X Æ A-XII", "X AE A-12", "X AE A-XII",
-                                    "XÆA-12", "XÆA-XII", "XAEA-12", "XAEA-XII"};
-        // Check the string while is uppercase
-        String check_String = n.toUpperCase();
-        // For every writing of the name
-        for (String s : musk_son) {
-            // Check if the string equals the Musk's son name
-            if (check_String.equals(s)) {
-                // Return true if they are equal
-                return true;
-            }
-        }
-        // Return false if it is not Musk's son
-        return false;
-    }
-    /**
-     * Se il nome inserito è quello del figlio di Elon Musk attiva un Easter Egg e ritorna true.
-     * @param name nome
-     * @return true se il nome è accettabile
-     */
-    private static boolean EasterEgg_Musk ( String name ) {
-        // Answer
-        String ans = "";
-        // If it is Musk's son
-        if (isMuskSon(name)) {
-            // Question
-            System.out.print("Sei il figlio di Elon Musk(S/N)?");
-            // Input answer
-            ans = InputScanner.INPUT_SCANNER.nextLine();
-            // UpperCase answer
-            ans = ans.toUpperCase();
-            // If Negative answer
-            if (ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT") ) {
-                // Return false because it is not Musk's son
-                return false;
-            }
-            // Funny Phrase
-            System.out.println("Metti una buona parola su di noi con tuo padre.");
-            System.out.println("Finanziamenti, proposte di lavoro o collaborazione sono ben accette.");
-            // TODO Easter Egg
-            // It is Musk's son
-            return true;
-        } else
-            // It is not Musk's son
-            return false;
     }
     //TODO
     //java doc
