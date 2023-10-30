@@ -49,7 +49,7 @@ public class EE {
     private static String EasterEgg_42_String() {
         // Create l'output
         String[] s1 = { "If you find something wrong in this program...\t",
-                        "It's not a bug it's a feature!                \t" };
+                        "It's not a bug, it's a feature!               \t" };
         final String gr = "******************";
         String out = "";
         int l = s1[0].length();
