@@ -42,9 +42,7 @@ public class AutorizedOperator extends User {
     // User Password
     private String passwd;
     // Monitoring Centre
-    //TODO
-    //cambiare il tipo della variabile in short
-    private MonitoringCentre centre;
+    private short centre;
 
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
@@ -53,6 +51,18 @@ public class AutorizedOperator extends User {
     * Costruisce un operatore autorizzato
     */
     public AutorizedOperator() {}
+
+    //TODO
+    //javadoc
+    public AutorizedOperator(String nome, String cognome, String cod_fis, String email_add, short id, String password, short centre){
+        this.nome=nome;
+        this.cognome=cognome;
+        this.codice_fiscale=cod_fis;
+        this.email_address=email_add;
+        this.userid=id;
+        this.passwd=password;
+        this.centre=centre;
+    }
 
     //TODO
     //java doc
@@ -136,7 +146,8 @@ public class AutorizedOperator extends User {
 
                 //insert monitoring centre
                 //TODO
-                centre=null;
+                //cambiare appena è fatto
+                centre=String.valueOf(-1);
 
                 // Insert password
                 System.out.print("Inserire la password: ");
@@ -225,9 +236,11 @@ public class AutorizedOperator extends User {
                     this.passwd=password;
                     //TODO
                     //aggiungere quando i centri sono fatti
-                    System.out.println(record[6].toString());
+                    if(record[6].toString().equals("null")){
+                        System.out.println("è null");
+                    }
                     //this.centre=record[6].toString();
-                    this.centre=null;   //usato temporaneamente, va cambiato
+                    //this.centre=null;   //usato temporaneamente, va cambiato
                     return true;
                 }else{
                     return false;
@@ -245,6 +258,42 @@ public class AutorizedOperator extends User {
             e.printStackTrace();
             return false;
         }
+    }
+
+    //evaluate userid and password
+    private AutorizedOperator login(){
+
+        System.out.println("LOGIN\n");
+        System.out.print("Inserire l'User-ID: ");
+        String userid = InputScanner.INPUT_SCANNER.nextLine();
+        System.out.print("Inserire la password: ");
+        String password=InputScanner.INPUT_SCANNER.nextLine();
+
+        //if userid exist
+        if(Research.isStringInCol(file, 0, userid)){
+            //return the column where UserId is
+            int riga=Research.OneStringInCol(file, 0, userid);
+            // Initialize record
+            String[] record = null;
+            // Check if the research returned a valid result
+            if(riga > 0){
+                record = Research.getRecord(file, riga);
+            }
+            if(record!=null){
+                //if password match, set the object's attributes
+                if(record[5].equals(password)){
+                    return new AutorizedOperator(record[1], record[2], record[3], record[4], Short.valueOf(userid), password, Short.valueOf(record[7]));
+                }else{
+                    return null;
+                }
+            }
+        }else{
+            return null;
+        }
+
+        //TODO
+        //senza mi da errore, perchè boh
+        return null;
     }
 
     //set the userid
@@ -379,7 +428,7 @@ public class AutorizedOperator extends User {
         }
     }
     public static void main(String[] args) {
-        AutorizedOperator.registrazione();
+        //AutorizedOperator.registrazione();
         AutorizedOperator a = new AutorizedOperator();
         a.autenticazione();
         
