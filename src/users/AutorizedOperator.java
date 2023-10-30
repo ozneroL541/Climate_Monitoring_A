@@ -273,6 +273,11 @@ public class AutorizedOperator extends User {
         }
     }
 
+
+    //TODO
+    //reworkare il metodo autenticazione
+    //private AutorizedOperator autenticazione
+
     //evaluate userid and password
     private AutorizedOperator login(){
 
