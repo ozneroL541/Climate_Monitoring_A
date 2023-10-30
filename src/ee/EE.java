@@ -5,7 +5,7 @@ import src.Input.InputScanner;
 /**
  * Controlla che i valori siano accettabili
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class EE {
     // Choose if enable the EasterEgg
@@ -37,8 +37,24 @@ public class EE {
      * @return true
      */
     private static boolean EasterEgg_42() {
-        System.out.println("If you find something wrong in this program...");
-        System.out.println("It's not a bug it's a feature!");
+        // Create l'output
+        String[] s1 = { "If you find something wrong in this program...\t",
+                        "It's not a bug it's a feature!                \t" };
+        final String gr = "******************";
+        String out = "";
+        int l = s1[0].length();
+        for (int i = 0; i < l; i++)
+            out += "*";
+        out += gr;
+        for (String s : s1) {
+            out += "\n*\t" + s + "\t*";
+        }
+        out += "\n";
+        for (int i = 0; i < l; i++)
+            out += "*";
+        out += gr;
+        // Print output
+        System.out.println( out + "\n" );
         return true;
     }
     /*

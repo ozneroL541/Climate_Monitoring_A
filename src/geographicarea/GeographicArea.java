@@ -21,7 +21,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class GeographicArea {
     // Geoname ID
@@ -658,6 +658,14 @@ public class GeographicArea {
                 }
                 // Return True
                 return true;
+            case 42: 
+                if (EE.EE_switch("42", 3)) {
+                    return true;
+                } else {
+                    // Error
+                    System.err.println("Errore: codice lista inesistente");
+                    return false;
+                }
             default:
                 // Error
                 System.err.println("Errore: codice lista inesistente");
