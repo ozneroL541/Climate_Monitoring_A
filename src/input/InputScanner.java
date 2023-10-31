@@ -6,9 +6,9 @@ import java.util.Scanner;
  * Standard Input Scanner
  * Permette di usare Scanner del stdin.
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.11.0
  */
-public class InputScanner {
+public interface InputScanner {
     /**
      * Una costante Scanner che ha come sorgente di input stdin.
     */
