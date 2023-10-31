@@ -197,6 +197,7 @@ public class AutorizedOperator extends User {
      * Ritornare vari numeri negativi a seconda dell'errore.
      * 0 se è avvenuta l'autenticazione
     */
+    /*
     public boolean autenticazione() {
         // If file doesn't exist exit
         if ( ! file.exists() ){
@@ -272,21 +273,68 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
+    */
 
+    //return an AutorizedOperator object if userid and password are guessed under 3 attemps
+    private static AutorizedOperator autenticazione(){
+        // Attempt limit
+        final int limit = 3;
+        //counter
+        int c=0;
+        //AutorizedOperator object
+        AutorizedOperator u;
 
-    //TODO
-    //reworkare il metodo autenticazione
-    //private AutorizedOperator autenticazione
+        try{
+            u=login();
+            while(u==null && c<limit){
+                System.out.println("User-ID e password non riconosciuti (tentativi rimasti: " + (limit-c) + ").\nReinserire");
+                u=login();
+                c++;
+            }
+            if ( c >= limit ) {
+                //TODO Output
+                // Exit
+                return null;
+            }
+        }catch(InputMismatchException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return u;
+    }
 
     //evaluate userid and password
-    private AutorizedOperator login(){
+    private static AutorizedOperator login(){
 
+        // If file doesn't exist exit
+        if ( ! file.exists() ){
+            // Error Output
+            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
+            // Error return
+            return null;
+        }
+
+        String userid;
+        String password;
         System.out.println("LOGIN\n");
-        System.out.print("Inserire l'User-ID: ");
-        String userid = InputScanner.INPUT_SCANNER.nextLine();
-        System.out.print("Inserire la password: ");
-        String password=InputScanner.INPUT_SCANNER.nextLine();
 
+        try{
+            System.out.print("Inserire l'User-ID: ");
+            userid = InputScanner.INPUT_SCANNER.nextLine();
+            System.out.print("Inserire la password: ");
+            password=InputScanner.INPUT_SCANNER.nextLine();
+        }catch(InputMismatchException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        
         //if userid exist
         if(Research.isStringInCol(file, 0, userid)){
             //return the column where UserId is
@@ -300,7 +348,7 @@ public class AutorizedOperator extends User {
             if(record!=null){
                 //if password match, set the object's attributes
                 if(record[5].equals(password)){
-                    return new AutorizedOperator(record[1], record[2], record[3], record[4], Short.valueOf(userid), password, Short.valueOf(record[7]));
+                    return new AutorizedOperator(record[1], record[2], record[3], record[4], Short.valueOf(userid), password, Short.valueOf(record[6]));
                 }else{
                     return null;
                 }
@@ -445,10 +493,18 @@ public class AutorizedOperator extends User {
             e.printStackTrace();
         }
     }
+
+    //TODO 
+    //rimuovere
     public static void main(String[] args) {
-        //AutorizedOperator.registrazione();
-        AutorizedOperator a = new AutorizedOperator();
-        a.autenticazione();
+
+        AutorizedOperator u=autenticazione();
+        if(u==null){
+            System.out.println("Autenticazione fallita");
+        }else{
+            System.out.println(u);
+        }
+        
         
     }
 }
