@@ -7,8 +7,7 @@
 ***************************************/
 
 package src.users;
-//TODO remove unused import
-import src.Input.InputScanner;
+import src.input.InputScanner;
 import src.monitoringcentre.MonitoringCentre;
 import src.research.Research;
 import java.io.BufferedWriter;

@@ -11,8 +11,9 @@ package src.geographicarea;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
+
+import src.input.InputScanner;
 import src.research.Research;
-import src.Input.InputScanner;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>

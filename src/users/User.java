@@ -8,8 +8,9 @@
 
 package src.users;
 
-import src.Input.InputScanner;
 import src.geographicarea.GeographicArea;
+import src.input.InputScanner;
+
 import java.util.InputMismatchException;
 
 /**

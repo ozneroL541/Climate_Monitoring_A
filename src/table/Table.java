@@ -9,7 +9,8 @@
 package src.table;
 
 import java.util.InputMismatchException;
-import src.Input.InputScanner;
+
+import src.input.InputScanner;
 
 /**
  * Un oggetto della classe <code>Table</code> rappresenta una tabella
