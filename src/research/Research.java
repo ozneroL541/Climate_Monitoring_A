@@ -19,7 +19,7 @@ import com.opencsv.CSVReader;
  * @author Lorenzo Radice
  * @version 0.11.0
  */
-public interface Research {
+public class Research {
     /**
      * Questo metodo ricerca una stringa in un file CSV
      * in una determinata colonna e

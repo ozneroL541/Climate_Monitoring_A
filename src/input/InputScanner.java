@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Lorenzo Radice
  * @version 0.11.0
  */
-public interface InputScanner {
+public class InputScanner {
     /**
      * Una costante Scanner che ha come sorgente di input stdin.
     */
