@@ -44,7 +44,7 @@ public class AutorizedOperator extends User {
     private short centre;
 
     // Make the path platform independent
-    private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
+    private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
 
     //TODO
     //aggiungere classe privata con indici del file csv
