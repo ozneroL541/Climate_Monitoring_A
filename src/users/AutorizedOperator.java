@@ -29,6 +29,8 @@ import java.util.regex.Pattern;
  * @version 0.12.2
  */
 public class AutorizedOperator extends User {
+    // User Identity Code
+    private short userid;
     // Name
     private String nome;
     // Surname
@@ -37,8 +39,6 @@ public class AutorizedOperator extends User {
     private String codice_fiscale;
     // e-mail address
     private String email_address;
-    // User Identity Code
-    private short userid;
     // User Password
     private String passwd;
     // Monitoring Centre
@@ -54,12 +54,12 @@ public class AutorizedOperator extends User {
 
     //TODO
     //javadoc
-    public AutorizedOperator(String nome, String cognome, String cod_fis, String email_add, short id, String password, short centre){
+    public AutorizedOperator(short id, String nome, String cognome, String cod_fis, String email_add, String password, short centre){
+        this.userid=id;
         this.nome=nome;
         this.cognome=cognome;
         this.codice_fiscale=cod_fis;
         this.email_address=email_add;
-        this.userid=id;
         this.passwd=password;
         this.centre=centre;
     }
@@ -190,6 +190,8 @@ public class AutorizedOperator extends User {
     }
 
     //TODO
+    //rimuovere se autenticazione (l'altro metodo) va bene
+    //TODO
     //java doc
     //return true if authentication is successful
     //TODO
@@ -292,7 +294,6 @@ public class AutorizedOperator extends User {
                 c++;
             }
             if ( c >= limit ) {
-                //TODO Output
                 // Exit
                 return null;
             }
@@ -348,7 +349,7 @@ public class AutorizedOperator extends User {
             if(record!=null){
                 //if password match, set the object's attributes
                 if(record[5].equals(password)){
-                    return new AutorizedOperator(record[1], record[2], record[3], record[4], Short.valueOf(userid), password, Short.valueOf(record[6]));
+                    return new AutorizedOperator(Short.valueOf(userid), record[1], record[2], record[3], record[4], password, Short.valueOf(record[6]));
                 }else{
                     return null;
                 }
