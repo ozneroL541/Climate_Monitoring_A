@@ -67,13 +67,13 @@ public class AutorizedOperator extends User {
     @Override
     public String toString(){
         String str = "";
-        str += "User ID:\t" + this.userid + "\n";
-        str += "Nome:\t"   + this.nome + "\n";
-        str += "Cognome:\t\t"       + this.cognome + "\n";
-        str += "Codice Fiscale:\t"   + this.codice_fiscale + "\n";
-        str += "Indirizzo Email:\t" + this.email_address + "\n";
-        str += "Password:\t"     + this.passwd + "\n" ;
-        str += "Id Centro di appartenenza:\t"    + this.centre;
+        str += "User ID: " + this.userid + "\n";
+        str += "Nome: "   + this.nome + "\n";
+        str += "Cognome: "       + this.cognome + "\n";
+        str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
+        str += "Indirizzo Email: " + this.email_address + "\n";
+        str += "Password: "     + this.passwd + "\n" ;
+        str += "Id Centro di appartenenza: "    + this.centre;
         return str;
     }
 
