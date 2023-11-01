@@ -668,6 +668,8 @@ public class GeographicArea {
      * @return area di interesse creata
      */
     public static GeographicArea createArea() {
+        // ISO-3166 fil
+        final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-countries.csv").toFile();
         // Geographic Area to be returned
         GeographicArea ga = new GeographicArea();
         // Array of strings of fields
@@ -726,7 +728,7 @@ public class GeographicArea {
                 // Stay in loop
                 exit = false;
             } else {
-                
+                String [] cc_array = Research.getRecordByData(file, 1, in);
             }
             } while (!exit);
         } catch ( InputMismatchException e ) {
