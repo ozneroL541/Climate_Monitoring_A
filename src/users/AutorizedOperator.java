@@ -78,7 +78,11 @@ public class AutorizedOperator extends User {
         str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
         str += "Indirizzo Email: " + this.email_address + "\n";
         str += "Password: "     + this.passwd + "\n" ;
-        str += "Id Centro di appartenenza: "    + this.centre;
+        if(this.centre==default_value_of_centre){
+            str += "Id Centro di appartenenza: NESSUNO";
+        }else{
+            str += "Id Centro di appartenenza: "    + this.centre;
+        }
         return str;
     }
 
