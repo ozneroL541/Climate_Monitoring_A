@@ -95,6 +95,10 @@ public class AutorizedOperator extends User {
         return str;
     }
 
+    /**
+     * Ritorna DefaultValueOfCentre come Short
+     * @return DefaultValueOfCentre
+     */
     public static short getDefaultValueOfCentre(){
         return defaultValueOfCentre;
     }
