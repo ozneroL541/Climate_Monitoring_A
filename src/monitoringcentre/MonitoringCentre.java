@@ -55,8 +55,10 @@ public class MonitoringCentre {
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
-    //TODO: Non è vero, la descrizione è sbagliata. Il metodo, per come è scritto, ritorna la prima riga del file.
-    //getLista del nome dei centri (returna array di string)
+    /**
+     * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
+     * @return nomi dei centri
+     */
     public String[] getCentri(){
         return Research.getColArray(f,0);
     }
