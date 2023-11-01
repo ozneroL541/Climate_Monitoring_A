@@ -409,11 +409,6 @@ public class AutorizedOperator extends User {
     //TODO 
     //rimuovere
     public static void main(String[] args) {
-        String [] s = Research.getColArray(file, 0);
-        for (String string : s) {
-            System.out.println(string);
-        }
-        /*
         AutorizedOperator.Ricerca();
         AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
@@ -422,6 +417,5 @@ public class AutorizedOperator extends User {
         }else{
             System.out.println(u);
         }
-        */
     }
 }
