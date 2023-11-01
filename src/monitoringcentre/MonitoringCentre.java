@@ -20,7 +20,7 @@ import src.research.Research;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.10.2
+ * @version 0.10.3
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -55,10 +55,13 @@ public class MonitoringCentre {
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
-    //TODO: Non è vero, la descrizione è sbagliata. Il metodo, per come è scritto, ritorna la prima riga del file.
-    //getLista del nome dei centri (returna array di string)
+    /**
+     * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
+     * Se non ci sono Centri ritorna null.
+     * @return nomi dei centri
+     */
     public String[] getCentri(){
-        return Research.getRecord(f,0);
+        return Research.getColArray(f,0);
     }
 
     //aggiunge un'area ad un centro già esistente
