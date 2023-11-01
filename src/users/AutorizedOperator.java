@@ -426,7 +426,6 @@ public class AutorizedOperator extends User {
     //TODO 
     //rimuovere
     public static void main(String[] args) {
-        AutorizedOperator.Ricerca();
         AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
         if(u==null){

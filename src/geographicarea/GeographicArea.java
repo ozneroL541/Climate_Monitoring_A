@@ -649,4 +649,5 @@ public class GeographicArea {
                 return false;
         }
     }
+    //TODO Creare area di interesse
 }

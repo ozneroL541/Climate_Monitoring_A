@@ -17,7 +17,7 @@ import java.util.InputMismatchException;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare &egrave descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.10.2
+ * @version 0.10.3
  */
 public class User {
     /**
@@ -30,7 +30,7 @@ public class User {
      * Permette all'utente di effettuare la ricerca di aree geografiche.
      * @author Lorenzo Radice
      */
-    public static void Ricerca() {
+    public static void cercaAreaGeografica() {
         // Loop exit variable
         boolean exit = true;
         // Input integer
