@@ -46,6 +46,9 @@ public class AutorizedOperator extends User {
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
 
+    //dafault value for attribute centre if user does not choose a centre during registration
+    private final static short default_value_of_centre=-1;
+
     //TODO
     //aggiungere classe privata con indici del file csv
 
@@ -162,7 +165,7 @@ public class AutorizedOperator extends User {
                 //insert monitoring centre
                 //TODO
                 //cambiare appena è fatto
-                centre=String.valueOf(-1);
+                centre=String.valueOf(default_value_of_centre);
 
                 // Insert password
                 System.out.print("Inserire la password: ");
