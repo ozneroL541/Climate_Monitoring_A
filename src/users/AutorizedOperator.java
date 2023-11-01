@@ -288,6 +288,14 @@ public class AutorizedOperator extends User {
         //AutorizedOperator object
         AutorizedOperator u=null;
 
+        // If file doesn't exist exit
+        if ( ! file.exists() ){
+            // Error Output
+            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
+            // Error return
+            return null;
+        }
+
         u=login();
         while(u==null && c<limit){
             System.out.println("User-ID e password non riconosciuti (tentativi rimasti: " + (limit-c) + ").\nReinserire");
@@ -303,15 +311,6 @@ public class AutorizedOperator extends User {
 
     //evaluate userid and password
     private static AutorizedOperator login(){
-
-        // If file doesn't exist exit
-        if ( ! file.exists() ){
-            // Error Output
-            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
-            // Error return
-            return null;
-        }
-
         String userid;
         String password;
         System.out.println("LOGIN\n");
