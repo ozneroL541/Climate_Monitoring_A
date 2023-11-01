@@ -670,6 +670,13 @@ public class GeographicArea {
     public static GeographicArea createArea() {
         // ISO-3166 fil
         final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-countries.csv").toFile();
+        // Check if file exist
+        if ( ! f_iso.exists() ) {
+            // Print Error
+            System.err.println("ERRORE: il file " + f_iso.getName() + " non si trova nella cartella \'" + f_iso.getParent() + "\'.\n" );
+            // Return null
+            return null;
+        }
         // Geographic Area to be returned
         GeographicArea ga = new GeographicArea();
         // Array of strings of fields
@@ -728,7 +735,10 @@ public class GeographicArea {
                 // Stay in loop
                 exit = false;
             } else {
-                String [] cc_array = Research.getRecordByData(file, 1, in);
+                String [] cc_array = Research.getRecordByData(f_iso, 1, in);
+                if (cc_array == null ) {
+                    
+                }
             }
             } while (!exit);
         } catch ( InputMismatchException e ) {
