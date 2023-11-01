@@ -57,6 +57,7 @@ public class MonitoringCentre {
     }
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
+     * Se non ci sono Centri ritorna null.
      * @return nomi dei centri
      */
     public String[] getCentri(){
