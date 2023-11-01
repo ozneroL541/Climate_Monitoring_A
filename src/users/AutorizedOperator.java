@@ -72,7 +72,7 @@ public class AutorizedOperator extends User {
     @Override
     public String toString(){
         String str = "";
-        str += "User ID: " + this.userid + "\n";
+        str += "User ID: " + String.format("%05d", this.userid) + "\n";
         str += "Nome: "   + this.nome + "\n";
         str += "Cognome: "       + this.cognome + "\n";
         str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
