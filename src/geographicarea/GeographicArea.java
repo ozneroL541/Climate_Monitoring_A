@@ -88,7 +88,7 @@ public class GeographicArea {
         this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
-     * Cotruttore vuoto.
+     * Cotruttore vuoto di Area Geografica.
      */
     public GeographicArea() {
         this.geoname_id   = 0;
@@ -97,6 +97,19 @@ public class GeographicArea {
         this.country_code = "";
         this.country_name = "";
         this.coordinates  = null;
+    }
+    /**
+     * Costruttore di Area Geografica.
+     * Assegna ogni elemento dell'array di stringhe passato come parametro ai campi di GeographicArea.
+     * @param record array di Strings
+     */
+    public GeographicArea(String[] record) {
+        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+        this.name         = record[IndexOf.real_name];
+        this.ascii_name   = record[IndexOf.ascii_name];
+        this.country_code = record[IndexOf.country_code];
+        this.country_name = record[IndexOf.country_name];
+        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
@@ -806,7 +819,38 @@ public class GeographicArea {
             // Output Exception
             e.printStackTrace();
         }
-
+        // Build Geographic Area
+        ga = new GeographicArea(fieldStrings);
+        // Return Geographic Area
         return ga;        
+    }
+    public String toCSVLine() {
+        // To be returned
+        String str = "";
+        // String record
+        String [] record = toStringRecord();
+        // For each field
+        for (String s : record) {
+            // If cointains , put ""
+            if (s.contains(","))
+                str += "\"" + s + "\"";
+            else
+                str += s;
+            // Separator
+            str += ", ";
+        }
+        str = str.substring(0, str.length() -1 ) + "\n";
+        return str;
+    }
+    private String[] toStringRecord() {
+        // To be returned
+        String[] record = new String[IndexOf.country_code + 1];
+        record[IndexOf.geoname_id]      += this.geoname_id;
+        record[IndexOf.real_name]       += this.name;
+        record[IndexOf.ascii_name]      += this.ascii_name;
+        record[IndexOf.country_code]    += this.country_code;
+        record[IndexOf.country_name]    += this.country_name;
+        record[IndexOf.coordinates]     += this.coordinates[0] + ", " + this.coordinates[1];
+        return record;
     }
 }
