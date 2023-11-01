@@ -57,8 +57,17 @@ public class AutorizedOperator extends User {
     */
     public AutorizedOperator() {}
 
-    //TODO
-    //javadoc
+    /**
+     * Costruttore di <code>AutorizedOperator</code>
+     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametriS
+     * @param id id univoco dell'operatore
+     * @param nome nome dell'operatore
+     * @param cognome cognome dell'operatore
+     * @param cod_fis codice fiscale dell'operatore
+     * @param email_add indirizzo email dell'operatore
+     * @param password password scelta dall'operatore
+     * @param centre centro al quale l'operatore appartiene. Se non appartiene a nessun centro assume un valore di default 
+     */
     public AutorizedOperator(short id, String nome, String cognome, String cod_fis, String email_add, String password, short centre){
         this.userid=id;
         this.nome=nome;
