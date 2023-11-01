@@ -716,6 +716,16 @@ public class GeographicArea {
             in = InputScanner.INPUT_SCANNER.nextLine();
             // Country Code must be made of 2 characters
             if ( in.length() != 2 ) {
+                // Output
+                System.out.println("Il codice nazione deve essere formato da due caratteri.");
+                // Stay in loop
+                exit = false;
+            } else if ( ! in.matches("[a-zA-Z]+") ) {
+                // Output
+                System.out.println("Il codice nazione deve essere formato solo da lettere.");
+                // Stay in loop
+                exit = false;
+            } else {
                 
             }
             } while (!exit);
