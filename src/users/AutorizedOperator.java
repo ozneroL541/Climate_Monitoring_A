@@ -47,7 +47,7 @@ public class AutorizedOperator extends User {
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
 
     //dafault value for attribute centre if user does not choose a centre during registration
-    private final static short default_value_of_centre=-1;
+    private final static short defaultValueOfCentre=-1;
 
     //TODO
     //aggiungere classe privata con indici del file csv
@@ -87,12 +87,16 @@ public class AutorizedOperator extends User {
         str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
         str += "Indirizzo Email: " + this.email_address + "\n";
         str += "Password: "     + this.passwd + "\n" ;
-        if(this.centre==default_value_of_centre){
+        if(this.centre==defaultValueOfCentre){
             str += "Id Centro di appartenenza: NESSUNO";
         }else{
             str += "Id Centro di appartenenza: "    + this.centre;
         }
         return str;
+    }
+
+    public static short getDefaultValueOfCentre(){
+        return defaultValueOfCentre;
     }
 
     //TODO
@@ -178,7 +182,7 @@ public class AutorizedOperator extends User {
                 //insert monitoring centre
                 //TODO
                 //cambiare appena è fatto
-                centre=String.valueOf(default_value_of_centre);
+                centre=String.valueOf(defaultValueOfCentre);
 
                 // Insert password
                 System.out.print("Inserire la password: ");
