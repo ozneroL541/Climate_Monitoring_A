@@ -618,7 +618,7 @@ public class GeographicArea {
                     return false;
                 } else if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
                     // Error output
-                    System.out.println("Il codeice inserito deve essere formato solo da caratteri ASCII.");
+                    System.out.println("Il codice inserito deve essere formato solo da caratteri ASCII.");
                     // Return False
                     return false;
                 } else {
@@ -719,27 +719,44 @@ public class GeographicArea {
                 } while (!exit);
             }
             do {
-            // Request
-            System.out.println("Inserire codice nazione:\t");
-            // Input
-            in = InputScanner.INPUT_SCANNER.nextLine();
-            // Country Code must be made of 2 characters
-            if ( in.length() != 2 ) {
-                // Output
-                System.out.println("Il codice nazione deve essere formato da due caratteri.");
-                // Stay in loop
-                exit = false;
-            } else if ( ! in.matches("[a-zA-Z]+") ) {
-                // Output
-                System.out.println("Il codice nazione deve essere formato solo da lettere.");
-                // Stay in loop
-                exit = false;
-            } else {
-                String [] cc_array = Research.getRecordByData(f_iso, 1, in);
-                if (cc_array == null ) {
-                    
+                // Request
+                System.out.println("Inserire codice nazione:\t");
+                // Input
+                in = InputScanner.INPUT_SCANNER.nextLine();
+                // Country Code must be made of 2 characters
+                if ( in.length() != 2 ) {
+                    // Output
+                    System.out.println("Il codice nazione deve essere formato da due caratteri.");
+                    // Stay in loop
+                    exit = false;
+                } else if ( ! in.matches("[a-zA-Z]+") ) {
+                    // Output
+                    System.out.println("Il codice nazione deve essere formato solo da lettere.");
+                    // Stay in loop
+                    exit = false;
+                } else {
+                    // To upper case
+                    in = in.toUpperCase();
+                    // Record array
+                    String [] cc_array = Research.getRecordByData(f_iso, 1, in);
+                    // If Country code does not exist
+                    if (cc_array == null ) {
+                        // Output
+                        System.out.println("Non è stata trovata alcuna nazione col codice inserito.");
+                        // Stay in loop
+                        exit = false;
+                    } else {
+                        // Assign Country Code
+                        fieldStrings[IndexOf.country_code] = in;
+                        // Assign Country Name
+                        fieldStrings[IndexOf.country_name] = cc_array[0];
+                        // Output
+                        System.out.println("Nazione selezionata:\t" + fieldStrings[IndexOf.country_name] );
+                    }
                 }
-            }
+            } while (!exit);
+            do {
+                System.out.println("Inserire ");
             } while (!exit);
         } catch ( InputMismatchException e ) {
             // TODO remove se non si deve inserire un numero
