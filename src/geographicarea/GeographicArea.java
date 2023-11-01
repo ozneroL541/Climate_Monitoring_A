@@ -11,6 +11,7 @@ package src.geographicarea;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
+import java.util.InputMismatchException;
 
 import src.input.InputScanner;
 import src.research.Research;
@@ -34,7 +35,7 @@ public class GeographicArea {
     // Country Name
     private String country_name = "";
     // Coordinates
-    private double [] coordinates = { 0.0, 0.0 };
+    private double [] coordinates = null;
     // Areas File
     private final static File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
     // Indexes in CSV file
@@ -48,7 +49,7 @@ public class GeographicArea {
         private final static int coordinates = 5;
     }
     /**
-     * Costruttore di Area Geografica
+     * Costruttore di Area Geografica.
      * Data una riga in input crea l'oggetto Area Geografica utilizzando i dati appartenenti a tale riga.
      * I dati che vengono salvati sono
      * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
@@ -66,7 +67,7 @@ public class GeographicArea {
         this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
-     * Costruttore di Area Geografica
+     * Costruttore di Area Geografica.
      * Fornito un dato in input crea l'oggetto Area Geografica utilizzando i dati appartenenti al corrispondente.
      * Se viene fornito in input un ID e come secondo argomento 0 l'Area Geografica sarà univoca.
      * Se viene fornito un qualsiasi altro dato verrà creata un'Area Geografica corrispondenta alla sua prima occorrenza.
@@ -85,6 +86,17 @@ public class GeographicArea {
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
         this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+    }
+    /**
+     * Cotruttore vuoto.
+     */
+    public GeographicArea() {
+        this.geoname_id   = 0;
+        this.name         = "";
+        this.ascii_name   = "";
+        this.country_code = "";
+        this.country_name = "";
+        this.coordinates  = null;
     }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
@@ -650,4 +662,67 @@ public class GeographicArea {
         }
     }
     //TODO Creare area di interesse
+    // Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates
+    /**
+     * Permette di creare un area di interesse inserendone i dati e la ritorna.
+     * @return area di interesse creata
+     */
+    public static GeographicArea createArea() {
+        // Geographic Area to be returned
+        GeographicArea ga = new GeographicArea();
+        // Array of strings of fields
+        String[] fieldStrings = new String[IndexOf.coordinates + 1];
+        // Input String
+        String in = "";
+        // Exit condition
+        boolean exit = false;
+        // Try catch for Input Exception
+        try {
+            // Request
+            System.out.println("Inserire il nome: ");
+            // Input
+            in = InputScanner.INPUT_SCANNER.nextLine();
+            // Assign input to real_name
+            fieldStrings[IndexOf.real_name] = in;
+            // If input is ASCII
+            if (Charset.forName("US-ASCII").newEncoder().canEncode(in)) {
+                // Assign input to ascii_name
+                fieldStrings[IndexOf.ascii_name] = in;
+            // Else request for ascii_name
+            } else {
+                do {
+                    // Request
+                    System.out.println("Inserire il nome in formato ASCII: ");
+                    // Input
+                    in = InputScanner.INPUT_SCANNER.nextLine();
+                    // Check if input is ASCII
+                    if (Charset.forName("US-ASCII").newEncoder().canEncode(in)) {
+                        // If input is ASCII assign it to real_name
+                        fieldStrings[IndexOf.ascii_name] = in;
+                        // Exit from loop
+                        exit = true;
+                    } else {
+                        // Ouput
+                        System.out.println("Inserimeto non valido: inserire solo caratteri US-ASCII");
+                        // Stay in loop
+                        exit = false;
+                    }
+                } while (!exit);
+            }
+
+        } catch ( InputMismatchException e ) {
+            // TODO remove se non si deve inserire un numero
+            // Reset input scanner
+            InputScanner.INPUT_SCANNER.nextLine();
+            // Error Output
+            System.err.println("\nInserimento non valido.\nInserire un numero.");
+            // New line
+            System.out.println();
+        } catch (Exception e) {
+            // Output Exception
+            e.printStackTrace();
+        }
+
+        return ga;        
+    }
 }
