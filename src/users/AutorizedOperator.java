@@ -288,25 +288,16 @@ public class AutorizedOperator extends User {
         //AutorizedOperator object
         AutorizedOperator u=null;
 
-        try{
+        u=login();
+        while(u==null && c<limit){
+            System.out.println("User-ID e password non riconosciuti (tentativi rimasti: " + (limit-c) + ").\nReinserire");
             u=login();
-            while(u==null && c<limit){
-                System.out.println("User-ID e password non riconosciuti (tentativi rimasti: " + (limit-c) + ").\nReinserire");
-                u=login();
-                c++;
-            }
-            if ( c >= limit ) {
-                // Exit
-                return null;
-            }
-        }catch(InputMismatchException e){
-            e.printStackTrace();
-            return null;
-        }catch(Exception e){
-            e.printStackTrace();
+            c++;
+        }
+        if ( c >= limit ) {
+            // Exit
             return null;
         }
-
         return u;
     }
 
