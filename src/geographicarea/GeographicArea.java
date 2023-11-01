@@ -202,10 +202,17 @@ public class GeographicArea {
      * @see ricercaPerCoordinate
      */
     private static Integer[] ricercaPerCoordinate( String c ){
-        // Pass to double
-        double [] coordinates = Research.parseCoordinates(c);
-        // Use search with doubles
-        return ricercaPerCoordinate(coordinates);
+        try {
+            // Pass to double
+            double [] coordinates = Research.parseCoordinates(c);
+            // Use search with doubles
+            return ricercaPerCoordinate(coordinates);   
+        } catch (Exception e) {
+            // Error message
+            System.err.println("Formato coordinate incorretto.");
+            //Exit
+            return null;
+        }
     }
     /*
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
@@ -621,6 +628,11 @@ public class GeographicArea {
                     System.out.println("Il codice inserito deve essere formato solo da caratteri ASCII.");
                     // Return False
                     return false;
+                } else if (! (str.matches("[a-zA-Z]+"))) {
+                    // Error output
+                    System.out.println("Il codice inserito deve essere formato solo da lettere.");
+                    // Return False
+                    return false;
                 } else {
                     // Return True
                     return true;
@@ -687,6 +699,26 @@ public class GeographicArea {
         boolean exit = false;
         // Try catch for Input Exception
         try {
+            do {
+                // Request
+                System.out.println("Inserire Geoname ID:\t");
+                // Input
+                in = InputScanner.INPUT_SCANNER.nextLine();
+                // Check if it is correct
+                if ((exit = argumentCorrect(in, IndexOf.geoname_id))) {
+                    // Check if there is another area wth the same id
+                    if ( Research.OneStringInCol(file, IndexOf.geoname_id, in) < 0 ) {
+                        // Assign input to geoname_id
+                        fieldStrings[IndexOf.geoname_id] = in;
+                    } else {
+                        // Output
+                        System.out.println("Esiste già un'area geografica con lo stesso ID.");
+                        System.out.println("Creazione area geografica terminata: nessuna nuova area aggiunta.");
+                        // Exit
+                        return null;
+                    }
+                }
+            } while (!exit);
             // Request
             System.out.println("Inserire nome area:\t");
             // Input
@@ -705,16 +737,9 @@ public class GeographicArea {
                     // Input
                     in = InputScanner.INPUT_SCANNER.nextLine();
                     // Check if input is ASCII
-                    if (Charset.forName("US-ASCII").newEncoder().canEncode(in)) {
+                    if ( (exit = argumentCorrect(in, IndexOf.ascii_name))) {
                         // If input is ASCII assign it to real_name
                         fieldStrings[IndexOf.ascii_name] = in;
-                        // Exit from loop
-                        exit = true;
-                    } else {
-                        // Ouput
-                        System.out.println("Inserimeto non valido: inserire solo caratteri US-ASCII");
-                        // Stay in loop
-                        exit = false;
                     }
                 } while (!exit);
             }
@@ -724,14 +749,7 @@ public class GeographicArea {
                 // Input
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Country Code must be made of 2 characters
-                if ( in.length() != 2 ) {
-                    // Output
-                    System.out.println("Il codice nazione deve essere formato da due caratteri.");
-                    // Stay in loop
-                    exit = false;
-                } else if ( ! in.matches("[a-zA-Z]+") ) {
-                    // Output
-                    System.out.println("Il codice nazione deve essere formato solo da lettere.");
+                if ( ! argumentCorrect(in, IndexOf.country_code) ) {
                     // Stay in loop
                     exit = false;
                 } else {
@@ -752,11 +770,29 @@ public class GeographicArea {
                         fieldStrings[IndexOf.country_name] = cc_array[0];
                         // Output
                         System.out.println("Nazione selezionata:\t" + fieldStrings[IndexOf.country_name] );
+                        // Exit
+                        exit = true;
                     }
                 }
             } while (!exit);
             do {
-                System.out.println("Inserire ");
+                // Request
+                System.out.println("Inserire cordinate geografiche:\t");
+                // Input
+                in = InputScanner.INPUT_SCANNER.nextLine();
+                // Check if coordinates are valid
+                if ( exit = argumentCorrect(in, IndexOf.coordinates) ) {
+                    if ( Research.OneStringInCol(file, IndexOf.coordinates, in) < 0 ) {
+                        // Assign Coordinates
+                        fieldStrings[IndexOf.coordinates] = in;
+                    } else {
+                        // Output
+                        System.out.println("Esiste già un'area geografica con le stesse coordinate.");
+                        System.out.println("Creazione area geografica terminata: nessuna nuova area aggiunta.");
+                        // Exit
+                        return null;
+                    }
+                }
             } while (!exit);
         } catch ( InputMismatchException e ) {
             // TODO remove se non si deve inserire un numero
