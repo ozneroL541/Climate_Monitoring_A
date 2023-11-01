@@ -286,7 +286,7 @@ public class AutorizedOperator extends User {
         //counter
         int c=0;
         //AutorizedOperator object
-        AutorizedOperator u;
+        AutorizedOperator u=null;
 
         try{
             u=login();
