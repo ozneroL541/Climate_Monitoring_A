@@ -53,7 +53,7 @@ public class AutorizedOperator extends User {
     //aggiungere classe privata con indici del file csv
 
     /**
-    * Costruisce un operatore autorizzato
+    * Costruttore vuoto
     */
     public AutorizedOperator() {}
 
