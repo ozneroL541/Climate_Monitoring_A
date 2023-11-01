@@ -381,7 +381,7 @@ public class AutorizedOperator extends User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-
+    // TODO accettare nomi con l'apostrofo, doppi nomi e nomi accentati
     private static boolean onlyLettersInString(String s){
         return s.matches("[a-zA-Z]+");
     }
