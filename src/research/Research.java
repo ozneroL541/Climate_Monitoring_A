@@ -454,4 +454,57 @@ public class Research {
         // Return the record
         return out;
     }
+    /**
+     * Ritorna tutte le celle appartenenti alla colonna selezionata nel file CSV passato come argomento.
+     * @param file file CSV
+     * @param col colonna
+     * @return array di stringhe della colonna
+     */
+    public static String[] getColArray(File file, int col) {
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord = null;
+            // List of cell
+            ArrayList<String> cellList = new ArrayList<String>();
+            // Array of datas
+            String [] colArray = null;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col
+            if ( nextRecord.length <= col ) {
+                // Error Output
+                System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\n");
+                // Error
+                return null;
+            }
+            // While there is somthing to read
+            while ((nextRecord = creader.readNext()) != null) {
+                // Add cell to the list
+                cellList.add(nextRecord[col]);
+            }
+            // Close the file reader
+            creader.close();
+            // Pass arraylist to array
+            colArray = ((String[]) cellList.toArray(new String[0]));
+            // Return the array
+            return colArray;
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
+        }        
+    }
 }

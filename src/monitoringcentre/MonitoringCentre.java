@@ -58,7 +58,7 @@ public class MonitoringCentre {
     //TODO: Non è vero, la descrizione è sbagliata. Il metodo, per come è scritto, ritorna la prima riga del file.
     //getLista del nome dei centri (returna array di string)
     public String[] getCentri(){
-        return Research.getRecord(f,0);
+        return Research.getColArray(f,0);
     }
 
     //aggiunge un'area ad un centro già esistente
