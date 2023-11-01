@@ -11,7 +11,6 @@ package src.geographicarea;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
-import java.util.InputMismatchException;
 
 import src.input.InputScanner;
 import src.research.Research;
@@ -686,8 +685,6 @@ public class GeographicArea {
                 return false;
         }
     }
-    //TODO Creare area di interesse
-    // Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates
     /**
      * Permette di creare un area di interesse inserendone i dati e la ritorna.
      * @return area di interesse creata
@@ -807,14 +804,6 @@ public class GeographicArea {
                     }
                 }
             } while (!exit);
-        } catch ( InputMismatchException e ) {
-            // TODO remove se non si deve inserire un numero
-            // Reset input scanner
-            InputScanner.INPUT_SCANNER.nextLine();
-            // Error Output
-            System.err.println("\nInserimento non valido.\nInserire un numero.");
-            // New line
-            System.out.println();
         } catch (Exception e) {
             // Output Exception
             e.printStackTrace();
@@ -842,6 +831,7 @@ public class GeographicArea {
         str = str.substring(0, str.length() -1 ) + "\n";
         return str;
     }
+    // Create a record of strings from the fields
     private String[] toStringRecord() {
         // To be returned
         String[] record = new String[IndexOf.country_code + 1];
@@ -852,5 +842,10 @@ public class GeographicArea {
         record[IndexOf.country_name]    += this.country_name;
         record[IndexOf.coordinates]     += this.coordinates[0] + ", " + this.coordinates[1];
         return record;
+    }
+    //TODO Remove test main
+    public static void main(String[] args) {
+        GeographicArea ga = createArea();
+        System.out.println("*" + ga.toCSVLine() + "*" );
     }
 }
