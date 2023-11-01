@@ -679,7 +679,7 @@ public class GeographicArea {
         // Try catch for Input Exception
         try {
             // Request
-            System.out.println("Inserire il nome: ");
+            System.out.println("Inserire nome area:\t");
             // Input
             in = InputScanner.INPUT_SCANNER.nextLine();
             // Assign input to real_name
@@ -692,7 +692,7 @@ public class GeographicArea {
             } else {
                 do {
                     // Request
-                    System.out.println("Inserire il nome in formato ASCII: ");
+                    System.out.println("Inserire nome in formato ASCII:\t");
                     // Input
                     in = InputScanner.INPUT_SCANNER.nextLine();
                     // Check if input is ASCII
@@ -709,7 +709,16 @@ public class GeographicArea {
                     }
                 } while (!exit);
             }
-
+            do {
+            // Request
+            System.out.println("Inserire codice nazione:\t");
+            // Input
+            in = InputScanner.INPUT_SCANNER.nextLine();
+            // Country Code must be made of 2 characters
+            if ( in.length() != 2 ) {
+                
+            }
+            } while (!exit);
         } catch ( InputMismatchException e ) {
             // TODO remove se non si deve inserire un numero
             // Reset input scanner
