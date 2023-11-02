@@ -1,5 +1,18 @@
+/**************************************
+ * Matricola    Cognome     Nome
+ * 754530       Galimberti  Riccardo
+ * 755152       Paredi      Giacomo
+ * 753252       Radice      Lorenzo
+ * Sede: Como
+***************************************/
+
 package src.common_static_methods.common;
 
+/**
+ * Raccolta di metodi statici utilizzati da più classi.
+ * @author Lorenzo Radice
+ * @version 0.10.0
+ */
 public class CommonMethods {
     /**
      * Crea una riga che può essere aggiunta ad un file CSV.

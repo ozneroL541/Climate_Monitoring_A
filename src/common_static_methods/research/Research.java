@@ -19,7 +19,7 @@ import src.common_static_methods.common.CommonMethods;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.12.0
+ * @version 0.12.1
  */
 public class Research {
     /**
