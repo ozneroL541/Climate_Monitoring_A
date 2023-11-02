@@ -71,6 +71,7 @@ public class CommonMethods {
      * @return true se il nome è valido
      */
     public static boolean isValidName(String name){
+        // TODO: migliorare il metodo (b si può anche togliere).
         // To be returned
         boolean b = false;
         // Check name validity
