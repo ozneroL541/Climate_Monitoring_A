@@ -112,8 +112,8 @@ public class AutorizedOperator extends User {
     }
 
     /**
-     * Permette all'utente di registrarsi come Utente Autorizzato
-     * I dati del nuovo utente vengono salvati sul file OperatoriRegistrati.dati.csv
+     * Permette all'utente di registrarsi come Operatore Autorizzato
+     * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
      */
     //java doc
     public static void registrazione() {
