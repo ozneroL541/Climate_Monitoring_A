@@ -7,9 +7,9 @@
 ***************************************/
 
 package src.users;
-import src.input.InputScanner;
+import src.common_static_methods.input.InputScanner;
 import src.monitoringcentre.MonitoringCentre;
-import src.research.Research;
+import src.common_static_methods.research.Research;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

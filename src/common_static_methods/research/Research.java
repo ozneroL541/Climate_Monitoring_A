@@ -6,7 +6,7 @@
  * Sede: Como
 ***************************************/
 
-package src.research;
+package src.common_static_methods.research;
 
 import java.io.File;
 import java.io.FileNotFoundException;

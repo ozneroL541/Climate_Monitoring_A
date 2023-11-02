@@ -1,4 +1,4 @@
-package src.input;
+package src.common_static_methods.input;
 
 import java.util.Scanner;
 

@@ -9,7 +9,7 @@
 package src.users;
 
 import src.geographicarea.GeographicArea;
-import src.input.InputScanner;
+import src.common_static_methods.input.InputScanner;
 
 import java.util.InputMismatchException;
 
