@@ -14,10 +14,13 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVWriterBuilder;
+import com.opencsv.exceptions.CsvBadConverterException;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.11.1
+ * @version 0.12.0
  */
 public class Research {
     /**
@@ -505,6 +508,30 @@ public class Research {
             System.err.println();
             // Return null
             return null;
-        }        
+        } 
+    }
+    /**
+     * Crea una riga che può essere aggiunta ad un file CSV.
+     * La stringa creata include il newline successivo.
+     * @param record array di Strings
+     * @return stringa per CSV
+     */
+    public static String toCSVLine(String [] record) {
+        // To be returned
+        String str = "";
+        // For each field
+        for (String s : record) {
+            // If cointains , put ""
+            if (s.contains(","))
+                str += "\"" + s + "\"";
+            else
+                str += s;
+            // Separator
+            str += ", ";
+        }
+        // Add newline
+        str = str.substring(0, str.length() - 2 ) + "\n";
+        // Return String
+        return str;
     }
 }

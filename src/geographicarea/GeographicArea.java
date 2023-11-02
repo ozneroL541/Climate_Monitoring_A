@@ -20,7 +20,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.12.0
+ * @version 0.12.1
  */
 public class GeographicArea {
     // Geoname ID
@@ -822,24 +822,8 @@ public class GeographicArea {
      * @return stringa per CSV
      */
     public String toCSVLine() {
-        // To be returned
-        String str = "";
-        // String record
-        String [] record = toStringRecord();
-        // For each field
-        for (String s : record) {
-            // If cointains , put ""
-            if (s.contains(","))
-                str += "\"" + s + "\"";
-            else
-                str += s;
-            // Separator
-            str += ", ";
-        }
-        // Add newline
-        str = str.substring(0, str.length() - 2 ) + "\n";
-        // Return String
-        return str;
+        // Return CSV line
+        return Research.toCSVLine(toStringRecord());
     }
     // Create a record of strings from the fields
     private String[] toStringRecord() {
