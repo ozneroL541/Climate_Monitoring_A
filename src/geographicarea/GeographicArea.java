@@ -816,6 +816,11 @@ public class GeographicArea {
         // Return Geographic Area
         return ga;        
     }
+    /**
+     * Crea una riga coi campi dell'Area Geografica che può essere aggiunta ad un file CSV.
+     * La stringa creata include il newline successivo.
+     * @return stringa per CSV
+     */
     public String toCSVLine() {
         // To be returned
         String str = "";
@@ -831,7 +836,9 @@ public class GeographicArea {
             // Separator
             str += ", ";
         }
+        // Add newline
         str = str.substring(0, str.length() - 2 ) + "\n";
+        // Return String
         return str;
     }
     // Create a record of strings from the fields
