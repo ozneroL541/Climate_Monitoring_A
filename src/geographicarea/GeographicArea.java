@@ -20,7 +20,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.11.0
+ * @version 0.12.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -687,11 +687,14 @@ public class GeographicArea {
     }
     /**
      * Permette di creare un area di interesse inserendone i dati e la ritorna.
+     * Se la creazione fallisce ritorna null.
      * @return area di interesse creata
      */
     public static GeographicArea createArea() {
         // ISO-3166 fil
         final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-coutries.csv").toFile();
+        // Error string
+        final String error = "Creazione area geografica terminata: creazione fallita";
         // Check if file exist
         if ( ! f_iso.exists() ) {
             // Print Error
@@ -723,7 +726,7 @@ public class GeographicArea {
                     } else {
                         // Output
                         System.out.println("Esiste già un'area geografica con lo stesso ID.");
-                        System.out.println("Creazione area geografica terminata: nessuna nuova area aggiunta.");
+                        System.out.println(error);
                         // Exit
                         return null;
                     }
@@ -798,7 +801,7 @@ public class GeographicArea {
                     } else {
                         // Output
                         System.out.println("Esiste già un'area geografica con le stesse coordinate.");
-                        System.out.println("Creazione area geografica terminata: nessuna nuova area aggiunta.");
+                        System.out.println(error);
                         // Exit
                         return null;
                     }
@@ -842,10 +845,5 @@ public class GeographicArea {
         record[IndexOf.country_name]    = this.country_name;
         record[IndexOf.coordinates]     = "" + this.coordinates[0] + ", " + this.coordinates[1];
         return record;
-    }
-    //TODO Remove test main
-    public static void main(String[] args) {
-        GeographicArea ga = createArea();
-        System.out.println("*" + ga.toCSVLine() + "*" );
     }
 }
