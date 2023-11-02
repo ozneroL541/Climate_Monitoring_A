@@ -5,14 +5,14 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
-
+// TODO mettere nella cartella superiore
 package src.common_static_methods.common;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+// TODO mettere i metodi relativi ai file CSV a parte
 /**
  * Raccolta di metodi statici utilizzati da più classi.
  * @author Lorenzo Radice
@@ -42,6 +42,7 @@ public class CommonMethods {
         // Return String
         return str;
     }
+    // TODO mettere in metodo separato
     /**
      * Divide la stringa in coordinate.
      * In caso di errore ritorna null.
@@ -121,6 +122,18 @@ public class CommonMethods {
      * @return true se il nome è valido
      */
     public static boolean isValidName(String name){
+        // TODO change with:
+        /*
+    public static boolean onlyLettersSpacesApostrophes(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (!Character.isLetter(c) && c != ' ' && c != '\'') {
+                return false;
+            }
+        }
+        return true;
+    }
+        */
          // Return result
         return name.matches("^(?!(?:[^']*'){2})(?!(?:[^ ]* ){2})[a-zA-Z ']{2,}$");
     }

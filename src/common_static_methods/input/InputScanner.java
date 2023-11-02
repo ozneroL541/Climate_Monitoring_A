@@ -1,3 +1,11 @@
+/**************************************
+ * Matricola    Cognome     Nome
+ * 754530       Galimberti  Riccardo
+ * 755152       Paredi      Giacomo
+ * 753252       Radice      Lorenzo
+ * Sede: Como
+***************************************/
+// TODO mettere nella cartella superiore
 package src.common_static_methods.input;
 
 import java.util.Scanner;
