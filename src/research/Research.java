@@ -14,9 +14,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.CSVWriterBuilder;
-import com.opencsv.exceptions.CsvBadConverterException;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
