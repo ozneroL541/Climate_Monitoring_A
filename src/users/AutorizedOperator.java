@@ -111,7 +111,10 @@ public class AutorizedOperator extends User {
         return defaultValueOfCentre;
     }
 
-    //TODO
+    /**
+     * Permette all'utente di registrarsi come Utente Autorizzato
+     * I dati del nuovo utente vengono salvati sul file OperatoriRegistrati.dati.csv
+     */
     //java doc
     public static void registrazione() {
         // Datas
