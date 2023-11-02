@@ -20,7 +20,7 @@ import src.research.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.11.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -691,7 +691,7 @@ public class GeographicArea {
      */
     public static GeographicArea createArea() {
         // ISO-3166 fil
-        final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-countries.csv").toFile();
+        final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-coutries.csv").toFile();
         // Check if file exist
         if ( ! f_iso.exists() ) {
             // Print Error
@@ -711,7 +711,7 @@ public class GeographicArea {
         try {
             do {
                 // Request
-                System.out.println("Inserire Geoname ID:\t");
+                System.out.print("Inserire Geoname ID:\t\t");
                 // Input
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Check if it is correct
@@ -730,7 +730,7 @@ public class GeographicArea {
                 }
             } while (!exit);
             // Request
-            System.out.println("Inserire nome area:\t");
+            System.out.print("Inserire nome area:\t\t");
             // Input
             in = InputScanner.INPUT_SCANNER.nextLine();
             // Assign input to real_name
@@ -743,7 +743,7 @@ public class GeographicArea {
             } else {
                 do {
                     // Request
-                    System.out.println("Inserire nome in formato ASCII:\t");
+                    System.out.print("Inserire nome in formato ASCII:\t");
                     // Input
                     in = InputScanner.INPUT_SCANNER.nextLine();
                     // Check if input is ASCII
@@ -755,7 +755,7 @@ public class GeographicArea {
             }
             do {
                 // Request
-                System.out.println("Inserire codice nazione:\t");
+                System.out.print("Inserire codice nazione:\t");
                 // Input
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Country Code must be made of 2 characters
@@ -779,7 +779,7 @@ public class GeographicArea {
                         // Assign Country Name
                         fieldStrings[IndexOf.country_name] = cc_array[0];
                         // Output
-                        System.out.println("Nazione selezionata:\t" + fieldStrings[IndexOf.country_name] );
+                        System.out.println("Nazione selezionata:\t\t" + fieldStrings[IndexOf.country_name] );
                         // Exit
                         exit = true;
                     }
@@ -787,7 +787,7 @@ public class GeographicArea {
             } while (!exit);
             do {
                 // Request
-                System.out.println("Inserire cordinate geografiche:\t");
+                System.out.print("Inserire cordinate geografiche:\t");
                 // Input
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Check if coordinates are valid
@@ -828,19 +828,19 @@ public class GeographicArea {
             // Separator
             str += ", ";
         }
-        str = str.substring(0, str.length() -1 ) + "\n";
+        str = str.substring(0, str.length() - 2 ) + "\n";
         return str;
     }
     // Create a record of strings from the fields
     private String[] toStringRecord() {
         // To be returned
-        String[] record = new String[IndexOf.country_code + 1];
-        record[IndexOf.geoname_id]      += this.geoname_id;
-        record[IndexOf.real_name]       += this.name;
-        record[IndexOf.ascii_name]      += this.ascii_name;
-        record[IndexOf.country_code]    += this.country_code;
-        record[IndexOf.country_name]    += this.country_name;
-        record[IndexOf.coordinates]     += this.coordinates[0] + ", " + this.coordinates[1];
+        String[] record = new String[IndexOf.coordinates + 1];
+        record[IndexOf.geoname_id]      = "" + this.geoname_id;
+        record[IndexOf.real_name]       = this.name;
+        record[IndexOf.ascii_name]      = this.ascii_name;
+        record[IndexOf.country_code]    = this.country_code;
+        record[IndexOf.country_name]    = this.country_name;
+        record[IndexOf.coordinates]     = "" + this.coordinates[0] + ", " + this.coordinates[1];
         return record;
     }
     //TODO Remove test main
