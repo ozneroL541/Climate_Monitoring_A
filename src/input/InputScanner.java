@@ -1,3 +1,10 @@
+/**************************************
+ * Matricola    Cognome     Nome
+ * 754530       Galimberti  Riccardo
+ * 755152       Paredi      Giacomo
+ * 753252       Radice      Lorenzo
+ * Sede: Como
+***************************************/
 package src.input;
 
 import java.util.Scanner;
