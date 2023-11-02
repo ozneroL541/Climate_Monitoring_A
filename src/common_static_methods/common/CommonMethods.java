@@ -42,7 +42,7 @@ public class CommonMethods {
         // Return String
         return str;
     }
-    // TODO mettere in metodo separato
+    // TODO put in different class (in Geographic Area Folder)
     /**
      * Divide la stringa in coordinate.
      * In caso di errore ritorna null.
@@ -121,6 +121,7 @@ public class CommonMethods {
      * @param name nome
      * @return true se il nome è valido
      */
+    // TODO change name: insert ASCII in name
     public static boolean isValidName(String name){
         // TODO change with:
         /*
