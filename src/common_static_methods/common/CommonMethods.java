@@ -121,12 +121,7 @@ public class CommonMethods {
      * @return true se il nome è valido
      */
     public static boolean isValidName(String name){
-        // TODO: migliorare il metodo (b si può anche togliere).
-        // To be returned
-        boolean b = false;
-        // Check name validity
-        b = name.matches("[a-zA-Z]+");
-        // Return result
-        return b;
+         // Return result
+        return name.matches("^(?!(?:[^']*'){2})(?!(?:[^ ]* ){2})[a-zA-Z ']{2,}$");
     }
 }
