@@ -65,4 +65,8 @@ public class CommonMethods {
             return null;
         }
     }
+    // TODO accettare nomi con l'apostrofo, doppi nomi e nomi accentati
+    public static boolean onlyLettersInString(String s){
+        return s.matches("[a-zA-Z]+");
+    }
 }

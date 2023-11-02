@@ -7,6 +7,7 @@
 ***************************************/
 
 package src.users;
+import src.common_static_methods.common.CommonMethods;
 import src.common_static_methods.input.InputScanner;
 import src.monitoringcentre.MonitoringCentre;
 import src.common_static_methods.research.Research;
@@ -127,7 +128,7 @@ public class AutorizedOperator extends User {
                 do{
                     nome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if name contains only letters
-                    if(!onlyLettersInString(nome)){
+                    if(!CommonMethods.onlyLettersInString(nome)){
                         System.out.print("Nome non valido.\nReinserire: ");
                     }else{
                         //exit loop
@@ -140,7 +141,7 @@ public class AutorizedOperator extends User {
                 do{
                     cognome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if last name contains only letters
-                    if(!onlyLettersInString(cognome)){
+                    if(!CommonMethods.onlyLettersInString(cognome)){
                         System.out.print("Cognome non valido.\nReinserire: ");
                     }else{
                         //exit loop
@@ -380,10 +381,6 @@ public class AutorizedOperator extends User {
     private static boolean ControlloEmail(String email){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
-    }
-    // TODO accettare nomi con l'apostrofo, doppi nomi e nomi accentati
-    private static boolean onlyLettersInString(String s){
-        return s.matches("[a-zA-Z]+");
     }
 
     // Create the file OperatoriRegistrati.csv and set the header of it
