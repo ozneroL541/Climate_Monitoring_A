@@ -65,8 +65,17 @@ public class CommonMethods {
             return null;
         }
     }
-    // TODO accettare nomi con l'apostrofo, doppi nomi e nomi accentati
-    public static boolean onlyLettersInString(String s){
-        return s.matches("[a-zA-Z]+");
+    /**
+     * Controlla che il nome inserito sia valido.
+     * @param name nome
+     * @return true se il nome è valido
+     */
+    public static boolean isValidName(String name){
+        // To be returned
+        boolean b = false;
+        // Check name validity
+        b = name.matches("[a-zA-Z]+");
+        // Return result
+        return b;
     }
 }
