@@ -14,6 +14,7 @@ import java.nio.file.FileSystems;
 
 import src.common_static_methods.input.InputScanner;
 import src.common_static_methods.research.Research;
+import src.common_static_methods.common.CommonMethods;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
@@ -63,7 +64,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = CommonMethods.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
      * Costruttore di Area Geografica.
@@ -84,7 +85,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = CommonMethods.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
      * Cotruttore vuoto di Area Geografica.
@@ -108,7 +109,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = CommonMethods.parseCoordinates(record[IndexOf.coordinates]);
     }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
@@ -216,7 +217,7 @@ public class GeographicArea {
     private static Integer[] ricercaPerCoordinate( String c ){
         try {
             // Pass to double
-            double [] coordinates = Research.parseCoordinates(c);
+            double [] coordinates = CommonMethods.parseCoordinates(c);
             // Use search with doubles
             return ricercaPerCoordinate(coordinates);   
         } catch (Exception e) {
@@ -654,7 +655,7 @@ public class GeographicArea {
                 // Try Parsing
                 try {
                     // Pass to double
-                    double [] coo = Research.parseCoordinates(str);
+                    double [] coo = CommonMethods.parseCoordinates(str);
                     // If the coordinates are not in the range of the Earth
                     if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
                         // Error message
@@ -823,7 +824,7 @@ public class GeographicArea {
      */
     public String toCSVLine() {
         // Return CSV line
-        return Research.toCSVLine(toStringRecord());
+        return CommonMethods.toCSVLine(toStringRecord());
     }
     // Create a record of strings from the fields
     private String[] toStringRecord() {
