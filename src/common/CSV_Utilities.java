@@ -48,7 +48,7 @@ public class CSV_Utilities {
         // Return String
         return str;
     }
-    /**
+    /*
      * Scrive la linea passata come argomento alla fine del file CSV.
      * Si può scegliere se aggiungere una nuova linea alla fine della scrittura.
      * Ritorna true se la scrittura ha avuto esito positivo, false se non è avvenuta.
@@ -57,7 +57,7 @@ public class CSV_Utilities {
      * @param add_newline aggiunge una nuova linea se true
      * @return esito della scrittura
      */
-    public static boolean WriteEOF_CSV( File file, String line, boolean add_newline) {
+    private static boolean WriteEOF_CSV( File file, String line, boolean add_newline) {
         // Check file existence
         if (! file.exists()) {
             // File name
@@ -92,13 +92,13 @@ public class CSV_Utilities {
         }
         return true;
     }
-    /**
+    /*
      * Aggiunge la prima linea ad un file.
      * @param file file
      * @param header prima linea
      * @return true se la scrittura ha avuto successo
      */
-    public static boolean addHeader( File file, String header ) {
+    private static boolean addHeader( File file, String header ) {
         try {
             // Buffer Reader
             BufferedWriter bf = new BufferedWriter(new FileWriter(file, true));
