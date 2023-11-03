@@ -5,8 +5,7 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
-// TODO mettere nella cartella superiore
-package src.common_static_methods.research;
+package src.common_static_methods;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
 
-import src.common_static_methods.common.CommonMethods;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice

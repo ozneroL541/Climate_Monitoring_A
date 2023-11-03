@@ -5,8 +5,7 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
-// TODO mettere nella cartella superiore
-package src.common_static_methods.common;
+package src.common_static_methods;
 
 import java.io.BufferedWriter;
 import java.io.File;
