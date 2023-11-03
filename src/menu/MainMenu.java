@@ -8,7 +8,7 @@
 
 package src.menu;
 
-import src.input.InputScanner;
+import src.common.InputScanner;
 
 /**
  * Classe che contiene il menù principale del programma.

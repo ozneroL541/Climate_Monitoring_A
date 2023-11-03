@@ -8,10 +8,10 @@
 
 package src.users;
 
+import java.util.InputMismatchException;
+
 import src.common.InputScanner;
 import src.geographicarea.GeographicArea;
-
-import java.util.InputMismatchException;
 
 /**
  * Un oggetto della classe <code>User</code> rappresenta un utente.

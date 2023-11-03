@@ -7,8 +7,7 @@
 ***************************************/
 
 package src.users;
-import src.common.*;
-import src.monitoringcentre.MonitoringCentre;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,6 +18,9 @@ import java.nio.file.Files;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
+
+import src.common.*;
+import src.monitoringcentre.MonitoringCentre;
 
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
