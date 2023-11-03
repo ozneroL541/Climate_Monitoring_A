@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.InputMismatchException;
@@ -91,6 +92,7 @@ public class AutorizedOperator extends User {
              * final static String nocentre = "NESSUNO"
              * in caso di modifica o ripetizione in altri
              * possibili output è più funzionale. 
+             * 
              * Comunque non crei una nuova costante perché 
              * le stringhe scritte così le salva già come costante.
             */
@@ -323,6 +325,11 @@ public class AutorizedOperator extends User {
     
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
+        // Check if ASCII
+        if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(cf)) {
+            // The Fiscal Code is not ASCII
+            return false;
+        }
         // Output declaration
         boolean check = true;
         // The length of Codice Fiscale must be 16 characters for fisical people
@@ -339,7 +346,7 @@ public class AutorizedOperator extends User {
                 if ( j < int_index.length && i == int_index[j]) {
                     j++;
                 } else {
-                    // If the current character is not a letter the string isn incorrect
+                    // If the current character is not a letter the string is not incorrect
                     if ( ! Character.isLetter(cf.charAt(i)) ) {
                         check = false;
                     }
@@ -348,7 +355,7 @@ public class AutorizedOperator extends User {
             // If the string can still be true continue with the verification else terminate the execution fo the function
             if (check) {
                 // Characters of the months
-                char[] m = { 'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T' };
+                final char[] m = { 'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T' };
                 // This check if the month character is correct
                 boolean month_chek = false;
                 // Check for every character of the months
