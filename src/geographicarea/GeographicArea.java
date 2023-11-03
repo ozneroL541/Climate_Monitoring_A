@@ -62,7 +62,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = CommonMethods.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
      * Costruttore di Area Geografica.
@@ -83,7 +83,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = CommonMethods.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
      * Cotruttore vuoto di Area Geografica.
@@ -107,7 +107,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = CommonMethods.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
     }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
@@ -215,7 +215,7 @@ public class GeographicArea {
     private static Integer[] ricercaPerCoordinate( String c ){
         try {
             // Pass to double
-            double [] coordinates = CommonMethods.parseCoordinates(c);
+            double [] coordinates = Coordinates.parseCoordinates(c);
             // Use search with doubles
             return ricercaPerCoordinate(coordinates);   
         } catch (Exception e) {
@@ -653,7 +653,7 @@ public class GeographicArea {
                 // Try Parsing
                 try {
                     // Pass to double
-                    double [] coo = CommonMethods.parseCoordinates(str);
+                    double [] coo = Coordinates.parseCoordinates(str);
                     // If the coordinates are not in the range of the Earth
                     if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
                         // Error message

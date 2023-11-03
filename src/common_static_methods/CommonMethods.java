@@ -41,34 +41,6 @@ public class CommonMethods {
         // Return String
         return str;
     }
-    // TODO put in different class (in Geographic Area Folder)
-    /**
-     * Divide la stringa in coordinate.
-     * In caso di errore ritorna null.
-     * @param coo string
-     * @return un array con 2 coordinate
-     */
-    public static double[] parseCoordinates ( String coo ){
-        // Output
-        double [] c = new double[2];
-        // Spitted string
-        String [] splitted = coo.split(", ");
-        // If the string is not splitted abort
-        if ( splitted.length != 2 )
-            return null;
-        // If parsing don't work return null
-        try {
-            // First coordinate
-            c[0] = Double.parseDouble(splitted[0]);
-            // Second coordinate
-            c[1] = Double.parseDouble(splitted[1]);
-            // Return the coordinates
-            return c;
-        } catch (Exception e) {
-            // In case of error return null
-            return null;
-        }
-    }
     /**
      * Scrive la linea passata come argomento alla fine del file CSV.
      * Si può scegliere se aggiungere una nuova linea alla fine della scrittura.

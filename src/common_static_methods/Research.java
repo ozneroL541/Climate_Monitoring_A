@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
 
+import src.geographicarea.Coordinates;
+
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
@@ -252,7 +254,7 @@ public class Research {
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null){
                 // Parse the coordinates just read
-                c2 = CommonMethods.parseCoordinates(nextRecord[col]);
+                c2 = Coordinates.parseCoordinates(nextRecord[col]);
                 // Calculate distance betwee coordinates
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
                 // When the first cell equals the id exit the while
