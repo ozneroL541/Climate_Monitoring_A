@@ -723,15 +723,15 @@ public class GeographicArea {
                 // Check if it is correct
                 if ((exit = argumentCorrect(in, IndexOf.geoname_id))) {
                     // Check if there is another area wth the same id
-                    if ( Research.OneStringInCol(file, IndexOf.geoname_id, in) < 0 ) {
-                        // Assign input to geoname_id
-                        fieldStrings[IndexOf.geoname_id] = in;
-                    } else {
+                    if ( file.exists() && Research.OneStringInCol(file, IndexOf.geoname_id, in) >= 0 ) {
                         // Output
                         System.out.println("Esiste già un'area geografica con lo stesso ID.");
                         System.out.println(error);
                         // Exit
                         return null;
+                    } else {
+                        // Assign input to geoname_id
+                        fieldStrings[IndexOf.geoname_id] = in;
                     }
                 }
             } while (!exit);
@@ -798,15 +798,15 @@ public class GeographicArea {
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Check if coordinates are valid
                 if ( exit = argumentCorrect(in, IndexOf.coordinates) ) {
-                    if ( Research.OneStringInCol(file, IndexOf.coordinates, in) < 0 ) {
-                        // Assign Coordinates
-                        fieldStrings[IndexOf.coordinates] = in;
-                    } else {
+                    if ( file.exists() && Research.OneStringInCol(file, IndexOf.coordinates, in) >= 0 ) {
                         // Output
                         System.out.println("Esiste già un'area geografica con le stesse coordinate.");
                         System.out.println(error);
                         // Exit
                         return null;
+                    } else {
+                        // Assign Coordinates
+                        fieldStrings[IndexOf.coordinates] = in;
                     }
                 }
             } while (!exit);
@@ -847,5 +847,12 @@ public class GeographicArea {
     public boolean addToCSV() {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, toStringRecord(), header);
+    }
+    // TODO Remove test main
+    public static void main(String[] args) {
+        GeographicArea ga = GeographicArea.createArea();
+        if (ga != null) {
+            ga.toCSVLine();
+        }
     }
 }
