@@ -26,6 +26,11 @@ public class CSV_Utilities {
      * @return stringa per CSV
      */
     public static String toCSVLine(String [] record) {
+        // Check if record exist
+        if (record == null || record.length < 1) {
+            // Exit
+            return null;
+        }
         // To be returned
         String str = "";
         // For each field
@@ -118,7 +123,7 @@ public class CSV_Utilities {
      */
     public static boolean addLinewithCheck( File file, String line, String header ) {
         // Check if file has at least one line
-        if ( fileHasLines(file) ) {
+        if ( ! fileHasLines(file) ) {
             // Check if method execution succeded
             if (! addHeader(file, header)) {
                 // If error return false

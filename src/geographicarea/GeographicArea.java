@@ -845,14 +845,21 @@ public class GeographicArea {
      * @return true se l'esecuzione è avvenuta correttamente
      */
     public boolean addToCSV() {
+        // Array of fields
+        String [] fields_arr = toStringRecord();
+        // If there are no fields
+        if ( fields_arr == null || fields_arr.length < 1 ) {
+            // Exit without write
+            return false;
+        }
         // Add to CSV File
-        return CSV_Utilities.addArraytoCSV(file, toStringRecord(), header);
+        return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
     // TODO Remove test main
     public static void main(String[] args) {
         GeographicArea ga = GeographicArea.createArea();
         if (ga != null) {
-            ga.toCSVLine();
+            System.out.println(ga.addToCSV());
         }
     }
 }
