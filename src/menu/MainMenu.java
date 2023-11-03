@@ -8,8 +8,6 @@
 
 package src.menu;
 
-import java.text.NumberFormat;
-
 import src.input.InputScanner;
 
 /**
