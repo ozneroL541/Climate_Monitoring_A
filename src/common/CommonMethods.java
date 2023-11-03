@@ -11,31 +11,24 @@ package src.common;
 /**
  * Raccolta di metodi statici utilizzati da più classi.
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.10.2
  */
 public class CommonMethods {
-    // TODO aggiungere metodo che crea un file e aggiunge un header
-    // TODO aggiungere metodo che controlla se il file ha un header e se non c'è lo aggiunge
     /**
-     * Controlla che il nome inserito sia valido.
+     * Controlla che il nome inserito sia formato solo da lettere ASCII, apostrofi e spazi.
      * @param name nome
      * @return true se il nome è valido
      */
-    // TODO change name: insert ASCII in name
-    public static boolean isValidName(String name){
-        // TODO change with:
-        /*
-    public static boolean onlyLettersSpacesApostrophes(String s) {
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+    public static boolean isValidASCIIName(String name){
+        // For every character in string
+        for ( Character c : name.toCharArray() ) {
+            // Check the validity of the character
             if (!Character.isLetter(c) && c != ' ' && c != '\'') {
+                // Character not valid: Return false
                 return false;
             }
         }
+        // Character valid: return true
         return true;
-    }
-        */
-         // Return result
-        return name.matches("^(?!(?:[^']*'){2})(?!(?:[^ ]* ){2})[a-zA-Z ']{2,}$");
     }
 }

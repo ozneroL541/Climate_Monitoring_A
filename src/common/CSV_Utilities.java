@@ -86,4 +86,7 @@ public class CSV_Utilities {
         }
         return true;
     }
+
+    // TODO aggiungere metodo che crea un file e aggiunge un header
+    // TODO aggiungere metodo che controlla se il file ha un header e se non c'è lo aggiunge
 }
