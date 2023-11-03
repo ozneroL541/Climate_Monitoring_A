@@ -126,7 +126,7 @@ public class AutorizedOperator extends User {
                 do{
                     nome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if name contains only letters
-                    if(!CommonMethods.isValidASCIIName(nome)){
+                    if(!CommonMethods.isValidName(nome)){
                         System.out.print("Nome non valido.\nReinserire: ");
                     }else{
                         //exit loop
@@ -139,7 +139,7 @@ public class AutorizedOperator extends User {
                 do{
                     cognome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if last name contains only letters
-                    if(!CommonMethods.isValidASCIIName(cognome)){
+                    if(!CommonMethods.isValidName(cognome)){
                         System.out.print("Cognome non valido.\nReinserire: ");
                     }else{
                         //exit loop
