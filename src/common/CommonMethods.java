@@ -6,7 +6,7 @@
  * Sede: Como
 ***************************************/
 
-package src.common_static_methods;
+package src.common;
 
 /**
  * Raccolta di metodi statici utilizzati da più classi.

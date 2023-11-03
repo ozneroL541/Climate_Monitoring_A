@@ -6,7 +6,7 @@
  * Sede: Como
 ***************************************/
 
-package src.common_static_methods;
+package src.common;
 
 import java.io.BufferedWriter;
 import java.io.File;

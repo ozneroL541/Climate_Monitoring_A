@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 
-import src.common_static_methods.Research;
+import src.common.Research;
 
 /**
  * Classe che contiene il centro di monitoraggio.

@@ -7,7 +7,7 @@
 ***************************************/
 
 package src.users;
-import src.common_static_methods.*;
+import src.common.*;
 import src.monitoringcentre.MonitoringCentre;
 import java.io.BufferedWriter;
 import java.io.File;

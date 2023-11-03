@@ -5,7 +5,7 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
-package src.common_static_methods;
+package src.common;
 
 import java.io.File;
 import java.io.FileNotFoundException;

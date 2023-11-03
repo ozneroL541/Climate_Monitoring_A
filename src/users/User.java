@@ -8,8 +8,8 @@
 
 package src.users;
 
+import src.common.InputScanner;
 import src.geographicarea.GeographicArea;
-import src.common_static_methods.InputScanner;
 
 import java.util.InputMismatchException;
 
