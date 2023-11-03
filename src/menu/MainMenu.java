@@ -7,6 +7,11 @@
 ***************************************/
 
 package src.menu;
+
+import java.text.NumberFormat;
+
+import src.input.InputScanner;
+
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
