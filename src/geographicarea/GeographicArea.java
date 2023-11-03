@@ -38,6 +38,8 @@ public class GeographicArea {
     private double [] coordinates = null;
     // Areas File
     private final static File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
+    // Header
+    private final static String header = "Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates";
     // Indexes in CSV file
     private final static class IndexOf {
         private final static int geoname_id = 0;
@@ -837,5 +839,13 @@ public class GeographicArea {
         record[IndexOf.country_name]    = this.country_name;
         record[IndexOf.coordinates]     = "" + this.coordinates[0] + ", " + this.coordinates[1];
         return record;
+    }
+    /**
+     * Aggiunge l'Area Geografica al file CSV.
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
+    public boolean addToCSV() {
+        // Add to CSV File
+        return CSV_Utilities.addArraytoCSV(file, toStringRecord(), header);
     }
 }
