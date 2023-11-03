@@ -5,7 +5,7 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
-package src.input;
+package src.common;
 
 import java.util.Scanner;
 

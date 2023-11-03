@@ -7,13 +7,13 @@
 ***************************************/
 
 package src.users;
-import src.input.InputScanner;
+import src.common.*;
 import src.monitoringcentre.MonitoringCentre;
-import src.research.Research;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.InputMismatchException;
@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.12.2
+ * @version 0.12.3
  */
 public class AutorizedOperator extends User {
     // User Identity Code
@@ -88,6 +88,14 @@ public class AutorizedOperator extends User {
         str += "Indirizzo Email: " + this.email_address + "\n";
         str += "Password: "     + this.passwd + "\n" ;
         if(this.centre==defaultValueOfCentre){
+            /* TODO se metti
+             * final static String nocentre = "NESSUNO"
+             * in caso di modifica o ripetizione in altri
+             * possibili output è più funzionale. 
+             * 
+             * Comunque non crei una nuova costante perché 
+             * le stringhe scritte così le salva già come costante.
+            */
             str += "Id Centro di appartenenza: NESSUNO";
         }else{
             str += "Id Centro di appartenenza: "    + this.centre;
@@ -130,7 +138,7 @@ public class AutorizedOperator extends User {
                 do{
                     nome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if name contains only letters
-                    if(!onlyLettersInString(nome)){
+                    if(!CommonMethods.isValidName(nome)){
                         System.out.print("Nome non valido.\nReinserire: ");
                     }else{
                         //exit loop
@@ -143,7 +151,7 @@ public class AutorizedOperator extends User {
                 do{
                     cognome=InputScanner.INPUT_SCANNER.nextLine();
                     //check if last name contains only letters
-                    if(!onlyLettersInString(cognome)){
+                    if(!CommonMethods.isValidName(cognome)){
                         System.out.print("Cognome non valido.\nReinserire: ");
                     }else{
                         //exit loop
@@ -320,6 +328,11 @@ public class AutorizedOperator extends User {
     
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
+        // Check if ASCII
+        if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(cf)) {
+            // The Fiscal Code is not ASCII
+            return false;
+        }
         // Output declaration
         boolean check = true;
         // The length of Codice Fiscale must be 16 characters for fisical people
@@ -336,7 +349,7 @@ public class AutorizedOperator extends User {
                 if ( j < int_index.length && i == int_index[j]) {
                     j++;
                 } else {
-                    // If the current character is not a letter the string isn incorrect
+                    // If the current character is not a letter the string is not incorrect
                     if ( ! Character.isLetter(cf.charAt(i)) ) {
                         check = false;
                     }
@@ -345,7 +358,7 @@ public class AutorizedOperator extends User {
             // If the string can still be true continue with the verification else terminate the execution fo the function
             if (check) {
                 // Characters of the months
-                char[] m = { 'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T' };
+                final char[] m = { 'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T' };
                 // This check if the month character is correct
                 boolean month_chek = false;
                 // Check for every character of the months
@@ -383,10 +396,6 @@ public class AutorizedOperator extends User {
     private static boolean ControlloEmail(String email){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
-    }
-    // TODO accettare nomi con l'apostrofo, doppi nomi e nomi accentati
-    private static boolean onlyLettersInString(String s){
-        return s.matches("[a-zA-Z]+");
     }
 
     // Create the file OperatoriRegistrati.csv and set the header of it

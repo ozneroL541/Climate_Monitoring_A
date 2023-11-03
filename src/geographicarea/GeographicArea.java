@@ -12,15 +12,16 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 
-import src.input.InputScanner;
-import src.research.Research;
+import src.common.CSV_Utilities;
+import src.common.InputScanner;
+import src.common.Research;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.12.1
+ * @version 0.12.3
  */
 public class GeographicArea {
     // Geoname ID
@@ -37,6 +38,8 @@ public class GeographicArea {
     private double [] coordinates = null;
     // Areas File
     private final static File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
+    // Header
+    private final static String header = "Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates";
     // Indexes in CSV file
     private final static class IndexOf {
         private final static int geoname_id = 0;
@@ -63,7 +66,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
      * Costruttore di Area Geografica.
@@ -84,7 +87,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
     }
     /**
      * Cotruttore vuoto di Area Geografica.
@@ -108,7 +111,7 @@ public class GeographicArea {
         this.ascii_name   = record[IndexOf.ascii_name];
         this.country_code = record[IndexOf.country_code];
         this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
     }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
@@ -216,7 +219,7 @@ public class GeographicArea {
     private static Integer[] ricercaPerCoordinate( String c ){
         try {
             // Pass to double
-            double [] coordinates = Research.parseCoordinates(c);
+            double [] coordinates = Coordinates.parseCoordinates(c);
             // Use search with doubles
             return ricercaPerCoordinate(coordinates);   
         } catch (Exception e) {
@@ -654,7 +657,7 @@ public class GeographicArea {
                 // Try Parsing
                 try {
                     // Pass to double
-                    double [] coo = Research.parseCoordinates(str);
+                    double [] coo = Coordinates.parseCoordinates(str);
                     // If the coordinates are not in the range of the Earth
                     if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
                         // Error message
@@ -720,15 +723,15 @@ public class GeographicArea {
                 // Check if it is correct
                 if ((exit = argumentCorrect(in, IndexOf.geoname_id))) {
                     // Check if there is another area wth the same id
-                    if ( Research.OneStringInCol(file, IndexOf.geoname_id, in) < 0 ) {
-                        // Assign input to geoname_id
-                        fieldStrings[IndexOf.geoname_id] = in;
-                    } else {
+                    if ( file.exists() && Research.OneStringInCol(file, IndexOf.geoname_id, in) >= 0 ) {
                         // Output
                         System.out.println("Esiste già un'area geografica con lo stesso ID.");
                         System.out.println(error);
                         // Exit
                         return null;
+                    } else {
+                        // Assign input to geoname_id
+                        fieldStrings[IndexOf.geoname_id] = in;
                     }
                 }
             } while (!exit);
@@ -795,15 +798,15 @@ public class GeographicArea {
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Check if coordinates are valid
                 if ( exit = argumentCorrect(in, IndexOf.coordinates) ) {
-                    if ( Research.OneStringInCol(file, IndexOf.coordinates, in) < 0 ) {
-                        // Assign Coordinates
-                        fieldStrings[IndexOf.coordinates] = in;
-                    } else {
+                    if ( file.exists() && Research.OneStringInCol(file, IndexOf.coordinates, in) >= 0 ) {
                         // Output
                         System.out.println("Esiste già un'area geografica con le stesse coordinate.");
                         System.out.println(error);
                         // Exit
                         return null;
+                    } else {
+                        // Assign Coordinates
+                        fieldStrings[IndexOf.coordinates] = in;
                     }
                 }
             } while (!exit);
@@ -823,7 +826,7 @@ public class GeographicArea {
      */
     public String toCSVLine() {
         // Return CSV line
-        return Research.toCSVLine(toStringRecord());
+        return CSV_Utilities.toCSVLine(toStringRecord());
     }
     // Create a record of strings from the fields
     private String[] toStringRecord() {
@@ -836,5 +839,27 @@ public class GeographicArea {
         record[IndexOf.country_name]    = this.country_name;
         record[IndexOf.coordinates]     = "" + this.coordinates[0] + ", " + this.coordinates[1];
         return record;
+    }
+    /**
+     * Aggiunge l'Area Geografica al file CSV.
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
+    public boolean addToCSV() {
+        // Array of fields
+        String [] fields_arr = toStringRecord();
+        // If there are no fields
+        if ( fields_arr == null || fields_arr.length < 1 ) {
+            // Exit without write
+            return false;
+        }
+        // Add to CSV File
+        return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
+    }
+    // TODO Remove test main
+    public static void main(String[] args) {
+        GeographicArea ga = GeographicArea.createArea();
+        if (ga != null) {
+            System.out.println(ga.addToCSV());
+        }
     }
 }
