@@ -7,9 +7,6 @@
 ***************************************/
 
 package src.menu;
-
-import src.common.InputScanner;
-
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
