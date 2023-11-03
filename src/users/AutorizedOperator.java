@@ -87,6 +87,11 @@ public class AutorizedOperator extends User {
         str += "Indirizzo Email: " + this.email_address + "\n";
         str += "Password: "     + this.passwd + "\n" ;
         if(this.centre==defaultValueOfCentre){
+            /* TODO se metti
+             * final static String nocentre = "NESSUNO"
+             * in caso di modifica o ripetizione in altri
+             * possibili output è più funzionale. 
+            */
             str += "Id Centro di appartenenza: NESSUNO";
         }else{
             str += "Id Centro di appartenenza: "    + this.centre;
