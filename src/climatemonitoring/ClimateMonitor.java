@@ -7,6 +7,7 @@
 ***************************************/
 
 package src.climatemonitoring;
+
 import src.menu.MainMenu;
 /**
  * Classe che contiene il Main del programma
