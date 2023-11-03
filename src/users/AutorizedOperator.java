@@ -91,6 +91,8 @@ public class AutorizedOperator extends User {
              * final static String nocentre = "NESSUNO"
              * in caso di modifica o ripetizione in altri
              * possibili output è più funzionale. 
+             * Comunque non crei una nuova costante perché 
+             * le stringhe scritte così le salva già come costante.
             */
             str += "Id Centro di appartenenza: NESSUNO";
         }else{
