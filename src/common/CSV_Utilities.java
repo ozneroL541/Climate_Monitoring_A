@@ -17,7 +17,7 @@ import java.nio.file.Files;
 /**
  * Raccolta di metodi statici utili per la gestione dei file CSV.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class CSV_Utilities {
     /**
