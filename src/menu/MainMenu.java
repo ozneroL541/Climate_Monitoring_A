@@ -8,9 +8,7 @@
 
 package src.menu;
 
-import java.text.NumberFormat;
-
-import src.input.InputScanner;
+import src.common.InputScanner;
 
 /**
  * Classe che contiene il menù principale del programma.
