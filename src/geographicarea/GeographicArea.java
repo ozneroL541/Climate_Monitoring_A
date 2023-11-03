@@ -12,7 +12,9 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 
-import src.common_static_methods.*;
+import src.common_static_methods.CSV_Utilities;
+import src.common_static_methods.InputScanner;
+import src.common_static_methods.Research;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
@@ -822,7 +824,7 @@ public class GeographicArea {
      */
     public String toCSVLine() {
         // Return CSV line
-        return CommonMethods.toCSVLine(toStringRecord());
+        return CSV_Utilities.toCSVLine(toStringRecord());
     }
     // Create a record of strings from the fields
     private String[] toStringRecord() {
