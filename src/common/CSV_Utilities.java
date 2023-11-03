@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * Raccolta di metodi statici utili per la gestione dei file CSV.
@@ -86,7 +87,81 @@ public class CSV_Utilities {
         }
         return true;
     }
-
-    // TODO aggiungere metodo che crea un file e aggiunge un header
-    // TODO aggiungere metodo che controlla se il file ha un header e se non c'è lo aggiunge
+    /**
+     * Aggiunge la prima linea ad un file.
+     * @param file file
+     * @param header prima linea
+     * @return true se la scrittura ha avuto successo
+     */
+    public static boolean addHeader( File file, String header ) {
+        try {
+            // Buffer Reader
+            BufferedWriter bf = new BufferedWriter(new FileWriter(file, true));
+            // Add header
+            bf.append(header + "\n");
+            // Close file
+            bf.close();
+            // Return true
+            return true;
+        } catch (Exception e) {
+            // In case an exception occurs
+            return false;
+        }
+    }
+    /**
+     * Aggiunge una linea al file, se il file è vuoto o non ha linee aggiunge l'intestazione.
+     * Ritorna true se l'esecuzione è avvenuta correttamente.
+     * @param file file
+     * @param line linea
+     * @param header intestazione
+     * @return true se l'esecusione è avvenuta correttamente
+     */
+    public static boolean addLinewithCheck( File file, String line, String header ) {
+        // Check if file has at least one line
+        if ( fileHasLines(file) ) {
+            // Check if method execution succeded
+            if (! addHeader(file, header)) {
+                // If error return false
+                return false;
+            }
+        }
+        // Write the line on file and return the result of method execution
+        return WriteEOF_CSV(file, line, true);
+    }
+    /**
+     * Aggiunge un array di stringhe ad un file CSV,
+     * se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
+     * Ritorna true se l'esecuzione è avvenuta correttamente.
+     * @param file file CSV
+     * @param strings array di stringhe
+     * @param header intestazione
+     * @return true se l'esecusione è avvenuta correttamente
+     */
+    public static boolean addArraytoCSV( File file, String[] strings, String header ) {
+        // Line
+        String line = toCSVLine(strings);
+        // Add line to File
+        return addLinewithCheck(file, line, header);
+    }
+    /*
+     * Controlla che il file esista e abbia almeno una riga, in caso contrario ritorna false
+     * @param file file
+     * @return true se ha almeno una linea
+     */
+    private static boolean fileHasLines( File file ) {
+        // Error managing
+        try {
+            // If file has more than 0 line
+            if ( file.exists() && (Files.lines(file.toPath()).count() > 0) )
+                // Return true
+                return true;
+            // If file does not exist or has no line
+            else
+                // Retunr false
+                return false;
+        } catch (IOException e) {
+            // In case of error return false
+            return false;
+        }
+    }
 }
