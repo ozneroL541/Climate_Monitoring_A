@@ -12,9 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.naming.event.ObjectChangeListener;
 
 import com.opencsv.CSVReader;
 
@@ -290,7 +287,7 @@ public class Research {
         // TODO Decomment
         //final short limit = 3000;
         // TODO delete
-        final short limit = 1000;
+        final short limit = 1024;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -301,7 +298,7 @@ public class Research {
         // Counter
         int i = 0;
         // Copy of coordinates
-        Double[] c1 = new Double[2];
+        double[] c1 = new double[2];
         // Pre-compute coordinates
         c1[0] = Math.toRadians(c[0]);
         c1[1] = Math.toRadians(c[1]);
@@ -326,8 +323,9 @@ public class Research {
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
                 if (dist < limit) {
                     for ( i = 0; i < distList.size() && distList.get(i) < dist; i++) {}
+                    System.err.println(dist + "\t" + line + "\t" + c2[0] + ", " + c2[1]);
                     distList.add(i, dist);
-                    linesList.add(i, line);                    
+                    linesList.add(i, (line - 1) );              
                 }
                 // Line increment
                 line++;
