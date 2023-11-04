@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 
 import src.common.CSV_Utilities;
+import src.common.CommonMethods;
 import src.common.InputScanner;
 import src.common.Research;
 
@@ -583,6 +584,7 @@ public class GeographicArea {
     public static boolean argumentCorrect( String str, int col_index ) {
         // If str in null exit
         if (str == null || str.length() < 1) {
+            // Return false
             return false;
         }
         // Search
@@ -613,16 +615,29 @@ public class GeographicArea {
             case IndexOf.real_name:
             // Check Generic name
             case IndexOf.generic_name:
-                // Return True
-                return true;
+                // Check if name is valid
+                if (CommonMethods.isValidName(str)) {
+                    // Return True
+                    return true;
+                } else {
+                    // Error output
+                    System.out.println("Il nome inserito contiene caratteri non validi.");
+                    // Return False
+                    return false;
+                }
             // Check ASCII name
             case IndexOf.ascii_name:
             // Check Country Name
             case IndexOf.country_name:
                 // If is ASCII return true
                 if (Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
-                    // Return True
-                    return true;
+                    if ( CommonMethods.isValidASCIIName(str) ) {
+                        // Return True
+                        return true;
+                    } else {
+                        // Error output
+                        System.out.println("Il nome inserito contiene caratteri non validi.");
+                    }
                 } else {
                     // Error output
                     System.out.println("Il nome inserito deve essere formato solo da caratteri ASCII.");
@@ -859,7 +874,8 @@ public class GeographicArea {
     public static void main(String[] args) {
         GeographicArea ga = GeographicArea.createArea();
         if (ga != null) {
-            System.out.println(ga.addToCSV());
+            System.out.println(ga.toString());
+            System.out.println(ga.toCSVLine());
         }
     }
 }
