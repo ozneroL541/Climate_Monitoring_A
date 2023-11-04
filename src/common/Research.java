@@ -287,7 +287,10 @@ public class Research {
         return out;
     }
     public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
-        final short limit = 3000;
+        // TODO Decomment
+        //final short limit = 3000;
+        // TODO delete
+        final short limit = 1000;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
