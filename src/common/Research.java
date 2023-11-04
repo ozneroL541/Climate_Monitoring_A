@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.event.ObjectChangeListener;
 
 import com.opencsv.CSVReader;
 
@@ -225,7 +228,7 @@ public class Research {
      * @param err errore/range
      * @return array di Integer contenente le righe
      */
-    public static Integer[] CoordinatesAdvanced(File file, int col, double[] c, double err ) {
+    public static Integer[] CoordinatesAdvancedV1(File file, int col, double[] c, double err ) {
         // Set the line to 0
         int line = 0;
         // Create a list of int
@@ -282,6 +285,59 @@ public class Research {
         list.toArray(out);
         // Return the lines
         return out;
+    }
+    public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
+        // Coordinates
+        double[] c2 = new double[2];
+        // Distance
+        double dist = 0.0;
+        int line = 0;
+        ArrayList<Integer> linesList = new ArrayList<Integer>();
+        ArrayList<Double> distList = new ArrayList<Double>();
+        // Counter
+        int i = 0;
+        // Copy of coordinates
+        Double[] c1 = new Double[2];
+        // Pre-compute coordinates
+        c1[0] = Math.toRadians(c[0]);
+        c1[1] = Math.toRadians(c[1]);
+        try {
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit
+            if ( nextRecord.length <= col )
+                return null;
+            // First line will not contain any researched element so, increment and go on
+            // Line increment
+            line++;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // Parse the coordinates just read
+                c2 = Coordinates.parseCoordinates(nextRecord[col]);
+                // Calculate distance between coordinates
+                dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
+                for ( i = 0; i < distList.size() && distList.get(i) < dist; i++) {}
+                distList.add(i, dist);
+                linesList.add(i, line);
+                // Line increment
+                line++;
+            }
+            creader.close();
+        } catch(FileNotFoundException e){ // If file not found
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
+        }
+        return (Integer[]) linesList.toArray();
     }
     // Calculate distance between coordinates
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {

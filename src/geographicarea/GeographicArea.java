@@ -268,26 +268,7 @@ public class GeographicArea {
             // Exit
             return out;
         else {
-            // Set out to null
-            out = null;
-            // Set range to 1km
-            double err = 1;
-            // Set error limit
-            final double limit = 7500.00;
-            // While there is no point of interest
-            do {
-                // Search the nearest point
-                out = Research.CoordinatesAdvanced(file, IndexOf.coordinates, coo, err);
-                // Double the range
-                err *= 2;
-            } while ( out != null && out.length <= 0 && err < limit );
-            // If the error is bigger than the security limit abort
-            if ( err > limit ){
-                // Error Output
-                System.err.println("Nessuna Area Geografica nel raggio di " + limit + "km");
-                // Return null
-                return null;
-            }
+            out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
             // Return the output
             return out;
         }
@@ -883,13 +864,8 @@ public class GeographicArea {
         return file.exists();
     }
     // TODO Remove test main
-    /*
     public static void main(String[] args) {
-        GeographicArea ga = GeographicArea.createArea();
-        if (ga != null) {
-            System.out.println(ga.toString());
-            System.out.println(ga.toCSVLine());
-        }
+        System.out.println();
+        GeographicArea.SearchList(IndexOf.coordinates, "0, 0", 0);
     }
-    */
 }
