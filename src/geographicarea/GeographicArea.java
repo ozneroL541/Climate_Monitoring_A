@@ -874,6 +874,14 @@ public class GeographicArea {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
+    /**
+     * Controlla l'esistenza del file CSV.
+     * @return true se il file esiste
+     */
+    public static boolean doesCSVExist() {
+        // Check file existence
+        return file.exists();
+    }
     // TODO Remove test main
     public static void main(String[] args) {
         GeographicArea ga = GeographicArea.createArea();
