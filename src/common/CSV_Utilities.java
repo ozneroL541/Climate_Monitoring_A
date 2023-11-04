@@ -22,19 +22,20 @@ import java.nio.file.Files;
 public class CSV_Utilities {
     /**
      * Crea una riga che può essere aggiunta ad un file CSV.
-     * @param record array di Strings
+     * Controlla la presenza di virgole e la gestisce.
+     * @param linecells celle della riga
      * @return stringa per CSV
      */
-    public static String toCSVLine(String [] record) {
-        // Check if record exist
-        if (record == null || record.length < 1) {
+    public static String toCSVLine(String [] linecells) {
+        // Check if linecells exist
+        if (linecells == null || linecells.length < 1) {
             // Exit
             return null;
         }
         // To be returned
         String str = "";
         // For each field
-        for (String s : record) {
+        for (String s : linecells) {
             // If cointains , put ""
             if (s.contains(","))
                 str += "\"" + s + "\"";
@@ -113,15 +114,17 @@ public class CSV_Utilities {
             return false;
         }
     }
-    /**
+    /*
      * Aggiunge una linea al file, se il file è vuoto o non ha linee aggiunge l'intestazione.
      * Ritorna true se l'esecuzione è avvenuta correttamente.
      * @param file file
      * @param line linea
      * @param header intestazione
+     * @deprecated  Questo metodo non controlla la correttezza della stringa
+     * <p> usa invece {@link CSV_Utilities#addArraytoCSV( File file, String[] linecells, String header )}.
      * @return true se l'esecusione è avvenuta correttamente
      */
-    public static boolean addLinewithCheck( File file, String line, String header ) {
+    private static boolean addLinewithCheck( File file, String line, String header ) {
         // Check if file has at least one line
         if ( ! fileHasLines(file) ) {
             // Check if method execution succeded
@@ -134,17 +137,17 @@ public class CSV_Utilities {
         return WriteEOF_CSV(file, line, true);
     }
     /**
-     * Aggiunge un array di stringhe ad un file CSV,
-     * se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
+     * Aggiunge un array di stringhe ad un file CSV.
+     * Se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
      * Ritorna true se l'esecuzione è avvenuta correttamente.
      * @param file file CSV
-     * @param strings array di stringhe
+     * @param linecells celle della linea da aggiungere
      * @param header intestazione
      * @return true se l'esecusione è avvenuta correttamente
      */
-    public static boolean addArraytoCSV( File file, String[] strings, String header ) {
+    public static boolean addArraytoCSV( File file, String[] linecells, String header ) {
         // Line
-        String line = toCSVLine(strings);
+        String line = toCSVLine(linecells);
         // Add line to File
         return addLinewithCheck(file, line, header);
     }
