@@ -77,7 +77,7 @@ public class User {
                         } while (!exit);
                     } else {
                         // Error output
-                        System.out.println("L'indice selezionato non è disponibile.");
+                        System.out.println("\nL'indice selezionato non è disponibile.");
                         System.out.println();
                         // Not exit
                         exit = false;
@@ -99,7 +99,7 @@ public class User {
                 }
             } while (!exit);
         } else {
-            System.out.println("Non è presente alcuna area di interesse per cui effettuare la ricerca.");
+            System.out.println("\nNon è presente alcuna area di interesse per cui effettuare la ricerca.");
         }
     }
 }

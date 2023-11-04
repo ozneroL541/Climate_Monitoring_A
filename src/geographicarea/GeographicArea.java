@@ -595,7 +595,7 @@ public class GeographicArea {
                     // Integer is valid only if it is positive
                     if ( id < 0 ) {
                         // Error output
-                        System.out.println( "Il Geoname ID inserito non è valido.");
+                        System.out.println("Il Geoname ID inserito non è valido.");
                         // Return false
                         return false;
                     }
@@ -698,7 +698,7 @@ public class GeographicArea {
                 return true;
             default:
                 // Error
-                System.err.println("Errore: codice lista inesistente");
+                System.err.println("ERRORE: codice lista inesistente");
                 return false;
         }
     }
