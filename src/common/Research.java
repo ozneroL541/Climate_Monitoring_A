@@ -287,6 +287,7 @@ public class Research {
         return out;
     }
     public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
+        final short limit = 3000;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -320,9 +321,11 @@ public class Research {
                 c2 = Coordinates.parseCoordinates(nextRecord[col]);
                 // Calculate distance between coordinates
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
-                for ( i = 0; i < distList.size() && distList.get(i) < dist; i++) {}
-                distList.add(i, dist);
-                linesList.add(i, line);
+                if (dist < limit) {
+                    for ( i = 0; i < distList.size() && distList.get(i) < dist; i++) {}
+                    distList.add(i, dist);
+                    linesList.add(i, line);                    
+                }
                 // Line increment
                 line++;
             }
@@ -337,7 +340,11 @@ public class Research {
             // Return null
             return null;
         }
-        return (Integer[]) linesList.toArray();
+        // Create an array where store the list
+        Integer[] out = new Integer[linesList.size()];
+        linesList.toArray(out);
+        // Return the lines
+        return out;
     }
     // Calculate distance between coordinates
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {

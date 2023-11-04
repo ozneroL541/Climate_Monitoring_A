@@ -425,6 +425,10 @@ public class GeographicArea {
                     System.out.println("Risultati rimanenti: " + ( lines.length - i ));
                     // If you can still pront something
                     if ( i < lines.length ) {
+                        // TODO Remove
+                        l = -1;
+                        // TODO Decommentare
+                        /*
                         // Output for Scanner
                         System.out.print("Continuare l'elenco(S/N)? ");
                         // Input
@@ -436,6 +440,7 @@ public class GeographicArea {
                             // Exit
                             l = -1;
                         }
+                        */
                         // Add a line
                         System.out.println();
                     } else
