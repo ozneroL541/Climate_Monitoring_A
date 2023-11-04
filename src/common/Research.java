@@ -283,14 +283,26 @@ public class Research {
         // Return the lines
         return out;
     }
+    /**
+     * Restituisce tutte le linee che contengono le coordinate più vicine a quella passata in argomento.
+     * L'array è restituito con le celle in ordine di vicinanza.
+     * @param file file CSV
+     * @param col colonna
+     * @param c coordinata fornita
+     * @return array di Integer contenente le righe
+     */
     public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
+        // Limit of acceptable distance
         final short limit = 3000;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
         double dist = 0.0;
+        // Numero della linea
         int line = 0;
+        // List of lines
         ArrayList<Integer> linesList = new ArrayList<Integer>();
+        // List of distances
         ArrayList<Double> distList = new ArrayList<Double>();
         // Counter
         int i = 0;
@@ -299,6 +311,7 @@ public class Research {
         // Pre-compute coordinates
         c1[0] = Math.toRadians(c[0]);
         c1[1] = Math.toRadians(c[1]);
+        // Manage files exceptions
         try {
             // CSV Reader
             CSVReader creader = new CSVReader( new FileReader(file) );
@@ -308,8 +321,9 @@ public class Research {
             nextRecord = creader.readNext();
             // If columns are less than col exit
             if ( nextRecord.length <= col )
+                // Exit
                 return null;
-            // First line will not contain any researched element so, increment and go on
+            // First line will not contain any researched element so increment and go on
             // Line increment
             line++;
             // Read data line by line
@@ -318,15 +332,19 @@ public class Research {
                 c2 = Coordinates.parseCoordinates(nextRecord[col]);
                 // Calculate distance between coordinates
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
-                if (dist < limit) {
-                    for ( i = 0; i < distList.size() && distList.get(i) < dist; i++) {}
-                    System.err.println(dist + "\t" + line + "\t" + c2[0] + ", " + c2[1]);
+                // Accept only distances in the limit
+                if ( dist < limit ) {
+                    // Increment counter until it reaches the index where insert the datas
+                    for ( i = 0; ( i < distList.size() ) && ( distList.get(i) < dist ); i++ ) {}
+                    // Add distance to the list
                     distList.add(i, dist);
+                    // Add line to the list
                     linesList.add(i, (line + 1) );              
                 }
                 // Line increment
                 line++;
             }
+            // Close the CSV Reader
             creader.close();
         } catch(FileNotFoundException e){ // If file not found
             // Return null
@@ -340,13 +358,15 @@ public class Research {
         }
         // Create an array where store the list
         Integer[] out = new Integer[linesList.size()];
+        // Put list in the array
         linesList.toArray(out);
         // Return the lines
         return out;
     }
-    // Calculate distance between coordinates
+    // Calculate distance between coordinates using Haversine
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double R = 6371; // Earth's radius in kilometers
+        // Earth's radius in kilometers
+        double R = 6371;
         // Convert latitude and longitude from degrees to radians
         lat2 = Math.toRadians(lat2);
         lon2 = Math.toRadians(lon2);
