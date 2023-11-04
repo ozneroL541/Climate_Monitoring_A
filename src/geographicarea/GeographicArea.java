@@ -22,7 +22,7 @@ import src.common.Research;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.12.3
+ * @version 0.12.4
  */
 public class GeographicArea {
     // Geoname ID
