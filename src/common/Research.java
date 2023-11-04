@@ -284,10 +284,7 @@ public class Research {
         return out;
     }
     public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
-        // TODO Decomment
-        //final short limit = 3000;
-        // TODO delete
-        final short limit = 1024;
+        final short limit = 3000;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -325,7 +322,7 @@ public class Research {
                     for ( i = 0; i < distList.size() && distList.get(i) < dist; i++) {}
                     System.err.println(dist + "\t" + line + "\t" + c2[0] + ", " + c2[1]);
                     distList.add(i, dist);
-                    linesList.add(i, (line - 1) );              
+                    linesList.add(i, (line + 1) );              
                 }
                 // Line increment
                 line++;
