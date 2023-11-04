@@ -12,10 +12,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 
-import src.common.CSV_Utilities;
-import src.common.CommonMethods;
-import src.common.InputScanner;
-import src.common.Research;
+import src.common.*;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
