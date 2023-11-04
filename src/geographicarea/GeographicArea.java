@@ -883,6 +883,7 @@ public class GeographicArea {
         return file.exists();
     }
     // TODO Remove test main
+    /*
     public static void main(String[] args) {
         GeographicArea ga = GeographicArea.createArea();
         if (ga != null) {
@@ -890,4 +891,5 @@ public class GeographicArea {
             System.out.println(ga.toCSVLine());
         }
     }
+    */
 }
