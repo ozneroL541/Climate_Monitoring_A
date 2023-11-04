@@ -871,6 +871,6 @@ public class GeographicArea {
     // TODO Remove test main
     public static void main(String[] args) {
         System.out.println();
-        GeographicArea.SearchList(IndexOf.coordinates, "-19.7618, -138.948", 0);
+        GeographicArea.SearchList(IndexOf.coordinates, "0, 0", 0);
     }
 }
