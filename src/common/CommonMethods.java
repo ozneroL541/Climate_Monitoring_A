@@ -24,7 +24,7 @@ public class CommonMethods {
         // For every character in string
         for ( Character c : name.toCharArray() ) {
             // Check the validity of the character
-            if (!Character.isLetter(c) && c != ' ' && c != '\'') {
+            if (!Character.isLetter(c) && c != ' ' && c != '\'' && c != ',' ) {
                 // Character not valid: Return false
                 return false;
             }
@@ -42,12 +42,17 @@ public class CommonMethods {
         // For every character in string
         for ( Character c : name.toCharArray() ) {
             // Check the validity of the character
-            if ( !( c > 'A' && c < 'Z') && !( c > 'a' && c < 'z') && c != ' ' && c != '\'') {
+            if ( !isASCIILetter(c) && c != ' ' && c != '\'' && c != ',' ) {
                 // Character not valid: Return false
                 return false;
             }
         }
         // Character valid: return true
         return true;
+    }
+    // Check if the character is an ASCII letter
+    private static boolean isASCIILetter( char c ) {
+        // Return if it is an ASCII Letter
+        return ( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) );
     }
 }

@@ -8,3 +8,5 @@ https://stackoverflow.com/questions/13042008/java-util-nosuchelementexception-sc
 https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://stackoverflow.com/questions/29323116/how-to-use-the-same-scanner-across-multiple-classes-in-java&ved=2ahUKEwjm7PbP24SCAxUvg_0HHTSlAboQFnoECBwQAQ&usg=AOvVaw0jgGQd92SRvOAiFWqfR0Yf
 Country List
 https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv
+Nomi con la virgola
+https://www.ilsole24ore.com/art/l-esperto-risponde-doppio-nome-documenti-solo-se-non-c-e-virgola-AETbwlhD

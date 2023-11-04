@@ -637,6 +637,8 @@ public class GeographicArea {
                     } else {
                         // Error output
                         System.out.println("Il nome inserito contiene caratteri non validi.");
+                        // Return False
+                        return false;
                     }
                 } else {
                     // Error output
@@ -757,7 +759,7 @@ public class GeographicArea {
             // Assign input to real_name
             fieldStrings[IndexOf.real_name] = in;
             // If input is ASCII
-            if (Charset.forName("US-ASCII").newEncoder().canEncode(in)) {
+            if (Charset.forName("US-ASCII").newEncoder().canEncode(in) && CommonMethods.isValidASCIIName(in)) {
                 // Assign input to ascii_name
                 fieldStrings[IndexOf.ascii_name] = in;
             // Else request for ascii_name
@@ -771,6 +773,11 @@ public class GeographicArea {
                     if ( (exit = argumentCorrect(in, IndexOf.ascii_name))) {
                         // If input is ASCII assign it to real_name
                         fieldStrings[IndexOf.ascii_name] = in;
+                        // Exit
+                        exit = true;
+                    } else{
+                        // Do not exit
+                        exit = false;
                     }
                 } while (!exit);
             }
