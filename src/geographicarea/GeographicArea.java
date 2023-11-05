@@ -463,7 +463,7 @@ public class GeographicArea {
      * @param arg argomento da ricercare
      * @param runtime_print numero di item da stampare
      */
-    private static void SearchListTEST( int col_index, String arg, int runtime_print ) {
+    public static void SearchListTEST( int col_index, String arg, int runtime_print ) {
         // Output Integer array
         Integer [] lines = new Integer[1];
         // Minimum run constant
@@ -947,9 +947,5 @@ public class GeographicArea {
     public static boolean doesCSVExist() {
         // Check file existence
         return file.exists();
-    }
-    // TODO Remove Test Main
-    public static void main(String[] args) {
-        SearchListTEST(IndexOf.coordinates, "0, 0", 10);
     }
 }
