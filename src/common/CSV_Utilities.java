@@ -179,7 +179,7 @@ public class CSV_Utilities {
      * @param toappend stringhe da aggiungere
      * @return true se l'esecuzione ha avuto successo
      */
-    public static boolean appendStrings ( File file, String line, String toappend) {
+    public static boolean appendStrings ( File file, String line, String[] toappend) {
         // Check file existence
         if ( ! file.exists() ) {
             // Error output
@@ -189,7 +189,16 @@ public class CSV_Utilities {
         }
         // String to be added to the file
         String add = ",";
-        // TODO: Write method
+        // Add line to add
+        add += toCSVLine(toappend);
+        // Manage the exceptions
+        try {
+            // TODO: Write method
+        } catch (Exception e) {
+            // Exit
+            return false;
+        }
+        // Execution correct
         return true;
     }
 }
