@@ -19,7 +19,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.12.5
+ * @version 0.13.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -862,10 +862,5 @@ public class GeographicArea {
     public static boolean doesCSVExist() {
         // Check file existence
         return file.exists();
-    }
-    // TODO Remove test main
-    public static void main(String[] args) {
-        System.out.println();
-        GeographicArea.SearchList(IndexOf.coordinates, "0, 0", 0);
     }
 }

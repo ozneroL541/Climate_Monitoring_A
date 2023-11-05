@@ -20,7 +20,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.12.1
+ * @version 0.13.0
  */
 public class Research {
     /**
