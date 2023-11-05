@@ -19,7 +19,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.12.5
+ * @version 0.13.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -229,7 +229,7 @@ public class GeographicArea {
     }
     /*
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
-     * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
+     * Se le coordinate sono inesatte si restituiranno le x righe delle coordinate più vicine a quelle fornite.
      * @param coo Coordinates
      * @return Numeri delle righe
      */
@@ -268,26 +268,8 @@ public class GeographicArea {
             // Exit
             return out;
         else {
-            // Set out to null
-            out = null;
-            // Set range to 1km
-            double err = 1;
-            // Set error limit
-            final double limit = 7500.00;
-            // While there is no point of interest
-            do {
-                // Search the nearest point
-                out = Research.CoordinatesAdvanced(file, IndexOf.coordinates, coo, err);
-                // Double the range
-                err *= 2;
-            } while ( out != null && out.length <= 0 && err < limit );
-            // If the error is bigger than the security limit abort
-            if ( err > limit ){
-                // Error Output
-                System.err.println("Nessuna Area Geografica nel raggio di " + limit + "km");
-                // Return null
-                return null;
-            }
+            // Return the first x nearest areas
+            out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
             // Return the output
             return out;
         }
@@ -461,6 +443,90 @@ public class GeographicArea {
                         // Exit the loop
                         l = -1;
                 } while ( l >= 0);
+            } else
+                System.out.println(toList(lines));
+        } else {
+            // Message if there is no output
+            System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
+        }
+    }
+    /**
+     * Metodo di test che non ammette input per calcolare la velocità di esecuzione pura.
+     * Cerca delle area geografiche e ne stampa la lista.
+     * Il primo parametro si riferisce al tipo di ricerca.
+     * Il secondo parametro &egrave l'argomento della ricerca.
+     * Il terzo parametro &egrave il numero di aree da stampare in caso di lista troppo grande.
+     * Se <code>runtime_print</code> è 0 o negativo il numero di aree stampate sarà di valore fissato.
+     * Numero massimo di aree stampabili insieme:    20
+     * Numero di aree stampate in caso di <code>runtime_print == 0</code>:   10
+     * @param col_index numero della ricerca
+     * @param arg argomento da ricercare
+     * @param runtime_print numero di item da stampare
+     */
+    private static void SearchListTEST( int col_index, String arg, int runtime_print ) {
+        // Output Integer array
+        Integer [] lines = new Integer[1];
+        // Minimum run constant
+        final int min_run = 10;
+        // Huge number of lines
+        final int huge = 20;
+        // Search
+        switch (col_index) {
+            // Univocal item
+            case IndexOf.geoname_id:
+                lines = ricercaPerID(arg);
+                // Impossible to have more than one case
+                runtime_print = -1;
+                break;
+            // Multiple, but few, items
+            case IndexOf.real_name:
+                lines = ricercaPerRealeNome(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.ascii_name:
+                lines = ricercaPerASCIINome(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.generic_name:
+                lines = ricercaPerNomeGenerico(arg);
+                break;
+            // Huge list
+            case IndexOf.country_code:
+                lines = ricercaPerCodiceNazione(arg);
+                break;
+            // Huge list
+            case IndexOf.country_name:
+                lines = ricercaPerNazione(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.coordinates:
+                lines = ricercaPerCoordinate(arg);
+                break;
+            default:
+                // Error
+                System.err.println("Errore: codice lista inesistente");
+                return;
+        }
+        // Print if there is something
+        if (lines != null && lines.length > 0) {
+            // If the number of lines is huge force runtime_print
+            if ( lines.length > huge && runtime_print <= 0) {
+                runtime_print = min_run;
+            }
+            // If runtime print is enable print in runtime mode
+            if ( runtime_print > 0 ) {
+                // Limit of item to print
+                int limit = runtime_print;
+                // limit counter
+                int l = 0;
+                // Lines counter
+                int i = 0;
+                for ( l = 0; l < limit && i < lines.length; i++) {
+                        // Print runtime the string
+                        System.out.println(RunTimeLine(lines[i], i + 1 ));
+                        // Increase limit counter
+                        l++;
+                    }
             } else
                 System.out.println(toList(lines));
         } else {
@@ -882,14 +948,8 @@ public class GeographicArea {
         // Check file existence
         return file.exists();
     }
-    // TODO Remove test main
-    /*
+    // TODO Remove Test Main
     public static void main(String[] args) {
-        GeographicArea ga = GeographicArea.createArea();
-        if (ga != null) {
-            System.out.println(ga.toString());
-            System.out.println(ga.toCSVLine());
-        }
+        SearchListTEST(IndexOf.coordinates, "0, 0", 10);
     }
-    */
 }

@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import com.opencsv.CSVReader;
 
@@ -20,7 +22,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.12.1
+ * @version 0.13.0
  */
 public class Research {
     /**
@@ -219,13 +221,16 @@ public class Research {
      * restituisce la riga di appartenenza.
      * Il range &egrave costituito dall'errore.
      * L'errore &egrave considerato in km.
+     * @deprecated  Questo metodo è stato sostituito
+     * <p> usa invece {@link Research#CoordinatesAdvancedV2( File file, int col, double[] c )}.
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
      * @param err errore/range
      * @return array di Integer contenente le righe
+     * @version 1
      */
-    public static Integer[] CoordinatesAdvanced(File file, int col, double[] c, double err ) {
+    public static Integer[] CoordinatesAdvancedV1(File file, int col, double[] c, double err ) {
         // Set the line to 0
         int line = 0;
         // Create a list of int
@@ -283,9 +288,135 @@ public class Research {
         // Return the lines
         return out;
     }
-    // Calculate distance between coordinates
+    /**
+     * Restituisce tutte le linee che contengono le coordinate più vicine a quella passata in argomento.
+     * L'array è restituito con le celle in ordine di vicinanza.
+     * @param file file CSV
+     * @param col colonna
+     * @param c coordinata fornita
+     * @return array di Integer contenente le righe
+     * @version 2
+     */
+    public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
+        // Limit of acceptable distance
+        final short limit = 3000;
+        // Max number to return
+        final short max =  100;
+        // Coordinates
+        double[] c2 = new double[2];
+        // Distance
+        double dist = 0.0;
+        // Numero della linea
+        int line = 1;
+        // List of lines
+        ArrayList<Integer> linesList = new ArrayList<Integer>();
+        // List of distances
+        ArrayList<Double> distList = new ArrayList<Double>();
+        // Counter
+        int i = 0;
+        // Copy of coordinates
+        double[] c1 = new double[2];
+        // Pre-compute coordinates
+        c1[0] = Math.toRadians(c[0]);
+        c1[1] = Math.toRadians(c[1]);
+        // Manage files exceptions
+        try {
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit
+            if ( nextRecord.length <= col )
+                // Exit
+                return null;
+            // First line will not contain any researched element so increment and go on
+            // Line increment
+            line++;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // Parse the coordinates just read
+                c2 = Coordinates.parseCoordinates(nextRecord[col]);
+                // Calculate distance between coordinates
+                dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
+                // Accept only distances in the limit
+                if ( dist < limit ) {
+                    // Binsearch the index where insert
+                    i = BinSearchArrList(distList, dist);
+                    // Add distance to the list
+                    distList.add( i, dist);
+                    // Add line to the list
+                    linesList.add( i, line );
+                    // Remove all the exceeding coordinates
+                    while ( distList.size() > max ) {
+                        // Remove last distance
+                        distList.remove( distList.size() - 1 );
+                        // Remove last line
+                        linesList.remove( linesList.size() - 1 );
+                    }
+                }
+                // Line increment
+                line++;
+            }
+            // Close the CSV Reader
+            creader.close();
+        } catch(FileNotFoundException e){ // If file not found
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
+        }
+        // While
+        // Create an array where store the list
+        Integer[] out = new Integer[linesList.size()];
+        // Put list in the array
+        linesList.toArray(out);
+        // Return the lines
+        return out;
+    }
+    /**
+     * Ricerca binaria in lista di double
+     * @param arr list
+     * @param target obiettivo di ricerca
+     * @return l'indice dove inserire l'obiettivo
+     */
+    private static int BinSearchArrList(ArrayList<Double> arr, Double target) {
+        // Left side
+        int left = 0;
+        // Right side
+        int right = arr.size() - 1;
+        // Middle
+        int mid = 0;
+        // While left is smaller than right
+        while (left <= right) {
+            // Set middle
+            mid = left + (right - left) / 2;
+            // Not necessary because the target is never equals to something in the list
+            /*if (arr.get(mid) == target) {
+                // If the target value is already in the list, return its index
+                return mid;
+            } else*/
+            // If the target is bigger
+            if (arr.get(mid) < target) {
+                // If the middle element is less than the target, search the right half
+                left = mid + 1;
+            } else {
+                // If the middle element is greater than the target, search the left half
+                right = mid - 1;
+            }
+        }
+        // Return the index
+        return left;
+    }
+    // Calculate distance between coordinates using Haversine
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double R = 6371; // Earth's radius in kilometers
+        // Earth's radius in kilometers
+        double R = 6371;
         // Convert latitude and longitude from degrees to radians
         lat2 = Math.toRadians(lat2);
         lon2 = Math.toRadians(lon2);
