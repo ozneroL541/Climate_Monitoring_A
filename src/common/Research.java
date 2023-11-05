@@ -294,6 +294,8 @@ public class Research {
     public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
         // Limit of acceptable distance
         final short limit = 3000;
+        // Max number to return
+        final short max =  100;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -339,7 +341,14 @@ public class Research {
                     // Add distance to the list
                     distList.add(i, dist);
                     // Add line to the list
-                    linesList.add(i, (line + 1) );              
+                    linesList.add(i, (line + 1) );
+                    // Remove all the exceeding coordinates
+                    while ( distList.size() > max ) {
+                        // Remove last distance
+                        distList.remove( distList.size() - 1 );
+                        // Remove last line
+                        linesList.remove( linesList.size() - 1 );
+                    }
                 }
                 // Line increment
                 line++;
@@ -356,6 +365,7 @@ public class Research {
             // Return null
             return null;
         }
+        // While
         // Create an array where store the list
         Integer[] out = new Integer[linesList.size()];
         // Put list in the array
