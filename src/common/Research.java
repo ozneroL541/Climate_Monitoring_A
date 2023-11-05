@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import com.opencsv.CSVReader;
 
@@ -340,12 +342,12 @@ public class Research {
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
                 // Accept only distances in the limit
                 if ( dist < limit ) {
-                    // Increment counter until it reaches the index where insert the datas
-                    for ( i = 0; ( i < distList.size() ) && ( distList.get(i) < dist ); i++ ) {}
+                    // Binsearch the index where insert
+                    i = BinSearchArrList(distList, dist);
                     // Add distance to the list
-                    distList.add(i, dist);
+                    distList.add( i, dist);
                     // Add line to the list
-                    linesList.add(i, (line + 1) );
+                    linesList.add( i, (line + 1) );
                     // Remove all the exceeding coordinates
                     while ( distList.size() > max ) {
                         // Remove last distance
@@ -376,6 +378,40 @@ public class Research {
         linesList.toArray(out);
         // Return the lines
         return out;
+    }
+    /**
+     * Ricerca binaria in lista di double
+     * @param arr list
+     * @param target obiettivo di ricerca
+     * @return l'indice dove inserire l'obiettivo
+     */
+    private static int BinSearchArrList(ArrayList<Double> arr, Double target) {
+        // Left side
+        int left = 0;
+        // Right side
+        int right = arr.size() - 1;
+        // Middle
+        int mid = 0;
+        // While left is smaller than right
+        while (left <= right) {
+            // Set middle
+            mid = left + (right - left) / 2;
+            // Not necessary because the target is never equals to something in the list
+            /*if (arr.get(mid) == target) {
+                // If the target value is already in the list, return its index
+                return mid;
+            } else*/
+            // If the target is bigger
+            if (arr.get(mid) < target) {
+                // If the middle element is less than the target, search the right half
+                left = mid + 1;
+            } else {
+                // If the middle element is greater than the target, search the left half
+                right = mid - 1;
+            }
+        }
+        // Return the index
+        return left;
     }
     // Calculate distance between coordinates using Haversine
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
