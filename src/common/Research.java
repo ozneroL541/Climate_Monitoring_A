@@ -219,11 +219,14 @@ public class Research {
      * restituisce la riga di appartenenza.
      * Il range &egrave costituito dall'errore.
      * L'errore &egrave considerato in km.
+     * @deprecated  Questo metodo è stato sostituito
+     * <p> usa invece {@link Research#CoordinatesAdvancedV2( File file, int col, double[] c )}.
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
      * @param err errore/range
      * @return array di Integer contenente le righe
+     * @version 1
      */
     public static Integer[] CoordinatesAdvancedV1(File file, int col, double[] c, double err ) {
         // Set the line to 0
@@ -290,6 +293,7 @@ public class Research {
      * @param col colonna
      * @param c coordinata fornita
      * @return array di Integer contenente le righe
+     * @version 2
      */
     public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
         // Limit of acceptable distance
