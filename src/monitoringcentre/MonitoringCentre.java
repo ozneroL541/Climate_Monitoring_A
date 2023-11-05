@@ -14,13 +14,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 
 import src.common.*;
 
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.10.3
+ * @version 0.10.5
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -75,16 +76,17 @@ public class MonitoringCentre {
     }
 
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
-        String s = nome + ",";
+        ArrayList<String> str = new ArrayList<String>();
+        str.add(nome);
         for (int i = 0; i < indirizzo.length; i++) {
-            s = s + indirizzo[i] + ",";
+            str.add(indirizzo[i]);
         }
-        s = s + userid;
+        str.add(String.valueOf(userid));
         for (int i = 0; i < areeInteresse.length; i++) {
-            s = s + areeInteresse[i] + ",";
+            str.add(areeInteresse[i]);
         }
-        
-        
+        String s[] = str.toArray(new String[str.size()]);
+        CSV_Utilities.addArraytoCSV(f,s,header);
     }
 
     private boolean CenterExistence(String nome){
