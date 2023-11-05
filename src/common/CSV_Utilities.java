@@ -172,4 +172,22 @@ public class CSV_Utilities {
             return false;
         }
     }
+    /**
+     * Aggiunge una array di stringhe alla fine di una riga in formato CSV.
+     * @param file file CSV
+     * @param line riga dove aggiungere le stringhe
+     * @param toappend stringhe da aggiungere
+     * @return true se l'esecuzione ha avuto successo
+     */
+    public static boolean appendStrings ( File file, String line, String toappend) {
+        // Check file existence
+        if ( ! file.exists() ) {
+            // Error output
+            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.");
+            // Exit
+            return false;
+        }
+        // TODO: Write method
+        return true;
+    }
 }
