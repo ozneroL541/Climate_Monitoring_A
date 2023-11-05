@@ -42,10 +42,10 @@ public class CSV_Utilities {
             else
                 str += s;
             // Separator
-            str += ", ";
+            str += ",";
         }
         // Remove last comma
-        str = str.substring(0, str.length() - 2 );
+        str = str.substring(0, str.length() - 1 );
         // Return String
         return str;
     }
@@ -187,6 +187,8 @@ public class CSV_Utilities {
             // Exit
             return false;
         }
+        // String to be added to the file
+        String add = ",";
         // TODO: Write method
         return true;
     }
