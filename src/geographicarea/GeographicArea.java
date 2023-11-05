@@ -229,7 +229,7 @@ public class GeographicArea {
     }
     /*
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
-     * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
+     * Se le coordinate sono inesatte si restituiranno le x righe delle coordinate più vicine a quelle fornite.
      * @param coo Coordinates
      * @return Numeri delle righe
      */
@@ -268,6 +268,7 @@ public class GeographicArea {
             // Exit
             return out;
         else {
+            // Return the first x nearest areas
             out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
             // Return the output
             return out;
