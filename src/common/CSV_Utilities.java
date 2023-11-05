@@ -8,8 +8,10 @@
 
 package src.common;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -193,6 +195,19 @@ public class CSV_Utilities {
         add += toCSVLine(toappend);
         // Manage the exceptions
         try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String[] lines = reader.lines().toArray(String[]::new);
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (int i = 0; i < lines.length; i++) {
+                writer.write(lines[i]);
+                if ( i == ( lines.length - 1 ) ) {
+                    writer.write(add);
+                }
+                writer.newLine();
+            }
+            writer.close();
             // TODO: Write method
         } catch (Exception e) {
             // Exit
