@@ -195,6 +195,7 @@ public class CSV_Utilities {
         add += toCSVLine(toappend);
         // Manage the exceptions
         try {
+            // TODO Test
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String[] lines = reader.lines().toArray(String[]::new);
             reader.close();
