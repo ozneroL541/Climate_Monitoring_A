@@ -450,6 +450,90 @@ public class GeographicArea {
             System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
         }
     }
+    /**
+     * Metodo di test che non ammette input per calcolare la velocità di esecuzione pura.
+     * Cerca delle area geografiche e ne stampa la lista.
+     * Il primo parametro si riferisce al tipo di ricerca.
+     * Il secondo parametro &egrave l'argomento della ricerca.
+     * Il terzo parametro &egrave il numero di aree da stampare in caso di lista troppo grande.
+     * Se <code>runtime_print</code> è 0 o negativo il numero di aree stampate sarà di valore fissato.
+     * Numero massimo di aree stampabili insieme:    20
+     * Numero di aree stampate in caso di <code>runtime_print == 0</code>:   10
+     * @param col_index numero della ricerca
+     * @param arg argomento da ricercare
+     * @param runtime_print numero di item da stampare
+     */
+    private static void SearchListTEST( int col_index, String arg, int runtime_print ) {
+        // Output Integer array
+        Integer [] lines = new Integer[1];
+        // Minimum run constant
+        final int min_run = 10;
+        // Huge number of lines
+        final int huge = 20;
+        // Search
+        switch (col_index) {
+            // Univocal item
+            case IndexOf.geoname_id:
+                lines = ricercaPerID(arg);
+                // Impossible to have more than one case
+                runtime_print = -1;
+                break;
+            // Multiple, but few, items
+            case IndexOf.real_name:
+                lines = ricercaPerRealeNome(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.ascii_name:
+                lines = ricercaPerASCIINome(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.generic_name:
+                lines = ricercaPerNomeGenerico(arg);
+                break;
+            // Huge list
+            case IndexOf.country_code:
+                lines = ricercaPerCodiceNazione(arg);
+                break;
+            // Huge list
+            case IndexOf.country_name:
+                lines = ricercaPerNazione(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.coordinates:
+                lines = ricercaPerCoordinate(arg);
+                break;
+            default:
+                // Error
+                System.err.println("Errore: codice lista inesistente");
+                return;
+        }
+        // Print if there is something
+        if (lines != null && lines.length > 0) {
+            // If the number of lines is huge force runtime_print
+            if ( lines.length > huge && runtime_print <= 0) {
+                runtime_print = min_run;
+            }
+            // If runtime print is enable print in runtime mode
+            if ( runtime_print > 0 ) {
+                // Limit of item to print
+                int limit = runtime_print;
+                // limit counter
+                int l = 0;
+                // Lines counter
+                int i = 0;
+                for ( l = 0; l < limit && i < lines.length; i++) {
+                        // Print runtime the string
+                        System.out.println(RunTimeLine(lines[i], i + 1 ));
+                        // Increase limit counter
+                        l++;
+                    }
+            } else
+                System.out.println(toList(lines));
+        } else {
+            // Message if there is no output
+            System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
+        }
+    }
     /*
      * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
      * @param lines righe
@@ -863,5 +947,9 @@ public class GeographicArea {
     public static boolean doesCSVExist() {
         // Check file existence
         return file.exists();
+    }
+    // TODO Remove Test Main
+    public static void main(String[] args) {
+        SearchListTEST(IndexOf.coordinates, "0, 0", 10);
     }
 }

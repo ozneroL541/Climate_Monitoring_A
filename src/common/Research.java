@@ -307,7 +307,7 @@ public class Research {
         // Distance
         double dist = 0.0;
         // Numero della linea
-        int line = 0;
+        int line = 1;
         // List of lines
         ArrayList<Integer> linesList = new ArrayList<Integer>();
         // List of distances
@@ -347,7 +347,7 @@ public class Research {
                     // Add distance to the list
                     distList.add( i, dist);
                     // Add line to the list
-                    linesList.add( i, (line + 1) );
+                    linesList.add( i, line );
                     // Remove all the exceeding coordinates
                     while ( distList.size() > max ) {
                         // Remove last distance
