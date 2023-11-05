@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 
-import src.common.Research;
+import src.common.*;
 
 /**
  * Classe che contiene il centro di monitoraggio.
@@ -28,6 +28,7 @@ public class MonitoringCentre {
     private String [] indirizzo = new String[5];
     private String [] areeInteresse;
     private short userid;
+    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID, areeInteresse";
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
 
@@ -78,17 +79,12 @@ public class MonitoringCentre {
         for (int i = 0; i < indirizzo.length; i++) {
             s = s + indirizzo[i] + ",";
         }
+        s = s + userid;
         for (int i = 0; i < areeInteresse.length; i++) {
             s = s + areeInteresse[i] + ",";
         }
-        s = s + userid;
-        try(FileWriter fw = new FileWriter(f, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw)){
-            out.println(s);
-        } catch (IOException e) {
-            //exception handling left as an exercise for the reader
-        }
+        
+        
     }
 
     private boolean CenterExistence(String nome){
