@@ -21,7 +21,7 @@ import src.geographicarea.GeographicArea;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.10.2
  */
 public class Table {
     // Parameters File
