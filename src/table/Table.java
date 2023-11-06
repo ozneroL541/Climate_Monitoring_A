@@ -355,25 +355,6 @@ public class Table {
         // Return true if the length of the string is acceptable
         return (str.length() <= max_char_notes);
     }
-    // Convert the table to an array of string
-    private String[] toStrings() {
-        // Array to return
-        String[] strings = new String[ n_categories * 2 ];
-        // Check parameter existance
-        if ( scores == null ) {
-            // Exit
-            return null;
-        }
-        // Parameters
-        for (int i = 0; i < n_categories; i++) {
-            // Assign every parameter to strings
-            strings[i] = "" + this.scores[i];
-            // Assign every note to strings
-            strings[n_categories + i] = this.notes[i];
-        }
-        // Return array
-        return strings;
-    }
     // Create an array of strings ad add id at the beginning
     private String[] toStringsWithID( String id ) {
         // Array to return
