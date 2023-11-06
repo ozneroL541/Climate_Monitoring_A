@@ -8,9 +8,13 @@
 
 package src.table;
 
+import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.InputMismatchException;
 
+import src.common.CSV_Utilities;
 import src.common.InputScanner;
+import src.geographicarea.GeographicArea;
 
 /**
  * Un oggetto della classe <code>Table</code> rappresenta una tabella
@@ -20,6 +24,10 @@ import src.common.InputScanner;
  * @version 0.10.1
  */
 public class Table {
+    // Parameters File
+    private final static File file = FileSystems.getDefault().getPath("data", "parameters.csv").toFile();
+    // Header
+    private final static String header = "Geoname ID,Vento,Umidità,Pressione,Temperatura,Precipitazioni,Altitudine dei ghiacciai,Massa dei ghiacciai,Note Vento,Note Umidità,Note Pressione,Note Temperatura,Note Precipitazioni,Note Altitudine dei ghiacciai,Note Massa dei ghiacciai";
     // Number of categories
     private final static short n_categories = 7;
     // Max characters number for notes
@@ -346,5 +354,54 @@ public class Table {
     private static boolean isNoteShort( String str ) {
         // Return true if the length of the string is acceptable
         return (str.length() <= max_char_notes);
+    }
+    // Convert the table to an array of string
+    private String[] toStrings() {
+        // Array to return
+        String[] strings = new String[ n_categories * 2 ];
+        // Check parameter existance
+        if ( scores == null ) {
+            // Exit
+            return null;
+        }
+        // Parameters
+        for (int i = 0; i < n_categories; i++) {
+            // Assign every parameter to strings
+            strings[i] = "" + this.scores[i];
+            // Assign every note to strings
+            strings[n_categories + i] = this.notes[i];
+        }
+        // Return array
+        return strings;
+    }
+    // Create an array of strings ad add id at the beginning
+    private String[] toStringsWithID( String id ) {
+        // Array to return
+        String[] strings = new String[ n_categories * 2 ];
+        // Check parameter existance
+        if ( scores == null || id == null) {
+            // Exit
+            return null;
+        }
+        // Add id
+        strings[0] = id;
+        // Parameters
+        for (int i = 0; i < n_categories; i++) {
+            // Assign every parameter to strings
+            strings[i + 1] = "" + this.scores[i];
+            // Assign every note to strings
+            strings[n_categories + 1 + i] = this.notes[i];
+        }
+        // Return array
+        return strings;
+    }
+    /**
+     * Aggiungi la tabella alla fine del file
+     * @param ga Area Geografica a cui si riferisce
+     * @return true se l'esecuzione è avvenuta correttamente.
+     */
+    public boolean printToFile( GeographicArea ga ) {
+        // Execution succeded
+        return CSV_Utilities.appendStrings(file, header, toStringsWithID(( "" + ga.getGeoname_id() )));
     }
 }
