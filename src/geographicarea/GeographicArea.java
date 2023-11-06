@@ -19,7 +19,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.13.0
+ * @version 0.13.1
  */
 public class GeographicArea {
     // Geoname ID
@@ -58,13 +58,17 @@ public class GeographicArea {
     public GeographicArea ( Integer line ) {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecord(file, line);
-        // Save the datas
-        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
-        this.name         = record[IndexOf.real_name];
-        this.ascii_name   = record[IndexOf.ascii_name];
-        this.country_code = record[IndexOf.country_code];
-        this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+        // Check validity
+        if ( record != null && record.length != IndexOf.coordinates ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+            
+        }
     }
     /**
      * Costruttore di Area Geografica.
@@ -79,13 +83,17 @@ public class GeographicArea {
     public GeographicArea ( String data, int col ) {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecordByData(file, col, data);
-        // Save the datas
-        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
-        this.name         = record[IndexOf.real_name];
-        this.ascii_name   = record[IndexOf.ascii_name];
-        this.country_code = record[IndexOf.country_code];
-        this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+        // Check validity
+        if ( record != null && record.length != IndexOf.coordinates ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+            
+        }
     }
     /**
      * Cotruttore vuoto di Area Geografica.
@@ -104,12 +112,17 @@ public class GeographicArea {
      * @param record array di Strings
      */
     public GeographicArea(String[] record) {
-        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
-        this.name         = record[IndexOf.real_name];
-        this.ascii_name   = record[IndexOf.ascii_name];
-        this.country_code = record[IndexOf.country_code];
-        this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+        // Check validity
+        if ( record != null && record.length != IndexOf.coordinates ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+            
+        }
     }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
