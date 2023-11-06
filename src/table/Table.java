@@ -10,6 +10,7 @@ package src.table;
 
 import java.io.File;
 import java.nio.file.FileSystems;
+import java.util.Date;
 import java.util.InputMismatchException;
 
 import src.common.CSV_Utilities;
@@ -25,7 +26,7 @@ import src.geographicarea.GeographicArea;
  */
 public class Table {
     // Parameters File
-    private final static File file = FileSystems.getDefault().getPath("data", "parameters.csv").toFile();
+    private final static File file = FileSystems.getDefault().getPath("data", "ParametriClimatici.dati.csv").toFile();
     // Header
     private final static String header = "Geoname ID,Vento,Umidità,Pressione,Temperatura,Precipitazioni,Altitudine dei ghiacciai,Massa dei ghiacciai,Note Vento,Note Umidità,Note Pressione,Note Temperatura,Note Precipitazioni,Note Altitudine dei ghiacciai,Note Massa dei ghiacciai";
     // Number of categories
@@ -40,6 +41,9 @@ public class Table {
     private short[] scores = { 0, 0, 0, 0, 0, 0, 0 };
     // Category's notes
     private String[] notes = { "", "", "", "", "", "", "" };
+    // TODO Implement
+    // Date
+    private Date date = null;
     // Score and note
     private static class Data_SN {
         // Score
