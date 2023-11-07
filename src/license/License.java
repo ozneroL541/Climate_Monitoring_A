@@ -25,12 +25,15 @@
 package src.license;
 //TODO
 public class License {
+    // Program header
     private final static String header =
             "    Climate Monitoring  Copyright (C) 2024  Galimberti Riccardo, Paredi Giacomo, Radice Lorenzo\r\n" + //
             "    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
             "    under certain conditions; type `show c' for details.";
+    // TODO 
     public static void print() {
+        // Print License
         System.out.println(header);
     }
 }
