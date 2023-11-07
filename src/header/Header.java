@@ -23,9 +23,13 @@
  */
 
 package src.header;
-//TODO
+
+/**
+ * Classe contenete informazioni su versione e licenza del software.
+ * @author Lorenzo Radice
+ * @version 0.10.0
+ */
 public class Header {
-    // TODO: change show or create options
     // Program Name
     private final static String p_name = "Climate Monitoring";
     // Short License Reminder

@@ -24,11 +24,13 @@
 
 package src.climatemonitoring;
 
+import src.header.Header;
 import src.menu.MainMenu;
+
 /**
  * Classe che contiene il Main del programma
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.10.2
  */
 public class ClimateMonitor {
     /**
@@ -36,6 +38,8 @@ public class ClimateMonitor {
      * @param args Main arguments
      */
     public static void main(String[] args) {
+        // Print Header
+        Header.print_header();
         // Go to Menu
         MainMenu.ChooseOption();
     }
