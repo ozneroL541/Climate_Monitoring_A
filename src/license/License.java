@@ -25,6 +25,7 @@
 package src.license;
 //TODO
 public class License {
+    // TODO: change show or create options
     // Program header
     private final static String header =
             "    Climate Monitoring  Copyright (C) 2024  Galimberti Riccardo, Paredi Giacomo, Radice Lorenzo\r\n" + //
