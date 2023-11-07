@@ -37,6 +37,7 @@ public class Header {
             "    Climate Monitoring  Copyright (C) 2023  Galimberti Riccardo\r\n" +//"
             "                                            Paredi Giacomo\r\n" + //
             "                                            Radice Lorenzo\r\n" + //
+            "    License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl-3.0.html>\n" + //
             "    This program comes with ABSOLUTELY NO WARRANTY.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
             "    under certain conditions. ";
@@ -87,8 +88,5 @@ public class Header {
      */
     public static String getVersion() {
         return version;
-    }
-    public static void main(String[] args) {
-        print_header();
     }
 }
