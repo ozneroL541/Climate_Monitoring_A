@@ -34,7 +34,9 @@ public class Header {
     private final static String p_name = "Climate Monitoring";
     // Short License Reminder
     private final static String license_h =
-            "    Climate Monitoring  Copyright (C) 2023  Galimberti Riccardo, Paredi Giacomo, Radice Lorenzo\r\n" + //
+            "    Climate Monitoring  Copyright (C) 2023  Galimberti Riccardo\r\n" +//"
+            "                                            Paredi Giacomo\r\n" + //
+            "                                            Radice Lorenzo\r\n" + //
             "    This program comes with ABSOLUTELY NO WARRANTY.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
             "    under certain conditions. ";
@@ -85,5 +87,8 @@ public class Header {
      */
     public static String getVersion() {
         return version;
+    }
+    public static void main(String[] args) {
+        print_header();
     }
 }
