@@ -35,7 +35,7 @@ public class GeographicArea {
     // Coordinates
     private double [] coordinates = null;
     // Areas File
-    private final static File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
+    private final static File file = FileSystems.getDefault().getPath("data", "CoordinateMonitoraggio.dati.csv").toFile();
     // Header
     private final static String header = "Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates";
     // Indexes in CSV file
