@@ -387,6 +387,6 @@ public class Table {
      */
     public boolean printToFile( GeographicArea ga ) {
         // Execution succeded
-        return CSV_Utilities.appendStrings(file, header, toStringsWithID(( "" + ga.getGeoname_id() )));
+        return CSV_Utilities.addArraytoCSV(file, toStringsWithID(( "" + ga.getGeoname_id() )), header);
     }
 }

@@ -8,10 +8,8 @@
 
 package src.common;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -173,49 +171,5 @@ public class CSV_Utilities {
             // In case of error return false
             return false;
         }
-    }
-    // TODO Remove if useless
-    /**
-     * Aggiunge una array di stringhe alla fine di una riga in formato CSV.
-     * @param file file CSV
-     * @param line riga dove aggiungere le stringhe
-     * @param toappend stringhe da aggiungere
-     * @return true se l'esecuzione ha avuto successo
-     */
-    public static boolean appendStrings ( File file, String line, String[] toappend) {
-        // Check file existence
-        if ( ! file.exists() ) {
-            // Error output
-            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.");
-            // Exit
-            return false;
-        }
-        // String to be added to the file
-        String add = ",";
-        // Add line to add
-        add += toCSVLine(toappend);
-        // Manage the exceptions
-        try {
-            // TODO Test
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String[] lines = reader.lines().toArray(String[]::new);
-            reader.close();
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            for (int i = 0; i < lines.length; i++) {
-                writer.write(lines[i]);
-                if ( i == ( lines.length - 1 ) ) {
-                    writer.write(add);
-                }
-                writer.newLine();
-            }
-            writer.close();
-            // TODO: Write method
-        } catch (Exception e) {
-            // Exit
-            return false;
-        }
-        // Execution correct
-        return true;
     }
 }
