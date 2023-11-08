@@ -44,6 +44,8 @@ public class MainMenu {
      * Costruisce un oggetto menù
      */
     public MainMenu(){
+        // Header
+        final String header = "\tMenù principale\n";
         // Options array
         final String[] options = {
             "Ricerca aree",
@@ -54,7 +56,7 @@ public class MainMenu {
         // Separator string
         final String separator = " - ";
         // Initialize menu
-        this.menu = "";
+        this.menu = header;
         // For every element in the options array
         for ( short i = 0; i < options.length; i++ ) {
             // Create the menu string

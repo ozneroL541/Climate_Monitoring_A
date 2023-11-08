@@ -67,6 +67,8 @@ public class Header {
         print_version();
         System.out.println();
         print_license();
+        System.out.println();
+        System.out.println();
     }
     /**
      * Ritorna il nome del programma
