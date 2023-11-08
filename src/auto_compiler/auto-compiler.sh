@@ -6,6 +6,7 @@
 # * 753252       Radice      Lorenzo
 # * Sede: Como
 #**************************************
+
 # GNU Bash automatic compiler for ClimateMonitor program
 
 # Go to the upper directory
