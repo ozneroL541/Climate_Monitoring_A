@@ -139,7 +139,8 @@ public class MainMenu {
                 return false;
             default:
                 // Error Message
-                System.err.println("Il valore inserito non è corretto.\nInserire un numero valido per continuare.");
+                System.out.println("\nIl valore inserito non è corretto.");
+                System.out.println("Inserire un numero valido per continuare.\n");
                 return true;
         }
     }
