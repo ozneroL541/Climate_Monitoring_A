@@ -1,4 +1,11 @@
 #!/bin/bash
+#**************************************
+# * Matricola    Cognome     Nome
+# * 754530       Galimberti  Riccardo
+# * 755152       Paredi      Giacomo
+# * 753252       Radice      Lorenzo
+# * Sede: Como
+#**************************************
 # GNU Bash automatic compiler for ClimateMonitor program
 
 # Go to the upper directory
