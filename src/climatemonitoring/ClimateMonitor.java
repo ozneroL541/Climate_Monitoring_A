@@ -16,7 +16,7 @@ import src.menu.MainMenu;
  */
 public class ClimateMonitor {
     /**
-     * Go to menù
+     * Main
      * @param args Main arguments
      */
     public static void main(String[] args) {

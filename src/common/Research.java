@@ -228,6 +228,7 @@ public class Research {
      * @return array di Integer contenente le righe
      * @version 1
      */
+    @Deprecated
     public static Integer[] CoordinatesAdvancedV1(File file, int col, double[] c, double err ) {
         // Set the line to 0
         int line = 0;
