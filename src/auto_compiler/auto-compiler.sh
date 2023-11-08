@@ -1,11 +1,11 @@
 #!/bin/bash
-#**************************************
+#
 # * Matricola    Cognome     Nome
 # * 754530       Galimberti  Riccardo
 # * 755152       Paredi      Giacomo
 # * 753252       Radice      Lorenzo
 # * Sede: Como
-#**************************************
+#
 #    This file is part of Climate Monitoring.
 #
 #    Climate Monitoring is free software: you can redistribute it and/or modify
