@@ -440,6 +440,7 @@ public class AutorizedOperator extends User {
 
     //TODO 
     //rimuovere
+    /*
     public static void main(String[] args) {
         
         AutorizedOperator.cercaAreaGeografica();
@@ -452,6 +453,6 @@ public class AutorizedOperator extends User {
         }else{
             System.out.println(u);
         }
-        */
-    }
+        
+    }*/
 }
