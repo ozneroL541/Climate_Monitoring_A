@@ -109,14 +109,28 @@ public class MonitoringCentre {
         return exists;
     }
 
+    private boolean AreaExistence(String nome){
+        boolean exists = false;
+        if(Research.isStringInCol(join,1,nome))
+            exists = true;
+        else
+            exists = false;
+            
+        return exists;
+    }
+
     /** metodo che prende in input un array di stringhe contenente le aree 
     *   di interesse e la stringa "nome" 
     *   del centro alla quale si vogliono aggiungere i centri 
     */
     private void writeJoin(String[] aree, String nome){
-        for (int i = 0; i < aree.length; i++) {
-            
+        if(!AreaExistence(nome)){
+            for (int i = 0; i < aree.length; i++) {    
+            }
+        }else{
+            //exception this area already exists in a Centre
         }
+        
     }
 
 }
