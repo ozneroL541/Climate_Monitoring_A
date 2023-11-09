@@ -24,11 +24,7 @@
 
 package src.monitoringcentre;
 // TODO Remove unused imports
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 
@@ -84,10 +80,9 @@ public class MonitoringCentre {
     }
 
     //aggiunge un'area ad un centro già esistente
-    public void addArea(String area, String nome){
-
+    public void addArea(String[] area, String nome){
         if(CenterExistence(nome)){
-            //TODO aggiunta area 
+            writeJoin(area, nome);
         }
         
     }
@@ -99,9 +94,7 @@ public class MonitoringCentre {
             str.add(indirizzo[i]);
         }
         str.add(String.valueOf(userid));
-        for (int i = 0; i < areeInteresse.length; i++) {
-            str.add(areeInteresse[i]);
-        }
+        writeJoin(areeInteresse, nome);
         String s[] = str.toArray(new String[str.size()]);
         CSV_Utilities.addArraytoCSV(f,s,header);
     }
@@ -121,7 +114,9 @@ public class MonitoringCentre {
     *   del centro alla quale si vogliono aggiungere i centri 
     */
     private void writeJoin(String[] aree, String nome){
-
+        for (int i = 0; i < aree.length; i++) {
+            
+        }
     }
 
 }
