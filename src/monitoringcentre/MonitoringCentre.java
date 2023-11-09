@@ -114,4 +114,13 @@ public class MonitoringCentre {
 
         return exists;
     }
+
+    /** metodo che prende in input un array di stringhe contenente le aree 
+    *   di interesse e la stringa "nome" 
+    *   del centro alla quale si vogliono aggiungere i centri 
+    */
+    private void writeJoin(String[] aree, String nome){
+        
+    }
+
 }
