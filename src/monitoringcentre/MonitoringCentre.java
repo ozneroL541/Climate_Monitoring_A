@@ -45,9 +45,10 @@ public class MonitoringCentre {
     private String [] indirizzo = new String[5];
     private String [] areeInteresse;
     private short userid;
-    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID, areeInteresse";
+    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID";
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
+    private final static File join = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
 
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         if(CenterExistence(nome))
@@ -120,7 +121,7 @@ public class MonitoringCentre {
     *   del centro alla quale si vogliono aggiungere i centri 
     */
     private void writeJoin(String[] aree, String nome){
-        
+
     }
 
 }
