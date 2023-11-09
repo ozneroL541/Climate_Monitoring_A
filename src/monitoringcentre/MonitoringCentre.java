@@ -33,7 +33,7 @@ import src.common.*;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.10.5
+ * @version 0.10.6
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -109,13 +109,15 @@ public class MonitoringCentre {
         return exists;
     }
 
+    //TODO sistemare il controllo tra nomeCentro - area
+
     private boolean AreaExistence(String nome){
         boolean exists = false;
         if(Research.isStringInCol(join,1,nome))
             exists = true;
         else
             exists = false;
-            
+
         return exists;
     }
 
