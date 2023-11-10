@@ -629,4 +629,52 @@ public class Research {
             return null;
         } 
     }
+    /**
+     * Controlla se, in un file CSV, esiste una linea in cui c'&egrave
+     * sia la prima stringa che la seconda
+     * nelle rispettive colonne.
+     * @param file file CSv
+     * @param col1 colonna della prima stringa
+     * @param col2 colonna della seconda stringa
+     * @param str1 prima stringa
+     * @param str2 seconda stringa
+     * @return true se c'&grave una linea con entrambe le stringhe
+     */
+    public static boolean areInSameLine( File file, int col1, int col2, String str1, String str2 ) {
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // When the first cell equals the first string
+                if ( nextRecord[col1].equals(str1) ) {
+                    // Check if also the second cell equals the second string
+                    if ( nextRecord[col2].equals(str2) ) {
+                        // Return true
+                        return true;
+                    }
+                }
+            }
+            creader.close();
+        } catch (FileNotFoundException e ) {
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return false
+            return false;
+        } catch (Exception e) { //to catch any exception inside try block
+            // Not managed Error
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return false;
+            return false;
+        }
+        return false;
+    }
 }
