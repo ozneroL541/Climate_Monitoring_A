@@ -977,4 +977,11 @@ public class GeographicArea {
         // Check file existence
         return file.exists();
     }
+    /**
+     * Controlla l'esistenza dell'area.
+     * @return true se l'area esiste
+     */
+    public boolean Esist() {
+        return this.geoname_id > 0;
+    }
 }
