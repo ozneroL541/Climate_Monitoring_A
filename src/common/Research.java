@@ -463,8 +463,9 @@ public class Research {
             nextRecord = creader.readNext();
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null){
-                // When the first cell equals the id return true
+                // When the cell equals the string return true
                 if ( nextRecord[col].equals(str) )
+                    // Return true
                     return true;
             }
             creader.close();
