@@ -56,13 +56,15 @@ public class GeographicArea {
     private final static String header = "Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates";
     // Indexes in CSV file
     private final static class IndexOf {
-        private final static int geoname_id = 0;
-        private final static int real_name = 1;
-        private final static int ascii_name = 2;
-        private final static int generic_name = 10;
-        private final static int country_code = 3;
-        private final static int country_name = 4;
-        private final static int coordinates = 5;
+        private final static short geoname_id = 0;
+        private final static short real_name = 1;
+        private final static short ascii_name = 2;
+        private final static short generic_name = 10;
+        private final static short country_code = 3;
+        private final static short country_name = 4;
+        private final static short coordinates = 5;
+        private final static short indexes = 7;
+        private final static short max_index = 5;
     }
     /**
      * Costruttore di Area Geografica.
@@ -75,7 +77,7 @@ public class GeographicArea {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecord(file, line);
         // Check validity
-        if ( record != null && record.length != IndexOf.coordinates ) {
+        if ( record != null && record.length != IndexOf.max_index ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
@@ -100,7 +102,7 @@ public class GeographicArea {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecordByData(file, col, data);
         // Check validity
-        if ( record != null && record.length != IndexOf.coordinates ) {
+        if ( record != null && record.length != IndexOf.max_index ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
@@ -129,7 +131,7 @@ public class GeographicArea {
      */
     public GeographicArea(String[] record) {
         // Check validity
-        if ( record != null && record.length != IndexOf.coordinates ) {
+        if ( record != null && record.length != IndexOf.max_index ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
@@ -137,7 +139,6 @@ public class GeographicArea {
             this.country_code = record[IndexOf.country_code];
             this.country_name = record[IndexOf.country_name];
             this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
-            
         }
     }
     /*
@@ -618,7 +619,7 @@ public class GeographicArea {
         // Counter
         int i = 0;
         // Array of possible selections
-        int[] ind = new int[7];
+        int[] ind = new int[IndexOf.indexes];
         // Possible options
         ind[i++] += IndexOf.geoname_id;
         ind[i++] += IndexOf.real_name;
@@ -817,7 +818,7 @@ public class GeographicArea {
         // Geographic Area to be returned
         GeographicArea ga = new GeographicArea();
         // Array of strings of fields
-        String[] fieldStrings = new String[IndexOf.coordinates + 1];
+        String[] fieldStrings = new String[IndexOf.max_index + 1];
         // Input String
         String in = "";
         // Exit condition
@@ -945,7 +946,7 @@ public class GeographicArea {
     // Create a record of strings from the fields
     private String[] toStringRecord() {
         // To be returned
-        String[] record = new String[IndexOf.coordinates + 1];
+        String[] record = new String[IndexOf.max_index + 1];
         record[IndexOf.geoname_id]      = "" + this.geoname_id;
         record[IndexOf.real_name]       = this.name;
         record[IndexOf.ascii_name]      = this.ascii_name;
