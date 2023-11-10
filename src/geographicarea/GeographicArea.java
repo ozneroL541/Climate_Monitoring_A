@@ -63,7 +63,9 @@ public class GeographicArea {
         private final static short country_code = 3;
         private final static short country_name = 4;
         private final static short coordinates = 5;
+        // Number of indexes
         private final static short indexes = 7;
+        // Max index value
         private final static short max_index = 5;
     }
     /**
@@ -149,6 +151,7 @@ public class GeographicArea {
     private static int ricercaPerID( int id ) {
         // Translate id into string
         String is_str = ((Integer) id).toString();
+        // Search the id
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
     /*
@@ -192,6 +195,7 @@ public class GeographicArea {
      * @return Numeri elle righe
      */
     private static Integer[] ricercaPerRealeNome(String nome){
+        // Search all possibles names
         return Research.AllStringInCol(file, IndexOf.real_name, nome);
     }
     /*
@@ -200,6 +204,7 @@ public class GeographicArea {
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerASCIINome(String ascii_n){
+        // Search all possibles names
         return Research.AllStringInCol_notCaseS(file, IndexOf.ascii_name, ascii_n);
     }
     /*
@@ -219,6 +224,7 @@ public class GeographicArea {
             // Assign name index
             index = IndexOf.real_name;
         }
+        // Search all possibles names
         return Research.AllStringInCol_notCaseS(file, index, n);
     }
     /*
@@ -227,6 +233,7 @@ public class GeographicArea {
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerCodiceNazione(String c_c){
+        // Search all areas in the nation
         return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
     }
     /*
@@ -235,6 +242,7 @@ public class GeographicArea {
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerNazione(String c_n){
+        // Search all areas in the nation
         return Research.AllStringInCol_notCaseS(file, IndexOf.country_name, c_n);
     }
     /*
@@ -355,9 +363,11 @@ public class GeographicArea {
      * @return coordinate
      */
     public String getCoordinatestoString() {
-        // Copy coordinates
-        String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);;
+        // Format coordinates to get a string
+        String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);
+        // Put a point instead of commas
         s = s.replace(",", ".");
+        // Put a comma between coordinates
         s = s.replace("*", ",");
         return s;
     }
