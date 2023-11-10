@@ -44,7 +44,7 @@ public class MonitoringCentre {
     private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID";
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
-    private final static File join = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
+    private final static File join = FileSystems.getDefault().getPath("data", "JoinCentri.dati.csv").toFile();
 
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         if(CenterExistence(nome))
