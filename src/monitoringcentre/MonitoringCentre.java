@@ -120,11 +120,14 @@ public class MonitoringCentre {
 
         return exists;
     }
-
-    /** metodo che prende in input un array di stringhe contenente le aree 
-    *   di interesse e la stringa "nome" 
-    *   del centro alla quale si vogliono aggiungere i centri 
-    */
+    // TODO Complete JavaDoc
+    /**
+     * Metodo che prende in input un array di stringhe contenente le aree 
+     * di interesse e la stringa "nome" 
+     * del centro alla quale si vogliono aggiungere i centri 
+     * @param aree
+     * @param nome
+     */
     private void writeJoin(String[] aree, String nome){
         if(!AreaExistence(nome)){
             for (int i = 0; i < aree.length; i++) {    
