@@ -454,7 +454,18 @@ public class AutorizedOperator extends User {
         }
     }
 
+    
     //TODO 
+    public void menu(){}
+
+    //TODO
+    //crea un centro, poi aggiunge un'area al centro, solo se è utente ha un centro associato
+    public void registraCentroAree(){}
+
+    //TODO
+    //cambiare anche tipo di ritorno
+    public void inserisciParametriClimatici(){}
+
     //rimuovere
     /*
     public static void main(String[] args) {
