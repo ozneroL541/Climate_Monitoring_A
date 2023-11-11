@@ -53,7 +53,7 @@ public class Header {
             "THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\r\n" + //
             "PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM\r\n" + //
             "IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF\r\n" + //
-            "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.";
+            "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\n";
     // Program version
     private final static String version = "0.10.0";
     /**
@@ -69,6 +69,7 @@ public class Header {
     public static void print_version() {
         // Print version
         System.out.println(p_name + "\tVersion: " + version);
+        System.out.println();
     }
     /**
      * Stampa a schermo la versione e la licenza del programma.
@@ -78,7 +79,6 @@ public class Header {
         System.out.println();
         System.out.print("    ");
         print_version();
-        System.out.println();
         print_license();
         System.out.println();
         System.out.println();
@@ -103,5 +103,48 @@ public class Header {
      */
     public static String getVersion() {
         return version;
+    }
+    /**
+     * Stampa a schermo la garazia.
+     */
+    public static void print_warranty() {
+        System.out.println();
+        System.out.println(warranty);
+        System.out.println();
+    }
+    /**
+     * Controlla se il comando inserito si riferisce ad uno di quelli per la visualizzazione della licenza
+     * o della versione. Se il comando corrisponde stampa a schermo la caratteristica richiesta e ritorna
+     * true, altrimenti ritorna false.
+     * @param str comando
+     * @return true se viene stampato qualcosa.
+     */
+    public static boolean evalCommand( String str ) {
+        // If str is...
+        switch (str) {
+            // Conditions
+            case "--show c":
+            case "-show c":
+            case "show c":
+            case "c":
+                // TODO Print Conditions
+                return true;
+            // Warranty
+            case "--show w":
+            case "-show w":
+            case "show w":
+            case "w":
+                print_warranty();
+                return true;
+            // Version
+            case "--version":
+            case "-version":
+            case "-v":
+                print_version();
+                return true;
+            // Nothing
+            default:
+                return false;
+        }
     }
 }
