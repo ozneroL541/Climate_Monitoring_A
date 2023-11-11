@@ -60,13 +60,14 @@ public class AutorizedOperator extends User {
     // User Password
     private String passwd;
     // Monitoring Centre
-    private short centre;
+    private String centre;
+    //private short centre;
 
     // Make the path platform independent
     private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
 
     //dafault value for attribute centre if user does not choose a centre during registration
-    private final static short defaultValueOfCentre=-1;
+    private final static String defaultValueOfCentre="";
 
     //TODO
     //aggiungere classe privata con indici del file csv
@@ -87,7 +88,7 @@ public class AutorizedOperator extends User {
      * @param password password scelta dall'operatore
      * @param centre centro al quale l'operatore appartiene. Se non appartiene a nessun centro assume un valore di default 
      */
-    public AutorizedOperator(short id, String nome, String cognome, String cod_fis, String email_add, String password, short centre){
+    public AutorizedOperator(short id, String nome, String cognome, String cod_fis, String email_add, String password, String centre){
         this.userid=id;
         this.nome=nome;
         this.cognome=cognome;
@@ -126,7 +127,7 @@ public class AutorizedOperator extends User {
      * Ritorna DefaultValueOfCentre come Short
      * @return DefaultValueOfCentre
      */
-    public static short getDefaultValueOfCentre(){
+    public static String getDefaultValueOfCentre(){
         return defaultValueOfCentre;
     }
 
@@ -216,7 +217,7 @@ public class AutorizedOperator extends User {
                 //insert monitoring centre
                 //TODO
                 //cambiare appena è fatto
-                centre=String.valueOf(defaultValueOfCentre);
+                centre=defaultValueOfCentre;
 
                 // Insert password
                 System.out.print("Inserire la password: ");
@@ -307,7 +308,7 @@ public class AutorizedOperator extends User {
             if(record!=null){
                 //if password match, set the object's attributes
                 if(record[5].equals(password)){
-                    return new AutorizedOperator(Short.valueOf(userid), record[1], record[2], record[3], record[4], password, Short.valueOf(record[6]));
+                    return new AutorizedOperator(Short.valueOf(userid), record[1], record[2], record[3], record[4], password, record[6]);
                 }else{
                     return null;
                 }
@@ -417,6 +418,8 @@ public class AutorizedOperator extends User {
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
 
+    //TODO
+    //sostituire con metodi di common
     // Create the file OperatoriRegistrati.csv and set the header of it
     private static void addHeader(){
         // File Header
@@ -435,6 +438,8 @@ public class AutorizedOperator extends User {
 
     }
 
+    //TODO
+    //sostituire con metodi di common
     //Update the file OperatoriRegistrati with a new record
     private static void aggiungiOperatore(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
 
@@ -467,10 +472,12 @@ public class AutorizedOperator extends User {
     public void inserisciParametriClimatici(){}
 
     //rimuovere
-    /*
     public static void main(String[] args) {
         
-        AutorizedOperator.cercaAreaGeografica();
+        AutorizedOperator.registrazione();
+        AutorizedOperator u=autenticazione();
+        System.out.println(u);
+        //AutorizedOperator.cercaAreaGeografica();
         
         /*
         AutorizedOperator.registrazione();
@@ -480,6 +487,6 @@ public class AutorizedOperator extends User {
         }else{
             System.out.println(u);
         }
-        
-    }*/
+        */
+    }
 }
