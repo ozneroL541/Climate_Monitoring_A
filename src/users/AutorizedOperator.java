@@ -69,6 +69,7 @@ public class AutorizedOperator extends User {
     //dafault value for attribute centre if user does not choose a centre during registration
     private final static String defaultValueOfCentre="";
 
+    //indexes in CSV file
     private final static class IndexOf {
         private final static short matricola=0;
         private final static short nome=1;
