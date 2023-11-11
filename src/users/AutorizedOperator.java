@@ -69,8 +69,15 @@ public class AutorizedOperator extends User {
     //dafault value for attribute centre if user does not choose a centre during registration
     private final static String defaultValueOfCentre="";
 
-    //TODO
-    //aggiungere classe privata con indici del file csv
+    private final static class IndexOf {
+        private final static short matricola=0;
+        private final static short nome=1;
+        private final static short cognome=2;
+        private final static short codice_fiscale=10;
+        private final static short email=3;
+        private final static short password=4;
+        private final static short centro=5;
+    }
 
     /**
     * Costruttore vuoto
@@ -308,7 +315,7 @@ public class AutorizedOperator extends User {
             if(record!=null){
                 //if password match, set the object's attributes
                 if(record[5].equals(password)){
-                    return new AutorizedOperator(Short.valueOf(userid), record[1], record[2], record[3], record[4], password, record[6]);
+                    return new AutorizedOperator(Short.valueOf(userid), record[IndexOf.nome], record[IndexOf.cognome], record[IndexOf.codice_fiscale], record[IndexOf.email], password, record[IndexOf.centro]);
                 }else{
                     return null;
                 }
