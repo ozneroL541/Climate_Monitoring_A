@@ -41,6 +41,19 @@ public class Header {
             "    This program comes with ABSOLUTELY NO WARRANTY.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
             "    under certain conditions. ";
+    // TODO write show c
+    // Warranty
+    private final static String warranty =
+            "\tDisclaimer of Warranty.\r\n" + //
+            "\r\n" + //
+            "  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY\r\n" + //
+            "APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT\r\n" + //
+            "HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM \"AS IS\" WITHOUT WARRANTY\r\n" + //
+            "OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,\r\n" + //
+            "THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\r\n" + //
+            "PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM\r\n" + //
+            "IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF\r\n" + //
+            "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.";
     // Program version
     private final static String version = "0.10.0";
     /**
