@@ -53,12 +53,17 @@ public class MonitoringCentre {
     //costruttore vuoto
     public MonitoringCentre(){
     }
-
+    /*
+     * Perché devo inserire i campi che dovrebbero essere assegnati nel costruttore?
+     */
     public void registraCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         this.nome = nome;
         if(indirizzo.length == this.indirizzo.length){
             this.indirizzo = indirizzo;
         }else{
+            /* 
+             * Stampa l'errore ma memorizza lo stesso!
+             */
             System.err.println("Errore: lunghezza array errata."); 
         }
         if(areeInteresse.length > 0){
@@ -98,7 +103,7 @@ public class MonitoringCentre {
 
     private boolean CenterExistence(String nome){
         boolean exists = false;
-        if(Research.isStringInCol(f,0,nome))
+        if( f.exists() && Research.isStringInCol(f,0,nome))
             exists = true;
         else
             exists = false;
@@ -111,6 +116,9 @@ public class MonitoringCentre {
         String [] indirizzo = { "Via Regina Teodolinda" ,"37", "Como", "CO", "Italia" };
         String [] areeInteresse = {"123456", "1234567", "123456" };
         short userid = 00002;
+        /*
+         * Perché devo inserire 2 volte le stesse cose?
+         */
         MonitoringCentre m = new MonitoringCentre(nome, indirizzo, areeInteresse, userid);
         m.registraCentroAree(nome, indirizzo, areeInteresse, userid);
         
