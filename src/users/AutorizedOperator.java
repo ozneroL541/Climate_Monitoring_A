@@ -646,7 +646,7 @@ public class AutorizedOperator extends User {
     //rimuovere
     public static void main(String[] args) {
         
-        AutorizedOperator.registrazione2();
+        AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
         System.out.println(u);
         //AutorizedOperator.cercaAreaGeografica();
