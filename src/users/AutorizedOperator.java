@@ -24,15 +24,12 @@
 
 package src.users;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import src.common.*;
