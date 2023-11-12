@@ -88,14 +88,16 @@ public class MonitoringCentre {
         ArrayList<String> str = new ArrayList<String>();
         String aree = "";
         str.add(nome);
-        for (int i = 0; i < indirizzo.length; i++) {
+        short i = 0;
+        for ( i = 0; i < indirizzo.length; i++) {
             str.add(indirizzo[i]);
         }
         str.add(String.valueOf(userid));
         
-        for (int i = 0; i < areeInteresse.length; i++) {
-            aree = aree + areeInteresse[i] + "-" ;
+        for ( i = 0; i < areeInteresse.length - 1; i++) {
+            aree += areeInteresse[i] + "-" ;
         }
+        aree += areeInteresse[i];
         str.add(aree);
         String s[] = str.toArray(new String[str.size()]);
         CSV_Utilities.addArraytoCSV(f,s,header);
@@ -120,6 +122,9 @@ public class MonitoringCentre {
          * Perché devo inserire 2 volte le stesse cose?
          */
         MonitoringCentre m = new MonitoringCentre(nome, indirizzo, areeInteresse, userid);
+        /*
+         * Errore: se il centro esiste lo stampa 2 volte, non deve accadere
+         */
         m.registraCentroAree(nome, indirizzo, areeInteresse, userid);
         
     }
