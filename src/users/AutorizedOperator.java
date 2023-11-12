@@ -142,6 +142,20 @@ public class AutorizedOperator extends User {
         return defaultValueOfCentre;
     }
 
+
+    //TODO
+    //reworkare registrazione
+    //avere array campi
+    //ciclare per la dimensione dell'array
+    //nel ciclo c'è un unico metodo validField(String field, short index) (cambiare nome?)
+    //il metodo ha uno switch, in base all'index fa i controlli su nome, cognome, ecc
+    //ritorna una stringa, se un campo non va bene ritorna null
+    //dentro al for c'è un while che cicla il metodo precedente
+    //per settare userId, nel caso il file non esiste è sempre 00001, altrimenti conto le righe del file
+    //NON CREO IL FILE con setUserId -> uso i metodi di common
+    //alla fine del for uso il metodo di common, passo array e header del file
+    //FARE HEADER COSTANTE (?)
+
     /**
      * Permette all'utente di registrarsi come Operatore Autorizzato
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
