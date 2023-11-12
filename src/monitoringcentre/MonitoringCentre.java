@@ -41,10 +41,9 @@ public class MonitoringCentre {
     private String [] indirizzo = new String[5];
     private String [] areeInteresse;
     private short userid;
-    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID";
+    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID, aree";
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
-    private final static File join = FileSystems.getDefault().getPath("data", "JoinCentri.dati.csv").toFile();
 
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         if(CenterExistence(nome))
@@ -60,16 +59,17 @@ public class MonitoringCentre {
         if(indirizzo.length == this.indirizzo.length){
             this.indirizzo = indirizzo;
         }else{
-            //TODO exception wrong array input length
+            System.err.println("Errore: lunghezza array errata."); 
         }
         if(areeInteresse.length > 0){
             this.areeInteresse = areeInteresse;
         }else{
-            //TODO exception empty list
+            System.err.println("Errore: Lista vuota."); 
         }
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
+
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
      * Se non ci sono Centri ritorna null.
@@ -79,22 +79,19 @@ public class MonitoringCentre {
         return Research.getColArray(f,0);
     }
 
-    //aggiunge un'area ad un centro già esistente
-    public void addArea(String[] area, String nome){
-        if(CenterExistence(nome)){
-            writeJoin(area, nome);
-        }
-        
-    }
-
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         ArrayList<String> str = new ArrayList<String>();
+        String aree = "";
         str.add(nome);
         for (int i = 0; i < indirizzo.length; i++) {
             str.add(indirizzo[i]);
         }
         str.add(String.valueOf(userid));
-        writeJoin(areeInteresse, nome);
+        
+        for (int i = 0; i < areeInteresse.length; i++) {
+            aree = aree + areeInteresse[i] + "-" ;
+        }
+        str.add(aree);
         String s[] = str.toArray(new String[str.size()]);
         CSV_Utilities.addArraytoCSV(f,s,header);
     }
@@ -108,18 +105,4 @@ public class MonitoringCentre {
 
         return exists;
     }
-
-    //TODO sistemare il controllo tra nomeCentro - area
-
-    private boolean AreaExistence(String nome){
-        boolean exists = false;
-        if(Research.isStringInCol(join,1,nome))
-            exists = true;
-        else
-            exists = false;
-
-        return exists;
-    }
-    
-
 }
