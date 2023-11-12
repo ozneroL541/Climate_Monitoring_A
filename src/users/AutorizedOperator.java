@@ -69,6 +69,9 @@ public class AutorizedOperator extends User {
     //dafault value for attribute centre if user does not choose a centre during registration
     private final static String defaultValueOfCentre="";
 
+    //file header
+    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
+
     //indexes in CSV file
     private final static class IndexOf {
         private final static short matricola=0;
@@ -80,7 +83,6 @@ public class AutorizedOperator extends User {
         private final static short centro=6;
         //number of indexes
         private final static short indexes = 7;
-
     }
 
     /**
@@ -142,6 +144,30 @@ public class AutorizedOperator extends User {
         return defaultValueOfCentre;
     }
 
+    public static void registrazione2(){
+        String [] campi=new String[IndexOf.indexes];
+        boolean exit=false;
+        String campo;
+        String [] nomi_campi=header.split(",");
+
+        for(int i=1;i<=IndexOf.indexes;i++){
+            do{
+                System.out.println();
+                campo=campoValido(i);
+            }while(!exit);
+        }
+    }
+
+    private static String campoValido(int indice_campo){
+        switch(indice_campo){
+            case 1:
+                return "s";
+            case 2:
+                return "a";
+            default:
+                return null;
+        }
+    }
 
     //TODO
     //reworkare registrazione
