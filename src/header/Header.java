@@ -24,6 +24,8 @@
 
 package src.header;
 
+import src.common.InputScanner;
+
 /**
  * Classe contenete informazioni su versione e licenza del software.
  * @author Lorenzo Radice
@@ -176,5 +178,18 @@ public class Header {
             }
         }
         return false;
+    }
+    public static boolean doWhat() {
+        String input = "";
+        String[] in = null;
+        System.out.println("\nPremere INVIO per continuare...");
+        try {
+            input = InputScanner.INPUT_SCANNER.nextLine();
+            in = input.split(" ");
+            System.err.println(in[0] + in[1]);
+            return evalCommand(in);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
