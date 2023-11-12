@@ -146,6 +146,12 @@ public class AutorizedOperator extends User {
 
     public static void registrazione2(){
         String [] nomi_campi=header.split(",");
+        //swtich password with centre
+        //centre comes after password in the file
+        //but is asked first during registration
+        String temp=nomi_campi[5];
+        nomi_campi[5]=nomi_campi[6];
+        nomi_campi[6]=temp;
         // Max number of operators
         final int max_operators = 99999;
 
@@ -158,17 +164,20 @@ public class AutorizedOperator extends User {
             }else{
                 System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
 
-                for(int i=1;i<=IndexOf.indexes;i++){
-                    System.out.println("Inserire " + nomi_campi[i]);
+                for(int i=1;i<IndexOf.indexes;i++){
+                    System.out.print(nomi_campi[i] + ": ");
                     do{
                         campo=campoValido(i);
                     }while(campo==null);
                     campi[i]=campo;
+                    //TODO
+                    //rimuovere questo println appena vengono implementati i centri
+                    System.out.println();
                 }
                 //swtich password with centre
                 //centre comes after password in the file
                 //but is asked first during registration
-                String temp=campi[5];
+                temp=campi[5];
                 campi[5]=campi[6];
                 campi[6]=temp;
             }
@@ -633,7 +642,7 @@ public class AutorizedOperator extends User {
     //rimuovere
     public static void main(String[] args) {
         
-        AutorizedOperator.registrazione();
+        AutorizedOperator.registrazione2();
         AutorizedOperator u=autenticazione();
         System.out.println(u);
         //AutorizedOperator.cercaAreaGeografica();
