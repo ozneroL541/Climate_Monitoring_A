@@ -145,27 +145,115 @@ public class AutorizedOperator extends User {
     }
 
     public static void registrazione2(){
-        String [] campi=new String[IndexOf.indexes];
-        boolean exit=false;
-        String campo;
         String [] nomi_campi=header.split(",");
+        // Max number of operators
+        final int max_operators = 99999;
 
-        for(int i=1;i<=IndexOf.indexes;i++){
-            do{
-                System.out.println();
-                campo=campoValido(i);
-            }while(!exit);
+        String [] campi=new String[IndexOf.indexes];
+        String campo;
+
+        try{
+            if(file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1)){
+                System.err.println("Numero massimo di operatori raggiunto.\nNon è possibile effettuare la registrazione");
+            }else{
+                System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
+
+                for(int i=1;i<=IndexOf.indexes;i++){
+                    System.out.println("Inserire " + nomi_campi[i]);
+                    do{
+                        campo=campoValido(i);
+                    }while(campo==null);
+                    campi[i]=campo;
+                }
+                //swtich password with centre
+                //centre comes after password in the file
+                //but is asked first during registration
+                String temp=campi[5];
+                campi[5]=campi[6];
+                campi[6]=temp;
+            }
+        }catch ( IOException e ){
+            // Print Error
+            e.printStackTrace();
+        }catch ( Exception e ) {
+            // Print Error
+            e.printStackTrace();            
         }
     }
 
+    //check if a field is correct
     private static String campoValido(int indice_campo){
-        switch(indice_campo){
+        String campo;
+        try {
+            switch(indice_campo){
+
+            //insert name
             case 1:
-                return "s";
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //check if name contains only letters
+                if(!CommonMethods.isValidName(campo)){
+                    System.out.print("Nome non valido.\nReinserire: ");
+                    return null;
+                }else{
+                    return campo;
+                }
+
+            //insert last name                
             case 2:
-                return "a";
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //check if last name contains only letters
+                if(!CommonMethods.isValidName(campo)){
+                    System.out.print("Cognome non valido.\nReinserire: ");
+                    return null;
+                }else{
+                    return campo;
+                }
+
+            //insert codice fiscale                
+            case 3:
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //upper case codice fiscale
+                campo=campo.toUpperCase();
+                //check if fiscal code is correct
+                if(!ControlloCodiceFiscale(campo)){
+                    System.out.print("Codice fiscale non valido.\nReinserire: ");
+                    return null;
+                }else if( file.exists() && Research.isStringInCol(file, IndexOf.codice_fiscale, campo)){ //check if fiscal code is unique in the file
+                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+                    return null;
+                } else {
+                    return campo;
+                }
+                
+            //insert email                
+            case 4:
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //check if email is correct
+                if(!ControlloEmail(campo)){
+                    System.out.print("Indirizzo non valido.\nReinserire: ");
+                    return null;
+                }else if( file.exists() && Research.isStringInCol(file, IndexOf.email, campo)){ //check if email is unique in the file
+                    System.out.print("Indirizzo già utilizzato.\nReinserire: "); 
+                    return null;
+                } else {
+                    return campo;
+                }
+
+            //insert centre             
+            case 5:
+                //TODO
+                //inserimeto centro
+                return defaultValueOfCentre;
+             
+            //insert password               
+            case 6:
+                return campo=InputScanner.INPUT_SCANNER.nextLine();
             default:
                 return null;
+            }  
+        } catch (InputMismatchException e) {
+            System.err.print("Errore nell'inserimento dei dati.\nReinserire: ");
+            return null;
         }
     }
 
