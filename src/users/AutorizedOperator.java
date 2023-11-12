@@ -143,7 +143,6 @@ public class AutorizedOperator extends User {
      * Permette all'utente di registrarsi come Operatore Autorizzato
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
      */
-    //java doc
     public static void registrazione() {
         // Datas
         String nome = "", cognome = "", codFisc = "", email = "", centre = "", passwd = "";
@@ -198,7 +197,7 @@ public class AutorizedOperator extends User {
                     //check if fiscal code is correct
                     if(!ControlloCodiceFiscale(codFisc)){
                         System.out.print("Codice fiscale non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
+                    }else if( file.exists() && Research.isStringInCol(file, IndexOf.codice_fiscale, codFisc)){ //check if fiscal code is unique in the file
                         System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
                     } else {
                         // Exit the loop
@@ -214,7 +213,7 @@ public class AutorizedOperator extends User {
                     //check if email is correct
                     if(!ControlloEmail(email)){
                         System.out.print("Indirizzo non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 4, email)){
+                    }else if( file.exists() && Research.isStringInCol(file, IndexOf.email, email)){
                         System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
                     } else {
                         // Exit loop
@@ -304,9 +303,9 @@ public class AutorizedOperator extends User {
         }
         
         //if userid exist
-        if(Research.isStringInCol(file, 0, userid)){
+        if(Research.isStringInCol(file, IndexOf.matricola, userid)){
             //return the column where UserId is
-            int riga=Research.OneStringInCol(file, 0, userid);
+            int riga=Research.OneStringInCol(file, IndexOf.matricola, userid);
             // Initialize record
             String[] record = null;
             // Check if the research returned a valid result
@@ -315,7 +314,7 @@ public class AutorizedOperator extends User {
             }
             if(record!=null){
                 //if password match, set the object's attributes
-                if(record[5].equals(password)){
+                if(record[IndexOf.password].equals(password)){
                     return new AutorizedOperator(Short.valueOf(userid), record[IndexOf.nome], record[IndexOf.cognome], record[IndexOf.codice_fiscale], record[IndexOf.email], password, record[IndexOf.centro]);
                 }else{
                     return null;
