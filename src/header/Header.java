@@ -29,7 +29,7 @@ import src.common.InputScanner;
 /**
  * Classe contenete informazioni su versione e licenza del software.
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.10.2
  */
 public class Header {
     // Program Name
