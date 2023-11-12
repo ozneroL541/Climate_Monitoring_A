@@ -25,6 +25,7 @@
 package src.menu;
 
 import src.common.InputScanner;
+import src.header.Header;
 
 /**
  * Classe che contiene il menù principale del programma.
@@ -51,6 +52,7 @@ public class MainMenu {
             "Ricerca aree",
             "Login",
             "Registrazione",
+            "Info",
             exit
         };
         // Separator string
@@ -153,6 +155,10 @@ public class MainMenu {
                 // TODO
                 return true;
             case 4:
+                // Info
+                Header.ChooseOption();
+                return true;
+            case 5:
                 // Esci
                 return false;
             default:
