@@ -105,7 +105,7 @@ public class MonitoringCentre {
 
         return exists;
     }
-    // TODO Remove test main
+        // TODO Remove test main
     public static void main(String[] args) {
         String nome = "Centro Prova";
         String [] indirizzo = { "Via Regina Teodolinda" ,"37", "Como", "CO", "Italia" };
