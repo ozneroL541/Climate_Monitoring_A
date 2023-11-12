@@ -45,6 +45,10 @@ public class MonitoringCentre {
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
 
+    /*
+     * A cosa serve un costruttore che non inizializza i campi?
+     * A cosa servono i campi se tanto il costruttore non li inizializza?
+     */
     public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
         if(CenterExistence(nome))
             registraCentroAree(nome, indirizzo, areeInteresse, userid);
@@ -123,7 +127,7 @@ public class MonitoringCentre {
          */
         MonitoringCentre m = new MonitoringCentre(nome, indirizzo, areeInteresse, userid);
         /*
-         * Errore: se il centro esiste lo stampa 2 volte, non deve accadere
+         * A cosa serve registraAree pubblico se tanto lo fa già il costruttore?
          */
         m.registraCentroAree(nome, indirizzo, areeInteresse, userid);
         
