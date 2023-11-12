@@ -105,4 +105,14 @@ public class MonitoringCentre {
 
         return exists;
     }
+    // TODO Remove test main
+    public static void main(String[] args) {
+        String nome = "Centro Prova";
+        String [] indirizzo = { "Via Regina Teodolinda" ,"37", "Como", "CO", "Italia" };
+        String [] areeInteresse = {"123456", "1234567", "123456" };
+        short userid = 00002;
+        MonitoringCentre m = new MonitoringCentre(nome, indirizzo, areeInteresse, userid);
+        m.registraCentroAree(nome, indirizzo, areeInteresse, userid);
+        
+    }
 }
