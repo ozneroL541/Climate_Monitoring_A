@@ -74,10 +74,13 @@ public class AutorizedOperator extends User {
         private final static short matricola=0;
         private final static short nome=1;
         private final static short cognome=2;
-        private final static short codice_fiscale=10;
-        private final static short email=3;
-        private final static short password=4;
-        private final static short centro=5;
+        private final static short codice_fiscale=3;
+        private final static short email=4;
+        private final static short password=5;
+        private final static short centro=6;
+        //number of indexes
+        private final static short indexes = 7;
+
     }
 
     /**
