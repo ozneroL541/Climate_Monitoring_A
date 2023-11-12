@@ -46,7 +46,7 @@ public class MainMenu {
      */
     public MainMenu(){
         // Header
-        final String header = "\tMenù principale\n";
+        final String header = "\n\tMenù principale\n";
         // Options array
         final String[] options = {
             "Ricerca aree",
