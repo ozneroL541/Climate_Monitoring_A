@@ -59,16 +59,17 @@ public class MonitoringCentre {
         if(indirizzo.length == this.indirizzo.length){
             this.indirizzo = indirizzo;
         }else{
-            //TODO exception wrong array input length
+            System.out.println("wrong array input length"); 
         }
         if(areeInteresse.length > 0){
             this.areeInteresse = areeInteresse;
         }else{
-            //TODO exception empty list
+            System.out.println("empty list"); 
         }
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
+
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
      * Se non ci sono Centri ritorna null.
