@@ -72,14 +72,14 @@ public class Header {
      */
     public static void print_license() {
         // Print License
-        System.out.println(license_h);
+        System.out.println( "\n" + license_h);
     }
     /**
      * Stampa a schermo la versione del programma.
      */
     public static void print_version() {
         // Print version
-        System.out.println(p_name + "\tVersion: " + version);
+        System.out.println( "\n    " + p_name + "\tVersion: " + version);
         System.out.println();
     }
     /**
@@ -87,8 +87,6 @@ public class Header {
      */
     public static void print_header() {
         // Print License
-        System.out.println();
-        System.out.print("    ");
         print_version();
         print_license();
         System.out.println();
@@ -201,6 +199,81 @@ public class Header {
         } catch (Exception e) {
             // In case of error return false
             return false;
+        }
+    }
+    /**
+     * Info Menu
+     */
+    public static void menu() {
+        // Info Menu
+        final String menu =
+            "\n\tInfo\r\n" + //
+            "1 - Licenza\r\n" + //
+            "2 - Garanzia\r\n" + //
+            "3 - Condizioni\r\n" + //
+            "4 - Versione\r\n" + //
+            "5 - Esci\n";
+        // Print Menu
+        System.out.println(menu);
+    }
+    /**
+     * Mostra il menù e permette di sceglierne le opzioni.
+     */
+    public static void ChooseOption() {
+        // Short integer for the menu options
+        short menu_input = 0;
+        // Input
+        String input = "";
+        // While exit is not selected
+        do {
+            // Output the menu
+            menu();
+            // Request
+            System.out.print("Inserire codice:\t");
+            // Input
+            try {
+                // Input
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                // Parse input
+                menu_input = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                // Set to 0
+                menu_input = 0;
+            } catch (Exception e) {
+                // Set to -1
+                menu_input = -1;
+            }
+        // Check if exit
+        } while ( selectedAction(menu_input) );
+    }
+    // Execute selected action
+    private static boolean selectedAction( short input ) {
+        // Select the method choosen by the user
+        switch (input) {
+            case 1:
+                // License
+                print_license();
+                return true;
+            case 2:
+                // Warranty
+                print_warranty();
+                return true;
+            case 3:
+                // Conditions
+                // TODO Conditions
+                return true;
+            case 4:
+                // Version
+                print_version();
+                return true;
+            case 5:
+                // Esci
+                return false;
+            default:
+                // Error Message
+                System.out.println("\nIl valore inserito non è corretto.");
+                System.out.println("Inserire un numero valido per continuare.\n");
+                return true;
         }
     }
 }
