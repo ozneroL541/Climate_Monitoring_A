@@ -59,12 +59,12 @@ public class MonitoringCentre {
         if(indirizzo.length == this.indirizzo.length){
             this.indirizzo = indirizzo;
         }else{
-            System.out.println("wrong array input length"); 
+            System.err.println("Errore: lunghezza array errata."); 
         }
         if(areeInteresse.length > 0){
             this.areeInteresse = areeInteresse;
         }else{
-            System.out.println("empty list"); 
+            System.err.println("Errore: Lista vuota."); 
         }
         this.userid = userid;
         memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
