@@ -179,6 +179,9 @@ public class AutorizedOperator extends User {
             // Print Error
             e.printStackTrace();            
         }
+
+        campi[0]=setUserId2();
+        CSV_Utilities.addArraytoCSV(file, campi, header);
     }
 
     //check if a field is correct
@@ -255,6 +258,24 @@ public class AutorizedOperator extends User {
             System.err.print("Errore nell'inserimento dei dati.\nReinserire: ");
             return null;
         }
+    }
+
+    //set the userid
+    private static String setUserId2(){
+
+        long id=0;
+        if(!file.exists()){
+            id=1;
+        }else{
+            try {
+                id=(Files.lines(file.toPath()).count());
+                //id++;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } 
+        }
+        return String.format("%05d", id);
     }
 
     //TODO
