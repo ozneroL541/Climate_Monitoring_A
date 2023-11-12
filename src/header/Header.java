@@ -27,7 +27,7 @@ package src.header;
 /**
  * Classe contenete informazioni su versione e licenza del software.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.10.1
  */
 public class Header {
     // Program Name
@@ -38,9 +38,9 @@ public class Header {
             "                                            Paredi Giacomo\r\n" + //
             "                                            Radice Lorenzo\r\n" + //
             "    License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl-3.0.html>\n" + //
-            "    This program comes with ABSOLUTELY NO WARRANTY.\r\n" + //
+            "    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
-            "    under certain conditions. ";
+            "    under certain conditions; type `show c' for details. ";
     // TODO write show c
     // Warranty
     private final static String warranty =
@@ -56,6 +56,15 @@ public class Header {
             "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\n";
     // Program version
     private final static String version = "0.10.0";
+    // Help
+    private final static String help = 
+            "\nUsage: ClimateMonitor.jar [options]\r\n" + //
+            "Options:\r\n" + //
+            "\t-h\t-help\t\t--help\t\t\tShow this help menu\r\n" + //
+            "\t\t-show c\t\t--show c\t\tShow the License Conditions\r\n" + //
+            "\t\t-show w\t\t--show w\t\tShow the License Warranty\r\n" + //
+            "\t-v\t-version\t--version\t\tShow the current program version\r\n" + //
+            "\nEnter no command to start the actual program.";
     /**
      * Stampa a schermo un breve messaggio con la licenza.
      */
@@ -113,38 +122,59 @@ public class Header {
         System.out.println();
     }
     /**
+     * Stampa a schermo i possibili comandi
+     */
+    private static void print_help() {
+        System.out.println(help);
+        System.out.println();
+    }
+    /**
      * Controlla se il comando inserito si riferisce ad uno di quelli per la visualizzazione della licenza
      * o della versione. Se il comando corrisponde stampa a schermo la caratteristica richiesta e ritorna
      * true, altrimenti ritorna false.
-     * @param str comando
+     * @param cmd comando
      * @return true se viene stampato qualcosa.
      */
-    public static boolean evalCommand( String str ) {
-        // If str is...
-        switch (str) {
-            // Conditions
-            case "--show c":
-            case "-show c":
-            case "show c":
-            case "c":
-                // TODO Print Conditions
-                return true;
-            // Warranty
-            case "--show w":
-            case "-show w":
-            case "show w":
-            case "w":
-                print_warranty();
-                return true;
-            // Version
-            case "--version":
-            case "-version":
-            case "-v":
-                print_version();
-                return true;
-            // Nothing
-            default:
-                return false;
+    public static boolean evalCommand( String[] cmd ) {
+        // For each command
+        for ( short i = 0; i < cmd.length; i++ ) {
+            // If str is...
+            switch (cmd[i]) {
+                // Conditions
+                case "--show":
+                case "-show":
+                case "show":
+                    // There is a letter after
+                    if (cmd[i + 1] != null) {
+                        // Conditions argument
+                        if (cmd[i + 1].toLowerCase().equals("c")) {
+                            // Conditions
+                            // TODO Print Conditions
+                            return true;
+                        // Warranty argument
+                        } else if (cmd[i + 1].toLowerCase().equals("w")) {
+                            // Warranty
+                            print_warranty();
+                            return true;
+                        }
+                    } else
+                        break;
+                // Version
+                case "--version":
+                case "-version":
+                case "-v":
+                    print_version();
+                    return true;
+                case "--help":
+                case "-help":
+                case "-h":
+                    print_help();
+                    return true;
+                // Nothing
+                default:
+                    break;
+            }
         }
+        return false;
     }
 }
