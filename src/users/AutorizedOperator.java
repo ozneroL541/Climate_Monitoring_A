@@ -144,7 +144,11 @@ public class AutorizedOperator extends User {
         return defaultValueOfCentre;
     }
 
-    public static void registrazione2(){
+    /**
+     * Permette all'utente di registrarsi come Operatore Autorizzato
+     * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
+     */
+    public static void registrazione(){
         String [] nomi_campi=header.split(",");
         //swtich password with centre
         //centre comes after password in the file
@@ -189,8 +193,9 @@ public class AutorizedOperator extends User {
             e.printStackTrace();            
         }
 
-        campi[0]=setUserId2();
+        campi[0]=setUserId();
         CSV_Utilities.addArraytoCSV(file, campi, header);
+        System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");
     }
 
     //check if a field is correct
@@ -270,7 +275,7 @@ public class AutorizedOperator extends User {
     }
 
     //set the userid
-    private static String setUserId2(){
+    private static String setUserId(){
 
         long id=0;
         if(!file.exists()){
@@ -300,10 +305,7 @@ public class AutorizedOperator extends User {
     //alla fine del for uso il metodo di common, passo array e header del file
     //FARE HEADER COSTANTE (?)
 
-    /**
-     * Permette all'utente di registrarsi come Operatore Autorizzato
-     * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
-     */
+    /*
     public static void registrazione() {
         // Datas
         String nome = "", cognome = "", codFisc = "", email = "", centre = "", passwd = "";
@@ -413,6 +415,7 @@ public class AutorizedOperator extends User {
         
         System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + String.format("%05d", userid) + " e la password scelta");
     }
+    */
 
     //return an AutorizedOperator object if userid and password are guessed under 3 attemps
     private static AutorizedOperator autenticazione(){
@@ -490,6 +493,7 @@ public class AutorizedOperator extends User {
         return null;
     }
 
+    /*
     //set the userid
     private static short setUserId(){
         long id=0;
@@ -513,7 +517,7 @@ public class AutorizedOperator extends User {
         }
         return (short)id;
     }
-    
+    */
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
         // Check if ASCII
