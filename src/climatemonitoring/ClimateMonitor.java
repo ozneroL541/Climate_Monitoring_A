@@ -42,9 +42,8 @@ public class ClimateMonitor {
         if ( ! Header.evalCommand(args) ) {
             // Print Header
             Header.print_header();
-            Header.doWhat();
-            // TODO Press enter to continue (or show w, show c to show the command)
-            /* Put this todo method in header- */
+            // While not ENTER
+            while ( Header.doWhat() ) {}
             // Go to Menu
             MainMenu.ChooseOption();
         }

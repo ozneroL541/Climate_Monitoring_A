@@ -167,6 +167,7 @@ public class Header {
                 case "-v":
                     print_version();
                     return true;
+                // Help
                 case "--help":
                 case "-help":
                 case "-h":
@@ -184,15 +185,21 @@ public class Header {
      * @return true se stampa qualcosa si richiesto
      */
     public static boolean doWhat() {
+        // Input
         String input = "";
+        // Splitted input
         String[] in = null;
+        // Output Message
         System.out.println("\nPremere INVIO per continuare...");
         try {
+            // Read input
             input = InputScanner.INPUT_SCANNER.nextLine();
+            // Split input
             in = input.split(" ");
-            System.err.println(in[0] + in[1]);
+            // Evaluate command
             return evalCommand(in);
         } catch (Exception e) {
+            // In case of error return false
             return false;
         }
     }
