@@ -179,6 +179,10 @@ public class Header {
         }
         return false;
     }
+    /**
+     * Valuta se l'utente richiede informazioni riguardo al software e le fornisce.
+     * @return true se stampa qualcosa si richiesto
+     */
     public static boolean doWhat() {
         String input = "";
         String[] in = null;
