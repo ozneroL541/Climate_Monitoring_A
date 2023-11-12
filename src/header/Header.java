@@ -25,7 +25,6 @@
 package src.header;
 
 import src.common.InputScanner;
-import src.menu.MainMenu;
 
 /**
  * Classe contenete informazioni su versione e licenza del software.
