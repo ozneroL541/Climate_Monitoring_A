@@ -992,7 +992,7 @@ public class GeographicArea {
      * Controlla l'esistenza dell'area.
      * @return true se l'area esiste
      */
-    public boolean Esist() {
+    public boolean Exist() {
         // If the id is positive, then exist
         return this.geoname_id > 0;
     }
