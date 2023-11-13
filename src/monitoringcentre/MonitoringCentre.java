@@ -188,6 +188,7 @@ public class MonitoringCentre {
             do {
                 // Request
                 System.out.print("Inserire codice provincia:\t");
+                // TODO: usare il codice provincia per ottenere regione (se necessario) e nazione (anche se è per forza Italia).
                 // Input
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Country Code must be made of 2 characters
