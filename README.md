@@ -4,9 +4,9 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 ## Versione
 Versione 0.0.1
 ## Autori
-@BiskoBerty     Galimberti	Riccardo
-@Giaki03        Paredi      Giacomo
-@ozneroL541     Radice      Lorenzo
+Galimberti	Riccardo    @BiskoBerty \n
+Paredi      Giacomo     @Giaki03 \n
+Radice      Lorenzo     @ozneroL541 \n
 ## License
 This file is part of **Climate Monitoring**.
 
