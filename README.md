@@ -1,7 +1,12 @@
 # Climate Monitoring
-
+## Info
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
-
+## Versione
+Versione 0.0.1
+## Autori
+@BiskoBerty     Galimberti	Riccardo
+@Giaki03        Paredi      Giacomo
+@ozneroL541     Radice      Lorenzo
 ## License
 This file is part of **Climate Monitoring**.
 
