@@ -6,6 +6,12 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 ## Versione
 Versione 0.10.0
 
+## Download
+Download da GitHub
+
+     git clone https://github.com/ozneroL541/Climate_Monitoring.git
+
+
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
 - Paredi Giacomo        @Giaki03
