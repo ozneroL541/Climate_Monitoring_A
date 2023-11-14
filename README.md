@@ -12,7 +12,7 @@ Download da GitHub
      git clone https://github.com/ozneroL541/Climate_Monitoring.git
 ## Compilazione
 ### GNU/Linux
-Tramite linea di comando shell che supporta scripting <code>sh</code> (sh, bash, zsh, csh, ...).
+Tramite linea di comando shell che supporta scripting <code>sh</code> (sh, bash, zsh, csh,...).
 
      cd Climate_Monitoring && src/auto_compiler/auto-compiler.sh
 ### MacOS
