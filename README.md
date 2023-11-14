@@ -7,9 +7,9 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 Versione 0.10.0
 
 ## Autori
-- Galimberti Riccardo    @BiskoBerty
-- Paredi Giacomo    @Giaki03
-- Radice Lorenzo    @ozneroL541
+- Galimberti Riccardo   @BiskoBerty
+- Paredi Giacomo        @Giaki03
+- Radice Lorenzo        @ozneroL541
 
 ## License
 This file is part of **Climate Monitoring**.
