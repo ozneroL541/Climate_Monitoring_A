@@ -10,12 +10,16 @@ Versione 0.10.0
 Download da GitHub
 
      git clone https://github.com/ozneroL541/Climate_Monitoring.git
+## Compilazione
+### GNU/Linux
+Tramite shell sh
 
+     cd Climate_Monitoring && src/auto_compiler/auto-compiler.sh
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
-- Paredi Giacomo        @Giaki03
-- Radice Lorenzo        @ozneroL541
+- Paredi Giacomo    @Giaki03
+- Radice Lorenzo    @ozneroL541
 
 ## License
 This file is part of **Climate Monitoring**.
