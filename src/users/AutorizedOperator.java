@@ -289,6 +289,8 @@ public class AutorizedOperator extends User {
         return String.format("%05d", id);
     }
 
+    //TODO
+    //cambiare a public (?)
     //return an AutorizedOperator object if userid and password are guessed under 3 attemps
     private static AutorizedOperator autenticazione(){
         // Attempt limit
