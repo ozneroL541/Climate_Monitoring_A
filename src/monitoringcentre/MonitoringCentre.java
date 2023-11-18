@@ -134,6 +134,9 @@ public class MonitoringCentre {
 
     */
 
+
+
+    //TODO rimuovere
     /*
      * Perché devo inserire i campi che dovrebbero essere assegnati nel costruttore?
      */
