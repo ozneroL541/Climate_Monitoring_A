@@ -143,7 +143,7 @@ public class MonitoringCentre {
      * @return nomi dei centri
      */
     public String[] getCentri(){
-        return Research.getColArray(f,0);
+        return Research.getColArray(f,IndexOf.name);
     }
 
     private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
