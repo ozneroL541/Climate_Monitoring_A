@@ -442,7 +442,36 @@ public class AutorizedOperator extends User {
 
     //TODO
     //crea un centro, poi aggiunge un'area al centro, solo se è utente ha un centro associato
-    public void registraCentroAree(){}
+    public void registraCentroAree(){
+
+        //TODO aggiungere commenti
+
+        System.out.println("CREAZIONE CENTRI\nPer favore, inserire le informazioni richieste");
+
+        //deve essere univico, è l'id
+        System.out.println("Inserire il nome del centro: ");
+        String nome=InputScanner.INPUT_SCANNER.nextLine();
+       
+        String [] indirizzo=new String [5];
+        System.out.println("Inserire il nome della via o della piazza: ");
+        indirizzo[0]=InputScanner.INPUT_SCANNER.nextLine();
+        System.out.println("Inserire il numero civico: ");
+        indirizzo[1]=Integer.toString(InputScanner.INPUT_SCANNER.nextInt());
+
+        //controllare che sia lungo 5 e che abbia solo numeri
+        System.out.println("Inserire il cap: ");
+        indirizzo[2]=InputScanner.INPUT_SCANNER.nextLine();
+
+        System.out.println("Inserire il nome del comune: ");
+        indirizzo[3]=InputScanner.INPUT_SCANNER.nextLine();
+        System.out.println("Inserire il nome della provincia: ");
+        indirizzo[4]=InputScanner.INPUT_SCANNER.nextLine();
+
+        //associare usedId dell'utente che crea il centro
+        short userId=this.userid;
+
+        //aggiungere le aree
+    }
 
     //TODO
     //cambiare anche tipo di ritorno
