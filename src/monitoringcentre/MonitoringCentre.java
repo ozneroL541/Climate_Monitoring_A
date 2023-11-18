@@ -193,6 +193,7 @@ public class MonitoringCentre {
 
         return exists;
     }
+    //TODO rimuovere il TODO sotto se va bene
     // TODO Modificare per aggiungere il centro metodo prototipale: totalmente incompleto e non testato
     /**
      * Permette di creare un Centro di Monitoraggio inserendone i dati e la ritorna.
