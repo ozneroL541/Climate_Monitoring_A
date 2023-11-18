@@ -171,7 +171,7 @@ public class MonitoringCentre {
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
      */
-    public static MonitoringCentre createArea() {
+    public static MonitoringCentre createCentre() {
         // Provinces
         final File f_province = FileSystems.getDefault().getPath("data", "Provincia.csv").toFile();
         // Error string
