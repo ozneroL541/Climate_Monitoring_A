@@ -78,6 +78,8 @@ public class MonitoringCentre {
     }
 
 
+    //TODO
+    //javadoc
     public MonitoringCentre(String nome, String [] indirizzo, ArrayList<String> areeInteresse, short userid){
         this.nome=nome;
         this.indirizzo=indirizzo;
