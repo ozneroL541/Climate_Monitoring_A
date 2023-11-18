@@ -153,6 +153,7 @@ public class MonitoringCentre {
             System.err.println("Errore: lunghezza array errata."); 
         }
         if(areeInteresse.length > 0){
+            // TODO Fix error
             this.areeInteresse = areeInteresse;
         }else{
             System.err.println("Errore: Lista vuota."); 
