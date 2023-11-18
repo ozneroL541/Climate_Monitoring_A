@@ -70,6 +70,42 @@ public class MonitoringCentre {
     //costruttore vuoto
     public MonitoringCentre(){
     }
+
+
+    //return il nome del centro
+    public static String registraCentroAree(short userId){
+
+        //TODO aggiungere commenti
+
+        System.out.println("CREAZIONE CENTRI\nPer favore, inserire le informazioni richieste");
+
+        //deve essere univico, è l'id
+        System.out.println("Inserire il nome del centro: ");
+        String nome=InputScanner.INPUT_SCANNER.nextLine();
+       
+        String [] indirizzo=new String [5];
+        System.out.println("Inserire il nome della via o della piazza: ");
+        indirizzo[0]=InputScanner.INPUT_SCANNER.nextLine();
+        System.out.println("Inserire il numero civico: ");
+        indirizzo[1]=Integer.toString(InputScanner.INPUT_SCANNER.nextInt());
+
+        //controllare che sia lungo 5 e che abbia solo numeri
+        System.out.println("Inserire il cap: ");
+        indirizzo[2]=InputScanner.INPUT_SCANNER.nextLine();
+
+        System.out.println("Inserire il nome del comune: ");
+        indirizzo[3]=InputScanner.INPUT_SCANNER.nextLine();
+        System.out.println("Inserire il nome della provincia: ");
+        indirizzo[4]=InputScanner.INPUT_SCANNER.nextLine();
+
+        //associare usedId dell'utente che crea il centro
+        short id=userId;
+
+        //aggiungere le aree
+
+        return nome;
+    }
+
     /*
      * Perché devo inserire i campi che dovrebbero essere assegnati nel costruttore?
      */
