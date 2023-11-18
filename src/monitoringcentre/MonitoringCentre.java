@@ -71,6 +71,7 @@ public class MonitoringCentre {
     public MonitoringCentre(){
     }
 
+    /*
 
     //return il nome del centro
     public static String registraCentroAree(short userId){
@@ -105,6 +106,8 @@ public class MonitoringCentre {
 
         return nome;
     }
+
+    */
 
     /*
      * Perché devo inserire i campi che dovrebbero essere assegnati nel costruttore?
@@ -171,7 +174,7 @@ public class MonitoringCentre {
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
      */
-    public static MonitoringCentre createArea() {
+    private static MonitoringCentre creaCentro() {
         // Provinces
         final File f_province = FileSystems.getDefault().getPath("data", "Provincia.csv").toFile();
         // Error string
