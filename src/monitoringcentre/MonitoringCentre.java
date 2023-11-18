@@ -52,6 +52,15 @@ public class MonitoringCentre {
         private final static short address = 1;
         private final static short areas = 2;
         private final static short userid = 3;
+        private final static class Iadd {
+            private final static short via = 0;
+            private final static short civico = 1;
+            private final static short CAP = 2;
+            private final static short comune = 3;
+            private final static short prov = 4;
+            // Lenght of address array
+            private final static short lenght = 5;
+        }
         // Number of indexes
         private final static short indexes = 4;
         // Max index value
@@ -85,18 +94,18 @@ public class MonitoringCentre {
        
         String [] indirizzo=new String [5];
         System.out.println("Inserire il nome della via o della piazza: ");
-        indirizzo[0]=InputScanner.INPUT_SCANNER.nextLine();
+        indirizzo[IndexOf.Iadd.via]=InputScanner.INPUT_SCANNER.nextLine();
         System.out.println("Inserire il numero civico: ");
-        indirizzo[1]=Integer.toString(InputScanner.INPUT_SCANNER.nextInt());
+        indirizzo[IndexOf.Iadd.civico]=Integer.toString(InputScanner.INPUT_SCANNER.nextInt());
 
         //controllare che sia lungo 5 e che abbia solo numeri
         System.out.println("Inserire il cap: ");
-        indirizzo[2]=InputScanner.INPUT_SCANNER.nextLine();
+        indirizzo[IndexOf.Iadd.CAP]=InputScanner.INPUT_SCANNER.nextLine();
 
         System.out.println("Inserire il nome del comune: ");
-        indirizzo[3]=InputScanner.INPUT_SCANNER.nextLine();
+        indirizzo[IndexOf.Iadd.comune]=InputScanner.INPUT_SCANNER.nextLine();
         System.out.println("Inserire il nome della provincia: ");
-        indirizzo[4]=InputScanner.INPUT_SCANNER.nextLine();
+        indirizzo[IndexOf.Iadd.prov]=InputScanner.INPUT_SCANNER.nextLine();
 
         //associare usedId dell'utente che crea il centro
         short id=userId;
