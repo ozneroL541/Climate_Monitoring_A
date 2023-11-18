@@ -89,6 +89,13 @@ public class MonitoringCentre {
     public MonitoringCentre(){
     }
 
+    //TODO rimuovere il commento
+    //serve ad autorized operator per ottenere il nome del centro
+    //TODO javadoc
+    public String getNome(){
+        return nome;
+    }
+
     /*
 
     //return il nome del centro
@@ -289,11 +296,12 @@ public class MonitoringCentre {
             // Output Exception
             e.printStackTrace();
         }
-        // Build Monitoring Centre
         // TODO
         // Return Geographic Area
         ArrayList<String> aree=new ArrayList<String>();
         aree=null;
+
+        //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree, userid);        
     }
     //TODO Field checker
