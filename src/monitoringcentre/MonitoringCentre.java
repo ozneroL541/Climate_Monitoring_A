@@ -170,7 +170,7 @@ public class MonitoringCentre {
         return Research.getColArray(f,IndexOf.name);
     }
 
-    private void memorizzaCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
+    private static void memorizzaCentroAree(String nome, String [] indirizzo, ArrayList<String> areeInteresse, short userid){
         ArrayList<String> str = new ArrayList<String>();
         String aree = "";
         str.add(nome);
@@ -180,10 +180,10 @@ public class MonitoringCentre {
         }
         str.add(String.valueOf(userid));
         
-        for ( i = 0; i < areeInteresse.length - 1; i++) {
-            aree += areeInteresse[i] + "-" ;
+        for ( i = 0; i < areeInteresse.size() - 1; i++) {
+            aree += areeInteresse.get(i) + "-" ;
         }
-        aree += areeInteresse[i];
+        aree += areeInteresse.get(i);
         str.add(aree);
         String s[] = str.toArray(new String[str.size()]);
         CSV_Utilities.addArraytoCSV(f,s,header);
@@ -306,7 +306,8 @@ public class MonitoringCentre {
         // Return Geographic Area
         ArrayList<String> aree=new ArrayList<String>();
         aree=null;
-
+ 
+        memorizzaCentroAree(nome, indirizzo, aree, userid);
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree, userid);        
     }
