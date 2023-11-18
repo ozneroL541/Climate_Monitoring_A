@@ -67,6 +67,7 @@ public class MonitoringCentre {
         private final static short max_index = 3;
     }
 
+    //TODO rimuovere
     /*
      * A cosa serve un costruttore che non inizializza i campi?
      * A cosa servono i campi se tanto il costruttore non li inizializza?
