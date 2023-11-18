@@ -153,7 +153,7 @@ public class MonitoringCentre {
             System.err.println("Errore: lunghezza array errata."); 
         }
         if(areeInteresse.length > 0){
-            // TODO Fix error
+            // TODO Fix error; areeInteresse have a fixed number, why use a List?
             this.areeInteresse = areeInteresse;
         }else{
             System.err.println("Errore: Lista vuota."); 
