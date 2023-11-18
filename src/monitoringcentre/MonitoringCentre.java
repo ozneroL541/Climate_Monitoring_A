@@ -76,6 +76,14 @@ public class MonitoringCentre {
             registraCentroAree(nome, indirizzo, areeInteresse, userid);
     }
 
+
+    public MonitoringCentre(String nome, String [] indirizzo, ArrayList<String> areeInteresse, short userid){
+        this.nome=nome;
+        this.indirizzo=indirizzo;
+        this.areeInteresse=areeInteresse;
+        this.userid=userid;
+    }
+
     //costruttore vuoto
     public MonitoringCentre(){
     }
@@ -183,7 +191,7 @@ public class MonitoringCentre {
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
      */
-    public static MonitoringCentre createCentre() {
+    public static MonitoringCentre createCentre(short userid) {
         // Provinces
         final File f_province = FileSystems.getDefault().getPath("data", "Provincia.csv").toFile();
         // Error string
@@ -195,12 +203,13 @@ public class MonitoringCentre {
             // Return null
             return null;
         }
+        //TODO rimuovere
         // Monitoring Centre to be returned
         MonitoringCentre mc = null;        
-        // Array of strings of fields
-        String[] fieldStrings = new String[IndexOf.max_index + 1];
         // Input String
         String in = "";
+        String nome="";
+        String [] indirizzo=new String [5];
         // Exit condition
         boolean exit = false;
         // Try catch for Input Exception
@@ -221,18 +230,30 @@ public class MonitoringCentre {
                         return null;
                     } else {
                         // Assign input to name
-                        fieldStrings[IndexOf.name] = in;
+                        nome = in;
                     }
                 }
             } while (!exit);
+            // TODO Inserire controllo
             // Request
             System.out.print("Inserire via:\t\t");
             // Input
-            in = InputScanner.INPUT_SCANNER.nextLine();
+            indirizzo[IndexOf.Iadd.via] = InputScanner.INPUT_SCANNER.nextLine();
+           
             // TODO Inserire controllo
+            System.out.print("Inserire numero civico:\t\t");
+            // Input
+            indirizzo[IndexOf.Iadd.civico]=Integer.toString(InputScanner.INPUT_SCANNER.nextInt());
 
-            // Assign input to real_name
-            fieldStrings[IndexOf.address] = in;
+            // TODO Inserire controllo
+            //controllare che sia lungo 5 e che abbia solo numeri
+            System.out.println("Inserire il cap: ");
+            indirizzo[IndexOf.Iadd.CAP]=InputScanner.INPUT_SCANNER.nextLine();
+
+            // TODO Inserire controllo
+            System.out.println("Inserire il nome del comune: ");
+            indirizzo[IndexOf.Iadd.comune]=InputScanner.INPUT_SCANNER.nextLine();
+
             do {
                 // Request
                 System.out.print("Inserire codice provincia:\t");
@@ -257,7 +278,7 @@ public class MonitoringCentre {
                         exit = false;
                     } else {
                         // Assign Provincia
-                        // TODO
+                        indirizzo[IndexOf.Iadd.prov]=cc_array[3];
                         // Exit
                         exit = true;
                     }
@@ -270,7 +291,9 @@ public class MonitoringCentre {
         // Build Monitoring Centre
         // TODO
         // Return Geographic Area
-        return mc;        
+        ArrayList<String> aree=new ArrayList<String>();
+        aree=null;
+        return new MonitoringCentre(nome, indirizzo, aree, userid);        
     }
     //TODO Field checker
     private static boolean argumentCorrect(String in, short name) {
@@ -404,18 +427,28 @@ public class MonitoringCentre {
 
     // TODO Remove test main
     public static void main(String[] args) {
+
+        final File f_province = FileSystems.getDefault().getPath("data", "Provincia.csv").toFile();
+        String [] cc_array = Research.getRecordByData(f_province, 1, "TO");
+
+        for(int i=0;i<cc_array.length;i++){
+            System.out.println(cc_array[i]);
+        }
+
+        /*
         String nome = "Centro Prova";
         String [] indirizzo = { "Via Regina Teodolinda" ,"37", "Como", "CO", "Italia" };
         String [] areeInteresse = {"123456", "1234567", "123456" };
         short userid = 00002;
+        */
         /*
          * Perché devo inserire 2 volte le stesse cose?
          */
-        MonitoringCentre m = new MonitoringCentre(nome, indirizzo, areeInteresse, userid);
+        //MonitoringCentre m = new MonitoringCentre(nome, indirizzo, areeInteresse, userid);
         /*
          * A cosa serve registraAree pubblico se tanto lo fa già il costruttore?
          */
-        m.registraCentroAree(nome, indirizzo, areeInteresse, userid);
+        //m.registraCentroAree(nome, indirizzo, areeInteresse, userid);
         
     }
 }
