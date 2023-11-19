@@ -255,8 +255,9 @@ public class AutorizedOperator extends User {
 
             //insert centre             
             case 5:
-                //TODO
                 //inserimeto centro
+                //TODO completare il metodo
+                campo=setCentro();
                 return defaultValueOfCentre;
              
             //insert password               
@@ -443,7 +444,19 @@ public class AutorizedOperator extends User {
     public void menu(){}
 
     //TODO
-    public void associaCentro(){}
+    private static String setCentro(){
+
+        //menu con scelte
+        //1) utente vuole associarsi ad un centro già esistente (metodo associaCentro()) [pubblico? e non statico?]
+            //se si mostraCentri() -> scegliCentro() -> return String nome_del_centro
+        //2) utente vuole creare un nuovo centro (metodo creaCentro()) [pubblico? e non statico?]
+            //se si creaCentro() -> return String nome_del_centro
+        //3) utente non vuole associarsi a nessun centro (si vuole associare in un secondo momento)
+            //se si return defaultValueOfCentre
+            //a quel punto potra associarsi in un secondo momento con 1) o 2)
+
+        return defaultValueOfCentre;
+    }
 
     //TODO
     //crea un centro, poi aggiunge un'area al centro, solo se è utente ha un centro associato
