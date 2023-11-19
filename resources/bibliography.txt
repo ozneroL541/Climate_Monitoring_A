@@ -14,3 +14,5 @@ Punto più distante dalla terraferma 2700km
 https://www.passioneastronomia.it/punto-nemo-larea-piu-remota-della-terra/#:~:text=Il%20polo%20nord%20dell%27inaccessibilit%C3%A0,(1094%20per%20la%20precisione).
 INAIL Province
 https://dati.inail.it/opendata/elements/Provincia
+Poste Italiane - Indirizzi
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiWp9zu1tCCAxWvUqQEHTEMDhIQFnoECCAQAQ&url=https%3A%2F%2Fwww.poste.it%2Fstandard_composizione_indirizzi.pdf&usg=AOvVaw1bRMYlIBzrYuypLKyeYtHs&opi=89978449
