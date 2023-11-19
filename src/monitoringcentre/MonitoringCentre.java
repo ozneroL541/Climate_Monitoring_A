@@ -249,6 +249,15 @@ public class MonitoringCentre {
                     }
                 }
             } while (!exit);
+
+
+
+            //TODO AGGIUNGERE CONTROLLO SU TUTTO L'INDIRIZZO
+            //es di indirizzo
+            //VIALE ROMAGNA 12/A
+            //20133 MILANO MI
+            //tutto maiuscolo, niente punteggiatura
+
             // TODO Inserire controllo
             // Request
             System.out.print("Inserire via:\t\t");
