@@ -441,7 +441,13 @@ public class AutorizedOperator extends User {
     }
     
     //TODO 
-    public void menu(){}
+    public void menu(){
+
+        //menu con scelte
+        //1) aggiungi parametri ad una area del centro (solo se utente ha un centro)
+        //2) associa ad un centro esistente (solo se utente non ha un centro)
+        //3) crea un centro e si associa ad esso (solo se utente non ha un centro)
+    }
 
     //TODO
     private static String setCentro(){
