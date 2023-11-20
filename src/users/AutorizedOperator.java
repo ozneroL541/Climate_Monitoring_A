@@ -475,11 +475,30 @@ public class AutorizedOperator extends User {
     //cambiare anche tipo di ritorno
     public void inserisciParametriClimatici(){}
 
+    /**
+     * Ritorna il nome dell'operatore autorizzato
+     * @return nome
+     */
+    public String getNome() {
+        return nome;
+    }
+    /**
+     * Ritorna il cognome dell'operatore autorizzato
+     * @return cognome
+     */
+    public String getCognome() {
+        return cognome;
+    }
     //rimuovere
     public static void main(String[] args) {
         
         AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
+        // Sarebbe carino da implementare
+        if ( u != null )
+            System.out.println("Autenticazione effettuata come: " + u.getCognome() + " " + u.getNome());
+
+        
         System.out.println(u);
         //AutorizedOperator.cercaAreaGeografica();
         
