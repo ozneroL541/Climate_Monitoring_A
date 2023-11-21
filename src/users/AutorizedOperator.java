@@ -291,9 +291,9 @@ public class AutorizedOperator extends User {
     }
 
     //TODO
-    //cambiare a public (?)
+    //fare javadoc
     //return an AutorizedOperator object if userid and password are guessed under 3 attemps
-    private static AutorizedOperator autenticazione(){
+    public static AutorizedOperator autenticazione(){
         // Attempt limit
         final int limit = 3;
         //counter
@@ -447,6 +447,7 @@ public class AutorizedOperator extends User {
         //1) aggiungi parametri ad una area del centro (solo se utente ha un centro)
         //2) associa ad un centro esistente (solo se utente non ha un centro)
         //3) crea un centro e si associa ad esso (solo se utente non ha un centro)
+        //4) logout -> torna al menu iniziale
     }
 
     //TODO
