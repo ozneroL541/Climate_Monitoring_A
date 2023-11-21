@@ -562,6 +562,10 @@ public class AutorizedOperator extends User {
 
 
 
+        //TODO 
+        //implementare alla fine di autenticazione()
+        //oppure
+        //implementare all'inizio di menu(), prima della stampa del menu effettivo
         // Sarebbe carino da implementare
         if ( u != null )
             System.out.println("Autenticazione effettuata come: " + u.getCognome() + " " + u.getNome());
