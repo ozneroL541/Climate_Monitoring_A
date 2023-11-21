@@ -89,7 +89,7 @@ public class AutorizedOperator extends User {
 
     /**
      * Costruttore di <code>AutorizedOperator</code>
-     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametriS
+     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametri
      * @param id id univoco dell'operatore
      * @param nome nome dell'operatore
      * @param cognome cognome dell'operatore
