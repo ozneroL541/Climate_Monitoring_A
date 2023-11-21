@@ -110,7 +110,7 @@ public class MainMenu {
      * Mostra il menù e permette di sceglierne le opzioni.
      */
     public static void ChooseOption() {
-        // Menu Object cration
+        // Menu Object creation
         MainMenu menu = new MainMenu();
         // Short integer for the menu options
         short mainmenu_input = 0;
