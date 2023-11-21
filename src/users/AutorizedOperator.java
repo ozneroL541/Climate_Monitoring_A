@@ -32,6 +32,8 @@ import java.nio.file.Files;
 import java.util.InputMismatchException;
 import java.util.regex.Pattern;
 
+import javax.print.DocFlavor.INPUT_STREAM;
+
 import src.common.*;
 
 import src.monitoringcentre.MonitoringCentre;
@@ -440,14 +442,77 @@ public class AutorizedOperator extends User {
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
     
-    //TODO 
+    //TODO terminare metodo
     public void menu(){
 
-        //menu con scelte
-        //1) aggiungi parametri ad una area del centro (solo se utente ha un centro)
-        //2) associa ad un centro esistente (solo se utente non ha un centro)
-        //3) crea un centro e si associa ad esso (solo se utente non ha un centro)
-        //4) logout -> torna al menu iniziale
+        final String menu="\n\nMenù Operatore Autorizzato\n"+
+                            "1) Aggiunta parametri climatici\n"+
+                            "2) Selezione centro di appartenenza\n"+
+                            "3) Creazione nuovo centro di monitoraggio\n"+
+                            "4) Logout\n";    
+        
+        boolean exit=true;
+        int scelta;
+
+        do{
+            scelta=0;
+            System.out.print(menu);
+
+            System.out.print("\nInserire codice: ");
+
+            try{
+                scelta=InputScanner.INPUT_SCANNER.nextInt();
+            }catch(InputMismatchException e){
+                //consume invalid token
+                InputScanner.INPUT_SCANNER.next();
+                System.out.println("ERRORE");
+                System.out.println("Codice inserito errato!");
+                scelta=0;
+            }
+
+            switch (scelta) {
+                
+                case 1:
+                    //TODO aggiungere metodo
+                    //1) aggiungi parametri ad una area del centro (solo se utente ha un centro)
+                    //rimuovere il primo println
+                    System.out.println("AGGIUNTA PARAMETRI");
+                    System.out.println("\n\nOperazione terminata");
+                    System.out.println("Ritorno al menù");
+                    exit=true;
+                    break;
+                
+                case 2:
+                    //TODO aggiungere metodo
+                    //2) associa ad un centro esistente (solo se utente non ha un centro)
+                    //rimuovere il primo println
+                    System.out.println("SELEZIONE CENTRO");
+                    System.out.println("\n\nOperazione terminata");
+                    System.out.println("Ritorno al menù");
+                    exit=true;
+                    break;
+                
+                case 3:
+                    //TODO aggiungere metodo
+                    //3) crea un centro e si associa ad esso (solo se utente non ha un centro)
+                    //rimuovere il primo println
+                    System.out.println("CREAZIONE CENTRO");
+                    System.out.println("\n\nOperazione terminata");
+                    System.out.println("Ritorno al menù");
+                    exit=true;
+                    break;
+
+                //logout
+                case 4:
+                    exit=false;
+                    break;
+            
+                default:
+                    System.out.println("Codice inserito errato!");
+                    exit=true;
+                    break;
+            }
+        }while(exit);
     }
 
     //TODO
@@ -493,8 +558,12 @@ public class AutorizedOperator extends User {
     //rimuovere
     public static void main(String[] args) {
         
-        AutorizedOperator.registrazione();
+        //AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
+        u.menu();
+
+
+
         // Sarebbe carino da implementare
         if ( u != null )
             System.out.println("Autenticazione effettuata come: " + u.getCognome() + " " + u.getNome());
