@@ -73,7 +73,7 @@ public class MainMenu {
     }
     // This method returns the menu string
     /**
-     * Restituisce la stringa che rapresenta il menù
+     * Restituisce la stringa che rappresenta il menù
      * @return menù
      */
     public String getMenu() {
