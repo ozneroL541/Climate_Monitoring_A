@@ -335,22 +335,26 @@ public class MonitoringCentre {
             case IndexOf.name:
                 // Check if the name is valid
                 return CommonMethods.isValidName(str);
-            // Check Address
-            case IndexOf.address:
-                // TODO
-                return true;
             // Check Area
             case IndexOf.areas:
-                return true;
+                // TODO
+                return CommonMethods.isOnlyInt(str);
             // Check User ID
             case IndexOf.userid:
-                return true;
+                // TODO
+                return CommonMethods.isOnlyInt(str);
             default:
                 // Error
                 System.err.println("ERRORE: codice lista inesistente");
                 return false;
         }
     }
+    /**
+     * Questo metodo controlla che esista un indirizzo con i campi inseriti.
+     * Non viene controllata l'esistenza della via e del civico, ma solo la sua correttezza sintattica.
+     * @param address indirizzo
+     * @return true se l'indirizzo esiste
+     */
     private static boolean isAddressCorrect( String[] address ) {
         // If str in null exit
         if (address == null || address.length != IndexOf.Iadd.length) {
