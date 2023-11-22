@@ -479,6 +479,16 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
+        String [] fake_address = { "Via Regina Teodolinda" ,"37", "22100", "Como", "CO" };
+
+        if (isAddressCorrect(fake_address)) {
+            System.out.println("L'indirizzo è corretto.");
+        } else {
+            System.out.println("L'indirizzo NON è corretto.");
+        }
+
+
+
         /*
         String nome = "Centro Prova";
         String [] indirizzo = { "Via Regina Teodolinda" ,"37", "Como", "CO", "Italia" };
