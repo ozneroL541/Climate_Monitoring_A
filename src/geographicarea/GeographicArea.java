@@ -748,7 +748,7 @@ public class GeographicArea {
                 }
             // Check Country Code
             case IndexOf.country_code:
-                // Check cc lenght
+                // Check cc length
                 if ( str.length() != 2 ) {
                     // Error Ouptut
                     System.out.println("Lunghezza Country Code errata.");

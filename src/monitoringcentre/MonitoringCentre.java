@@ -41,7 +41,7 @@ import src.common.Research;
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
     private String nome;
-    private String [] indirizzo = new String[IndexOf.Iadd.lenght];
+    private String [] indirizzo = new String[IndexOf.Iadd.length];
     private ArrayList<String> areeInteresse=new ArrayList<String>();
     private short userid;
     private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID, aree";
@@ -59,8 +59,8 @@ public class MonitoringCentre {
             private final static short CAP = 2;
             private final static short comune = 3;
             private final static short prov = 4;
-            // Lenght of address array
-            private final static short lenght = 5;
+            // Length of address array
+            private final static short length = 5;
         }
         // Number of indexes
         private final static short indexes = 4;
@@ -322,7 +322,7 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree, userid);        
     }
-    /**
+    /*
      * Controlla che la stringa inserita sia valida.
      * @param str stringa
      * @param index tipo di controllo
@@ -354,6 +354,13 @@ public class MonitoringCentre {
                 // Error
                 System.err.println("ERRORE: codice lista inesistente");
                 return false;
+        }
+    }
+    private static boolean isAddressCorrect( String[] address ) {
+        // If str in null exit
+        if (address == null || address.length != IndexOf.Iadd.length) {
+            // Return false
+            return false;
         }
     }
 

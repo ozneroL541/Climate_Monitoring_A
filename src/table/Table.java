@@ -81,9 +81,9 @@ public class Table {
      * @param s array dei parametri
      */
     public Table( short[] s ) {
-        // If the lenght of the array is not equals to the number of the categories lunch an exception
+        // If the length of the array is not equals to the number of the categories lunch an exception
         if ( s == null || s.length != n_categories ) {
-            // Error output because the lenght is not valid
+            // Error output because the length is not valid
             System.err.println("Errore: lunghezza array valori parametri tabella errata.");
         } else {
             // For every category assign the correct score
@@ -109,12 +109,12 @@ public class Table {
      * @param note array delle note
      */
     public Table( short[] s, String[] note ) {
-        // If the lenght of the arraies is not equals to the number of the categories lunch exceptions
+        // If the length of the arraies is not equals to the number of the categories lunch exceptions
         if ( s == null || s.length != n_categories ) {
-            // Exception because the lenght is not valid
+            // Exception because the length is not valid
             System.err.println("Errore: lunghezza array valori parametri tabella errata.");
         } else if ( note == null || note.length != n_categories ) {
-            // Exception because the lenght is not valid
+            // Exception because the length is not valid
             System.err.println("Errore: numero valori note tabella errati.");
         } else {
             // For every category
@@ -144,7 +144,7 @@ public class Table {
      */
     private Table( Data_SN[] d ) {
         if ( d == null || d.length != n_categories ) {
-            // Exception because the lenght is not valid
+            // Exception because the length is not valid
             System.err.println("Errore: lunghezza array valori dati tabella errata.");
         } else {
             // For every category
