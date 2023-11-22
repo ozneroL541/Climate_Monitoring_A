@@ -442,7 +442,7 @@ public class AutorizedOperator extends User {
     
     //TODO terminare metodo
     public void menu(){
-
+        // TODO l'operatore autorizzato deve poter fare anche le operazione dell'operatore normale mentre è loggato
         final String menu="\n\nMenù Operatore Autorizzato\n"+
                             "1) Aggiunta parametri climatici\n"+
                             "2) Selezione centro di appartenenza\n"+
