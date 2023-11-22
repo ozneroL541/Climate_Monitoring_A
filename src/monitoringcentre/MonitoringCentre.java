@@ -362,6 +362,36 @@ public class MonitoringCentre {
             // Return false
             return false;
         }
+        // Return
+        boolean b = true;
+        // For each element of the address
+        for (short i = 0; i < IndexOf.Iadd.length; i++) {
+            
+        }
+    }
+    private static boolean isAddElCorrect( String elem, short index ) {
+        // Check correctness
+        switch (index) {
+            // Street
+            case IndexOf.Iadd.via:
+                return CommonMethods.isASCIIValidAddress(elem);
+            // Number
+            case IndexOf.Iadd.civico:
+                return CommonMethods.isASCIIValidAddress(elem);
+            // CAP
+            case IndexOf.Iadd.CAP:
+                return CommonMethods.isOnlyInt(elem);
+            // City
+            case IndexOf.Iadd.comune:
+                return CommonMethods.isValidName(elem);
+            // Province
+            case IndexOf.Iadd.prov:
+                return CommonMethods.isTwoLetters(elem);
+            default:
+                // Error
+                System.err.println("ERRORE: indice elemento array indirizzo inesistente");
+                return false;
+        }
     }
 
     // TODO Remove test main

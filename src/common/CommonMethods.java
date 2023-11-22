@@ -72,4 +72,82 @@ public class CommonMethods {
         // Return if it is an ASCII Letter
         return ( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) );
     }
+    /**
+     * Controlla che il valore inserito sia una stringa di caratteri ASCII accettabili per un indirizzo.
+     * @param add indirizzo da controllare
+     * @return true se l'indirizzo è valido
+     */
+    public static boolean isASCIIValidAddress( String add ) {
+        // For every character in string
+        for ( Character c : add.toCharArray() ) {
+            // Check the validity of the character
+            if ( !isASCIILetter(c) && !Character.isDigit(c) && c != ' ' && c != '\'' && c != ',' && c != '/' ) {
+                // Character not valid: Return false
+                return false;
+            }
+        }
+        // Character valid: return true
+        return true;
+    }
+    /**
+     * Controlla che il valore inserito sia una stringa di caratteri accettabili per un indirizzo.
+     * @param add indirizzo da controllare
+     * @return true se l'indirizzo è valido
+     */
+    public static boolean isValidAddress( String add ) {
+        // For every character in string
+        for ( Character c : add.toCharArray() ) {
+            // Check the validity of the character
+            if ( !Character.isLetter(c) && !Character.isDigit(c) && c != ' ' && c != '\'' && c != ',' && c != '/' ) {
+                // Character not valid: Return false
+                return false;
+            }
+        }
+        // Character valid: return true
+        return true;
+    }
+    /**
+     * Controlla che la stringa inserita come arogmento sia formata solo da cifre e che sia un numero intero positivo.
+     * @param str stringa
+     * @return true se il valore in argomento è valido
+     */
+    public static boolean isOnlyInt( String str ) {
+        // Try parsing
+        try {
+            // Research
+            Integer id = Integer.parseInt(str);
+            // Integer is valid only if it is positive
+            if ( id < 0 ) {
+                // Return false
+                return false;
+            }
+        // Parsing Error
+        } catch (Exception e) {
+            // Return false
+            return false;
+        }
+        // Return true
+        return true;
+    }
+    /**
+     * Controlla che la stringa inserita sia formata da esattamente 2 lettere ASCII.
+     * @param s stringa
+     * @return true se l'argomento è valido
+     */
+    public static boolean isTwoLetters( String s ) {
+        // Must be 2 lettes
+        if ( s == null || s.length() != 2 ) {
+            return false;
+        }
+        // For each letter
+        for (Character c : s.toCharArray()) {
+            // If the letter are not ASCII then is false
+            if (!isASCIILetter(c)) {
+                // Return false
+                return false;
+            }
+        }
+        // Return true
+        return true;
+    }
 }

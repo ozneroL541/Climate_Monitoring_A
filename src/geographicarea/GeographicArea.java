@@ -755,7 +755,7 @@ public class GeographicArea {
                     System.out.println("Il Country Code deve essere di 2 caratteri.");
                     // Return False
                     return false;
-                } else if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
+                } else if ( ! CommonMethods.isTwoLetters(str) ) {
                     // Error output
                     System.out.println("Il codice inserito deve essere formato solo da caratteri ASCII.");
                     // Return False
