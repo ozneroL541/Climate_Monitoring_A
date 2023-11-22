@@ -479,13 +479,6 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        final File f_province = FileSystems.getDefault().getPath("data", "Provincia.csv").toFile();
-        String [] cc_array = Research.getRecordByData(f_province, 1, "TO");
-
-        for(int i=0;i<cc_array.length;i++){
-            System.out.println(cc_array[i]);
-        }
-
         /*
         String nome = "Centro Prova";
         String [] indirizzo = { "Via Regina Teodolinda" ,"37", "Como", "CO", "Italia" };
