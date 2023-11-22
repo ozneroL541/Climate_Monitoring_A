@@ -35,7 +35,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.13.1
+ * @version 0.13.2
  */
 public class GeographicArea {
     // Geoname ID
@@ -630,18 +630,18 @@ public class GeographicArea {
         int i = 0;
         // Array of possible selections
         int[] ind = new int[IndexOf.indexes];
-        // Possible options
-        ind[i++] += IndexOf.geoname_id;
-        ind[i++] += IndexOf.real_name;
-        ind[i++] += IndexOf.ascii_name;
-        ind[i++] += IndexOf.country_code;
-        ind[i++] += IndexOf.country_name;
-        ind[i++] += IndexOf.coordinates;
-        ind[i++] += IndexOf.generic_name;
         // Error catcher
         if ( ind.length != col_names.length ) {
-            System.err.println("Errore Opzioni Area Geografica.");
+            System.err.println("Errore Opzioni di menu Area Geografica.");
         } else {
+            // Possible options
+            ind[i++] = IndexOf.geoname_id;
+            ind[i++] = IndexOf.real_name;
+            ind[i++] = IndexOf.ascii_name;
+            ind[i++] = IndexOf.country_code;
+            ind[i++] = IndexOf.country_name;
+            ind[i++] = IndexOf.coordinates;
+            ind[i++] = IndexOf.generic_name;
             // Output String
             String s = "";
             // Create the Option menu
@@ -660,22 +660,19 @@ public class GeographicArea {
      */
     public static boolean IndexExist( int in ) {
         // If index exist return true
-        if (in == IndexOf.geoname_id)
-            return true;
-        if (in == IndexOf.real_name)
-            return true;
-        if (in == IndexOf.ascii_name)
-            return true;
-        if (in == IndexOf.country_code)
-            return true;
-        if (in == IndexOf.country_name)
-            return true;
-        if (in == IndexOf.coordinates)
-            return true;
-        if (in == IndexOf.generic_name)
-            return true;
-        // The index does not exist: return false
-        return false;
+        switch (in) {
+            case IndexOf.geoname_id:
+            case IndexOf.real_name:
+            case IndexOf.ascii_name:
+            case IndexOf.country_code:
+            case IndexOf.country_name:
+            case IndexOf.coordinates:
+            case IndexOf.generic_name:
+                return true;        
+            default:
+            // The index does not exist: return false
+                return false;
+        }
     }
     /**
      * Controlla la correttezza dell'argomento, campo dell'area geografica.
