@@ -48,10 +48,10 @@ public class MonitoringCentre {
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
-    private final static File listcomuni = FileSystems.getDefault().getPath("data", "listacomuni.csv").toFile();
+    private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
     private final static class col_comuni {
-        private final static short comune = 1;
-        private final static short CAP = 5;
+        private final static short comune = 0;
+        private final static short CAP = 1;
         private final static short provincia = 2;        
     }
     // CAP length
@@ -479,7 +479,7 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        String [] fake_address = { "Via Regina Teodolinda" ,"37/h", "22100", "Com", "CO" };
+        String [] fake_address = { "Via Regina Teodolinda" ,"37/h", "22063", "Cantù", "CO" };
         System.out.println();
         if (isAddressCorrect(fake_address)) {
             System.out.println("L'indirizzo è corretto.");
