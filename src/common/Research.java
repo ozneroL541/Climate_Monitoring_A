@@ -530,7 +530,7 @@ public class Research {
      * @param file file CSV
      * @param col  colonna
      * @param str  stringa
-     * @return line
+     * @return array di stringhe
      */
     public static String[] getRecordByData(File file, int col, String str){
         // Output String

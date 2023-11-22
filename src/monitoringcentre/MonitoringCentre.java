@@ -371,6 +371,9 @@ public class MonitoringCentre {
                 // Element is incorrect return false
                 return false;
         }
+        // Array of strings
+        // TODO double argument research
+        String [] arr_str = Research.getRecordByData(f, 1, address[IndexOf.Iadd.comune]);
         // Return true
         return true;
     }
