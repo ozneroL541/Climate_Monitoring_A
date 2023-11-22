@@ -164,12 +164,12 @@ public class MonitoringCentre {
         }
         if(areeInteresse.length > 0){
             // TODO Fix error; areeInteresse have a fixed number, why use a List?
-            this.areeInteresse = areeInteresse;
+            //this.areeInteresse = areeInteresse;
         }else{
             System.err.println("Errore: Lista vuota."); 
         }
         this.userid = userid;
-        memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
+        //memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
 
     /**
