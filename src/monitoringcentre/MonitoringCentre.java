@@ -49,6 +49,11 @@ public class MonitoringCentre {
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
     private final static File listcomuni = FileSystems.getDefault().getPath("data", "listacomuni.csv").toFile();
+    private final static class col_comuni {
+        private final static short comune = 1;
+        private final static short CAP = 5;
+        private final static short provincia = 3;        
+    }
     // CAP length
     private final static short cap_length = 5;
     // Indexes in CSV file
@@ -116,7 +121,7 @@ public class MonitoringCentre {
         System.out.println("Inserire il nome del centro: ");
         String nome=InputScanner.INPUT_SCANNER.nextLine();
        
-        String [] indirizzo=new String [5];
+        String [] indirizzo=new String [IndexOf.IAdd.length];
         System.out.println("Inserire il nome della via o della piazza: ");
         indirizzo[IndexOf.Iadd.via]=InputScanner.INPUT_SCANNER.nextLine();
         System.out.println("Inserire il numero civico: ");
@@ -220,7 +225,7 @@ public class MonitoringCentre {
         // Input String
         String in = "";
         String nome="";
-        String [] indirizzo=new String [5];
+        String [] indirizzo=new String [IndexOf.Iadd.length];
         // Exit condition
         boolean exit = false;
         // Try catch for Input Exception
@@ -282,7 +287,7 @@ public class MonitoringCentre {
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Country Code must be made of 2 characters
                 // TODO
-                if ( ! fieldCorrect(in, IndexOf.address) ) {
+                if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
                     // Stay in loop
                     exit = false;
                 } else {
@@ -369,18 +374,23 @@ public class MonitoringCentre {
                 return false;
         }
         // Array of strings
-        String [] arr_str = Research.getRecordByTwoDatas(listcomuni, 1, address[IndexOf.Iadd.comune], 2, address[IndexOf.Iadd.prov]);
+        String [] arr_str = Research.getRecordByTwoDatas(listcomuni, col_comuni.comune, address[IndexOf.Iadd.comune], col_comuni.provincia, address[IndexOf.Iadd.prov]);
         // If there is no city in that province return false
         if ( arr_str == null ) {
             return false;
         }
         // Check if CAP corrispond
-        if ( ! equalsCAP( address[IndexOf.Iadd.CAP], arr_str[5] ) )
+        if ( ! equalsCAP( address[IndexOf.Iadd.CAP], arr_str[col_comuni.CAP] ) )
             return false;
         // Return true
         return true;
     }
-    // Check address elements correctness
+    /**
+     * Controlla la correttezza formale dell'elemento selezionato.
+     * @param elem elemento
+     * @param index indice
+     * @return true se l'elemento è corretto
+     */
     private static boolean isAddElCorrect( String elem, short index ) {
         // Check correctness
         switch (index) {
@@ -399,6 +409,39 @@ public class MonitoringCentre {
             // Province
             case IndexOf.Iadd.prov:
                 return CommonMethods.isTwoLetters(elem);
+            default:
+                // Error
+                System.err.println("ERRORE: indice elemento array indirizzo inesistente");
+                return false;
+        }
+    }
+    /*
+     * Controlla l'esistenza dell'elemento selezionato.
+     * @param elem elemento
+     * @param index indice
+     * @return true se l'elemento esiste
+     */
+    private static boolean AddElExist( String elem, short index ) {
+        // First result
+        boolean b = true;
+        // Check element correctness
+        b = isAddElCorrect(elem, index);
+        // Check correctness
+        switch (index) {
+            // Street
+            case IndexOf.Iadd.via:
+            // Number
+            case IndexOf.Iadd.civico:
+                return b;
+            // CAP
+            case IndexOf.Iadd.CAP:
+                return b && Research.isStringInCol(listcomuni, col_comuni.CAP, elem);
+            // City
+            case IndexOf.Iadd.comune:
+                return b && Research.isStringInCol(listcomuni, col_comuni.comune, elem);
+            // Province
+            case IndexOf.Iadd.prov:
+                return b && Research.isStringInCol(listcomuni, col_comuni.provincia, elem);
             default:
                 // Error
                 System.err.println("ERRORE: indice elemento array indirizzo inesistente");
