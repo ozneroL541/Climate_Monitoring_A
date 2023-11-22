@@ -231,7 +231,7 @@ public class MonitoringCentre {
                 // Input
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Check if it is correct
-                if ((exit = argumentCorrect(in, IndexOf.name))) {
+                if ((exit = fieldCorrect(in, IndexOf.name))) {
                     // Check if there is another area wth the same name
                     if ( f.exists() && Research.OneStringInCol(f, IndexOf.name, in) >= 0 ) {
                         // Output
@@ -282,7 +282,7 @@ public class MonitoringCentre {
                 in = InputScanner.INPUT_SCANNER.nextLine();
                 // Country Code must be made of 2 characters
                 // TODO
-                if ( ! argumentCorrect(in, IndexOf.address) ) {
+                if ( ! fieldCorrect(in, IndexOf.address) ) {
                     // Stay in loop
                     exit = false;
                 } else {
