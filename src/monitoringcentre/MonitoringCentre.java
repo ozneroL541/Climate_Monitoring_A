@@ -373,7 +373,7 @@ public class MonitoringCentre {
         }
         // Array of strings
         // TODO double argument research
-        String [] arr_str = Research.getRecordByData(f, 1, address[IndexOf.Iadd.comune]);
+        String [] arr_str = Research.;
         // Return true
         return true;
     }

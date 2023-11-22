@@ -578,6 +578,62 @@ public class Research {
         return out;
     }
     /**
+     * Cerca in un file CSV le due stringhe in input.
+     * Ritorna un array di stringhe delle celle adiacenti alla prima occorrenza.
+     * @param file file CSV
+     * @param col1 colonna della prima stringa
+     * @param str1 prima stringa
+     * @param col2 colonna della seconda stringa
+     * @param str2 seconda stringa
+     * @return array di stringhe
+     */
+    public static String[] getRecordByTwoDatas(File file, int col1, String str1, int col2, String str2){
+        // Output String
+        String[] out = null; 
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Found flag
+            boolean found = false;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit code -2
+            if ( nextRecord.length <= col1 || nextRecord.length <= col2 )
+                return null;
+            // First line will not contain any researched element so, increment and go on
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null && !found ){
+                // When the first cell equals the id exit the while
+                if ( nextRecord[col1].equals(str1) && nextRecord[col2].equals(str2) ) {
+                    // String found -> exit
+                    found = true;
+                    // Return record whose string belongs
+                    out = nextRecord;
+                }
+            }
+            // Close
+            creader.close();
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(Exception e){ //to catch any exception inside try block
+            // Not managed exception error
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return null
+            return null;
+        }
+        // Return the record
+        return out;
+    }
+    /**
      * Ritorna tutte le celle appartenenti alla colonna selezionata nel file CSV passato come argomento.
      * @param file file CSV
      * @param col colonna
