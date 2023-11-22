@@ -29,6 +29,7 @@ import java.nio.file.FileSystems;
 import java.util.ArrayList;
 
 import src.common.CSV_Utilities;
+import src.common.CommonMethods;
 import src.common.InputScanner;
 import src.common.Research;
 
@@ -321,134 +322,39 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree, userid);        
     }
-    //TODO Field checker
-    private static boolean argumentCorrect(String in, short name) {
-        // Suggestion
-        /*
+    /**
+     * Controlla che la stringa inserita sia valida.
+     * @param str stringa
+     * @param index tipo di controllo
+     * @return true se la stringa è corretta
+     */
+    private static boolean fieldCorrect(String str, short index) {
         // If str in null exit
         if (str == null || str.length() < 1) {
             // Return false
             return false;
         }
         // Search
-        switch (col_index) {
-            // Check Geoname ID
-            case IndexOf.geoname_id:
-                // Try parsing
-                try {
-                    // Research
-                    Integer id = Integer.parseInt(str);
-                    // Integer is valid only if it is positive
-                    if ( id < 0 ) {
-                        // Error output
-                        System.out.println("Il Geoname ID inserito non è valido.");
-                        // Return false
-                        return false;
-                    }
-                // Parsing Error
-                } catch (Exception e) {
-                    // Error output
-                    System.out.println("Il Geoname ID deve essere formato solo da numeri.\nIl Geoname ID inserito è errato.");
-                    // Return false
-                    return false;
-                }
-                // Return true
+        switch (index) {
+            // Check Name
+            case IndexOf.name:
+                // Check if the name is valid
+                return CommonMethods.isValidName(str);
+            // Check Address
+            case IndexOf.address:
+                // TODO
                 return true;
-            // Check Real Name
-            case IndexOf.real_name:
-            // Check Generic name
-            case IndexOf.generic_name:
-                // Check if name is valid
-                if (CommonMethods.isValidName(str)) {
-                    // Return True
-                    return true;
-                } else {
-                    // Error output
-                    System.out.println("Il nome inserito contiene caratteri non validi.");
-                    // Return False
-                    return false;
-                }
-            // Check ASCII name
-            case IndexOf.ascii_name:
-            // Check Country Name
-            case IndexOf.country_name:
-                // If is ASCII return true
-                if (Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
-                    if ( CommonMethods.isValidASCIIName(str) ) {
-                        // Return True
-                        return true;
-                    } else {
-                        // Error output
-                        System.out.println("Il nome inserito contiene caratteri non validi.");
-                        // Return False
-                        return false;
-                    }
-                } else {
-                    // Error output
-                    System.out.println("Il nome inserito deve essere formato solo da caratteri ASCII.");
-                    // Return False
-                    return false;
-                }
-            // Check Country Code
-            case IndexOf.country_code:
-                // Check cc lenght
-                if ( str.length() != 2 ) {
-                    // Error Ouptut
-                    System.out.println("Lunghezza Country Code errata.");
-                    System.out.println("Il Country Code deve essere di 2 caratteri.");
-                    // Return False
-                    return false;
-                } else if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
-                    // Error output
-                    System.out.println("Il codice inserito deve essere formato solo da caratteri ASCII.");
-                    // Return False
-                    return false;
-                } else if (! (str.matches("[a-zA-Z]+"))) {
-                    // Error output
-                    System.out.println("Il codice inserito deve essere formato solo da lettere.");
-                    // Return False
-                    return false;
-                } else {
-                    // Return True
-                    return true;
-                }
-            // Check Coordinates
-            case IndexOf.coordinates:
-                // Try Parsing
-                try {
-                    // Pass to double
-                    double [] coo = Coordinates.parseCoordinates(str);
-                    // If the coordinates are not in the range of the Earth
-                    if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
-                        // Error message
-                        System.out.println("Valori coordinate errati.");
-                        System.out.println("La latitudine deve essere compresa tra -90.00 e 90.00.");
-                        System.out.println("La longitudine deve essere compresa tra -180.00 e 180.00.");
-                        // Return False
-                        return false;
-                    }
-                } catch (NullPointerException e) {
-                    // Error message
-                    System.out.println("Formato Coordinate incorretto.");
-                    System.out.println("Il formato delle coordinate deve essere il seguente: \"lat, lon\".");
-                    // Return False
-                    return false;
-                } catch ( Exception e ) {
-                    // Not managed exception
-                    // Error
-                    e.printStackTrace();
-                    // Return false
-                    return false;
-                }
-                // Return True
+            // Check Area
+            case IndexOf.areas:
+                return true;
+            // Check User ID
+            case IndexOf.userid:
                 return true;
             default:
                 // Error
                 System.err.println("ERRORE: codice lista inesistente");
                 return false;
         }
-         */
-        return false;
     }
 
     // TODO Remove test main
