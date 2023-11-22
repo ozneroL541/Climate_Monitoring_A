@@ -604,7 +604,13 @@ public class Research {
                 return null;
             // First line will not contain any researched element so, increment and go on
             // Read data line by line
+            // TODO Remove
+            short e = 0;
             while( (nextRecord = creader.readNext()) != null && !found ){
+                System.err.println(e++);
+                if ( e > 2497 ) {
+                    System.err.println("Hello");
+                }
                 // When the first cell equals the id exit the while
                 if ( nextRecord[col1].equals(str1) && nextRecord[col2].equals(str2) ) {
                     // String found -> exit

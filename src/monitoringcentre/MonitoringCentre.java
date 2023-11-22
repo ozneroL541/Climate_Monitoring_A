@@ -52,7 +52,7 @@ public class MonitoringCentre {
     private final static class col_comuni {
         private final static short comune = 1;
         private final static short CAP = 5;
-        private final static short provincia = 3;        
+        private final static short provincia = 2;        
     }
     // CAP length
     private final static short cap_length = 5;
@@ -479,8 +479,8 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        String [] fake_address = { "Via Regina Teodolinda" ,"37", "22100", "Como", "CO" };
-
+        String [] fake_address = { "Via Regina Teodolinda" ,"37/h", "22100", "Com", "CO" };
+        System.out.println();
         if (isAddressCorrect(fake_address)) {
             System.out.println("L'indirizzo è corretto.");
         } else {
