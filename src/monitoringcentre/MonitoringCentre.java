@@ -47,6 +47,10 @@ public class MonitoringCentre {
     private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID, aree";
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
+    // Cities List
+    private final static File listcomuni = FileSystems.getDefault().getPath("data", "listacomuni.csv").toFile();
+    // CAP length
+    private final static short cap_length = 5;
     // Indexes in CSV file
     private final static class IndexOf {
         private final static short name = 0;
@@ -208,17 +212,8 @@ public class MonitoringCentre {
      * @return Centro di Monitoraggio creato
      */
     public static MonitoringCentre createCentre(short userid) {
-        // Provinces
-        final File f_province = FileSystems.getDefault().getPath("data", "Provincia.csv").toFile();
         // Error string
         final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
-        // Check if file exist
-        if ( ! f_province.exists() ) {
-            // Print Error
-            System.err.println("ERRORE: il file " + f_province.getName() + " non si trova nella cartella \'" + f_province.getParent() + "\'.\n" );
-            // Return null
-            return null;
-        }
         //TODO rimuovere
         // Monitoring Centre to be returned
         MonitoringCentre mc = null;        
@@ -294,7 +289,7 @@ public class MonitoringCentre {
                     // To upper case
                     in = in.toUpperCase();
                     // Record array
-                    String [] cc_array = Research.getRecordByData(f_province, 1, in);
+                    String [] cc_array = Research.getRecordByData(listcomuni, 2, in);
                     // If Country code does not exist
                     if (cc_array == null ) {
                         // Output
@@ -362,8 +357,6 @@ public class MonitoringCentre {
             // Return false
             return false;
         }
-        // Return
-        boolean b = true;
         // For each element of the address
         for (short i = 0; i < IndexOf.Iadd.length; i++) {
             // Check if the element is correct
@@ -372,8 +365,14 @@ public class MonitoringCentre {
                 return false;
         }
         // Array of strings
-        // TODO double argument research
-        String [] arr_str = Research.;
+        String [] arr_str = Research.getRecordByTwoDatas(listcomuni, 1, address[IndexOf.Iadd.comune], 2, address[IndexOf.Iadd.prov]);
+        // If there is no city in that province return false
+        if ( arr_str == null ) {
+            return false;
+        }
+        // Check if CAP corrispond
+        if ( ! equalsCAP( address[IndexOf.Iadd.CAP], arr_str[5] ) )
+            return false;
         // Return true
         return true;
     }
@@ -389,7 +388,7 @@ public class MonitoringCentre {
                 return CommonMethods.isASCIIValidAddress(elem);
             // CAP
             case IndexOf.Iadd.CAP:
-                return CommonMethods.isOnlyInt(elem);
+                return (elem.length() == cap_length) && CommonMethods.isOnlyInt(elem);
             // City
             case IndexOf.Iadd.comune:
                 return CommonMethods.isValidName(elem);
@@ -402,7 +401,34 @@ public class MonitoringCentre {
                 return false;
         }
     }
-
+    // Check if two CAPs correpond to each other
+    private static boolean equalsCAP( String cap1, String cap2 ) {
+        // x character
+        final char x = 'x';
+        // CAP character
+        char c1 = 0;
+        char c2 = 0;
+        // If CAP are already equas
+        if (cap1.equals(cap2))
+            return true;
+        // For each character
+        for (short i = 0; i < cap_length; i++) {
+            // First CAP char
+            c1 = cap1.charAt(i);
+            // Second CAP char
+            c2 = cap2.charAt(i);
+            // If they are equals is OK
+            if ( c1 != c2 ) {
+                // If at least one of them is x is OK
+                if ( c1 != x && c2 != x ) {
+                    // Test not passed -> return false
+                    return false;
+                }
+            }
+        }
+        // Test passed
+        return true;
+    }
     // TODO Remove test main
     public static void main(String[] args) {
 
