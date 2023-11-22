@@ -41,7 +41,7 @@ import src.common.Research;
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
     private String nome;
-    private String [] indirizzo = new String[5];
+    private String [] indirizzo = new String[IndexOf.Iadd.lenght];
     private ArrayList<String> areeInteresse=new ArrayList<String>();
     private short userid;
     private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID, aree";
