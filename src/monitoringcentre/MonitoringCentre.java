@@ -366,9 +366,15 @@ public class MonitoringCentre {
         boolean b = true;
         // For each element of the address
         for (short i = 0; i < IndexOf.Iadd.length; i++) {
-            
+            // Check if the element is correct
+            if ( !isAddElCorrect(address[i], i) )
+                // Element is incorrect return false
+                return false;
         }
+        // Return true
+        return true;
     }
+    // Check address elements correctness
     private static boolean isAddElCorrect( String elem, short index ) {
         // Check correctness
         switch (index) {
