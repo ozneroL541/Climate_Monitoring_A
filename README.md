@@ -25,7 +25,6 @@ Tramite linea di comando.
 - Radice Lorenzo    @ozneroL541
 
 ## Licenza
-This file is part of **Climate Monitoring**.
 
 **Climate Monitoring** is free software: you can redistribute it and/or modify
 it under the terms of the **GNU General Public License** as published by
