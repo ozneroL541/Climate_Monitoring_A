@@ -1,13 +1,12 @@
 # Climate Monitoring
 
-## Info
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
 
 ## Versione
-Versione 0.10.0
+0.10.0
 
 ## Download
-Download da GitHub
+Usando GIT
 
      git clone https://github.com/ozneroL541/Climate_Monitoring.git
 ## Compilazione
@@ -25,7 +24,7 @@ Tramite linea di comando.
 - Paredi Giacomo    @Giaki03
 - Radice Lorenzo    @ozneroL541
 
-## License
+## Licenza
 This file is part of **Climate Monitoring**.
 
 **Climate Monitoring** is free software: you can redistribute it and/or modify
