@@ -512,6 +512,7 @@ public class AutorizedOperator extends User {
                     //crea un centro e si associa ad esso (solo se utente non ha un centro)
                     //rimuovere il primo println
                     System.out.println("CREAZIONE CENTRO");
+                    //TODO aggiungere crea centro e fare update del file operatoriAutorizzati
                     System.out.println("\n\nOperazione terminata");
                     System.out.println("Ritorno al menù");
                     exit=true;
@@ -578,9 +579,9 @@ public class AutorizedOperator extends User {
                     //TODO aggiungere metodo
                     //2) utente vuole creare un nuovo centro (metodo creaCentro()) [pubblico? e non statico?]
                     //se si creaCentro() -> return String nome_del_centro
+                    //TODO rimuovere tutto quello sopra, in teoria è finito
 
-                    //TODO cambiare quando il metodo è fatto 
-                    centre=defaultValueOfCentre;
+                    centre=creaCentro();
                     exit=false;
                     break;
                 
@@ -604,9 +605,14 @@ public class AutorizedOperator extends User {
         return centre;
     }
 
-    
+    //user create a new centre
+    private static String creaCentro(){
 
-    //TODO javadoc
+        MonitoringCentre centre=MonitoringCentre.createCentre();
+        return centre.getNome();
+    }
+
+    //user choose a centre from the existing ones
     private static void associaCentro(){
 
         String [] centri;
