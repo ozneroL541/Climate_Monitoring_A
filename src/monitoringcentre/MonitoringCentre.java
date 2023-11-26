@@ -43,8 +43,7 @@ public class MonitoringCentre {
     private String nome;
     private String [] indirizzo = new String[IndexOf.Iadd.length];
     private ArrayList<String> areeInteresse=new ArrayList<String>();
-    private short userid;
-    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, userID, aree";
+    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, aree";
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
@@ -61,7 +60,6 @@ public class MonitoringCentre {
         private final static short name = 0;
         private final static short address = 1;
         private final static short areas = 2;
-        private final static short userid = 3;
         private final static class Iadd {
             private final static short via = 0;
             private final static short civico = 1;
@@ -72,7 +70,7 @@ public class MonitoringCentre {
             private final static short length = 5;
         }
         // Number of indexes
-        private final static short indexes = 4;
+        private final static short indexes = 3;
         // Max index value
         private final static short max_index = 3;
     }
@@ -90,11 +88,10 @@ public class MonitoringCentre {
 
     //TODO
     //javadoc
-    public MonitoringCentre(String nome, String [] indirizzo, ArrayList<String> areeInteresse, short userid){
+    public MonitoringCentre(String nome, String [] indirizzo, ArrayList<String> areeInteresse){
         this.nome=nome;
         this.indirizzo=indirizzo;
         this.areeInteresse=areeInteresse;
-        this.userid=userid;
     }
 
     //costruttore vuoto
@@ -168,7 +165,6 @@ public class MonitoringCentre {
         }else{
             System.err.println("Errore: Lista vuota."); 
         }
-        this.userid = userid;
         //memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
     }
 
@@ -320,7 +316,7 @@ public class MonitoringCentre {
  
         memorizzaCentroAree(nome, indirizzo, aree, userid);
         //return Monitoring Centre
-        return new MonitoringCentre(nome, indirizzo, aree, userid);        
+        return new MonitoringCentre(nome, indirizzo, aree);        
     }
     /*
      * Controlla che la stringa inserita sia valida.
@@ -342,10 +338,6 @@ public class MonitoringCentre {
                 return CommonMethods.isValidName(str);
             // Check Area
             case IndexOf.areas:
-                // TODO
-                return CommonMethods.isOnlyInt(str);
-            // Check User ID
-            case IndexOf.userid:
                 // TODO
                 return CommonMethods.isOnlyInt(str);
             default:
