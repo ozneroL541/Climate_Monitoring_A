@@ -11,6 +11,7 @@ Usando GIT
      git clone https://github.com/ozneroL541/Climate_Monitoring.git
 
 Link per il download in formato compresso
+
      <link>https://github.com/ozneroL541/Climate_Monitoring/tree/main</link>
 ## Compilazione
 ### GNU/Linux
