@@ -13,6 +13,7 @@ Usando GIT
 Link per il download in formato compresso
 
 <link>https://github.com/ozneroL541/Climate_Monitoring/tree/main</link>
+
 ## Compilazione
 ### GNU/Linux
 Tramite linea di comando shell che supporta scripting <code>sh</code> (sh, bash, zsh, csh,...).
