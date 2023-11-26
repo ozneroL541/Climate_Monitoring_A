@@ -442,12 +442,14 @@ public class AutorizedOperator extends User {
     
     //TODO terminare metodo
     public void menu(){
-        // TODO l'operatore autorizzato deve poter fare anche le operazione dell'operatore normale mentre è loggato
+        
         final String menu="\n\nMenù Operatore Autorizzato\n"+
-                            "1) Aggiunta parametri climatici\n"+
-                            "2) Selezione centro di appartenenza\n"+
-                            "3) Creazione nuovo centro di monitoraggio\n"+
-                            "4) Logout\n";    
+                            "1) Cerca area geografica\n"+
+                            "2) Visualizza area geografica\n"+
+                            "3) Aggiunta parametri climatici\n"+
+                            "4) Selezione centro di appartenenza\n"+
+                            "5) Creazione nuovo centro di monitoraggio\n"+
+                            "6) Logout\n";    
         
         boolean exit=true;
         int scelta;
@@ -469,8 +471,21 @@ public class AutorizedOperator extends User {
             }
 
             switch (scelta) {
-                
+
+                //search geographic area
                 case 1:
+                    cercaAreaGeografica();
+                    exit=true;
+                    break;
+                
+                //view geographic area
+                case 2:
+                    visualizzaAreaGeografica();
+                    exit=true;
+                    break;
+                
+                //add climate parameters
+                case 3:
                     //TODO aggiungere metodo
                     //1) aggiungi parametri ad una area del centro (solo se utente ha un centro)
                     //rimuovere il primo println
@@ -480,7 +495,8 @@ public class AutorizedOperator extends User {
                     exit=true;
                     break;
                 
-                case 2:
+                //select centre
+                case 4:
                     //TODO aggiungere metodo
                     //2) associa ad un centro esistente (solo se utente non ha un centro)
                     //rimuovere il primo println
@@ -490,7 +506,8 @@ public class AutorizedOperator extends User {
                     exit=true;
                     break;
                 
-                case 3:
+                //create centre
+                case 5:
                     //TODO aggiungere metodo
                     //3) crea un centro e si associa ad esso (solo se utente non ha un centro)
                     //rimuovere il primo println
@@ -501,7 +518,7 @@ public class AutorizedOperator extends User {
                     break;
 
                 //logout
-                case 4:
+                case 6:
                     exit=false;
                     break;
             
