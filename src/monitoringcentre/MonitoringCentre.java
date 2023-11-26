@@ -212,7 +212,7 @@ public class MonitoringCentre {
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
      */
-    public static MonitoringCentre createCentre(short userid) {
+    public static MonitoringCentre createCentre() {
         // Error string
         final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
         //TODO rimuovere
