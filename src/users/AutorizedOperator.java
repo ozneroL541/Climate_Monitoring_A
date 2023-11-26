@@ -442,7 +442,7 @@ public class AutorizedOperator extends User {
     
     //TODO terminare metodo
     public void menu(){
-        
+
         final String menu="\n\nMenù Operatore Autorizzato\n"+
                             "1) Cerca area geografica\n"+
                             "2) Visualizza area geografica\n"+
@@ -533,16 +533,74 @@ public class AutorizedOperator extends User {
     //TODO
     private static String setCentro(){
 
-        //menu con scelte
-        //1) utente vuole associarsi ad un centro già esistente (metodo associaCentro()) [pubblico? e non statico?]
-            //se si mostraCentri() -> scegliCentro() -> return String nome_del_centro
-        //2) utente vuole creare un nuovo centro (metodo creaCentro()) [pubblico? e non statico?]
-            //se si creaCentro() -> return String nome_del_centro
-        //3) utente non vuole associarsi a nessun centro (si vuole associare in un secondo momento)
-            //se si return defaultValueOfCentre
-            //a quel punto potra associarsi in un secondo momento con 1) o 2)
+        final String menu="\n\nMenù associazione centro\n"+
+                            "1) Associazione ad un centro esistente\n"+
+                            "2) Associazione ad un centro nuovo\n"+
+                            "3) Associazione in un secondo momento\n"; 
+        
+        boolean exit=true;
+        int scelta;
+        String centre="";
 
-        return defaultValueOfCentre;
+        do{
+            scelta=0;
+            System.out.print(menu);
+
+            System.out.print("\nInserire codice: ");
+
+            try{
+                scelta=InputScanner.INPUT_SCANNER.nextInt();
+            }catch(InputMismatchException e){
+                //consume invalid token
+                InputScanner.INPUT_SCANNER.next();
+                System.out.println("ERRORE");
+                System.out.println("Codice inserito errato!");
+                scelta=0;
+            }
+
+            switch (scelta) {
+
+                //user choose an existing centre
+                case 1:
+                    //TODO aggiungere metodo
+                    //1) utente vuole associarsi ad un centro già esistente (metodo associaCentro()) [pubblico? e non statico?]
+                    //se si mostraCentri() -> scegliCentro() -> return String nome_del_centro
+
+
+                    //TODO cambiare quando il metodo è fatto 
+                    centre=defaultValueOfCentre;
+                    exit=false;
+                    break;
+                
+                //user create a new centre
+                case 2:
+                    //TODO aggiungere metodo
+                    //2) utente vuole creare un nuovo centro (metodo creaCentro()) [pubblico? e non statico?]
+                    //se si creaCentro() -> return String nome_del_centro
+
+                    //TODO cambiare quando il metodo è fatto 
+                    centre=defaultValueOfCentre;
+                    exit=false;
+                    break;
+                
+                //add climate parameters
+                case 3:
+                    //TODO aggiungere metodo
+                    //3) utente non vuole associarsi a nessun centro (si vuole associare in un secondo momento)
+                    //se si return defaultValueOfCentre
+                    //a quel punto potra associarsi in un secondo momento con 1) o 2)
+                    centre=defaultValueOfCentre;
+                    exit=false;
+                    break;
+            
+                default:
+                    System.out.println("Codice inserito errato!");
+                    exit=true;
+                    break;
+            }
+        }while(exit);
+
+        return centre;
     }
 
     //TODO
