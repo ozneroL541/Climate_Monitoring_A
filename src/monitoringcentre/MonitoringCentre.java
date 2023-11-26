@@ -80,9 +80,9 @@ public class MonitoringCentre {
      * A cosa serve un costruttore che non inizializza i campi?
      * A cosa servono i campi se tanto il costruttore non li inizializza?
      */
-    public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse, short userid){
+    public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse){
         if(CenterExistence(nome))
-            registraCentroAree(nome, indirizzo, areeInteresse, userid);
+            registraCentroAree(nome, indirizzo, areeInteresse);
     }
 
 
@@ -149,7 +149,7 @@ public class MonitoringCentre {
     /*
      * Perché devo inserire i campi che dovrebbero essere assegnati nel costruttore?
      */
-    public void registraCentroAree(String nome, String [] indirizzo, String [] areeInteresse, short userid){
+    public void registraCentroAree(String nome, String [] indirizzo, String [] areeInteresse){
         this.nome = nome;
         if(indirizzo.length == this.indirizzo.length){
             this.indirizzo = indirizzo;
@@ -177,7 +177,7 @@ public class MonitoringCentre {
         return Research.getColArray(f,IndexOf.name);
     }
 
-    private static void memorizzaCentroAree(String nome, String [] indirizzo, ArrayList<String> areeInteresse, short userid){
+    private static void memorizzaCentroAree(String nome, String [] indirizzo, ArrayList<String> areeInteresse){
         ArrayList<String> str = new ArrayList<String>();
         String aree = "";
         str.add(nome);
@@ -185,7 +185,6 @@ public class MonitoringCentre {
         for ( i = 0; i < indirizzo.length; i++) {
             str.add(indirizzo[i]);
         }
-        str.add(String.valueOf(userid));
         
         for ( i = 0; i < areeInteresse.size() - 1; i++) {
             aree += areeInteresse.get(i) + "-" ;
@@ -314,7 +313,7 @@ public class MonitoringCentre {
         ArrayList<String> aree=new ArrayList<String>();
         aree=null;
  
-        memorizzaCentroAree(nome, indirizzo, aree, userid);
+        memorizzaCentroAree(nome, indirizzo, aree);
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
