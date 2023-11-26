@@ -487,7 +487,7 @@ public class AutorizedOperator extends User {
                 //add climate parameters
                 case 3:
                     //TODO aggiungere metodo
-                    //1) aggiungi parametri ad una area del centro (solo se utente ha un centro)
+                    //aggiungi parametri ad una area del centro (solo se utente ha un centro)
                     //rimuovere il primo println
                     System.out.println("AGGIUNTA PARAMETRI");
                     System.out.println("\n\nOperazione terminata");
@@ -498,7 +498,7 @@ public class AutorizedOperator extends User {
                 //select centre
                 case 4:
                     //TODO aggiungere metodo
-                    //2) associa ad un centro esistente (solo se utente non ha un centro)
+                    //associa ad un centro esistente (solo se utente non ha un centro)
                     //rimuovere il primo println
                     System.out.println("SELEZIONE CENTRO");
                     System.out.println("\n\nOperazione terminata");
@@ -509,7 +509,7 @@ public class AutorizedOperator extends User {
                 //create centre
                 case 5:
                     //TODO aggiungere metodo
-                    //3) crea un centro e si associa ad esso (solo se utente non ha un centro)
+                    //crea un centro e si associa ad esso (solo se utente non ha un centro)
                     //rimuovere il primo println
                     System.out.println("CREAZIONE CENTRO");
                     System.out.println("\n\nOperazione terminata");
