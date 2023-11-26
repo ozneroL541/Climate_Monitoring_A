@@ -254,6 +254,10 @@ public class MonitoringCentre {
             //20133 MILANO MI
             //tutto maiuscolo, niente punteggiatura
 
+
+            //per l'indirizzo in input, appena preso l'input (prima di controllarlo), fare .toUpperCase(),
+            //così i controlli sono corretti e quando lo si salva è già tutto maiuscolo
+
             // TODO Inserire controllo
             // Request
             System.out.print("Inserire via:\t\t");
