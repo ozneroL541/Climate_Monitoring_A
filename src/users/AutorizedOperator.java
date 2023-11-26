@@ -566,6 +566,7 @@ public class AutorizedOperator extends User {
                     //1) utente vuole associarsi ad un centro già esistente (metodo associaCentro()) [pubblico? e non statico?]
                     //se si mostraCentri() -> scegliCentro() -> return String nome_del_centro
 
+                    associaCentro();
 
                     //TODO cambiare quando il metodo è fatto 
                     centre=defaultValueOfCentre;
@@ -603,11 +604,32 @@ public class AutorizedOperator extends User {
         return centre;
     }
 
-    //TODO
+    //TODO javadoc
+    //TODO scrivere metodo
     //crea un centro, poi aggiunge un'area al centro, solo se è utente ha un centro associato
     public void registraCentroAree(){
 
-        
+    }
+
+    //TODO javadoc
+    private static void associaCentro(){
+
+        String [] centri;
+
+        //TODO aggiungere metodo
+        //1) utente vuole associarsi ad un centro già esistente (metodo associaCentro()) [pubblico? e non statico?]
+        //se si mostraCentri() -> scegliCentro() -> return String nome_del_centro
+
+        centri=MonitoringCentre.getCentri();
+
+
+        //TODO TESTARE QUESTA PARTE
+        for(int i=0;i<centri.length;i++){
+            System.out.println(centri[i]);
+        }
+
+        //TODO FINIRE IL RESTO
+
     }
 
     //TODO
@@ -630,6 +652,9 @@ public class AutorizedOperator extends User {
     }
     //rimuovere
     public static void main(String[] args) {
+
+
+        associaCentro();
         
         //AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();

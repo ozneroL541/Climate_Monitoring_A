@@ -177,7 +177,7 @@ public class MonitoringCentre {
      * Se non ci sono Centri ritorna null.
      * @return nomi dei centri
      */
-    public String[] getCentri(){
+    public static String[] getCentri(){
         return Research.getColArray(f,IndexOf.name);
     }
 
