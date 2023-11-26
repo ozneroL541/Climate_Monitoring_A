@@ -585,7 +585,7 @@ public class AutorizedOperator extends User {
                     exit=false;
                     break;
                 
-                //add climate parameters
+                //user does not choose a centre
                 case 3:
                     //TODO aggiungere metodo
                     //3) utente non vuole associarsi a nessun centro (si vuole associare in un secondo momento)
