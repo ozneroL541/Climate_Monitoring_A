@@ -604,12 +604,7 @@ public class AutorizedOperator extends User {
         return centre;
     }
 
-    //TODO javadoc
-    //TODO scrivere metodo
-    //crea un centro, poi aggiunge un'area al centro, solo se è utente ha un centro associato
-    public void registraCentroAree(){
-
-    }
+    
 
     //TODO javadoc
     private static void associaCentro(){
