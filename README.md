@@ -5,6 +5,9 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 ## Versione
 0.10.0
 
+## Requisiti
+Richiede Java 17.
+
 ## Download
 Usando GIT
 
@@ -19,6 +22,7 @@ Link per il download in formato compresso:
 Tramite linea di comando shell che supporta scripting <code>sh</code> (sh, bash, zsh, csh,...).
 
      cd Climate_Monitoring && src/auto_compiler/auto-compiler.sh
+
 ### MacOS
 Tramite linea di comando.
 
