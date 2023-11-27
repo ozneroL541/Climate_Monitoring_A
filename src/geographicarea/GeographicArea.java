@@ -605,7 +605,7 @@ public class GeographicArea {
         nam[2] = ga.getCountry_name();
         for (int j = 0; j < nam.length; j++) {
             if( nam[j].length() > 15 )
-            nam[j] = nam[j].substring(0, 15);
+                nam[j] = nam[j].substring(0, 15);
         }
         // Formatted output list
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
