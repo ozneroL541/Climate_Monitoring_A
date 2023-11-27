@@ -282,6 +282,23 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
+
+    //TODO
+    private static ArrayList<String> setAreeGeografiche(){
+
+        ArrayList<String> aree=new ArrayList<String>();
+        final String endInput="";
+
+        do{
+
+
+
+        }while(true);
+
+        return null;
+
+    }
+
     /*
      * Controlla che la stringa inserita sia valida.
      * @param str stringa
