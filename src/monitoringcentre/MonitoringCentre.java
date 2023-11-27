@@ -115,8 +115,8 @@ public class MonitoringCentre {
         address = address.toUpperCase();
         for (char c : address.toCharArray()) {
             switch (c) {
-                // TODO inserire lettere con accenti al contrario
                 case 'À':
+                case 'Á':
                     s += "A'";
                     break;
                 case 'È':
@@ -124,13 +124,17 @@ public class MonitoringCentre {
                     s += "E'";
                     break;
                 case 'Ì':
+                case 'Í':
                     s += "I'";
                     break;
                 case 'Ò':
+                case 'Ó':
                     s += "O'";
                     break;
                 case 'Ù':
+                case 'Ú':
                     s += "U'";
+                    break;
                 default:
                     s += c;
                     break;
@@ -468,8 +472,8 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        String test = "àèéìòù";
-        System.out.println(test.toUpperCase());
+        String test = "Cantù";
+        System.out.println(toValidAddress(test));
 
 
         /*
