@@ -104,44 +104,6 @@ public class MonitoringCentre {
     public String getNome(){
         return this.nome;
     }
-    /**
-     * Ritorna l'indirizzo trasformato in modo tale che sia valido.
-     * @param address indirizzo
-     * @return indirizzo valido
-     */
-    private static String toValidAddress( String address ) {
-        // TODO
-        String s = "";
-        address = address.toUpperCase();
-        for (char c : address.toCharArray()) {
-            switch (c) {
-                case 'À':
-                case 'Á':
-                    s += "A'";
-                    break;
-                case 'È':
-                case 'É':
-                    s += "E'";
-                    break;
-                case 'Ì':
-                case 'Í':
-                    s += "I'";
-                    break;
-                case 'Ò':
-                case 'Ó':
-                    s += "O'";
-                    break;
-                case 'Ù':
-                case 'Ú':
-                    s += "U'";
-                    break;
-                default:
-                    s += c;
-                    break;
-            }
-        }
-        return s;
-    }
 
     //TODO rimuovere
     /*
@@ -474,7 +436,7 @@ public class MonitoringCentre {
     public static void main(String[] args) {
 
         String test = "Cantù";
-        System.out.println(toValidAddress(test));
+        System.out.println(CommonMethods.toNoAccent(test));
 
 
         /*

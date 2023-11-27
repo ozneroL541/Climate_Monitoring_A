@@ -28,7 +28,7 @@ package src.common;
  * Raccolta di metodi statici utilizzati da più classi.
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 0.10.4
+ * @version 0.10.5
  */
 public class CommonMethods {
     /**
@@ -149,5 +149,47 @@ public class CommonMethods {
         }
         // Return true
         return true;
+    }
+        /**
+     * Ritorna una stringa trasformata in modo tale che sia tutta maiuscola e le vocali non abbiano accenti.
+     * @param address string
+     * @return stringa trasformata
+     */
+    public static String toNoAccent( String str ) {
+        // Exit String
+        String s = "";
+        // To Upper Case
+        str = str.toUpperCase();
+        // For each letter
+        for (char c : str.toCharArray()) {
+            // Exchange letter into valid one
+            switch (c) {
+                case 'À':
+                case 'Á':
+                    s += "A'";
+                    break;
+                case 'È':
+                case 'É':
+                    s += "E'";
+                    break;
+                case 'Ì':
+                case 'Í':
+                    s += "I'";
+                    break;
+                case 'Ò':
+                case 'Ó':
+                    s += "O'";
+                    break;
+                case 'Ù':
+                case 'Ú':
+                    s += "U'";
+                    break;
+                default:
+                    s += c;
+                    break;
+            }
+        }
+        // Return valid String
+        return s;
     }
 }
