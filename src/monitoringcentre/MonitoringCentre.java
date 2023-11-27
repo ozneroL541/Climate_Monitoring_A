@@ -104,46 +104,15 @@ public class MonitoringCentre {
     public String getNome(){
         return nome;
     }
-
-    /*
-
-    //return il nome del centro
-    public static String registraCentroAree(short userId){
-
-        //TODO aggiungere commenti
-
-        System.out.println("CREAZIONE CENTRI\nPer favore, inserire le informazioni richieste");
-
-        //deve essere univico, è l'id
-        System.out.println("Inserire il nome del centro: ");
-        String nome=InputScanner.INPUT_SCANNER.nextLine();
-       
-        String [] indirizzo=new String [IndexOf.IAdd.length];
-        System.out.println("Inserire il nome della via o della piazza: ");
-        indirizzo[IndexOf.Iadd.via]=InputScanner.INPUT_SCANNER.nextLine();
-        System.out.println("Inserire il numero civico: ");
-        indirizzo[IndexOf.Iadd.civico]=Integer.toString(InputScanner.INPUT_SCANNER.nextInt());
-
-        //controllare che sia lungo 5 e che abbia solo numeri
-        System.out.println("Inserire il cap: ");
-        indirizzo[IndexOf.Iadd.CAP]=InputScanner.INPUT_SCANNER.nextLine();
-
-        System.out.println("Inserire il nome del comune: ");
-        indirizzo[IndexOf.Iadd.comune]=InputScanner.INPUT_SCANNER.nextLine();
-        System.out.println("Inserire il nome della provincia: ");
-        indirizzo[IndexOf.Iadd.prov]=InputScanner.INPUT_SCANNER.nextLine();
-
-        //associare usedId dell'utente che crea il centro
-        short id=userId;
-
-        //aggiungere le aree
-
-        return nome;
+    /**
+     * Ritorna l'indirizzo trasformato in modo tale che sia valido.
+     * @param address indirizzo
+     * @return indirizzo valido
+     */
+    private static String toValidAddress( String address ) {
+        // TODO
+        return null;
     }
-
-    */
-
-
 
     //TODO rimuovere
     /*
