@@ -102,7 +102,7 @@ public class MonitoringCentre {
     //serve ad autorized operator per ottenere il nome del centro
     //TODO javadoc
     public String getNome(){
-        return nome;
+        return this.nome;
     }
     /**
      * Ritorna l'indirizzo trasformato in modo tale che sia valido.
