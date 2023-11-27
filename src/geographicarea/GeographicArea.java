@@ -999,11 +999,13 @@ public class GeographicArea {
      * @return true se l'ID esiste
      */
     public static boolean doesIDExist( String id ) {
-        // If str in null exit
-        if ( id == null || id.length() < 1) {
-            // Return false
+        // Check ID correctness
+        if ( ! argumentCorrect(id, IndexOf.geoname_id) ) {
             return false;
         }
-        return true;
+        // Search ID
+        Integer[] a = ricercaPerID(id);
+        // Check if the search gave a result
+        return a != null && a.length > 0;
     }
 }
