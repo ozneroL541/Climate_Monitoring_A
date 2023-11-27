@@ -27,6 +27,7 @@ package src.monitoringcentre;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
@@ -283,20 +284,48 @@ public class MonitoringCentre {
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
 
-    //TODO
+    //set the geographic area/areas associated with the center
     private static ArrayList<String> setAreeGeografiche(){
 
         ArrayList<String> aree=new ArrayList<String>();
-        final String endInput="";
+        final int endInput=0;
+        int input=0;
+        int contAree=0;
+
+        System.out.println("\n\nINSERIMENTO AREE GEOGRAFICHE");
 
         do{
+            System.out.println("\nAree inserite: " + contAree);
+            System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
+
+            try {
+                input=InputScanner.INPUT_SCANNER.nextInt();            
+            }catch(InputMismatchException e) {
+                //consume invalid token
+                InputScanner.INPUT_SCANNER.next();
+                System.out.println("ERRORE");
+                System.out.println("Inserire un codice numerico!");
+                input=-1;
+            } 
+            
+            //TODO implementare controllo
+            /*/
+            if(CheckID(input)){
+                aree.add(Integer.toString(input));
+                contAree++;
+            }
+            */
+
+            //TODO sostituire condizione con controllo
+            if(input>0){
+                aree.add(Integer.toString(input));
+                contAree++;
+            }
 
 
+        }while(input!=endInput);
 
-        }while(true);
-
-        return null;
-
+        return aree;
     }
 
     /*
@@ -452,9 +481,16 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
+        ArrayList<String> test=setAreeGeografiche();
+        for(int i=0;i<test.size();i++){
+            System.out.println(test.get(i));
+        }
+
+
+        /*
         String test = "Cantù";
         System.out.println(CommonMethods.toNoAccent(test));
-
+        */
 
         /*
         String [] fake_address = { "Via Regina Teodolinda" ,"37/h", "20100", "MILANO", "MI" };
