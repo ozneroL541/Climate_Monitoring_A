@@ -111,7 +111,32 @@ public class MonitoringCentre {
      */
     private static String toValidAddress( String address ) {
         // TODO
-        return null;
+        String s = "";
+        address = address.toUpperCase();
+        for (char c : address.toCharArray()) {
+            switch (c) {
+                // TODO inserire lettere con accenti al contrario
+                case 'À':
+                    s += "A'";
+                    break;
+                case 'È':
+                case 'É':
+                    s += "E'";
+                    break;
+                case 'Ì':
+                    s += "I'";
+                    break;
+                case 'Ò':
+                    s += "O'";
+                    break;
+                case 'Ù':
+                    s += "U'";
+                default:
+                    s += c;
+                    break;
+            }
+        }
+        return s;
     }
 
     //TODO rimuovere
@@ -443,6 +468,11 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
+        String test = "àèéìòù";
+        System.out.println(test.toUpperCase());
+
+
+        /*
         String [] fake_address = { "Via Regina Teodolinda" ,"37/h", "20100", "MILANO", "MI" };
         System.out.println();
         if (isAddressCorrect(fake_address)) {
