@@ -993,4 +993,17 @@ public class GeographicArea {
         // If the id is positive, then exist
         return this.geoname_id > 0;
     }
+    /**
+     * Controlla che il Geoname ID esista.
+     * @param id geoname ID
+     * @return true se l'ID esiste
+     */
+    public static boolean doesIDExist( String id ) {
+        // If str in null exit
+        if ( id == null || id.length() < 1) {
+            // Return false
+            return false;
+        }
+        return true;
+    }
 }
