@@ -33,6 +33,7 @@ import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
 import src.common.Research;
+import src.geographicarea.GeographicArea;
 
 /**
  * Classe che contiene il centro di monitoraggio.
@@ -288,42 +289,24 @@ public class MonitoringCentre {
     private static ArrayList<String> setAreeGeografiche(){
 
         ArrayList<String> aree=new ArrayList<String>();
-        final int endInput=0;
-        int input=0;
-        int contAree=0;
+        final String endInput = "0";
+        String input = "";
+        short contAree = 0;
 
         System.out.println("\n\nINSERIMENTO AREE GEOGRAFICHE");
 
         do{
             System.out.println("\nAree inserite: " + contAree);
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
-
-            try {
-                input=InputScanner.INPUT_SCANNER.nextInt();            
-            }catch(InputMismatchException e) {
-                //consume invalid token
-                InputScanner.INPUT_SCANNER.next();
-                System.out.println("ERRORE");
-                System.out.println("Inserire un codice numerico!");
-                input=-1;
-            } 
             
-            //TODO implementare controllo
-            /*/
-            if(CheckID(input)){
-                aree.add(Integer.toString(input));
-                contAree++;
-            }
-            */
+            input = InputScanner.INPUT_SCANNER.nextLine();
 
-            //TODO sostituire condizione con controllo
-            if(input>0){
-                aree.add(Integer.toString(input));
+            if ( !endInput.equals(input) && GeographicArea.doesIDExist(input)) {
+                aree.add(input);
                 contAree++;
             }
 
-
-        }while(input!=endInput);
+        }while( ! endInput.equals(input) );
 
         return aree;
     }
