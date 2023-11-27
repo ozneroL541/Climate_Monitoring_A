@@ -290,6 +290,7 @@ public class MonitoringCentre {
                 } else {
                     // To upper case
                     in = in.toUpperCase();
+                    // TODO Not sure it works now
                     // Record array
                     String [] cc_array = Research.getRecordByData(listcomuni, 2, in);
                     // If Country code does not exist
