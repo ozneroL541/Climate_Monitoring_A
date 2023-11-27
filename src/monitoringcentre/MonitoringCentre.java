@@ -27,7 +27,6 @@ package src.monitoringcentre;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
@@ -38,7 +37,7 @@ import src.geographicarea.GeographicArea;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.09.1
+ * @version 0.09.2
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -289,7 +288,8 @@ public class MonitoringCentre {
     private static ArrayList<String> setAreeGeografiche(){
 
         ArrayList<String> aree=new ArrayList<String>();
-        final String endInput = "0";
+        final String endInput = "ESCI";
+        boolean exit = false;
         String input = "";
         short contAree = 0;
 
@@ -298,15 +298,17 @@ public class MonitoringCentre {
         do{
             System.out.println("\nAree inserite: " + contAree);
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
-            
-            input = InputScanner.INPUT_SCANNER.nextLine();
 
-            if ( !endInput.equals(input) && GeographicArea.doesIDExist(input)) {
+            input = InputScanner.INPUT_SCANNER.nextLine();
+            // Check exit
+            exit = CommonMethods.ExitLoop(input);
+            // If area exist add it to the list
+            if ( ! exit && GeographicArea.doesIDExist(input)) {
                 aree.add(input);
                 contAree++;
             }
 
-        }while( ! endInput.equals(input) );
+        }while( ! exit );
 
         return aree;
     }

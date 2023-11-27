@@ -35,7 +35,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.13.2
+ * @version 0.13.3
  */
 public class GeographicArea {
     // Geoname ID
@@ -473,7 +473,7 @@ public class GeographicArea {
                         // Up all the letters
                         ans = ans.toUpperCase();
                         // If quit, exit
-                        if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
+                        if ( CommonMethods.ExitLoop(ans) ) {
                             // Exit
                             l = -1;
                         }

@@ -28,7 +28,7 @@ package src.common;
  * Raccolta di metodi statici utilizzati da più classi.
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 0.10.5
+ * @version 0.10.6
  */
 public class CommonMethods {
     /**
@@ -191,5 +191,15 @@ public class CommonMethods {
         }
         // Return valid String
         return s;
+    }
+    /**
+     * Controlla che la stringa in argomento sia una una stringa contenente caratteri per uscire da un loop
+     * @param input input
+     * @return true se esce dal loop
+     */
+    public static boolean ExitLoop( String input ) {
+        // Input to upper case
+        input = input.toUpperCase();
+        return input.contains("N") || input.contains("Q") || input.contains("ESC") || input.contains("EXIT");
     }
 }
