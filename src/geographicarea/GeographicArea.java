@@ -1006,6 +1006,11 @@ public class GeographicArea {
         // Search ID
         Integer[] a = ricercaPerID(id);
         // Check if the search gave a result
-        return a != null && a.length > 0;
+        if (a != null && a.length > 0) {
+            return true;
+        } else {
+            System.out.println("Il Geoname ID inserito non esiste.");
+            return false;
+        }
     }
 }

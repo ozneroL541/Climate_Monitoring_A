@@ -655,9 +655,9 @@ public class AutorizedOperator extends User {
     public static void main(String[] args) {
 
 
-        associaCentro();
+        AutorizedOperator.associaCentro();
         
-        //AutorizedOperator.registrazione();
+        /*AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
         u.menu();
 

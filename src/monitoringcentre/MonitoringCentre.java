@@ -289,7 +289,7 @@ public class MonitoringCentre {
 
         ArrayList<String> aree=new ArrayList<String>();
         final String endInput = "ESCI";
-        boolean exit = false;
+        boolean exit = false, check = false;
         String input = "";
         short contAree = 0;
 
@@ -300,12 +300,24 @@ public class MonitoringCentre {
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
 
             input = InputScanner.INPUT_SCANNER.nextLine();
+            
+            System.out.println();
             // Check exit
             exit = CommonMethods.ExitLoop(input);
             // If area exist add it to the list
             if ( ! exit && GeographicArea.doesIDExist(input)) {
-                aree.add(input);
-                contAree++;
+                check = false;
+                // Check if area has already been inserted
+                for (short i = 0; i < aree.size() && !check; i++) {
+                    check = input.equals(input);
+                    if (check) {
+                        System.out.println("Area già inserita");
+                    }
+                }
+                if ( ! check) {
+                    aree.add(input);
+                    contAree++;
+                }
             }
 
         }while( ! exit );
