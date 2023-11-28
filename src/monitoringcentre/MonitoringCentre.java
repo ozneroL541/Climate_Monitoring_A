@@ -190,8 +190,6 @@ public class MonitoringCentre {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
 
-    //TODO rimuovere il TODO sotto se va bene
-    // TODO Modificare per aggiungere il centro metodo prototipale: totalmente incompleto e non testato
     /**
      * Permette di creare un Centro di Monitoraggio inserendone i dati e la ritorna.
      * Se la creazione fallisce ritorna null.
@@ -199,23 +197,20 @@ public class MonitoringCentre {
      */
     public static MonitoringCentre createCentre() {
         // Error string
-        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";       
-        // Input String
-        String in = "";
+        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
         String nome="";
         String [] indirizzo = new String [IndexOf.Iadd.length];
-        // Exit condition
-        boolean exit = false;
 
-        // TODO Split the phases in different methods
+        // Name
         nome = AskName();
+        // Check name
         if (nome == null) {
             System.err.println(error);
             return null;
         } else {
+            // Address
             indirizzo = AskAddress();
         }
-
         // Geographic Areas
         String[] aree = setAreeGeografiche();
 
