@@ -37,15 +37,16 @@ import src.geographicarea.GeographicArea;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.09.2
+ * @version 0.10.0
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
-    private String nome;
+    private String nome = null;
     private String [] indirizzo = new String[IndexOf.Iadd.length];
-    private ArrayList<String> areeInteresse=new ArrayList<String>();
-    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, aree";
-
+    private String[] areeInteresse = null;
+    // Header
+    private final static String header = "Nome,Via,Civico,CAP,Comune,Provincia,Aree";
+    // File
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
     private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
@@ -76,57 +77,107 @@ public class MonitoringCentre {
         private final static short max_index = 2;
     }
 
-    //TODO rimuovere
-    /*
-     * A cosa serve un costruttore che non inizializza i campi?
-     * A cosa servono i campi se tanto il costruttore non li inizializza?
+    /**
+     * Costruttore dell'oggetto Centro di Monitoraggio.
+     * @param nome nome del centro
+     * @param indirizzo indirizzo del centro
+     * @param areeInteresse aree di interesse
      */
-    public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse){
-        if(CenterExistence(nome))
-            registraCentroAree(nome, indirizzo, areeInteresse);
-    }
-
-
-    //TODO
-    //javadoc
-    public MonitoringCentre(String nome, String [] indirizzo, ArrayList<String> areeInteresse){
+    public MonitoringCentre(String nome, String [] indirizzo, String[] areeInteresse){
         this.nome=nome;
         this.indirizzo=indirizzo;
         this.areeInteresse=areeInteresse;
     }
 
-    //costruttore vuoto
-    public MonitoringCentre(){
-    }
-
-    //TODO rimuovere il commento
-    //serve ad autorized operator per ottenere il nome del centro
-    //TODO javadoc
+    /**
+     * Ritorna il nome del centro.
+     * @return nome
+    */
     public String getNome(){
         return this.nome;
     }
-
-    //TODO rimuovere
-    /*
-     * Perché devo inserire i campi che dovrebbero essere assegnati nel costruttore?
+    /**
+     * Ritorna un array di stringhe contenente gli ID delle aree di interresse.
+     * @return aree di interesse
      */
-    public void registraCentroAree(String nome, String [] indirizzo, String [] areeInteresse){
-        this.nome = nome;
-        if(indirizzo.length == this.indirizzo.length){
-            this.indirizzo = indirizzo;
-        }else{
-            /* 
-             * Stampa l'errore ma memorizza lo stesso!
-             */
-            System.err.println("Errore: lunghezza array errata."); 
+    public String[] getAreeInteresse() {
+        return areeInteresse;
+    }
+    /**
+     * Ritorna l'array di stringhe contenete l'indirizzo del centro di monitoraggio.
+     * @return indirizzo del centro
+     */
+    public String[] getIndirizzo() {
+        return indirizzo;
+    }
+    @Override
+    public String toString() {
+        String str = "";
+        str += "Nome:\t" + this.nome + "\n";
+        str += addresstoFormat() + "\n";
+        str += "Aree di Interesse\n" + GeographicArea.ListIDs(this.areeInteresse);
+        return str;
+    }
+    /**
+     * Ritorna l'indirizzo come stringa su un'unica riga
+     * @return indirizzo
+     */
+    private String addresstoLine() {
+        String str = "";
+        short i = 0;
+        for ( i = 0; i < IndexOf.Iadd.length -1; i++) {
+            str += this.indirizzo[i] + " ";
         }
-        if(areeInteresse.length > 0){
-            // TODO Fix error; areeInteresse have a fixed number, why use a List?
-            //this.areeInteresse = areeInteresse;
-        }else{
-            System.err.println("Errore: Lista vuota."); 
+        str += this.indirizzo[i];
+        return str;
+    }
+    private boolean memorizzaCentro(){
+        return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
+    }
+    /**
+     * Trasforma tutti i campi della classe in un array di stringhe
+     * @return array dei campi
+     */
+    private String[] toStringRecord() {
+        // To be returned
+        /*
+        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length + this.areeInteresse.length];
+        */
+        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length - 1];
+
+        record[IndexOf.name] = this.nome;
+        record[IndexOf.address + IndexOf.Iadd.via] = this.indirizzo[IndexOf.Iadd.via];
+        record[IndexOf.address + IndexOf.Iadd.civico] = this.indirizzo[IndexOf.Iadd.civico];
+        record[IndexOf.address + IndexOf.Iadd.CAP] = this.indirizzo[IndexOf.Iadd.CAP];
+        record[IndexOf.address + IndexOf.Iadd.comune] = this.indirizzo[IndexOf.Iadd.comune];
+        record[IndexOf.address + IndexOf.Iadd.prov] = this.indirizzo[IndexOf.Iadd.prov];
+        record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
+
+        /*
+        for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
+        */
+
+        return record;
+    }
+    private String areasforCSV() {
+        final String delimiter = "-";
+        String str = "";
+        short i = 0;
+        for ( i = 0; i < this.areeInteresse.length - 1; i++) {
+            str += this.areeInteresse[i] + delimiter;
         }
-        //memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
+        str += this.areeInteresse[i];
+        return str;
+    }
+    /**
+     * Ritorna l'indirisso formattato secondo lo standard di Poste Italiane.
+     * @return indirizzo
+     */
+    private String addresstoFormat() {
+        String str = "";
+        str += this.indirizzo[IndexOf.Iadd.via] + " " + this.indirizzo[IndexOf.Iadd.civico] + "\n";
+        str += this.indirizzo[IndexOf.Iadd.CAP] + " " + this.indirizzo[IndexOf.Iadd.comune] + " " + this.indirizzo[IndexOf.Iadd.prov];
+        return str;
     }
 
     /**
@@ -138,33 +189,10 @@ public class MonitoringCentre {
         return Research.getColArray(f,IndexOf.name);
     }
 
-    private static void memorizzaCentroAree(String nome, String [] indirizzo, ArrayList<String> areeInteresse){
-        ArrayList<String> str = new ArrayList<String>();
-        String aree = "";
-        str.add(nome);
-        short i = 0;
-        for ( i = 0; i < indirizzo.length; i++) {
-            str.add(indirizzo[i]);
-        }
-        
-        for ( i = 0; i < areeInteresse.size() - 1; i++) {
-            aree += areeInteresse.get(i) + "-" ;
-        }
-        aree += areeInteresse.get(i);
-        str.add(aree);
-        String s[] = str.toArray(new String[str.size()]);
-        CSV_Utilities.addArraytoCSV(f,s,header);
+    private static boolean CenterExistence(String nome) {
+        return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
 
-    private boolean CenterExistence(String nome){
-        boolean exists = false;
-        if( f.exists() && Research.isStringInCol(f,0,nome))
-            exists = true;
-        else
-            exists = false;
-
-        return exists;
-    }
     //TODO rimuovere il TODO sotto se va bene
     // TODO Modificare per aggiungere il centro metodo prototipale: totalmente incompleto e non testato
     /**
@@ -174,134 +202,169 @@ public class MonitoringCentre {
      */
     public static MonitoringCentre createCentre() {
         // Error string
-        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
-        //TODO rimuovere
-        // Monitoring Centre to be returned
-        MonitoringCentre mc = null;        
+        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";       
         // Input String
         String in = "";
         String nome="";
-        String [] indirizzo=new String [IndexOf.Iadd.length];
+        String [] indirizzo = new String [IndexOf.Iadd.length];
         // Exit condition
         boolean exit = false;
-        // Try catch for Input Exception
-        try {
+
+        // TODO Split the phases in different methods
+        nome = AskName();
+        if (nome == null) {
+            System.err.println(error);
+            return null;
+        } else {
+            indirizzo = AskAddress();
+        }
+
+        // Geographic Areas
+        String[] aree = setAreeGeografiche();
+
+        //return Monitoring Centre
+        return new MonitoringCentre(nome, indirizzo, aree);        
+    }
+    private static String AskName() {
+        boolean exit = true;
+        String in = "";
+        String name = null;
+        do {
+            // Request
+            System.out.print("Inserire nome centro:\t\t\t");
+            // Input
+            in = InputScanner.INPUT_SCANNER.nextLine();
+            // Check if it is correct
+            if ((exit = fieldCorrect(in, IndexOf.name))) {
+                // Check if there is another area wth the same name
+                if ( f.exists() && Research.OneStringInCol(f, IndexOf.name, in) >= 0 ) {
+                    // Output
+                    System.out.println("Esiste già un centro con lo stesso nome.");
+                    // Exit
+                    name = null;
+                    exit = true;
+                } else {
+                    // Assign input to name
+                    name = in;
+                }
+            }
+        } while (!exit);
+        return name;
+    }
+    private static String[] AskAddress() {
+        // Address
+        String[] address = new String[IndexOf.Iadd.length];
+        // Exit
+        boolean exit = true;
+        // Input
+        String in = null;
+    
+        //per l'indirizzo in input, appena preso l'input (prima di controllarlo), fare .toUpperCase(),
+        //così i controlli sono corretti e quando lo si salva è già tutto maiuscolo
+
+        do {
+            // Ask Street
             do {
                 // Request
-                System.out.print("Inserire nome centro:\t\t");
+                System.out.print("Inserire Via/Piazza:\t\t\t");
                 // Input
-                in = InputScanner.INPUT_SCANNER.nextLine();
-                // Check if it is correct
-                if ((exit = fieldCorrect(in, IndexOf.name))) {
-                    // Check if there is another area wth the same name
-                    if ( f.exists() && Research.OneStringInCol(f, IndexOf.name, in) >= 0 ) {
-                        // Output
-                        System.out.println("Esiste già un centro con lo stesso nome.");
-                        System.out.println(error);
-                        // Exit
-                        return null;
-                    } else {
-                        // Assign input to name
-                        nome = in;
-                    }
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.via)) {
+                    address[IndexOf.Iadd.via] = in ;
+                } else {
+                    System.out.println("L'indirizzo inserito non è corretto.");
                 }
             } while (!exit);
-
-
-
-            //TODO AGGIUNGERE CONTROLLO SU TUTTO L'INDIRIZZO
-            //es di indirizzo
-            //VIALE ROMAGNA 12/A
-            //20133 MILANO MI
-            //tutto maiuscolo, niente punteggiatura
-
-
-            //per l'indirizzo in input, appena preso l'input (prima di controllarlo), fare .toUpperCase(),
-            //così i controlli sono corretti e quando lo si salva è già tutto maiuscolo
-
-            // TODO Inserire controllo
-            // Request
-            System.out.print("Inserire via:\t\t");
-            // Input
-            indirizzo[IndexOf.Iadd.via] = InputScanner.INPUT_SCANNER.nextLine();
-           
-            // TODO Inserire controllo
-            System.out.print("Inserire numero civico:\t\t");
-            // Input
-            indirizzo[IndexOf.Iadd.civico]=Integer.toString(InputScanner.INPUT_SCANNER.nextInt());
-
-            // TODO Inserire controllo
-            //controllare che sia lungo 5 e che abbia solo numeri
-            System.out.println("Inserire il cap: ");
-            indirizzo[IndexOf.Iadd.CAP]=InputScanner.INPUT_SCANNER.nextLine();
-
-            // TODO Inserire controllo
-            System.out.println("Inserire il nome del comune: ");
-            indirizzo[IndexOf.Iadd.comune]=InputScanner.INPUT_SCANNER.nextLine();
-
+            // Ask Number
             do {
                 // Request
-                System.out.print("Inserire codice provincia:\t");
-                // TODO: usare il codice provincia per ottenere regione (se necessario) e nazione (anche se è per forza Italia).
+                System.out.print("Inserire Numero Civico:\t\t\t");
                 // Input
-                in = InputScanner.INPUT_SCANNER.nextLine();
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.civico)) {
+                    address[IndexOf.Iadd.civico] = in;
+                } else {
+                    System.out.println("Il numero civico inserito non è corretto.");
+                }
+            } while (!exit);
+            // Ask CAP
+            do {
+                // Request
+                System.out.print("Inserire Codice di Avviamento Postale:\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.CAP)) {
+                    address[IndexOf.Iadd.CAP] = in;
+                } else {
+                    System.out.println("Il CAP inserito non è corretto.");
+                }
+            } while (!exit);
+            // Ask City
+            do {
+                // Request
+                System.out.print("Inserire Comune:\t\t\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.comune)) {
+                    address[IndexOf.Iadd.comune] = in;
+                } else {
+                    System.out.println("Il Comune inserito non è corretto.");
+                }
+            } while (!exit);
+            //Ask Provice
+            do {
+                // Request
+                System.out.print("Inserire codice provincia:\t\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 // Country Code must be made of 2 characters
-                // TODO
                 if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
                     // Stay in loop
                     exit = false;
                 } else {
-                    // To upper case
-                    in = in.toUpperCase();
-                    // TODO Not sure it works now
-                    // Record array
-                    String [] cc_array = Research.getRecordByData(listcomuni, 2, in);
-                    // If Country code does not exist
-                    if (cc_array == null ) {
+                    // If province does not exist
+                    if ( ! Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
                         // Output
                         System.out.println("Non è stata trovata alcuna provincia col codice inserito.");
                         // Stay in loop
                         exit = false;
                     } else {
                         // Assign Provincia
-                        indirizzo[IndexOf.Iadd.prov]=cc_array[3];
+                        address[IndexOf.Iadd.prov] = in;
                         // Exit
                         exit = true;
                     }
                 }
             } while (!exit);
-        } catch (Exception e) {
-            // Output Exception
-            e.printStackTrace();
-        }
-        // TODO
-        // Return Geographic Area
-        ArrayList<String> aree=new ArrayList<String>();
-        aree=null;
- 
-        memorizzaCentroAree(nome, indirizzo, aree);
-        //return Monitoring Centre
-        return new MonitoringCentre(nome, indirizzo, aree);        
+            // Check all address
+            exit = isAddressCorrect(address);
+            if ( ! exit ) {
+                System.out.println("Non è stato trovato alcun CAP nel Comune e nella Provincia inseriti.");
+                System.out.println("Inserire nuovamente l'indirizzo.");
+            }
+        } while ( ! exit );
+
+        return address;
     }
 
     //set the geographic area/areas associated with the center
-    private static ArrayList<String> setAreeGeografiche(){
+    private static String[] setAreeGeografiche(){
 
         ArrayList<String> aree = new ArrayList<String>();
+        String[] out = null;
         final String endInput = "ESCI";
         boolean exit = false, already_in = false;
         String input = "";
         short contAree = 0;
 
-        System.out.println("\n\nINSERIMENTO AREE GEOGRAFICHE");
+        System.out.println("\nINSERIMENTO AREE GEOGRAFICHE");
 
         do{
             System.out.println("\nAree inserite: " + contAree);
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
 
             input = InputScanner.INPUT_SCANNER.nextLine();
-            
-            System.out.println();
+
             // Check exit
             exit = CommonMethods.ExitLoop(input);
             // If area exist add it to the list
@@ -322,7 +385,12 @@ public class MonitoringCentre {
 
         }while( ! exit );
 
-        return aree;
+        out = aree.toArray(new String[0]);
+
+        System.out.println("Elenco Aree Inserite");
+        System.out.println( GeographicArea.ListIDs(out) );
+
+        return out;
     }
 
     /*
@@ -478,10 +546,10 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        ArrayList<String> test=setAreeGeografiche();
-        String [] t = test.toArray(new String[0]);
-        GeographicArea.printIDs( t );
-
+        MonitoringCentre mc = MonitoringCentre.createCentre();
+        System.out.println("--------------------------------------");
+        System.out.println(mc.toString());
+        mc.memorizzaCentro();
         /*
 4968937
 4969532

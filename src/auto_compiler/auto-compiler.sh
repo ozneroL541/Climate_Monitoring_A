@@ -23,6 +23,8 @@
 
 # GNU Bash automatic compiler for ClimateMonitor program
 
+# Move in a directory different from src
+
 # Go to the upper directory
 if cd $(dirname $(which $0)) && cd ../../
 then
