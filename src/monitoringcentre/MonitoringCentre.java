@@ -215,6 +215,8 @@ public class MonitoringCentre {
         if (nome == null) {
             System.err.println(error);
             return null;
+        } else {
+            indirizzo = AskAddress();
         }
 
         // Geographic Areas
@@ -261,79 +263,86 @@ public class MonitoringCentre {
         //così i controlli sono corretti e quando lo si salva è già tutto maiuscolo
 
         do {
-            // Request
-            System.out.print("Inserire Via/Piazza:\t\t");
-            // Input
-            in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
-            if (exit = isAddElCorrect(in, IndexOf.Iadd.via)) {
-                in = address[IndexOf.Iadd.via];
-            } else {
-                System.out.println("L'indirizzo inserito non è corretto.");
-            }
-        } while (!exit);
-        
-        do {
-            // Request
-            System.out.print("Inserire Numero Civico:\t\t");
-            // Input
-            in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
-            if (exit = isAddElCorrect(in, IndexOf.Iadd.civico)) {
-                in = address[IndexOf.Iadd.civico];
-            } else {
-                System.out.println("Il numero civico inserito non è corretto.");
-            }
-        } while (!exit);
-
-        do {
-            // Request
-            System.out.print("Inserire Codice di Avviamento Postale:\t");
-            // Input
-            in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
-            if (exit = isAddElCorrect(in, IndexOf.Iadd.CAP)) {
-                in = address[IndexOf.Iadd.CAP];
-            } else {
-                System.out.println("Il CAP inserito non è corretto.");
-            }
-        } while (!exit);
-
-        do {
-            // Request
-            System.out.print("Inserire Comune:\t");
-            // Input
-            in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
-            if (exit = isAddElCorrect(in, IndexOf.Iadd.comune)) {
-                in = address[IndexOf.Iadd.comune];
-            } else {
-                System.out.println("Il Comune inserito non è corretto.");
-            }
-        } while (!exit);
-
-        do {
-            // Request
-            System.out.print("Inserire codice provincia:\t");
-            // TODO: usare il codice provincia per ottenere regione (se necessario) e nazione (anche se è per forza Italia).
-            // Input
-            in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
-            // Country Code must be made of 2 characters
-            // TODO
-            if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
-                // Stay in loop
-                exit = false;
-            } else {
-                // If province does not exist
-                if ( ! Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
-                    // Output
-                    System.out.println("Non è stata trovata alcuna provincia col codice inserito.");
+            // Ask Street
+            do {
+                // Request
+                System.out.print("Inserire Via/Piazza:\t\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.via)) {
+                    in = address[IndexOf.Iadd.via];
+                } else {
+                    System.out.println("L'indirizzo inserito non è corretto.");
+                }
+            } while (!exit);
+            // Ask Number
+            do {
+                // Request
+                System.out.print("Inserire Numero Civico:\t\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.civico)) {
+                    in = address[IndexOf.Iadd.civico];
+                } else {
+                    System.out.println("Il numero civico inserito non è corretto.");
+                }
+            } while (!exit);
+            // Ask CAP
+            do {
+                // Request
+                System.out.print("Inserire Codice di Avviamento Postale:\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.CAP)) {
+                    in = address[IndexOf.Iadd.CAP];
+                } else {
+                    System.out.println("Il CAP inserito non è corretto.");
+                }
+            } while (!exit);
+            // Ask City
+            do {
+                // Request
+                System.out.print("Inserire Comune:\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                if (exit = isAddElCorrect(in, IndexOf.Iadd.comune)) {
+                    in = address[IndexOf.Iadd.comune];
+                } else {
+                    System.out.println("Il Comune inserito non è corretto.");
+                }
+            } while (!exit);
+            //Ask Provice
+            do {
+                // Request
+                System.out.print("Inserire codice provincia:\t");
+                // Input
+                in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
+                // Country Code must be made of 2 characters
+                if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
                     // Stay in loop
                     exit = false;
                 } else {
-                    // Assign Provincia
-                    address[IndexOf.Iadd.prov] = in;
-                    // Exit
-                    exit = true;
+                    // If province does not exist
+                    if ( ! Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
+                        // Output
+                        System.out.println("Non è stata trovata alcuna provincia col codice inserito.");
+                        // Stay in loop
+                        exit = false;
+                    } else {
+                        // Assign Provincia
+                        address[IndexOf.Iadd.prov] = in;
+                        // Exit
+                        exit = true;
+                    }
                 }
+            } while (!exit);
+            // Check all address
+            exit = isAddressCorrect(address);
+            if ( ! exit ) {
+                System.out.println("Non è stato trovato alcun CAP nel Comune e nella Provincia inseriti.");
+                System.out.println("Inserire nuovamente l'indirizzo.");
             }
-        } while (!exit);
+        } while ( ! exit );
 
         return address;
     }
