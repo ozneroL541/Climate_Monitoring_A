@@ -78,6 +78,10 @@ public class CommonMethods {
      * @return true se l'indirizzo è valido
      */
     public static boolean isASCIIValidAddress( String add ) {
+        // If does not exist
+        if ( add == null || add.length() <= 0 ) {
+            return false;
+        }
         // For every character in string
         for ( Character c : add.toCharArray() ) {
             // Check the validity of the character
