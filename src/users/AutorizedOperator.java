@@ -531,7 +531,7 @@ public class AutorizedOperator extends User {
         }while(exit);
     }
 
-    //TODO
+    //TODO Rendere modulare
     private static String setCentro(){
 
         final String menu="\n\nMenù associazione centro\n"+
