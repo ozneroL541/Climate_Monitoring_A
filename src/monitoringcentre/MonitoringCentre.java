@@ -131,8 +131,8 @@ public class MonitoringCentre {
         str += this.indirizzo[i];
         return str;
     }
-    private void memorizzaCentro(){
-        CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
+    private boolean memorizzaCentro(){
+        return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
     }
     /**
      * Trasforma tutti i campi della classe in un array di stringhe
@@ -550,6 +550,7 @@ public class MonitoringCentre {
         MonitoringCentre mc = MonitoringCentre.createCentre();
         System.out.println("--------------------------------------");
         System.out.println(mc.toString());
+        mc.memorizzaCentro();
         /*
 4968937
 4969532
