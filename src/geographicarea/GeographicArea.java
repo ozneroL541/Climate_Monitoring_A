@@ -1027,9 +1027,10 @@ public class GeographicArea {
         // For each ID
         for (String i : ids) {
             // If the ID exist
-            if (doesIDExist(i)) {
+            if (argumentCorrect(i, IndexOf.geoname_id)) {
                 id = (int) Integer.parseInt(i);
-                lines.add(ricercaPerID(id));
+                if ( id > 0 )
+                    lines.add(ricercaPerID(id));
             }
         }
         // Return the correctness of the execution
