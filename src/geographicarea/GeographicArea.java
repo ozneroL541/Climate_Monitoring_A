@@ -27,6 +27,7 @@ package src.geographicarea;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 
 import src.common.*;
 
@@ -1014,30 +1015,24 @@ public class GeographicArea {
         }
     }
     /**
-     * Stampa le aree corrispondenti agli ID in ingresso.
-     * Se ci sono uno o più Id non validi non li stamperà e ritornerà true. 
+     * Ritorna la lista delle aree corrispondenti agli ID in ingresso.
      * @param ids Geoname ID delle aree
-     * @return true se tutti gli ID sono stati stampati
+     * @return lista delle aree
      */
-    public static boolean printIDs( String [] ids ) {
-        // Indexes
-        short i = 0, j = 0;
+    public static String ListIDs( String [] ids ) {
+        // List of lines
+        ArrayList<Integer> lines = new ArrayList<Integer>();
+        // ID
+        int id = 0;
         // For each ID
-        for (String id : ids) {
+        for (String i : ids) {
             // If the ID exist
-            if (doesIDExist(id)) {
-                // Print the ID
-                System.out.println(RunTimeLine(ricercaPerID(id)[0], ++i ));
-            } else {
-                // Increment invalid ID index
-                j++;
+            if (doesIDExist(i)) {
+                id = (int) Integer.parseInt(i);
+                lines.add(ricercaPerID(id));
             }
         }
-        // If the was an error print a message
-        if ( j != 0 ) {
-            System.err.println("Errore: Non è stato possibile stampare " + j + " ID perché inesistenti.");
-        }
         // Return the correctness of the execution
-        return j == 0;
+        return (toList(lines.toArray(new Integer[0])));
     }
 }

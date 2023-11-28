@@ -109,6 +109,34 @@ public class MonitoringCentre {
     public String[] getIndirizzo() {
         return indirizzo;
     }
+    @Override
+    public String toString() {
+        String str = "";
+        str += "Nome:\t" + this.nome + "\n";
+        str += addresstoFormat();
+        return str;
+    }
+    /**
+     * Ritorna l'indirizzo come stringa su un'unica riga
+     * @return indirizzo
+     */
+    private String addresstoLine() {
+        String str = "";
+        for (short i = 0; i < IndexOf.Iadd.length; i++) {
+            str += this.indirizzo[i];
+        }
+        return str;
+    }
+    /**
+     * Ritorna l'indirisso formattato secondo lo standard di Poste Italiane.
+     * @return indirizzo
+     */
+    private String addresstoFormat() {
+        String str = "";
+        str += this.indirizzo[IndexOf.Iadd.via] + " " + this.indirizzo[IndexOf.Iadd.civico] + "\n";
+        str += this.indirizzo[IndexOf.Iadd.CAP] + " " + this.indirizzo[IndexOf.Iadd.comune] + " " + this.indirizzo[IndexOf.Iadd.prov];
+        return str;
+    }
 
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
@@ -287,7 +315,7 @@ public class MonitoringCentre {
         out = aree.toArray(new String[0]);
 
         System.out.println("Aree Inserite");
-        GeographicArea.printIDs(out);
+        GeographicArea.ListIDs(out);
 
         return out;
     }
@@ -447,7 +475,7 @@ public class MonitoringCentre {
 
         String[] test=setAreeGeografiche();
         String [] t = test;
-        GeographicArea.printIDs( t );
+        System.out.println(GeographicArea.ListIDs( t ));
 
         /*
         String [] t = test.toArray(new String[0]);
