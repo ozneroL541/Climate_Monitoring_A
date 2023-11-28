@@ -28,7 +28,6 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 
-import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
 import src.common.Research;
@@ -95,29 +94,6 @@ public class MonitoringCentre {
         return this.nome;
     }
 
-    //TODO rimuovere
-    /*
-     * Perché devo inserire i campi che dovrebbero essere assegnati nel costruttore?
-     */
-    public void registraCentroAree(String nome, String [] indirizzo, String [] areeInteresse){
-        this.nome = nome;
-        if(indirizzo.length == this.indirizzo.length){
-            this.indirizzo = indirizzo;
-        }else{
-            /* 
-             * Stampa l'errore ma memorizza lo stesso!
-             */
-            System.err.println("Errore: lunghezza array errata."); 
-        }
-        if(areeInteresse.length > 0){
-            // TODO Fix error; areeInteresse have a fixed number, why use a List?
-            //this.areeInteresse = areeInteresse;
-        }else{
-            System.err.println("Errore: Lista vuota."); 
-        }
-        //memorizzaCentroAree(nome, indirizzo, areeInteresse, userid);
-    }
-
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
      * Se non ci sono Centri ritorna null.
@@ -125,24 +101,6 @@ public class MonitoringCentre {
      */
     public static String[] getCentri(){
         return Research.getColArray(f,IndexOf.name);
-    }
-
-    private static void memorizzaCentroAree(String nome, String [] indirizzo, String[] areeInteresse){
-        String[] str = new String[]();
-        String aree = "";
-        str.add(nome);
-        short i = 0;
-        for ( i = 0; i < indirizzo.length; i++) {
-            str.add(indirizzo[i]);
-        }
-        
-        for ( i = 0; i < areeInteresse.size() - 1; i++) {
-            aree += areeInteresse.get(i) + "-" ;
-        }
-        aree += areeInteresse.get(i);
-        str.add(aree);
-        String s[] = str.toArray(new String[str.size()]);
-        CSV_Utilities.addArraytoCSV(f,s,header);
     }
 
     private boolean CenterExistence(String nome){
@@ -265,10 +223,8 @@ public class MonitoringCentre {
         }
         // TODO
         // Return Geographic Area
-        String[] aree=new String[]();
-        aree=null;
- 
-        memorizzaCentroAree(nome, indirizzo, aree);
+        String[] aree = null;
+
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
@@ -312,7 +268,10 @@ public class MonitoringCentre {
 
         }while( ! exit );
 
-        out = aree.toArray(new String[0]());
+        out = aree.toArray(new String[0]);
+
+        System.out.println("Aree Inserite");
+        GeographicArea.printIDs(out);
 
         return out;
     }
@@ -475,6 +434,7 @@ public class MonitoringCentre {
         GeographicArea.printIDs( t );
 
         /*
+        String [] t = test.toArray(new String[0]);
 4968937
 4969532
 4974775
