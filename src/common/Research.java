@@ -36,7 +36,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.13.2
+ * @version 0.13.3
  */
 public class Research {
     /**
@@ -96,6 +96,10 @@ public class Research {
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
             // Return null
             return -3;
+        }catch(NullPointerException e){
+            // File not read
+            // Return null
+            return -3;
         }catch(Exception e){
             // Print Error
             e.printStackTrace();
@@ -151,6 +155,10 @@ public class Research {
             String f_path = file.getParent();
             // Error Output
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(NullPointerException e){
+            // File not read
             // Return null
             return null;
         }catch(Exception e){
@@ -214,6 +222,10 @@ public class Research {
             String f_path = file.getParent();
             // Error Output
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(NullPointerException e){
+            // File not read
             // Return null
             return null;
         }catch(Exception e){
@@ -288,6 +300,10 @@ public class Research {
             }
             creader.close();
         }catch(FileNotFoundException e){ // If file not found
+            // Return null
+            return null;
+        }catch(NullPointerException e){
+            // File not read
             // Return null
             return null;
         }catch(Exception e){
@@ -377,6 +393,10 @@ public class Research {
             // Close the CSV Reader
             creader.close();
         } catch(FileNotFoundException e){ // If file not found
+            // Return null
+            return null;
+        }catch(NullPointerException e){
+            // File not read
             // Return null
             return null;
         }catch(Exception e){
@@ -478,6 +498,10 @@ public class Research {
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
             // Return false
             return false;
+        } catch(NullPointerException e) {
+            // File not read
+            // Return null
+            return false;
         } catch (Exception e) { //to catch any exception inside try block
             // Not managed Error
             e.printStackTrace(); //used to print a throwable class along with other dataset class
@@ -514,6 +538,10 @@ public class Research {
             String f_path = file.getParent();
             // Error Output
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(NullPointerException e){
+            // File not read
             // Return null
             return null;
         }catch(Exception e){
@@ -624,6 +652,10 @@ public class Research {
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
             // Return null
             return null;
+        }catch(NullPointerException e){
+            // File not read
+            // Return null
+            return null;
         }catch(Exception e){ //to catch any exception inside try block
             // Not managed exception error
             e.printStackTrace(); //used to print a throwable class along with other dataset class
@@ -678,6 +710,10 @@ public class Research {
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
             // Return null
             return null;
+        }catch(NullPointerException e){
+            // File not read
+            // Return null
+            return null;
         }catch(Exception e){
             // Print Error
             e.printStackTrace();
@@ -725,6 +761,10 @@ public class Research {
             // Error Output
             System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
             // Return false
+            return false;
+        } catch(NullPointerException e) {
+            // File not read
+            // Return null
             return false;
         } catch (Exception e) { //to catch any exception inside try block
             // Not managed Error

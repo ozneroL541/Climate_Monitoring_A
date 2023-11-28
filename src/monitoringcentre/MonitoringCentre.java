@@ -547,12 +547,10 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        String[] test=setAreeGeografiche();
-        String [] t = test;
-        System.out.println(GeographicArea.ListIDs( t ));
-
+        MonitoringCentre mc = MonitoringCentre.createCentre();
+        System.out.println("________________________-");
+        System.out.println(mc.toString());
         /*
-        String [] t = test.toArray(new String[0]);
 4968937
 4969532
 4974775
