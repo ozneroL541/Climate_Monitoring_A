@@ -1020,17 +1020,25 @@ public class GeographicArea {
      * @return true se tutti gli ID sono stati stampati
      */
     public static boolean printIDs( String [] ids ) {
+        // TODO Test
+        // Indexes
         short i = 0, j = 0;
+        // For each ID
         for (String id : ids) {
+            // If the ID exist
             if (doesIDExist(id)) {
+                // Print the ID
                 RunTimeLine(ricercaPerID(id)[0], i++);
             } else {
+                // Increment invalid ID index
                 j++;
             }
         }
-        if ( j == 0 ) {
+        // If the was an error print a message
+        if ( j != 0 ) {
             System.err.println("Errore: Non è stato possibile stampare " + j + " ID perché inesistenti.");
         }
+        // Return the correctness of the execution
         return j == 0;
     }
 }
