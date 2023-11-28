@@ -231,7 +231,7 @@ public class MonitoringCentre {
         String name = null;
         do {
             // Request
-            System.out.print("Inserire nome centro:\t\t");
+            System.out.print("Inserire nome centro:\t\t\t");
             // Input
             in = InputScanner.INPUT_SCANNER.nextLine();
             // Check if it is correct
@@ -266,7 +266,7 @@ public class MonitoringCentre {
             // Ask Street
             do {
                 // Request
-                System.out.print("Inserire Via/Piazza:\t\t");
+                System.out.print("Inserire Via/Piazza:\t\t\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.via)) {
@@ -278,7 +278,7 @@ public class MonitoringCentre {
             // Ask Number
             do {
                 // Request
-                System.out.print("Inserire Numero Civico:\t\t");
+                System.out.print("Inserire Numero Civico:\t\t\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.civico)) {
@@ -302,7 +302,7 @@ public class MonitoringCentre {
             // Ask City
             do {
                 // Request
-                System.out.print("Inserire Comune:\t");
+                System.out.print("Inserire Comune:\t\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.comune)) {
@@ -314,7 +314,7 @@ public class MonitoringCentre {
             //Ask Provice
             do {
                 // Request
-                System.out.print("Inserire codice provincia:\t");
+                System.out.print("Inserire codice provincia:\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 // Country Code must be made of 2 characters
@@ -388,7 +388,7 @@ public class MonitoringCentre {
 
         out = aree.toArray(new String[0]);
 
-        System.out.println("Aree Inserite");
+        System.out.println("Elenco Aree Inserite");
         System.out.println( GeographicArea.ListIDs(out) );
 
         return out;
@@ -548,7 +548,7 @@ public class MonitoringCentre {
     public static void main(String[] args) {
 
         MonitoringCentre mc = MonitoringCentre.createCentre();
-        System.out.println("________________________-");
+        System.out.println("--------------------------------------");
         System.out.println(mc.toString());
         /*
 4968937
