@@ -302,9 +302,9 @@ public class MonitoringCentre {
             // Output Exception
             e.printStackTrace();
         }
-        // TODO
-        // Return Geographic Area
-        String[] aree = null;
+
+        // Geographic Areas
+        String[] aree = setAreeGeografiche();
 
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
