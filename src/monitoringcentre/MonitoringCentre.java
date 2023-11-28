@@ -28,6 +28,7 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 
+import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
 import src.common.Research;
@@ -44,7 +45,7 @@ public class MonitoringCentre {
     private String [] indirizzo = new String[IndexOf.Iadd.length];
     private String[] areeInteresse = null;
     // Header
-    private final static String header = "Nome, Via, Civico, CAP, Comune, Provincia, Aree";
+    private final static String header = "Nome,Via,Civico,CAP,Comune,Provincia,Aree";
     // File
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
@@ -123,9 +124,49 @@ public class MonitoringCentre {
      */
     private String addresstoLine() {
         String str = "";
-        for (short i = 0; i < IndexOf.Iadd.length; i++) {
-            str += this.indirizzo[i];
+        short i = 0;
+        for ( i = 0; i < IndexOf.Iadd.length -1; i++) {
+            str += this.indirizzo[i] + " ";
         }
+        str += this.indirizzo[i];
+        return str;
+    }
+    private void memorizzaCentro(){
+        CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
+    }
+    /**
+     * Trasforma tutti i campi della classe in un array di stringhe
+     * @return array dei campi
+     */
+    private String[] toStringRecord() {
+        // To be returned
+        /*
+        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length + this.areeInteresse.length];
+        */
+        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length - 1];
+
+        record[IndexOf.name] = this.nome;
+        record[IndexOf.address + IndexOf.Iadd.via] = this.indirizzo[IndexOf.Iadd.via];
+        record[IndexOf.address + IndexOf.Iadd.civico] = this.indirizzo[IndexOf.Iadd.civico];
+        record[IndexOf.address + IndexOf.Iadd.CAP] = this.indirizzo[IndexOf.Iadd.CAP];
+        record[IndexOf.address + IndexOf.Iadd.comune] = this.indirizzo[IndexOf.Iadd.comune];
+        record[IndexOf.address + IndexOf.Iadd.prov] = this.indirizzo[IndexOf.Iadd.prov];
+        record[IndexOf.Iadd.length + IndexOf.areas] = areasforCSV();
+
+        /*
+        for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
+        */
+
+        return record;
+    }
+    private String areasforCSV() {
+        final String delimiter = "-";
+        String str = "";
+        short i = 0;
+        for ( i = 0; i < this.areeInteresse.length - 1; i++) {
+            str += this.areeInteresse[i] + delimiter;
+        }
+        str += this.areeInteresse[i];
         return str;
     }
     /**
