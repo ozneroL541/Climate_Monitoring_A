@@ -37,7 +37,7 @@ import src.geographicarea.GeographicArea;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.09.4
+ * @version 0.10.0
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
