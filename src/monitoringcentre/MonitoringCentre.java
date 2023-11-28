@@ -41,10 +41,10 @@ import src.geographicarea.GeographicArea;
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
-    private String nome;
+    private String nome = null;
     private String [] indirizzo = new String[IndexOf.Iadd.length];
-    private ArrayList<String> areeInteresse=new ArrayList<String>();
-    private final static String header = "nome, via/piazza, numero civico, cap, comune, provincia, aree";
+    private String[] areeInteresse = null;
+    private final static String header = "Nome, Via, Civico, CAP, Comune, Provincia, Aree";
 
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
@@ -76,20 +76,9 @@ public class MonitoringCentre {
         private final static short max_index = 2;
     }
 
-    //TODO rimuovere
-    /*
-     * A cosa serve un costruttore che non inizializza i campi?
-     * A cosa servono i campi se tanto il costruttore non li inizializza?
-     */
-    public MonitoringCentre(String nome, String [] indirizzo, String [] areeInteresse){
-        if(CenterExistence(nome))
-            registraCentroAree(nome, indirizzo, areeInteresse);
-    }
-
-
     //TODO
     //javadoc
-    public MonitoringCentre(String nome, String [] indirizzo, ArrayList<String> areeInteresse){
+    public MonitoringCentre(String nome, String [] indirizzo, String[] areeInteresse){
         this.nome=nome;
         this.indirizzo=indirizzo;
         this.areeInteresse=areeInteresse;
@@ -138,8 +127,8 @@ public class MonitoringCentre {
         return Research.getColArray(f,IndexOf.name);
     }
 
-    private static void memorizzaCentroAree(String nome, String [] indirizzo, ArrayList<String> areeInteresse){
-        ArrayList<String> str = new ArrayList<String>();
+    private static void memorizzaCentroAree(String nome, String [] indirizzo, String[] areeInteresse){
+        String[] str = new String[]();
         String aree = "";
         str.add(nome);
         short i = 0;
@@ -276,7 +265,7 @@ public class MonitoringCentre {
         }
         // TODO
         // Return Geographic Area
-        ArrayList<String> aree=new ArrayList<String>();
+        String[] aree=new String[]();
         aree=null;
  
         memorizzaCentroAree(nome, indirizzo, aree);
@@ -285,9 +274,10 @@ public class MonitoringCentre {
     }
 
     //set the geographic area/areas associated with the center
-    private static ArrayList<String> setAreeGeografiche(){
+    private static String[] setAreeGeografiche(){
 
         ArrayList<String> aree = new ArrayList<String>();
+        String[] out = null;
         final String endInput = "ESCI";
         boolean exit = false, already_in = false;
         String input = "";
@@ -322,7 +312,9 @@ public class MonitoringCentre {
 
         }while( ! exit );
 
-        return aree;
+        out = aree.toArray(new String[0]());
+
+        return out;
     }
 
     /*
@@ -478,8 +470,8 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        ArrayList<String> test=setAreeGeografiche();
-        String [] t = test.toArray(new String[0]);
+        String[] test=setAreeGeografiche();
+        String [] t = test;
         GeographicArea.printIDs( t );
 
         /*
