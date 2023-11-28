@@ -270,7 +270,7 @@ public class MonitoringCentre {
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.via)) {
-                    in = address[IndexOf.Iadd.via];
+                    address[IndexOf.Iadd.via] = in ;
                 } else {
                     System.out.println("L'indirizzo inserito non è corretto.");
                 }
@@ -282,7 +282,7 @@ public class MonitoringCentre {
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.civico)) {
-                    in = address[IndexOf.Iadd.civico];
+                    address[IndexOf.Iadd.civico] = in;
                 } else {
                     System.out.println("Il numero civico inserito non è corretto.");
                 }
@@ -294,7 +294,7 @@ public class MonitoringCentre {
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.CAP)) {
-                    in = address[IndexOf.Iadd.CAP];
+                    address[IndexOf.Iadd.CAP] = in;
                 } else {
                     System.out.println("Il CAP inserito non è corretto.");
                 }
@@ -306,7 +306,7 @@ public class MonitoringCentre {
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.comune)) {
-                    in = address[IndexOf.Iadd.comune];
+                    address[IndexOf.Iadd.comune] = in;
                 } else {
                     System.out.println("Il Comune inserito non è corretto.");
                 }
