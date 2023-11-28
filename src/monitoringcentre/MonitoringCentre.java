@@ -113,7 +113,8 @@ public class MonitoringCentre {
     public String toString() {
         String str = "";
         str += "Nome:\t" + this.nome + "\n";
-        str += addresstoFormat();
+        str += addresstoFormat() + "\n";
+        str += "Aree di Interesse\n" + GeographicArea.ListIDs(this.areeInteresse);
         return str;
     }
     /**
@@ -315,7 +316,7 @@ public class MonitoringCentre {
         out = aree.toArray(new String[0]);
 
         System.out.println("Aree Inserite");
-        GeographicArea.ListIDs(out);
+        System.out.println( GeographicArea.ListIDs(out) );
 
         return out;
     }
