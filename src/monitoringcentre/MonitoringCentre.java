@@ -151,7 +151,7 @@ public class MonitoringCentre {
         record[IndexOf.address + IndexOf.Iadd.CAP] = this.indirizzo[IndexOf.Iadd.CAP];
         record[IndexOf.address + IndexOf.Iadd.comune] = this.indirizzo[IndexOf.Iadd.comune];
         record[IndexOf.address + IndexOf.Iadd.prov] = this.indirizzo[IndexOf.Iadd.prov];
-        record[IndexOf.Iadd.length + IndexOf.areas] = areasforCSV();
+        record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
 
         /*
         for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
