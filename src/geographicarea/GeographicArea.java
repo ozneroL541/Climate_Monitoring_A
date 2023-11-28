@@ -1021,6 +1021,7 @@ public class GeographicArea {
      */
     public static boolean printIDs( String [] ids ) {
         // TODO Test
+        System.err.println("Hello");
         // Indexes
         short i = 0, j = 0;
         // For each ID

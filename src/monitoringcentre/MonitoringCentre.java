@@ -479,6 +479,19 @@ public class MonitoringCentre {
     public static void main(String[] args) {
 
         ArrayList<String> test=setAreeGeografiche();
+        String [] t = test.toArray(new String[0]);
+        GeographicArea.printIDs( t );
+
+        /*
+4968937
+4969532
+4974775
+4975603
+5011020
+         */
+
+
+        /*
         for(int i=0;i<test.size();i++){
             System.out.println(test.get(i));
         }
