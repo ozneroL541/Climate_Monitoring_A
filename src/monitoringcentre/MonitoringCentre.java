@@ -360,7 +360,7 @@ public class MonitoringCentre {
             // Check exit
             exit = CommonMethods.ExitLoop(input);
             // If area exist add it to the list
-            if ( ! exit && GeographicArea.doesIDExist(input)) {
+            if ( ! exit && fieldCorrect(input, IndexOf.areas) && GeographicArea.doesIDExist(input)) {
                 already_in = false;
                 // Check if area has already been inserted
                 for (short i = 0; i < aree.size() && !already_in; i++) {
@@ -405,7 +405,7 @@ public class MonitoringCentre {
                 return CommonMethods.isValidName(str);
             // Check Area
             case IndexOf.areas:
-                // TODO
+                // Check if area is valid
                 return CommonMethods.isOnlyInt(str);
             default:
                 // Error
