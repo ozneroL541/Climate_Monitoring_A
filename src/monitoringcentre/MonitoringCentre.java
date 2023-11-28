@@ -266,7 +266,7 @@ public class MonitoringCentre {
             // Ask Street
             do {
                 // Request
-                System.out.print("Inserire Via/Piazza:\t\t\t\t");
+                System.out.print("Inserire Via/Piazza:\t\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.via)) {
@@ -278,7 +278,7 @@ public class MonitoringCentre {
             // Ask Number
             do {
                 // Request
-                System.out.print("Inserire Numero Civico:\t\t\t\t");
+                System.out.print("Inserire Numero Civico:\t\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 if (exit = isAddElCorrect(in, IndexOf.Iadd.civico)) {
