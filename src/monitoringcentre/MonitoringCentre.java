@@ -211,32 +211,14 @@ public class MonitoringCentre {
         boolean exit = false;
 
         // TODO Split the phases in different methods
+        nome = AskName();
+        if (nome == null) {
+            System.err.println(error);
+            return null;
+        }
 
         // Try catch for Input Exception
         try {
-            do {
-                // Request
-                System.out.print("Inserire nome centro:\t\t");
-                // Input
-                in = InputScanner.INPUT_SCANNER.nextLine();
-                // Check if it is correct
-                if ((exit = fieldCorrect(in, IndexOf.name))) {
-                    // Check if there is another area wth the same name
-                    if ( f.exists() && Research.OneStringInCol(f, IndexOf.name, in) >= 0 ) {
-                        // Output
-                        System.out.println("Esiste già un centro con lo stesso nome.");
-                        System.out.println(error);
-                        // Exit
-                        return null;
-                    } else {
-                        // Assign input to name
-                        nome = in;
-                    }
-                }
-            } while (!exit);
-
-
-
             //TODO AGGIUNGERE CONTROLLO SU TUTTO L'INDIRIZZO
             //es di indirizzo
             //VIALE ROMAGNA 12/A
@@ -308,6 +290,32 @@ public class MonitoringCentre {
 
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
+    }
+    private static String AskName() {
+        boolean exit = true;
+        String in = "";
+        String name = null;
+        do {
+            // Request
+            System.out.print("Inserire nome centro:\t\t");
+            // Input
+            in = InputScanner.INPUT_SCANNER.nextLine();
+            // Check if it is correct
+            if ((exit = fieldCorrect(in, IndexOf.name))) {
+                // Check if there is another area wth the same name
+                if ( f.exists() && Research.OneStringInCol(f, IndexOf.name, in) >= 0 ) {
+                    // Output
+                    System.out.println("Esiste già un centro con lo stesso nome.");
+                    // Exit
+                    name = null;
+                    exit = true;
+                } else {
+                    // Assign input to name
+                    name = in;
+                }
+            }
+        } while (!exit);
+        return name;
     }
 
     //set the geographic area/areas associated with the center
