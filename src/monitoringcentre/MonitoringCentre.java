@@ -364,8 +364,7 @@ public class MonitoringCentre {
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
 
             input = InputScanner.INPUT_SCANNER.nextLine();
-            
-            System.out.println();
+
             // Check exit
             exit = CommonMethods.ExitLoop(input);
             // If area exist add it to the list
