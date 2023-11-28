@@ -43,8 +43,9 @@ public class MonitoringCentre {
     private String nome = null;
     private String [] indirizzo = new String[IndexOf.Iadd.length];
     private String[] areeInteresse = null;
+    // Header
     private final static String header = "Nome, Via, Civico, CAP, Comune, Provincia, Aree";
-
+    // File
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
     private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
@@ -75,8 +76,12 @@ public class MonitoringCentre {
         private final static short max_index = 2;
     }
 
-    //TODO
-    //javadoc
+    /**
+     * Costruttore dell'oggetto Centro di Monitoraggio.
+     * @param nome nome del centro
+     * @param indirizzo indirizzo del centro
+     * @param areeInteresse aree di interesse
+     */
     public MonitoringCentre(String nome, String [] indirizzo, String[] areeInteresse){
         this.nome=nome;
         this.indirizzo=indirizzo;
@@ -84,11 +89,25 @@ public class MonitoringCentre {
     }
 
     /**
-     * Ritorna il nome del centro
+     * Ritorna il nome del centro.
      * @return nome
     */
     public String getNome(){
         return this.nome;
+    }
+    /**
+     * Ritorna un array di stringhe contenente gli ID delle aree di interresse.
+     * @return aree di interesse
+     */
+    public String[] getAreeInteresse() {
+        return areeInteresse;
+    }
+    /**
+     * Ritorna l'array di stringhe contenete l'indirizzo del centro di monitoraggio.
+     * @return indirizzo del centro
+     */
+    public String[] getIndirizzo() {
+        return indirizzo;
     }
 
     /**
