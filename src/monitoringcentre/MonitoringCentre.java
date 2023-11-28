@@ -37,7 +37,7 @@ import src.geographicarea.GeographicArea;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @version 0.09.3
+ * @version 0.09.4
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -189,15 +189,10 @@ public class MonitoringCentre {
         return Research.getColArray(f,IndexOf.name);
     }
 
-    private boolean CenterExistence(String nome){
-        boolean exists = false;
-        if( f.exists() && Research.isStringInCol(f,0,nome))
-            exists = true;
-        else
-            exists = false;
-
-        return exists;
+    private static boolean CenterExistence(String nome) {
+        return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
+
     //TODO rimuovere il TODO sotto se va bene
     // TODO Modificare per aggiungere il centro metodo prototipale: totalmente incompleto e non testato
     /**
