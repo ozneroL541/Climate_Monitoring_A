@@ -357,7 +357,7 @@ public class MonitoringCentre {
         String input = "";
         short contAree = 0;
 
-        System.out.println("\n\nINSERIMENTO AREE GEOGRAFICHE");
+        System.out.println("\nINSERIMENTO AREE GEOGRAFICHE");
 
         do{
             System.out.println("\nAree inserite: " + contAree);
