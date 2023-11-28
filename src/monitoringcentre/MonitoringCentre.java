@@ -202,14 +202,11 @@ public class MonitoringCentre {
      */
     public static MonitoringCentre createCentre() {
         // Error string
-        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
-        //TODO rimuovere
-        // Monitoring Centre to be returned
-        MonitoringCentre mc = null;        
+        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";       
         // Input String
         String in = "";
         String nome="";
-        String [] indirizzo=new String [IndexOf.Iadd.length];
+        String [] indirizzo = new String [IndexOf.Iadd.length];
         // Exit condition
         boolean exit = false;
         // Try catch for Input Exception
