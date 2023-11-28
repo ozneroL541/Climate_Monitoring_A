@@ -287,7 +287,7 @@ public class MonitoringCentre {
     //set the geographic area/areas associated with the center
     private static ArrayList<String> setAreeGeografiche(){
 
-        ArrayList<String> aree=new ArrayList<String>();
+        ArrayList<String> aree = new ArrayList<String>();
         final String endInput = "ESCI";
         boolean exit = false, already_in = false;
         String input = "";

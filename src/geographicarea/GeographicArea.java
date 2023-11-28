@@ -1013,4 +1013,24 @@ public class GeographicArea {
             return false;
         }
     }
+    /**
+     * Stampa le aree corrispondenti agli ID in ingresso.
+     * Se ci sono uno o più Id non validi non li stamperà e ritornerà true. 
+     * @param ids Geoname ID delle aree
+     * @return true se tutti gli ID sono stati stampati
+     */
+    public static boolean printIDs( String [] ids ) {
+        short i = 0, j = 0;
+        for (String id : ids) {
+            if (doesIDExist(id)) {
+                RunTimeLine(ricercaPerID(id)[0], i++);
+            } else {
+                j++;
+            }
+        }
+        if ( j == 0 ) {
+            System.err.println("Errore: Non è stato possibile stampare " + j + " ID perché inesistenti.");
+        }
+        return j == 0;
+    }
 }
