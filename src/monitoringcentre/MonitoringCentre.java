@@ -289,7 +289,7 @@ public class MonitoringCentre {
 
         ArrayList<String> aree=new ArrayList<String>();
         final String endInput = "ESCI";
-        boolean exit = false, check = false;
+        boolean exit = false, already_in = false;
         String input = "";
         short contAree = 0;
 
@@ -306,15 +306,15 @@ public class MonitoringCentre {
             exit = CommonMethods.ExitLoop(input);
             // If area exist add it to the list
             if ( ! exit && GeographicArea.doesIDExist(input)) {
-                check = false;
+                already_in = false;
                 // Check if area has already been inserted
-                for (short i = 0; i < aree.size() && !check; i++) {
-                    check = input.equals(input);
-                    if (check) {
-                        System.out.println("Area già inserita");
-                    }
+                for (short i = 0; i < aree.size() && !already_in; i++) {
+                    already_in = input.equals(aree.get(i));
                 }
-                if ( ! check) {
+                // If the area is already in
+                if ( already_in ) {
+                    System.out.println("Area già inserita");
+                } else {
                     aree.add(input);
                     contAree++;
                 }
