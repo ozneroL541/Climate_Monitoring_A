@@ -209,6 +209,9 @@ public class MonitoringCentre {
         String [] indirizzo = new String [IndexOf.Iadd.length];
         // Exit condition
         boolean exit = false;
+
+        // TODO Split the phases in different methods
+
         // Try catch for Input Exception
         try {
             do {
