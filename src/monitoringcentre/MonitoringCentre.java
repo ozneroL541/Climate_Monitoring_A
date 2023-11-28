@@ -83,13 +83,10 @@ public class MonitoringCentre {
         this.areeInteresse=areeInteresse;
     }
 
-    //costruttore vuoto
-    public MonitoringCentre(){
-    }
-
-    //TODO rimuovere il commento
-    //serve ad autorized operator per ottenere il nome del centro
-    //TODO javadoc
+    /**
+     * Ritorna il nome del centro
+     * @return nome
+    */
     public String getNome(){
         return this.nome;
     }
