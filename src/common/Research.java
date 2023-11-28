@@ -695,7 +695,7 @@ public class Research {
      * @param col2 colonna della seconda stringa
      * @param str1 prima stringa
      * @param str2 seconda stringa
-     * @return true se c'&grave una linea con entrambe le stringhe
+     * @return true se c'e una linea con entrambe le stringhe
      */
     public static boolean areInSameLine( File file, int col1, int col2, String str1, String str2 ) {
         try{
