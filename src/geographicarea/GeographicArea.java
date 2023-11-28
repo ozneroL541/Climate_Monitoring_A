@@ -1020,8 +1020,6 @@ public class GeographicArea {
      * @return true se tutti gli ID sono stati stampati
      */
     public static boolean printIDs( String [] ids ) {
-        // TODO Test
-        System.err.println("Hello");
         // Indexes
         short i = 0, j = 0;
         // For each ID
@@ -1029,7 +1027,7 @@ public class GeographicArea {
             // If the ID exist
             if (doesIDExist(id)) {
                 // Print the ID
-                RunTimeLine(ricercaPerID(id)[0], i++);
+                System.out.println(RunTimeLine(ricercaPerID(id)[0], ++i ));
             } else {
                 // Increment invalid ID index
                 j++;
