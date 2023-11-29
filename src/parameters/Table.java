@@ -24,14 +24,9 @@
 
 package src.parameters;
 
-import java.io.File;
-import java.nio.file.FileSystems;
-import java.util.Date;
 import java.util.InputMismatchException;
 
-import src.common.CSV_Utilities;
 import src.common.InputScanner;
-import src.geographicarea.GeographicArea;
 
 /**
  * Un oggetto della classe <code>Table</code> rappresenta una tabella
@@ -41,10 +36,6 @@ import src.geographicarea.GeographicArea;
  * @version 0.10.2
  */
 public class Table {
-    // Parameters File
-    private final static File file = FileSystems.getDefault().getPath("data", "ParametriClimatici.dati.csv").toFile();
-    // Header
-    private final static String header = "Geoname ID,Vento,Umidità,Pressione,Temperatura,Precipitazioni,Altitudine dei ghiacciai,Massa dei ghiacciai,Note Vento,Note Umidità,Note Pressione,Note Temperatura,Note Precipitazioni,Note Altitudine dei ghiacciai,Note Massa dei ghiacciai";
     // Number of categories
     private final static short n_categories = 7;
     // Max characters number for notes
@@ -57,9 +48,6 @@ public class Table {
     private short[] scores = { 0, 0, 0, 0, 0, 0, 0 };
     // Category's notes
     private String[] notes = { "", "", "", "", "", "", "" };
-    // TODO Implement
-    // Date
-    private Date date = null;
     // Score and note
     private static class Data_SN {
         // Score
@@ -376,7 +364,7 @@ public class Table {
         return (str.length() <= max_char_notes);
     }
     // Create an array of strings ad add id at the beginning
-    private String[] toStringsWithID( String id ) {
+    public String[] toStringsWithID( String id ) {
         // Array to return
         String[] strings = new String[ n_categories * 2 ];
         // Check parameter existance
@@ -395,14 +383,5 @@ public class Table {
         }
         // Return array
         return strings;
-    }
-    /**
-     * Aggiungi la tabella alla fine del file
-     * @param ga Area Geografica a cui si riferisce
-     * @return true se l'esecuzione è avvenuta correttamente.
-     */
-    public boolean printToFile( GeographicArea ga ) {
-        // Execution succeded
-        return CSV_Utilities.addArraytoCSV(file, toStringsWithID(( "" + ga.getGeoname_id() )), header);
     }
 }
