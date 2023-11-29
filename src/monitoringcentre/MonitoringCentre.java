@@ -34,6 +34,8 @@ import src.geographicarea.GeographicArea;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
+ * @author Lorenzo Radice
+ * @author Giacomo Paredi
  * @version 0.10.0
  */
 public class MonitoringCentre {
