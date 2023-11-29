@@ -37,7 +37,7 @@ import src.common.InputScanner;
  */
 public class Table {
     // Number of categories
-    private final static short n_categories = 7;
+    public final static short n_categories = 7;
     // Max characters number for notes
     private final static short max_char_notes = 256;
     // Min score
@@ -365,22 +365,20 @@ public class Table {
         return (str.length() <= max_char_notes);
     }
     // Create an array of strings ad add id at the beginning
-    public String[] toStringsWithID( String id ) {
+    public String[] toStrings() {
         // Array to return
-        String[] strings = new String[ n_categories * 2 ];
+        String[] strings = new String[ (n_categories * 2) - 1 ];
         // Check parameter existance
-        if ( scores == null || id == null) {
+        if ( scores == null ) {
             // Exit
             return null;
         }
-        // Add id
-        strings[0] = id;
         // Parameters
-        for (int i = 0; i < n_categories; i++) {
+        for (short i = 0; i < n_categories; i++) {
             // Assign every parameter to strings
-            strings[i + 1] = "" + this.scores[i];
+            strings[i] = "" + this.scores[i];
             // Assign every note to strings
-            strings[n_categories + 1 + i] = this.notes[i];
+            strings[n_categories + i] = this.notes[i];
         }
         // Return array
         return strings;

@@ -36,18 +36,53 @@ import src.geographicarea.GeographicArea;
  * rilevati di un'area geografica in una determinata area per un determinato
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
- * @version 0.0.1
+ * @version 0.1.0
  */
 public class Parameters {
     // Parameters File
     private final static File file = FileSystems.getDefault().getPath("data", "ParametriClimatici.dati.csv").toFile();
     // Header
-    private final static String header = "Geoname ID,Vento,Umidità,Pressione,Temperatura,Precipitazioni,Altitudine dei ghiacciai,Massa dei ghiacciai,Note Vento,Note Umidità,Note Pressione,Note Temperatura,Note Precipitazioni,Note Altitudine dei ghiacciai,Note Massa dei ghiacciai";
+    private final static String header = "Geoname ID,Data,Centro,Vento,Umidità,Pressione,Temperatura,Precipitazioni,Altitudine dei ghiacciai,Massa dei ghiacciai,Note Vento,Note Umidità,Note Pressione,Note Temperatura,Note Precipitazioni,Note Altitudine dei ghiacciai,Note Massa dei ghiacciai";
     // TODO Implement
+    // Geoname ID
+    private short geoname_id = 0;
     // Date
     private Date date = null;
+    // Monitoring Centre
+    private String centre = "";
     // Table
     private Table table = null;
+    // Indexes
+    private static final class IndexOf {
+        private static final short geoname_id = 0;
+        private static final short date = 1;
+        private static final short centre = 2;
+        private static final short table = 3;
+        private static final short table_length = Table.n_categories;
+        private static final short max_cols = (table + table_length);
+    }
+    // TODO Constructor
+    // TODO inserti ID, Data and Centre
+    /*
+     * Trasforma i campi della classe in un array di stringhe.
+     * @return array di Strings
+     */
+    private String[] toStrings() {
+        String[] strings = new String[IndexOf.max_cols];
+        String[] t = this.table.toStrings();
+        // Check if t was successful
+        if ( t != null && t.length == IndexOf.table_length ) {
+            strings[IndexOf.geoname_id] = "" + this.geoname_id;
+            // TODO Check how date can be converted to a readable String
+            strings[IndexOf.date] = this.date.toString();
+            strings[IndexOf.centre] = this.centre;
+            for (short i = 0; i < IndexOf.table_length; i++) {
+                strings[IndexOf.table + i] = t[i];
+            }
+            return strings;   
+        } else
+            return null;
+    }
     /**
      * Aggiungi i parametri alla fine del file CSV
      * @param ga Area Geografica a cui si riferisce
@@ -55,6 +90,6 @@ public class Parameters {
      */
     public boolean printToFile( GeographicArea ga ) {
         // Execution succeded
-        return CSV_Utilities.addArraytoCSV(file, this.table.toStringsWithID(( "" + ga.getGeoname_id() )), header);
+        return CSV_Utilities.addArraytoCSV(file, toStrings(), header);
     }
 }
