@@ -199,7 +199,8 @@ public class Table {
         return str;
     }
     /**
-     * Chiede all'utante di inserire i parametri della ricerca e ritorna la tabella che li contiene.
+     * Chiede all'utente di inserire i parametri della ricerca e ritorna la tabella che li contiene.
+     * @return tabella
      */
     public static Table MakeTable() {
         // Datas Input
