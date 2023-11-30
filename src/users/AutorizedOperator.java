@@ -591,6 +591,8 @@ public class AutorizedOperator extends User {
         return centre;
     }
 
+
+    //TODO TESTARE FUNZIONAMENTO, SOPRATUTTO GESTIRE IL NULL DI RITORNO
     //user create a new centre
     private static String creaCentro(){
 
