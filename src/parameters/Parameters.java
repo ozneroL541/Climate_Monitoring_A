@@ -26,7 +26,7 @@ package src.parameters;
 
 import java.io.File;
 import java.nio.file.FileSystems;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import src.common.CSV_Utilities;
 import src.geographicarea.GeographicArea;
@@ -46,7 +46,7 @@ public class Parameters {
     // Geoname ID
     private short geoname_id = 0;
     // Date
-    private Date date = null;
+    private String date = null;
     // Monitoring Centre
     private String centre = "";
     // Table
@@ -67,7 +67,7 @@ public class Parameters {
      * @param c centre
      * @param t table
      */
-    public Parameters( short id, Date d, String c, Table t){
+    public Parameters( short id, String d, String c, Table t){
         this.geoname_id = id;
         this.date = d;
         this.centre = c;
@@ -83,7 +83,7 @@ public class Parameters {
         // Geoname ID
         short id = 0;
         // Date
-        Date d = null;
+        String d = "";
         // Monitoring Centre
         String c = "";
         // Table
@@ -143,11 +143,10 @@ public class Parameters {
      * Richiede o assegna la data.
      * @return date
      */
-    private static Date insertDate() {
+    private static String insertDate() {
         // Date
-        Date date = null;
-        //TODO
-        return date;
+        String today = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date());
+        return today;
     }
     /*
      * Richiede l'inserimento del centro di monitoraggio
@@ -187,5 +186,10 @@ public class Parameters {
     public boolean printToFile( GeographicArea ga ) {
         // Execution succeded
         return CSV_Utilities.addArraytoCSV(file, toStrings(), header);
+    }
+
+    //TODO rimuovere 
+    public static void main (String [] args){
+        System.out.println(insertDate());
     }
 }
