@@ -77,7 +77,7 @@ public class MonitoringCentre {
     }
 
     /**
-     * Costruttore dell'oggetto Centro di Monitoraggio.
+     * Costruttore dell'oggetto MonitoringCentre.
      * @param nome nome del centro
      * @param indirizzo indirizzo del centro
      * @param areeInteresse aree di interesse
@@ -86,6 +86,26 @@ public class MonitoringCentre {
         this.nome=nome;
         this.indirizzo=indirizzo;
         this.areeInteresse=areeInteresse;
+    }
+
+    /**
+     * Permette di costruire un oggetto MonitoringCentre conoscendo solo il nome.
+     * I restanti attributi verranno letti dal file CentroMonitoraggio.dati.csv 
+     * @param nome nome del centro
+     */
+    public static MonitoringCentre getCentreByName(String nome){
+
+        String [] indirizzo=new String[IndexOf.Iadd.length];
+        String[] areeInteresse = null;
+
+        //TODO finire metodo
+        //cercare la riga nel file corrispondente al nome
+        //assegnare alle variabili i valori
+        //creare l'oggetto
+        //ritornare null se qualcosa va male
+
+
+        return new MonitoringCentre(nome, indirizzo,areeInteresse);
     }
 
     /**

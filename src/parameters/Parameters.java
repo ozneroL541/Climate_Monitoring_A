@@ -36,6 +36,7 @@ import src.geographicarea.GeographicArea;
  * rilevati di un'area geografica in una determinata area per un determinato
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
+ * @author Giacomo Paredi
  * @version 0.2.0
  */
 public class Parameters {
