@@ -569,11 +569,7 @@ public class AutorizedOperator extends User {
                 
                 //user create a new centre
                 case 2:
-                    //TODO aggiungere metodo
-                    //2) utente vuole creare un nuovo centro (metodo creaCentro()) [pubblico? e non statico?]
-                    //se si creaCentro() -> return String nome_del_centro
-                    //TODO rimuovere tutto quello sopra, in teoria è finito
-
+                    //TODO testare funzionamento
                     centre=creaCentro();
                     exit=false;
                     break;
@@ -602,7 +598,12 @@ public class AutorizedOperator extends User {
     private static String creaCentro(){
 
         MonitoringCentre centre=MonitoringCentre.createCentre();
-        return centre.getNome();
+        if(centre!=null){
+            return centre.getNome();
+        }else{
+            return null;
+        }
+        
     }
 
     //user choose a centre from the existing ones
@@ -652,7 +653,9 @@ public class AutorizedOperator extends User {
     public static void main(String[] args) {
 
 
-        System.out.println(AutorizedOperator.associaCentro());
+        creaCentro();
+
+        //System.out.println(AutorizedOperator.associaCentro());
         
         /*AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
