@@ -107,7 +107,7 @@ public class Parameters {
             return null;
         }
         // Assign Centre
-        c = insertCentre();
+        c = insertCentre(centre);
         // Check Centre
         if ( c == null || c.length() <= 0) {
             // Error output
@@ -152,11 +152,10 @@ public class Parameters {
      * Richiede l'inserimento del centro di monitoraggio
      * @return centre
      */
-    private static String insertCentre() {
+    private static String insertCentre(String centre) {
         // Centre
-        String centre = null;
-        // TODO
-        return centre;
+        String c = centre;
+        return c;
     }
     /*
      * Trasforma i campi della classe in un array di stringhe.
