@@ -151,11 +151,15 @@ public class MonitoringCentre {
         str += this.indirizzo[i];
         return str;
     }*/
-    /**
+    /*
      * Memorizza il centro in un file CSV.
      * @return true se l'esecuzione è avvenuta correttamente
      */
-    private boolean memorizzaCentro(){
+    public boolean memorizzaCentro(){
+        // Check existance
+        if ( this.nome == null ) {
+            return false;
+        }
         return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
     }
     /**
