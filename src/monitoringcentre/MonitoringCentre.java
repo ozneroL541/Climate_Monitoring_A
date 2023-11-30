@@ -333,7 +333,7 @@ public class MonitoringCentre {
             // Check all address
             exit = isAddressCorrect(address);
             if ( ! exit ) {
-                System.out.println("Non è stato trovato alcun CAP nel Comune e nella Provincia inseriti.");
+                System.out.println("Non è stato trovato alcun CAP corrispondente al Comune e nella Provincia inserita.");
                 System.out.println("Inserire nuovamente l'indirizzo.");
             }
         } while ( ! exit );
@@ -350,6 +350,7 @@ public class MonitoringCentre {
         boolean exit = false, already_in = false;
         String input = "";
         short contAree = 0;
+        final short max_areas = 1000;
 
         System.out.println("\nINSERIMENTO AREE GEOGRAFICHE");
 
@@ -374,6 +375,11 @@ public class MonitoringCentre {
                 } else {
                     aree.add(input);
                     contAree++;
+                    // Safety exit
+                    if (contAree >= max_areas) {
+                        System.out.println("Numero massimo di aree raggiunto.");
+                        exit = true;
+                    }
                 }
             }
 
