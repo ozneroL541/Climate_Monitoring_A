@@ -563,14 +563,7 @@ public class AutorizedOperator extends User {
 
                 //user choose an existing centre
                 case 1:
-                    //TODO aggiungere metodo
-                    //1) utente vuole associarsi ad un centro già esistente (metodo associaCentro()) [pubblico? e non statico?]
-                    //se si mostraCentri() -> scegliCentro() -> return String nome_del_centro
-
-                    associaCentro();
-
-                    //TODO cambiare quando il metodo è fatto 
-                    centre=defaultValueOfCentre;
+                    centre=associaCentro();
                     exit=false;
                     break;
                 
@@ -613,24 +606,28 @@ public class AutorizedOperator extends User {
     }
 
     //user choose a centre from the existing ones
-    private static void associaCentro(){
+    private static String associaCentro(){
 
         String [] centri;
+        String nome="";
 
-        //TODO aggiungere metodo
-        //1) utente vuole associarsi ad un centro già esistente (metodo associaCentro()) [pubblico? e non statico?]
-        //se si mostraCentri() -> scegliCentro() -> return String nome_del_centro
-
+        //show centres to user
         centri=MonitoringCentre.getCentri();
-
-
-        //TODO TESTARE QUESTA PARTE
+        System.out.println("Centri esistenti:");
         for(int i=0;i<centri.length;i++){
             System.out.println(centri[i]);
         }
 
-        //TODO FINIRE IL RESTO
+        //user choose centre
+        System.out.print("Scegliere il centro inserendone il nome: ");
+        do{
+            nome=InputScanner.INPUT_SCANNER.nextLine();
+            if(!MonitoringCentre.CenterExistence(nome)){
+                System.out.print("Nome inserito inesistente\nInserire un nome valido: ");
+            }
+        }while(!MonitoringCentre.CenterExistence(nome));
 
+        return nome;
     }
 
     //TODO
@@ -655,7 +652,7 @@ public class AutorizedOperator extends User {
     public static void main(String[] args) {
 
 
-        AutorizedOperator.associaCentro();
+        System.out.println(AutorizedOperator.associaCentro());
         
         /*AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
