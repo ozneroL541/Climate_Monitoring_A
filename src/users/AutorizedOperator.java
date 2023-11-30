@@ -252,10 +252,8 @@ public class AutorizedOperator extends User {
 
             //insert centre             
             case 5:
-                //inserimeto centro
-                //TODO completare il metodo
                 campo=setCentro();
-                return defaultValueOfCentre;
+                return campo;
              
             //insert password               
             case 6:
