@@ -256,9 +256,7 @@ public class AutorizedOperator extends User {
                 return campo;
              
             //insert password               
-            case 6:
-                //consume invalid token
-                InputScanner.INPUT_SCANNER.nextLine();
+            case 6:                
                 return campo=InputScanner.INPUT_SCANNER.nextLine();
             default:
                 return null;
@@ -573,6 +571,8 @@ public class AutorizedOperator extends User {
                 
                 //user does not choose a centre
                 case 3:
+                    //consume invalid token
+                    InputScanner.INPUT_SCANNER.nextLine();
                     centre=defaultValueOfCentre;
                     exit=false;
                     break;
@@ -613,7 +613,7 @@ public class AutorizedOperator extends User {
         }
 
         //user choose centre
-        System.out.print("Scegliere il centro inserendone il nome: ");
+        System.out.print("\nScegliere il centro inserendone il nome: ");
         do{
             nome=InputScanner.INPUT_SCANNER.nextLine();
             if(!MonitoringCentre.CenterExistence(nome)){
