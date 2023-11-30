@@ -108,8 +108,9 @@ public class MonitoringCentre {
             indirizzo[3]=record[IndexOf.Iadd.comune];
             indirizzo[4]=record[IndexOf.Iadd.prov];
             areeInteresse=record[IndexOf.areas].split("-");
+            return new MonitoringCentre(nome, indirizzo, areeInteresse);
         }
-        return new MonitoringCentre(nome, indirizzo, areeInteresse);
+        
     }
 
     /**
