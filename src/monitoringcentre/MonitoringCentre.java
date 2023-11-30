@@ -188,7 +188,12 @@ public class MonitoringCentre {
         return Research.getColArray(f,IndexOf.name);
     }
 
-    private static boolean CenterExistence(String nome) {
+    /**
+     * Controlla se il nome inserito esiste all'interno del file CentroMonitoraggio.dati.csv
+     * @param nome nome del centro
+     * @return true se il nome è presente nel file
+     */
+    public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
 
