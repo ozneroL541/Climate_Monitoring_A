@@ -153,11 +153,15 @@ public class MonitoringCentre {
         str += this.indirizzo[i];
         return str;
     }*/
-    /**
+    /*
      * Memorizza il centro in un file CSV.
      * @return true se l'esecuzione è avvenuta correttamente
      */
-    private boolean memorizzaCentro(){
+    public boolean memorizzaCentro(){
+        // Check existance
+        if ( Exist() ) {
+            return false;
+        }
         return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
     }
     /**
@@ -227,7 +231,7 @@ public class MonitoringCentre {
         // Create Centre
         MonitoringCentre mc = createCentre();
         // Check if center was created
-        if ( mc == null ) {
+        if ( mc == null || mc.Exist() ) {
             // Error message
             System.err.println("Errore: Centro non creato.");
             return false;
@@ -585,6 +589,13 @@ public class MonitoringCentre {
         }
         // Test passed
         return true;
+    }
+    /**
+     * Controlla l'esistenza dell'oggetto centro
+     * @return true se l'oggetto esiste
+     */
+    public boolean Exist() {
+        return (this.nome != null && this.nome.length() > 0);
     }
     // TODO Remove test main
     public static void main(String[] args) {
