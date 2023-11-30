@@ -171,9 +171,6 @@ public class AutorizedOperator extends User {
                         campo=campoValido(i);
                     }while(campo==null);
                     campi[i]=campo;
-                    //TODO
-                    //rimuovere questo println appena vengono implementati i centri
-                    System.out.println();
                 }
                 //swtich password with centre
                 //centre comes after password in the file
@@ -262,6 +259,8 @@ public class AutorizedOperator extends User {
              
             //insert password               
             case 6:
+                //consume invalid token
+                InputScanner.INPUT_SCANNER.nextLine();
                 return campo=InputScanner.INPUT_SCANNER.nextLine();
             default:
                 return null;
@@ -649,13 +648,13 @@ public class AutorizedOperator extends User {
     public static void main(String[] args) {
 
 
-        creaCentro();
+        //creaCentro();
 
         //System.out.println(AutorizedOperator.associaCentro());
         
-        /*AutorizedOperator.registrazione();
-        AutorizedOperator u=autenticazione();
-        u.menu();
+        AutorizedOperator.registrazione();
+        //AutorizedOperator u=autenticazione();
+        //u.menu();
 
 
 
@@ -664,11 +663,12 @@ public class AutorizedOperator extends User {
         //oppure
         //implementare all'inizio di menu(), prima della stampa del menu effettivo
         // Sarebbe carino da implementare
+        /*
         if ( u != null )
             System.out.println("Autenticazione effettuata come: " + u.getCognome() + " " + u.getNome());
 
         
-        System.out.println(u);
+        System.out.println(u);*/
         //AutorizedOperator.cercaAreaGeografica();
         
         /*
