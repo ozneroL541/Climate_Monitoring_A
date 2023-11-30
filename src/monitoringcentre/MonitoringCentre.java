@@ -137,10 +137,11 @@ public class MonitoringCentre {
         str += "Aree di Interesse\n" + GeographicArea.ListIDs(this.areeInteresse);
         return str;
     }
-    /**
+    // TODO Remove
+    /*
      * Ritorna l'indirizzo come stringa su un'unica riga
      * @return indirizzo
-     */
+     *
     private String addresstoLine() {
         String str = "";
         short i = 0;
@@ -149,7 +150,11 @@ public class MonitoringCentre {
         }
         str += this.indirizzo[i];
         return str;
-    }
+    }*/
+    /**
+     * Memorizza il centro in un file CSV.
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
     private boolean memorizzaCentro(){
         return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
     }
@@ -216,7 +221,18 @@ public class MonitoringCentre {
     public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
-
+    public static boolean insertCentre() {
+        // Create Centre
+        MonitoringCentre mc = createCentre();
+        // Check if center was created
+        if ( mc == null ) {
+            // Error message
+            System.err.println("Errore: Centro non creato.");
+            return false;
+        }
+        // Save Centre
+        return mc.memorizzaCentro();
+    }
     /**
      * Permette di creare un Centro di Monitoraggio inserendone i dati e la ritorna.
      * Se la creazione fallisce ritorna null.
@@ -571,55 +587,6 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        MonitoringCentre mc = MonitoringCentre.createCentre();
-        System.out.println("--------------------------------------");
-        System.out.println(mc.toString());
-        mc.memorizzaCentro();
-        /*
-4968937
-4969532
-4974775
-4975603
-5011020
-         */
-
-
-        /*
-        for(int i=0;i<test.size();i++){
-            System.out.println(test.get(i));
-        }
-
-
-        /*
-        String test = "Cantù";
-        System.out.println(CommonMethods.toNoAccent(test));
-        */
-
-        /*
-        String [] fake_address = { "Via Regina Teodolinda" ,"37/h", "20100", "MILANO", "MI" };
-        System.out.println();
-        if (isAddressCorrect(fake_address)) {
-            System.out.println("L'indirizzo è corretto.");
-        } else {
-            System.out.println("L'indirizzo NON è corretto.");
-        }
-
-
-
-        /*
-        String nome = "Centro Prova";
-        String [] indirizzo = { "Via Regina Teodolinda" ,"37", "Como", "CO", "Italia" };
-        String [] areeInteresse = {"123456", "1234567", "123456" };
-        short userid = 00002;
-        */
-        /*
-         * Perché devo inserire 2 volte le stesse cose?
-         */
-        //MonitoringCentre m = new MonitoringCentre(nome, indirizzo, areeInteresse, userid);
-        /*
-         * A cosa serve registraAree pubblico se tanto lo fa già il costruttore?
-         */
-        //m.registraCentroAree(nome, indirizzo, areeInteresse, userid);
-        
+        MonitoringCentre.insertCentre();
     }
 }
