@@ -77,7 +77,7 @@ public class Parameters {
      * Crea un oggetto Parameters e lo ritorna.
      * @return oggetto Parameters
      */
-    public static Parameters MakeParameters() {
+    public static Parameters MakeParameters(String centre) {
         // Output
         Parameters p = null;
         // Geoname ID
