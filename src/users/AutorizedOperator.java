@@ -494,7 +494,8 @@ public class AutorizedOperator extends User {
                 case 4:
                     //if user does not have a center
                     if(!this.centre.equals(defaultValueOfCentre)){
-                        associaCentro();
+                        String centre=associaCentro();
+                        //TODO fare update del file operatoriAutorizzati
                     }else{
                         System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
                     }
@@ -505,11 +506,12 @@ public class AutorizedOperator extends User {
                 
                 //create centre
                 case 5:
-                    //TODO aggiungere metodo
-                    //crea un centro e si associa ad esso (solo se utente non ha un centro)
-                    //rimuovere il primo println
-                    System.out.println("CREAZIONE CENTRO");
-                    //TODO aggiungere crea centro e fare update del file operatoriAutorizzati
+                    if(!this.centre.equals(defaultValueOfCentre)){
+                        String centre=creaCentro();
+                        //TODO fare update del file operatoriAutorizzati
+                    }else{
+                        System.out.println("Impossibile creare un nuovo centro\nSei già associato al centro "+ this.centre);
+                    }
                     System.out.println("\n\nOperazione terminata");
                     System.out.println("Ritorno al menù");
                     exit=true;
