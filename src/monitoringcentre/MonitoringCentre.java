@@ -95,17 +95,19 @@ public class MonitoringCentre {
      */
     public static MonitoringCentre getCentreByName(String nome){
 
-        String [] indirizzo=new String[IndexOf.Iadd.length];
+        String[] indirizzo=new String[IndexOf.Iadd.length];
         String[] areeInteresse = null;
 
-        //TODO finire metodo
-        //cercare la riga nel file corrispondente al nome
-        //assegnare alle variabili i valori
-        //creare l'oggetto
-        //ritornare null se qualcosa va male
+        String[] record=Research.getRecord(f, IndexOf.name);
+        indirizzo[0]=record[IndexOf.Iadd.via];
+        indirizzo[1]=record[IndexOf.Iadd.civico];
+        indirizzo[2]=record[IndexOf.Iadd.CAP];
+        indirizzo[3]=record[IndexOf.Iadd.comune];
+        indirizzo[4]=record[IndexOf.Iadd.prov];
 
+        areeInteresse=record[IndexOf.areas].split("-");
 
-        return new MonitoringCentre(nome, indirizzo,areeInteresse);
+        return new MonitoringCentre(nome, indirizzo, areeInteresse);
     }
 
     /**
