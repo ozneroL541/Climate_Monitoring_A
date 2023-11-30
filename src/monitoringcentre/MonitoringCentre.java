@@ -102,12 +102,12 @@ public class MonitoringCentre {
         if(record==null){
             return null;
         }else{
-            indirizzo[0]=record[IndexOf.Iadd.via];
-            indirizzo[1]=record[IndexOf.Iadd.civico];
-            indirizzo[2]=record[IndexOf.Iadd.CAP];
-            indirizzo[3]=record[IndexOf.Iadd.comune];
-            indirizzo[4]=record[IndexOf.Iadd.prov];
-            areeInteresse=record[IndexOf.areas].split("-");
+            indirizzo[IndexOf.Iadd.via]     = record[IndexOf.Iadd.via + IndexOf.areas];
+            indirizzo[IndexOf.Iadd.civico]  = record[IndexOf.Iadd.civico + IndexOf.areas];
+            indirizzo[IndexOf.Iadd.CAP]     = record[IndexOf.Iadd.CAP + IndexOf.areas];
+            indirizzo[IndexOf.Iadd.comune]  = record[IndexOf.Iadd.comune + IndexOf.areas];
+            indirizzo[IndexOf.Iadd.prov]    = record[IndexOf.Iadd.prov + IndexOf.areas];
+            areeInteresse=record[IndexOf.Iadd.length - 1 + IndexOf.areas].split("-");
             return new MonitoringCentre(nome, indirizzo, areeInteresse);
         }
         
@@ -179,11 +179,11 @@ public class MonitoringCentre {
         String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length - 1];
 
         record[IndexOf.name] = this.nome;
-        record[IndexOf.address + IndexOf.Iadd.via] = this.indirizzo[IndexOf.Iadd.via];
+        record[IndexOf.address + IndexOf.Iadd.via]    = this.indirizzo[IndexOf.Iadd.via];
         record[IndexOf.address + IndexOf.Iadd.civico] = this.indirizzo[IndexOf.Iadd.civico];
-        record[IndexOf.address + IndexOf.Iadd.CAP] = this.indirizzo[IndexOf.Iadd.CAP];
+        record[IndexOf.address + IndexOf.Iadd.CAP]    = this.indirizzo[IndexOf.Iadd.CAP];
         record[IndexOf.address + IndexOf.Iadd.comune] = this.indirizzo[IndexOf.Iadd.comune];
-        record[IndexOf.address + IndexOf.Iadd.prov] = this.indirizzo[IndexOf.Iadd.prov];
+        record[IndexOf.address + IndexOf.Iadd.prov]   = this.indirizzo[IndexOf.Iadd.prov];
         record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
 
         /*
