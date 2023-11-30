@@ -492,10 +492,12 @@ public class AutorizedOperator extends User {
                 
                 //select centre
                 case 4:
-                    //TODO aggiungere metodo
-                    //associa ad un centro esistente (solo se utente non ha un centro)
-                    //rimuovere il primo println
-                    System.out.println("SELEZIONE CENTRO");
+                    //if user does not have a center
+                    if(!this.centre.equals(defaultValueOfCentre)){
+                        associaCentro();
+                    }else{
+                        System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
+                    }
                     System.out.println("\n\nOperazione terminata");
                     System.out.println("Ritorno al menù");
                     exit=true;
