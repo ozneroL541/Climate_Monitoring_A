@@ -136,7 +136,12 @@ public class Parameters {
     private static short insertID() {
         // Geoname ID
         short id = 0;
+
         //TODO
+        //partendo dal nome del centro, leggere file dei centri, prendere ultima colonna(aree)
+        //fare scegliere aree tra quelle valide
+        //ritornare una area
+
         return id;
     }
     /*
