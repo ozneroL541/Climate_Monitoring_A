@@ -98,15 +98,17 @@ public class MonitoringCentre {
         String[] indirizzo=new String[IndexOf.Iadd.length];
         String[] areeInteresse = null;
 
-        String[] record=Research.getRecord(f, IndexOf.name);
-        indirizzo[0]=record[IndexOf.Iadd.via];
-        indirizzo[1]=record[IndexOf.Iadd.civico];
-        indirizzo[2]=record[IndexOf.Iadd.CAP];
-        indirizzo[3]=record[IndexOf.Iadd.comune];
-        indirizzo[4]=record[IndexOf.Iadd.prov];
-
-        areeInteresse=record[IndexOf.areas].split("-");
-
+        String[] record=Research.getRecordByData(f, IndexOf.name, nome);
+        if(record==null){
+            return null;
+        }else{
+            indirizzo[0]=record[IndexOf.Iadd.via];
+            indirizzo[1]=record[IndexOf.Iadd.civico];
+            indirizzo[2]=record[IndexOf.Iadd.CAP];
+            indirizzo[3]=record[IndexOf.Iadd.comune];
+            indirizzo[4]=record[IndexOf.Iadd.prov];
+            areeInteresse=record[IndexOf.areas].split("-");
+        }
         return new MonitoringCentre(nome, indirizzo, areeInteresse);
     }
 
@@ -600,6 +602,9 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        MonitoringCentre.insertCentre();
+        MonitoringCentre m=getCentreByName("Insubria");
+        System.out.println(m);
+
+        //MonitoringCentre.insertCentre();
     }
 }
