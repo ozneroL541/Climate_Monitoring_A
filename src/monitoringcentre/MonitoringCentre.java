@@ -117,10 +117,11 @@ public class MonitoringCentre {
         str += "Aree di Interesse\n" + GeographicArea.ListIDs(this.areeInteresse);
         return str;
     }
-    /**
+    // TODO Remove
+    /*
      * Ritorna l'indirizzo come stringa su un'unica riga
      * @return indirizzo
-     */
+     *
     private String addresstoLine() {
         String str = "";
         short i = 0;
@@ -129,7 +130,7 @@ public class MonitoringCentre {
         }
         str += this.indirizzo[i];
         return str;
-    }
+    }*/
     /**
      * Memorizza il centro in un file CSV.
      * @return true se l'esecuzione è avvenuta correttamente
@@ -200,7 +201,18 @@ public class MonitoringCentre {
     public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
-
+    public static boolean insertCentre() {
+        // Create Centre
+        MonitoringCentre mc = createCentre();
+        // Check if center was created
+        if ( mc == null ) {
+            // Error message
+            System.err.println("Errore: Centro non creato.");
+            return false;
+        }
+        // Save Centre
+        return mc.memorizzaCentro();
+    }
     /**
      * Permette di creare un Centro di Monitoraggio inserendone i dati e la ritorna.
      * Se la creazione fallisce ritorna null.
@@ -555,9 +567,6 @@ public class MonitoringCentre {
     // TODO Remove test main
     public static void main(String[] args) {
 
-        MonitoringCentre mc = MonitoringCentre.createCentre();
-        System.out.println("--------------------------------------");
-        System.out.println(mc.toString());
-        //mc.memorizzaCentro();
+        MonitoringCentre.insertCentre();
     }
 }
