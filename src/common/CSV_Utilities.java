@@ -59,11 +59,8 @@ public class CSV_Utilities {
         String str = "";
         // For each field
         for (String s : linecells) {
-            // If cointains , put ""
-            if (s.contains(","))
-                str += "\"" + s + "\"";
-            else
-                str += s;
+            // Add the formatted String
+            str += CSVFormat(s);
             // Separator
             str += ",";
         }
@@ -71,6 +68,28 @@ public class CSV_Utilities {
         str = str.substring(0, str.length() - 1 );
         // Return String
         return str;
+    }
+    /*
+     * Ritorna la stringa con le virgolette se contiene un carattere separatore.
+     * @param str stringa
+     * @return stringa formattata
+     */
+    private static String CSVFormat( String str ) {
+        // Separator
+        final String separator = ",";
+        // If cointains a separator put ""
+        if (str.contains(separator))
+            str = addQuotes(str);
+        // Return formatted string
+        return str;
+    }
+    /*
+     * Aggiunge le virgolette all'inizio e alla fine della stringa
+     * @param str stringa
+     * @return stringa formattata
+     */
+    private static String addQuotes(String str) {
+        return ("\"" + str + "\"");
     }
     /*
      * Scrive la linea passata come argomento alla fine del file CSV.
