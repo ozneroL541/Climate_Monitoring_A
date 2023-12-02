@@ -24,6 +24,7 @@
 
 package src.common;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -229,6 +230,76 @@ public class CSV_Utilities {
             CSVWriter writer = new CSVWriter(new FileWriter(file));
             writer.writeAll(csvBody);
             writer.close();
+            
+        } catch ( IOException e ) {
+            // Return false
+            return false;
+        } catch (Exception e) { //to catch any exception inside try block
+            // Not managed Error
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return false;
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * Aggiorna una cella di un file CSV
+     * @param file file CSV
+     * @param update nuovo valore che la cella assumerà
+     * @param line linea della cella escludendo l'intestazione del file
+     * @return true se l'esecusione è avvenuta correttamente
+     */
+    public static boolean updateCellInCSV2(File file, String update, int line){
+        
+        // Check file existence
+        if (! file.exists()) {
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return false
+            return false;
+        }
+
+        try {
+
+            BufferedReader read=new BufferedReader(new FileReader(file));
+            BufferedWriter write=new BufferedWriter(new FileWriter(file));
+
+            String lineaAtt;
+            //read header
+            lineaAtt=read.readLine();
+            //write header
+            write.write(lineaAtt);
+
+            for(int i=1;i<line;i++){
+                //read records before the record that need to be updated
+                lineaAtt=read.readLine();
+                //write records before the record that need to be updated
+                write.write(lineaAtt);
+            }
+
+            //read the record to update
+            lineaAtt=read.readLine();
+            lineaAtt+=update;
+            String lineaSuc;
+             //read next record
+            lineaSuc=read.readLine();
+            //save record updated
+            write.write(lineaAtt);
+
+            while((lineaAtt=read.readLine())!=null){
+                write.write(lineaSuc);
+                lineaSuc=read.readLine();
+                write.write(lineaAtt);
+            }
+
+            read.close();
+            write.close();
             
         } catch ( IOException e ) {
             // Return false
