@@ -26,13 +26,19 @@ package src.common;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
 /**
  * Raccolta di metodi statici utili per la gestione dei file CSV.
  * @author Lorenzo Radice
+ * @author Giacomo Paredi
  * @version 0.11.0
  */
 public class CSV_Utilities {
@@ -187,5 +193,52 @@ public class CSV_Utilities {
             // In case of error return false
             return false;
         }
+    }
+
+    /**
+     * Aggiorna una cella di un file CSV
+     * @param file file CSV
+     * @param update nuovo valore che la cella assumerà
+     * @param line linea della cella
+     * @param col colonna della cella
+     * @return true se l'esecusione è avvenuta correttamente
+     */
+    public static boolean updateCellInCSV(File file, String update, int line, int col){
+        
+        // Check file existence
+        if (! file.exists()) {
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return false
+            return false;
+        }
+
+        try {
+            //Read existing file 
+            CSVReader reader=new CSVReader(new FileReader(file));
+            List<String[]> csvBody=reader.readAll();
+            //get CSV row column and replace with by using row and column
+            csvBody.get(line)[col]=update;
+            reader.close();
+
+            // Write to CSV file which is open
+            CSVWriter writer = new CSVWriter(new FileWriter(file));
+            writer.writeAll(csvBody);
+            writer.close();
+            
+        } catch ( IOException e ) {
+            // Return false
+            return false;
+        } catch (Exception e) { //to catch any exception inside try block
+            // Not managed Error
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return false;
+            return false;
+        }
+        return true;
     }
 }
