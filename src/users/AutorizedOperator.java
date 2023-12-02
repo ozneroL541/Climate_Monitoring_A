@@ -651,12 +651,22 @@ public class AutorizedOperator extends User {
     //rimuovere
     public static void main(String[] args) {
 
+        int riga=Research.OneStringInCol(file, IndexOf.matricola, "00001");
+        System.out.println(riga);
+        int col=IndexOf.centro;
+
+
+        if(CSV_Utilities.updateCellInCSV(file, "Insubria", riga-1, col)){
+            System.out.println("Aggiornamento file andato a buon fine");
+        }else{
+            System.out.println("Errore nell'aggiornamento del file");
+        }
 
         //creaCentro();
 
         //System.out.println(AutorizedOperator.associaCentro());
         
-        AutorizedOperator.registrazione();
+        //AutorizedOperator.registrazione();
         //AutorizedOperator u=autenticazione();
         //u.menu();
 
