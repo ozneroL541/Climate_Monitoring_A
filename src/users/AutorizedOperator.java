@@ -657,7 +657,7 @@ public class AutorizedOperator extends User {
         int col=IndexOf.centro;
 
 
-        if(CSV_Utilities.updateCellInCSV(file, "Insubria", riga-1, col)){
+        if(CSV_Utilities.updateCellInCSV2(file, "Insubria", riga)){
             System.out.println("Aggiornamento file andato a buon fine");
         }else{
             System.out.println("Errore nell'aggiornamento del file");
