@@ -199,7 +199,7 @@ public class CSV_Utilities {
      * Aggiorna una cella di un file CSV
      * @param file file CSV
      * @param update nuovo valore che la cella assumerà
-     * @param line linea della cella
+     * @param line linea della cella escludendo l'intestazione del file
      * @param col colonna della cella
      * @return true se l'esecusione è avvenuta correttamente
      */
