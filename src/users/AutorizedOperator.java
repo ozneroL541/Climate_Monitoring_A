@@ -651,6 +651,7 @@ public class AutorizedOperator extends User {
     //rimuovere
     public static void main(String[] args) {
 
+        
         int riga=Research.OneStringInCol(file, IndexOf.matricola, "00001");
         System.out.println(riga);
         int col=IndexOf.centro;
@@ -667,8 +668,9 @@ public class AutorizedOperator extends User {
         //System.out.println(AutorizedOperator.associaCentro());
         
         //AutorizedOperator.registrazione();
-        //AutorizedOperator u=autenticazione();
+        AutorizedOperator u=autenticazione();
         //u.menu();
+        System.out.println(u);
 
 
 
