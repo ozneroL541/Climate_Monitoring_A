@@ -667,7 +667,7 @@ public class AutorizedOperator extends User {
 
         //System.out.println(AutorizedOperator.associaCentro());
         
-        //AutorizedOperator.registrazione();
+        /*AutorizedOperator.registrazione();
         AutorizedOperator u=autenticazione();
         //u.menu();
         System.out.println(u);

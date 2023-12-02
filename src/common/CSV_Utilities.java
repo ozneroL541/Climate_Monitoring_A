@@ -164,7 +164,7 @@ public class CSV_Utilities {
      * @param header intestazione
      * @deprecated  Questo metodo non controlla la correttezza della stringa
      * <p> usa invece {@link CSV_Utilities#addArraytoCSV( File file, String[] linecells, String header )}.
-     * @return true se l'esecusione è avvenuta correttamente
+     * @return true se l'esecuzione è avvenuta correttamente
      */
     private static boolean addLinewithCheck( File file, String line, String header ) {
         // Check if file has at least one line
@@ -185,7 +185,7 @@ public class CSV_Utilities {
      * @param file file CSV
      * @param linecells celle della linea da aggiungere
      * @param header intestazione
-     * @return true se l'esecusione è avvenuta correttamente
+     * @return true se l'esecuzione è avvenuta correttamente
      */
     public static boolean addArraytoCSV( File file, String[] linecells, String header ) {
         // Line
@@ -221,7 +221,7 @@ public class CSV_Utilities {
      * @param update nuovo valore che la cella assumerà
      * @param line linea della cella escludendo l'intestazione del file
      * @param col colonna della cella
-     * @return true se l'esecusione è avvenuta correttamente
+     * @return true se l'esecuzione è avvenuta correttamente
      */
     public static boolean updateCellInCSV(File file, String update, int line, int col){
         
@@ -268,7 +268,7 @@ public class CSV_Utilities {
      * @param file file CSV
      * @param update nuovo valore che la cella assumerà
      * @param line linea della cella escludendo l'intestazione del file
-     * @return true se l'esecusione è avvenuta correttamente
+     * @return true se l'esecuzione è avvenuta correttamente
      */
     public static boolean updateCellInCSV2(File file, String update, int line){
         
