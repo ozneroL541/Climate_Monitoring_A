@@ -321,7 +321,7 @@ public class CSV_Utilities {
                     stop = true;
                 } else {
                     //write records before the record that need to be updated
-                    write.write(currentLine[i%2] );
+                    write.append(currentLine[i%2]);
                 }
             }
             if (!stop) {
@@ -336,7 +336,7 @@ public class CSV_Utilities {
                     // Copy
                     do {
                         // Write the previous line
-                        write.write(currentLine[ (i - 1) % 2 ]);
+                        write.append(currentLine[ (i - 1) % 2 ]);
                     // Read the next line
                     } while( ( currentLine[++i % 2]  = read.readLine()) != null );
                 }
