@@ -362,6 +362,13 @@ public class CSV_Utilities {
         }
         return true;
     }
+    /**
+     * Aggiunge una stringa alla fine di una riga di un file CSV.
+     * @param file file CSV
+     * @param string stringa da aggiungere
+     * @param line riga
+     * @return true se l'esecuzione ha avuto successo
+     */
     public static boolean addCellAtEndOfLine(File file, String string, int line) {
         return addAtEndOfLine(file, CSVFormat(string), line);
     }
