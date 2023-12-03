@@ -289,6 +289,8 @@ public class CSV_Utilities {
         String temp_file_path = FileSystems.getDefault().getPath(file.getParent(), temp_file_name).toString();
         File f = new File(temp_file_path);
         File temp_file = file;
+        // Decrease line
+        line--;
         // Rename file
         if (! temp_file.renameTo(f)) {
             // Error Output
