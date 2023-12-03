@@ -217,6 +217,8 @@ public class CSV_Utilities {
     }
     /**
      * Aggiorna una cella di un file CSV
+     * @deprecated  Questo metodo è stato sostituito
+     * <p> usa invece {@link CSV_Utilities#addAtEndOfLine(File file, String update, int line)}.
      * @param file file CSV
      * @param update nuovo valore che la cella assumerà
      * @param line linea della cella escludendo l'intestazione del file
@@ -262,10 +264,10 @@ public class CSV_Utilities {
         return true;
     }
     /**
-     * Aggiorna una cella di un file CSV
+     * Aggiorna l'ultima cella di un file CSV.
      * @param file file CSV
-     * @param update nuovo valore che la cella assumerà
-     * @param line linea della cella escludendo l'intestazione del file
+     * @param update cella da aggiungere
+     * @param line riga
      * @return true se l'esecuzione è avvenuta correttamente
      */
     public static boolean addAtEndOfLine(File file, String update, int line){
