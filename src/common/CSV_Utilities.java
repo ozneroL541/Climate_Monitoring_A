@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.List;
 
@@ -284,10 +285,22 @@ public class CSV_Utilities {
             return false;
         }
 
+        final String temp_file_name = ".tempfile";
+        File f = FileSystems.getDefault().getPath(file.getParent(), temp_file_name).toFile();
+        File temp_file = file;
+        // Rename file
+        if (! temp_file.renameTo(f)) {
+            // Error Output
+            System.err.println("ERRORE: Creazione file temporaneo fallita.");
+            // Return Error
+            return false;
+        }
+
+        f = file;
         try {
 
-            try (BufferedReader read = new BufferedReader(new FileReader(file))) {
-                try (BufferedWriter write = new BufferedWriter(new FileWriter(file))) {
+            try (BufferedReader read = new BufferedReader(new FileReader(f))) {
+                try (BufferedWriter write = new BufferedWriter(new FileWriter(temp_file))) {
                     String[] currentLine = new String[2];
                     int i = 0;
                     //read header
@@ -315,6 +328,13 @@ public class CSV_Utilities {
                     write.close();
                 }
                 read.close();
+                
+                if ( ! temp_file.delete() ) {
+                    // Error Output
+                    System.err.println("ERRORE: Eliminazione file temporaneo fallita.");
+                    // Return Error
+                    return false;
+                }
             }
             
         } catch ( IOException e ) {
