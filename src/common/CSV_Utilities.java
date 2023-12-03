@@ -306,32 +306,41 @@ public class CSV_Utilities {
                 // Return Error
                 return false;
             }
-            BufferedReader read = new BufferedReader(new FileReader(f));
-            BufferedWriter write = new BufferedWriter(new FileWriter(temp_file));
+            BufferedReader read = new BufferedReader(new FileReader(temp_file));
+            BufferedWriter write = new BufferedWriter(new FileWriter(f));
             String[] currentLine = new String[2];
             int i = 0;
-            //read header
-            currentLine[i%2] = read.readLine();
-            //write header
-            write.write(currentLine[i%2]);
+            boolean stop = false;
 
-            for( ++i; i < line; i++){
+            for( i = 0; i < line && ! stop; i++){
                 //read records before the record that need to be updated
                 currentLine[i%2] = read.readLine();
-                //write records before the record that need to be updated
-                write.write(currentLine[i%2] );
+                // Error catcher
+                if ( currentLine[i%2] == null ) {
+                    // Exit the loop
+                    stop = true;
+                } else {
+                    //write records before the record that need to be updated
+                    write.write(currentLine[i%2] );
+                }
             }
-
-            //read the record to update
-            currentLine[i%2] = read.readLine();
-            currentLine[i%2] += update;
-            //read next record
-            currentLine[( ++i % 2 )] = read.readLine();
-
-            do {
-                write.write(currentLine[ (i - 1) % 2 ]);
-            } while( ( currentLine[++i % 2]  = read.readLine()) != null );
-
+            if (!stop) {
+                //read the record to update
+                currentLine[i%2] = read.readLine();
+                // Check
+                if ( currentLine[i%2] != null ) {
+                    // Update
+                    currentLine[i%2] += update;
+                    // Read next record
+                    currentLine[( ++i % 2 )] = read.readLine();
+                    // Copy
+                    do {
+                        // Write the previous line
+                        write.write(currentLine[ (i - 1) % 2 ]);
+                    // Read the next line
+                    } while( ( currentLine[++i % 2]  = read.readLine()) != null );
+                }
+            }
             write.close();
             read.close();
             
