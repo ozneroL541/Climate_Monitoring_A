@@ -296,7 +296,7 @@ public class CSV_Utilities {
             // Return Error
             return false;
         }
-
+        temp_file = f;
         f = file;
 
         try {
