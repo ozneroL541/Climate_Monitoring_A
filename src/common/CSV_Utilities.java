@@ -297,44 +297,48 @@ public class CSV_Utilities {
         }
 
         f = file;
+
         try {
+            if ( ! f.createNewFile() ) {
+                // Error Output
+                System.err.println("ERRORE: Creazione file di scrittura fallita.");
+                // Return Error
+                return false;
+            }
+            BufferedReader read = new BufferedReader(new FileReader(f));
+            BufferedWriter write = new BufferedWriter(new FileWriter(temp_file));
+            String[] currentLine = new String[2];
+            int i = 0;
+            //read header
+            currentLine[i%2] = read.readLine();
+            //write header
+            write.write(currentLine[i%2]);
 
-            try (BufferedReader read = new BufferedReader(new FileReader(f))) {
-                try (BufferedWriter write = new BufferedWriter(new FileWriter(temp_file))) {
-                    String[] currentLine = new String[2];
-                    int i = 0;
-                    //read header
-                    currentLine[i%2] = read.readLine();
-                    //write header
-                    write.write(currentLine[i%2]);
+            for( ++i; i < line; i++){
+                //read records before the record that need to be updated
+                currentLine[i%2] = read.readLine();
+                //write records before the record that need to be updated
+                write.write(currentLine[i%2] );
+            }
 
-                    for( ++i; i < line; i++){
-                        //read records before the record that need to be updated
-                        currentLine[i%2] = read.readLine();
-                        //write records before the record that need to be updated
-                        write.write(currentLine[i%2] );
-                    }
+            //read the record to update
+            currentLine[i%2] = read.readLine();
+            currentLine[i%2] += update;
+            //read next record
+            currentLine[( ++i % 2 )] = read.readLine();
 
-                    //read the record to update
-                    currentLine[i%2] = read.readLine();
-                    currentLine[i%2] += update;
-                    //read next record
-                    currentLine[( ++i % 2 )] = read.readLine();
+            do {
+                write.write(currentLine[ (i - 1) % 2 ]);
+            } while( ( currentLine[++i % 2]  = read.readLine()) != null );
 
-                    do {
-                        write.write(currentLine[ (i - 1) % 2 ]);
-                    } while( ( currentLine[++i % 2]  = read.readLine()) != null );
-
-                    write.close();
-                }
-                read.close();
-                
-                if ( ! temp_file.delete() ) {
-                    // Error Output
-                    System.err.println("ERRORE: Eliminazione file temporaneo fallita.");
-                    // Return Error
-                    return false;
-                }
+            write.close();
+            read.close();
+            
+            if ( ! temp_file.delete() ) {
+                // Error Output
+                System.err.println("ERRORE: Eliminazione file temporaneo fallita.");
+                // Return Error
+                return false;
             }
             
         } catch ( IOException e ) {
