@@ -303,6 +303,8 @@ public class CSV_Utilities {
             if ( ! f.createNewFile() ) {
                 // Error Output
                 System.err.println("ERRORE: Creazione file di scrittura fallita.");
+                // Trying to rename back the old file
+                temp_file.renameTo(file);
                 // Return Error
                 return false;
             }
