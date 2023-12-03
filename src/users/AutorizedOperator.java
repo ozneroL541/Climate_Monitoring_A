@@ -150,6 +150,7 @@ public class AutorizedOperator extends User {
         //swtich password with centre
         //centre comes after password in the file
         //but is asked first during registration
+        // TODO Cosa vogliono dire questi numero? Scarsa leggibilità
         String temp=nomi_campi[5];
         nomi_campi[5]=nomi_campi[6];
         nomi_campi[6]=temp;
