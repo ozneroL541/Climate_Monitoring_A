@@ -286,7 +286,8 @@ public class CSV_Utilities {
         }
 
         final String temp_file_name = ".tempfile";
-        File f = FileSystems.getDefault().getPath(file.getParent(), temp_file_name).toFile();
+        String temp_file_path = FileSystems.getDefault().getPath(file.getParent(), temp_file_name).toString();
+        File f = new File(temp_file_path);
         File temp_file = file;
         // Rename file
         if (! temp_file.renameTo(f)) {
