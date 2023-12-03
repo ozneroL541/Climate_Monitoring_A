@@ -70,12 +70,12 @@ public class CSV_Utilities {
         // Return String
         return str;
     }
-    /*
+    /**
      * Ritorna la stringa con le virgolette se contiene un carattere separatore.
      * @param str stringa
      * @return stringa formattata
      */
-    private static String CSVFormat( String str ) {
+    public static String CSVFormat( String str ) {
         // Separator
         final String separator = ",";
         // If cointains a separator put ""
@@ -215,7 +215,6 @@ public class CSV_Utilities {
             return false;
         }
     }
-
     /**
      * Aggiorna una cella di un file CSV
      * @param file file CSV
@@ -262,8 +261,6 @@ public class CSV_Utilities {
         }
         return true;
     }
-
-
     /**
      * Aggiorna una cella di un file CSV
      * @param file file CSV
@@ -271,7 +268,7 @@ public class CSV_Utilities {
      * @param line linea della cella escludendo l'intestazione del file
      * @return true se l'esecuzione è avvenuta correttamente
      */
-    public static boolean updateCellInCSV2(File file, String update, int line){
+    public static boolean addAtEndOfLine(File file, String update, int line){
         
         // Check file existence
         if (! file.exists()) {
@@ -364,5 +361,8 @@ public class CSV_Utilities {
             return false;
         }
         return true;
+    }
+    public static boolean addCellAtEndOfLine(File file, String string, int line) {
+        return addAtEndOfLine(file, CSVFormat(string), line);
     }
 }
