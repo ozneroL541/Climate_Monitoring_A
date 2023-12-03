@@ -286,39 +286,36 @@ public class CSV_Utilities {
 
         try {
 
-            BufferedReader read=new BufferedReader(new FileReader(file));
-            BufferedWriter write=new BufferedWriter(new FileWriter(file));
+            try (BufferedReader read = new BufferedReader(new FileReader(file))) {
+                try (BufferedWriter write = new BufferedWriter(new FileWriter(file))) {
+                    String[] currentLine = new String[2];
+                    int i = 0;
+                    //read header
+                    currentLine[i%2] = read.readLine();
+                    //write header
+                    write.write(currentLine[i%2]);
 
-            String lineaAtt;
-            //read header
-            lineaAtt=read.readLine();
-            //write header
-            write.write(lineaAtt);
+                    for( ++i; i < line; i++){
+                        //read records before the record that need to be updated
+                        currentLine[i%2] = read.readLine();
+                        //write records before the record that need to be updated
+                        write.write(currentLine[i%2] );
+                    }
 
-            for(int i=1;i<line;i++){
-                //read records before the record that need to be updated
-                lineaAtt=read.readLine();
-                //write records before the record that need to be updated
-                write.write(lineaAtt);
+                    //read the record to update
+                    currentLine[i%2] = read.readLine();
+                    currentLine[i%2] += update;
+                    //read next record
+                    currentLine[( ++i % 2 )] = read.readLine();
+
+                    do {
+                        write.write(currentLine[ (i - 1) % 2 ]);
+                    } while( ( currentLine[++i % 2]  = read.readLine()) != null );
+
+                    write.close();
+                }
+                read.close();
             }
-
-            //read the record to update
-            lineaAtt=read.readLine();
-            lineaAtt+=update;
-            String lineaSuc;
-             //read next record
-            lineaSuc=read.readLine();
-            //save record updated
-            write.write(lineaAtt);
-
-            while((lineaAtt=read.readLine())!=null){
-                write.write(lineaSuc);
-                lineaSuc=read.readLine();
-                write.write(lineaAtt);
-            }
-
-            read.close();
-            write.close();
             
         } catch ( IOException e ) {
             // Return false
