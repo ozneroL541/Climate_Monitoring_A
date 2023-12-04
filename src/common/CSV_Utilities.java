@@ -264,7 +264,7 @@ public class CSV_Utilities {
         return true;
     }
     /**
-     * Aggiounge una stringa alla fine della riga di un file.
+     * Aggiunge una stringa alla fine della riga di un file.
      * @param file file
      * @param update stringa da aggiungere
      * @param line riga
