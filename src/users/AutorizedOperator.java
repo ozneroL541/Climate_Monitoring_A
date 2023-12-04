@@ -320,48 +320,33 @@ public class AutorizedOperator extends User {
 
     //evaluate userid and password
     private static AutorizedOperator login(){
+        int riga = -1;
+        AutorizedOperator a = null;
         String userid;
         String password;
         System.out.println("LOGIN\n");
 
-        try{
-            System.out.print("Inserire l'User-ID: ");
-            userid = InputScanner.INPUT_SCANNER.nextLine();
-            System.out.print("Inserire la password: ");
-            password=InputScanner.INPUT_SCANNER.nextLine();
-        }catch(InputMismatchException e){
-            e.printStackTrace();
-            return null;
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-        
-        //if userid exist
-        if(Research.isStringInCol(file, IndexOf.matricola, userid)){
-            //return the column where UserId is
-            int riga=Research.OneStringInCol(file, IndexOf.matricola, userid);
+        System.out.print("Inserire l'User-ID: ");
+        userid = InputScanner.INPUT_SCANNER.nextLine();
+        System.out.print("Inserire la password: ");
+        password=InputScanner.INPUT_SCANNER.nextLine();
+
+        //return the column where UserId is
+        riga=Research.OneStringInCol(file, IndexOf.matricola, userid);
+        if ( riga > 0 ) {
             // Initialize record
             String[] record = null;
             // Check if the research returned a valid result
-            if(riga > 0){
-                record = Research.getRecord(file, riga);
-            }
+            record = Research.getRecord(file, riga);
             if(record!=null){
                 //if password match, set the object's attributes
                 if(record[IndexOf.password].equals(password)){
-                    return new AutorizedOperator(Short.valueOf(userid), record[IndexOf.nome], record[IndexOf.cognome], record[IndexOf.codice_fiscale], record[IndexOf.email], password, record[IndexOf.centro]);
-                }else{
-                    return null;
+                    a =  new AutorizedOperator(Short.valueOf(userid), record[IndexOf.nome], record[IndexOf.cognome], record[IndexOf.codice_fiscale], record[IndexOf.email], password, record[IndexOf.centro]);
                 }
             }
-        }else{
-            return null;
         }
-
-        //TODO
-        //senza mi da errore, perchè boh
-        return null;
+        // Return a
+        return a;
     }
 
     // Check Codice Fiscale
