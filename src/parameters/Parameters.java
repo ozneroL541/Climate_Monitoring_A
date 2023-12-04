@@ -79,7 +79,11 @@ public class Parameters {
         this.centre = c;
         this.table = t;
     }
-    // TODO Test
+    /**
+     * Costruttore dell'oggetto Parameters.
+     * Crea un oggetto partendo dalla riga in cui è contenuto nel file.
+     * @param line riga
+     */
     public Parameters( Integer line ) {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecord(file, line);
@@ -109,9 +113,9 @@ public class Parameters {
                 this.table = new Table(s, n);
                 if (this.table != null) {
                     // Save the datas
-                    this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
                     this.date         = record[IndexOf.date];
                     this.centre       = record[IndexOf.centre];
+                    this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
                 }
             }       
         }
@@ -267,17 +271,18 @@ public class Parameters {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
-    // TODO JD
-    public static void SearchList( String area, int runtime_print ) {
-        // TODO Check Method
-        // Output Integer array
-        Integer [] lines = new Integer[1];
+    /**
+     * Stampa una lista di parametri.
+     * @param area righe dei parametri
+     * @param runtime_print 
+     */
+    public static void SearchList( Integer[] lines ) {
+        // Number of lines to print
+        int runtime_print = 0;
         // Minimum run constant
         final int min_run = 10;
         // Huge number of lines
         final int huge = 20;
-        // Search
-        lines = ricercaPerArea(area);
         // Print if there is something
         if (lines != null && lines.length > 0) {
             // If the number of lines is huge force runtime_print
