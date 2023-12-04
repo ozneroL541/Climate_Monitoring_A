@@ -264,9 +264,9 @@ public class CSV_Utilities {
         return true;
     }
     /**
-     * Aggiorna l'ultima cella di un file CSV.
-     * @param file file CSV
-     * @param update cella da aggiungere
+     * Aggiounge una stringa alla fine della riga di un file.
+     * @param file file
+     * @param update stringa da aggiungere
      * @param line riga
      * @return true se l'esecuzione è avvenuta correttamente
      */
