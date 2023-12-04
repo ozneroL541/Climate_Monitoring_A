@@ -249,6 +249,7 @@ public class Parameters {
      * Trasforma i campi della classe in un array di stringhe.
      * @return array di Strings
      */
+    // TODO Debugging: bug detected here
     private String[] toStrings() {
         String[] strings = new String[IndexOf.max_cols];
         String[] t = this.table.toStrings();
@@ -279,12 +280,12 @@ public class Parameters {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
-    /**
+    /*
      * Stampa una lista di parametri.
      * @param area righe dei parametri
      * @param runtime_print 
      */
-    public static void getList( Integer[] lines ) {
+    private static void getList( Integer[] lines ) {
         // Number of lines to print
         int runtime_print = 0;
         // Minimum run constant
@@ -342,7 +343,7 @@ public class Parameters {
             System.out.println("Non sono presenti dati riguardanti l'area selezionata.");
         }
     }
-    /**
+    /*
      * Dato un Geoname ID stampa i parametri riguardanti quell'Area.
      * @param id geoname_id
      */
@@ -467,6 +468,11 @@ public class Parameters {
     }
     //TODO rimuovere 
     public static void main (String [] args){
-        Parameters.getList(Parameters.ricercaPerArea("12345"));
+        Parameters p = Parameters.MakeParameters("6534484");
+        if (p.addToCSV()) {
+            System.out.println("Success");
+        } else {
+            System.out.println("Fail");
+        }
     }
 }

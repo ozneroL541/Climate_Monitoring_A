@@ -367,7 +367,7 @@ public class Table {
     // Create an array of strings ad add id at the beginning
     public String[] toStrings() {
         // Array to return
-        String[] strings = new String[ (n_categories * 2) - 1 ];
+        String[] strings = new String[ (n_categories * 2) ];
         // Check parameter existance
         if ( scores == null ) {
             // Exit
