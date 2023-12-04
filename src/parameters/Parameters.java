@@ -42,7 +42,7 @@ import src.geographicarea.GeographicArea;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class Parameters {
     // Parameters File
@@ -64,7 +64,7 @@ public class Parameters {
         private static final short centre = 2;
         private static final short table = 3;
         private static final short table_length = Table.n_categories;
-        private static final short max_cols = (table + table_length);
+        private static final short max_cols = (table + (table_length*2));
     }
     /**
      * Costruttore dell'oggetto Parameters
@@ -249,12 +249,11 @@ public class Parameters {
      * Trasforma i campi della classe in un array di stringhe.
      * @return array di Strings
      */
-    // TODO Debugging: bug detected here
     private String[] toStrings() {
         String[] strings = new String[IndexOf.max_cols];
         String[] t = this.table.toStrings();
         // Check if t was successful
-        if ( t != null && t.length == IndexOf.table_length ) {
+        if ( t != null && t.length == (IndexOf.table_length*2) ) {
             strings[IndexOf.geoname_id] = "" + this.geoname_id;
             strings[IndexOf.date] = "" + this.date;
             strings[IndexOf.centre] = this.centre;
@@ -468,11 +467,15 @@ public class Parameters {
     }
     //TODO rimuovere 
     public static void main (String [] args){
+        // TODO Debugging
+        Parameters.MostraParametri("0");
+        /*
         Parameters p = Parameters.MakeParameters("6534484");
         if (p.addToCSV()) {
             System.out.println("Success");
         } else {
             System.out.println("Fail");
         }
+        */
     }
 }

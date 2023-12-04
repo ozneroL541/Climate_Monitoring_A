@@ -76,11 +76,16 @@ public class CSV_Utilities {
      * @return stringa formattata
      */
     public static String CSVFormat( String str ) {
-        // Separator
-        final String separator = ",";
-        // If cointains a separator put ""
-        if (str.contains(separator))
-            str = addQuotes(str);
+        // Check if string is null
+        if ( str == null ) {
+            str = "";
+        } else {
+            // Separator
+            final String separator = ",";
+            // If cointains a separator put ""
+            if (str.contains(separator))
+                str = addQuotes(str);
+        }
         // Return formatted string
         return str;
     }
