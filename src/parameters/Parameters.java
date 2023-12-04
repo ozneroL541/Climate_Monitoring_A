@@ -343,6 +343,11 @@ public class Parameters {
         // Search all Parameters for this area
         return Research.AllStringInCol(file, IndexOf.geoname_id, area);
     }
+    /**
+     * Rende un array di righe del file CSV una lista
+     * @param lines righe
+     * @return lista
+     */
     private static String toList(Integer[] lines) {
         // To be returned
         String out = "";
@@ -352,6 +357,12 @@ public class Parameters {
         }
         return out;
     }
+    /**
+     * Ritorna una linea per la lista.
+     * @param line riga
+     * @param index indice
+     * @return linea per lista
+     */
     private static String RunTimeLine(Integer line, int index) {
         Parameters ga = new Parameters(line);
         // Output string
