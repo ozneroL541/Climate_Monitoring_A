@@ -96,7 +96,7 @@ public class Parameters {
                 if ( StringUtils.isNumeric(record[IndexOf.table + i]) ) {
                     try {
                         s[i] = Short.parseShort(record[IndexOf.table + i]);
-                        n[i] = record[IndexOf.table + IndexOf.table + i];  
+                        n[i] = record[IndexOf.table + IndexOf.table_length + i];  
                     } catch (Exception e) {
                         error = true;
                     }
