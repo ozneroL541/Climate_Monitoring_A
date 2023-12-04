@@ -173,8 +173,7 @@ public class Parameters {
         // Check if t was successful
         if ( t != null && t.length == IndexOf.table_length ) {
             strings[IndexOf.geoname_id] = "" + this.geoname_id;
-            // TODO Check how date can be converted to a readable String
-            strings[IndexOf.date] = this.date.toString();
+            strings[IndexOf.date] = "" + this.date;
             strings[IndexOf.centre] = this.centre;
             for (short i = 0; i < IndexOf.table_length; i++) {
                 strings[IndexOf.table + i] = t[i];
@@ -191,6 +190,21 @@ public class Parameters {
     public boolean printToFile( GeographicArea ga ) {
         // Execution succeded
         return CSV_Utilities.addArraytoCSV(file, toStrings(), header);
+    }
+    /**
+     * Aggiunge i Parametri al file CSV.
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
+    public boolean addToCSV() {
+        // Array of fields
+        String [] fields_arr = toStrings();
+        // If there are no fields
+        if ( fields_arr == null || fields_arr.length < 1 ) {
+            // Exit without write
+            return false;
+        }
+        // Add to CSV File
+        return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
 
     //TODO rimuovere 
