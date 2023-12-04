@@ -150,10 +150,9 @@ public class AutorizedOperator extends User {
         //swtich password with centre
         //centre comes after password in the file
         //but is asked first during registration
-        // TODO Cosa vogliono dire questi numero? Scarsa leggibilità
-        String temp=nomi_campi[5];
-        nomi_campi[5]=nomi_campi[6];
-        nomi_campi[6]=temp;
+        String temp=nomi_campi[IndexOf.password];
+        nomi_campi[IndexOf.password]=nomi_campi[IndexOf.centro];
+        nomi_campi[IndexOf.centro]=temp;
         // Max number of operators
         final int max_operators = 99999;
 
@@ -176,9 +175,9 @@ public class AutorizedOperator extends User {
                 //swtich password with centre
                 //centre comes after password in the file
                 //but is asked first during registration
-                temp=campi[5];
-                campi[5]=campi[6];
-                campi[6]=temp;
+                temp=campi[IndexOf.password];
+                campi[IndexOf.password]=campi[IndexOf.centro];
+                campi[IndexOf.centro]=temp;
             }
         }catch ( IOException e ){
             // Print Error
