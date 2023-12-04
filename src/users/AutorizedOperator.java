@@ -320,6 +320,7 @@ public class AutorizedOperator extends User {
 
     //evaluate userid and password
     private static AutorizedOperator login(){
+        // TODO Test
         int riga = -1;
         AutorizedOperator a = null;
         String userid;
