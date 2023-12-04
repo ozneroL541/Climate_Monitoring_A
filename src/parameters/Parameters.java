@@ -28,6 +28,8 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 
+import org.apache.commons.lang3.StringUtils;
+
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
@@ -48,7 +50,7 @@ public class Parameters {
     // Header
     private final static String header = "Geoname ID,Data,Centro,Vento,Umidità,Pressione,Temperatura,Precipitazioni,Altitudine dei ghiacciai,Massa dei ghiacciai,Note Vento,Note Umidità,Note Pressione,Note Temperatura,Note Precipitazioni,Note Altitudine dei ghiacciai,Note Massa dei ghiacciai";
     // Geoname ID
-    private short geoname_id = 0;
+    private int geoname_id = 0;
     // Date
     private String date = null;
     // Monitoring Centre
@@ -71,11 +73,76 @@ public class Parameters {
      * @param c centre
      * @param t table
      */
-    public Parameters( short id, String d, String c, Table t){
+    public Parameters( short id, String d, String c, Table t) {
         this.geoname_id = id;
         this.date = d;
         this.centre = c;
         this.table = t;
+    }
+    // TODO Test
+    public Parameters( Integer line ) {
+        // Copy the record in a auxiliary variable
+        String[] record = Research.getRecord(file, line);
+        // Error Checker
+        boolean error = false;
+        // Check validity
+        if ( record != null && record.length != IndexOf.max_cols ) {
+            // Parameters
+            short [] s = new short[IndexOf.table_length];
+            // Notes
+            String[] n = new String[IndexOf.table_length];
+            // Add Table    
+            for (short i = 0; i < IndexOf.table_length && !error; i++) {
+                if ( StringUtils.isNumeric(record[IndexOf.table + i]) ) {
+                    try {
+                        s[i] = Short.parseShort(record[IndexOf.table + i]);
+                        n[i] = record[IndexOf.table + IndexOf.table + i];  
+                    } catch (Exception e) {
+                        error = true;
+                    }
+                } else {
+                    error = true;
+                }
+            }
+            // Error Checker
+            if (!error) {
+                this.table = new Table(s, n);
+                if (this.table != null) {
+                    // Save the datas
+                    this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+                    this.date         = record[IndexOf.date];
+                    this.centre       = record[IndexOf.centre];
+                }
+            }       
+        }
+    }
+    /**
+     * Ritorna il Geoname ID
+     * @return geoname_id
+     */
+    public int getGeoname_id() {
+        return this.geoname_id;
+    }
+    /**
+     * Ritorna la Data
+     * @return date
+     */
+    public String getDate() {
+        return this.date;
+    }
+    /**
+     * Ritorna il nome del Centro
+     * @return centre
+     */
+    public String getCentre() {
+        return this.centre;
+    }
+    /**
+     * Ritorna la tabella dei parametri
+     * @return table
+     */
+    public Table getTable() {
+        return this.table;
     }
     /**
      * Crea un oggetto Parameters e lo ritorna.
@@ -280,13 +347,30 @@ public class Parameters {
         // Search all Parameters for this area
         return Research.AllStringInCol(file, IndexOf.geoname_id, area);
     }
-    private static char[] toList(Integer[] lines) {
-        // TODO
-        return null;
+    private static String toList(Integer[] lines) {
+        // To be returned
+        String out = "";
+        // For every result
+        for (int i = 0; i < lines.length; i++) {
+            out += RunTimeLine(lines[i], i+1) + "\n";
+        }
+        return out;
     }
-    private static char[] RunTimeLine(Integer integer, int i) {
-        // TODO
-        return null;
+    private static String RunTimeLine(Integer line, int index) {
+        Parameters ga = new Parameters(line);
+        // Output string
+        String out = "";
+        // If is the first line
+        if( index <= 1 )
+        // Put a head
+            out += "N\tGeoname ID\tData\tCentro\tVento\tUmidità\tPressione\tTemperatura\tPrecipitazioni\tAltitudine dei ghiacciai\tMassa dei ghiacciai\n";
+        // Write the index
+        out += String.format("%5d", index);
+        // Formatted output list
+        out += String.format("\t%-10s\t%-10s\t%-10s", ga.getGeoname_id(), ga.getDate(), ga.getCentre());
+        // TODO: add Parameters
+        // Return String
+        return out;
     }
     //TODO rimuovere 
     public static void main (String [] args){
