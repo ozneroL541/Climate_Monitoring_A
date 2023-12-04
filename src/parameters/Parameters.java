@@ -253,15 +253,6 @@ public class Parameters {
             return null;
     }
     /**
-     * Aggiungi i parametri alla fine del file CSV
-     * @param ga Area Geografica a cui si riferisce
-     * @return true se l'esecuzione è avvenuta correttamente.
-     */
-    public boolean printToFile( GeographicArea ga ) {
-        // Execution succeded
-        return CSV_Utilities.addArraytoCSV(file, toStrings(), header);
-    }
-    /**
      * Aggiunge i Parametri al file CSV.
      * @return true se l'esecuzione è avvenuta correttamente
      */
