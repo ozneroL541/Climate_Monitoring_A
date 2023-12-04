@@ -93,6 +93,30 @@ public class GeographicArea {
     }
     /**
      * Costruttore di Area Geografica.
+     * Data un Geoname ID in input crea l'oggetto Area Geografica.
+     * I dati che vengono salvati sono
+     * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
+     * @param id geoname_ID
+     */
+    public GeographicArea ( int id ) {
+        // ID to String
+        String id_String = "" + id;
+        // Copy the record in a auxiliary variable
+        String[] record = Research.getRecordByData(file, IndexOf.generic_name, id_String);
+        // Check validity
+        if ( record != null && record.length != IndexOf.max_index ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+            
+        }
+    }
+    /**
+     * Costruttore di Area Geografica.
      * Fornito un dato in input crea l'oggetto Area Geografica utilizzando i dati appartenenti al corrispondente.
      * Se viene fornito in input un ID e come secondo argomento 0 l'Area Geografica sarà univoca.
      * Se viene fornito un qualsiasi altro dato verrà creata un'Area Geografica corrispondenta alla sua prima occorrenza.

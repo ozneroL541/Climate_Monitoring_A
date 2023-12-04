@@ -121,6 +121,14 @@ public class Parameters {
         }
     }
     /**
+     * Controlla che l'oggetto esista.
+     * @return true se l'oggetto esiste
+     */
+    public boolean Exist() {
+        GeographicArea ga = new GeographicArea(this.geoname_id);
+        return ga.Exist();
+    }
+    /**
      * Ritorna il Geoname ID
      * @return geoname_id
      */
@@ -276,7 +284,7 @@ public class Parameters {
      * @param area righe dei parametri
      * @param runtime_print 
      */
-    public static void SearchList( Integer[] lines ) {
+    public static void getList( Integer[] lines ) {
         // Number of lines to print
         int runtime_print = 0;
         // Minimum run constant
@@ -331,8 +339,86 @@ public class Parameters {
                 System.out.println(toList(lines));
         } else {
             // Message if there is no output
-            System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
+            System.out.println("Non sono presenti dati riguardanti l'area selezionata.");
         }
+    }
+    /**
+     * Dato un Geoname ID stampa i parametri riguardanti quell'Area.
+     * @param id geoname_id
+     */
+    public static void MostraParametri( String id ) {
+        // Check file existence
+        if ( file.exists() ) {
+            // Get lines
+            Integer[] lines =  ricercaPerArea(id);
+            // Index
+            int i = 0;
+            // Print List
+            if ( lines != null ) {
+                // Print List
+                getList(lines);
+                // Ask for better view
+                i = askView(lines.length);
+                // Check index
+                if ( i > 0 ) {
+                    // Create Parameter
+                    Parameters p = new Parameters(lines[i]);
+                    // Check for existence
+                    if ( p != null && p.Exist() ) {
+                        // Print Parameter
+                        System.out.println(p.toString());   
+                    }
+                }
+            } else {
+                // Message if there is no output
+                System.out.println("Non sono presenti dati riguardanti l'area selezionata.");
+            }
+        } else {
+            System.out.println("Attualmente non ci sono dati disponibili.");
+        }
+    }
+    /**
+     * Chiede all'utente di inserire l'indice del parametro che desidera visualizzare.
+     * @param max massimo indice
+     * @return indice del parametro che si desidera visualizzare
+     */
+    private static int askView( int max ) {
+        // Min
+        final short min = 1;
+        // Result
+        int r = -1;
+        // Input
+        String in = "";
+        // Ask
+        System.out.println("Vuoi visualizzare maggiori informazioni su un parametro(S/N)?\t");
+        // Input
+        in = InputScanner.INPUT_SCANNER.next();
+        // Check for positive input
+        if ( in != null && in.length() > 1 && ( in.toUpperCase().charAt(0) == 'S' || in.toUpperCase().charAt(0) == 'Y' )) {
+            // Ask
+            System.out.println("Inserire l'indice della ricerca (" + min + "-" + max + "):\t");
+            // Input
+            in = InputScanner.INPUT_SCANNER.nextLine();
+            // Try to Parse in
+            if (StringUtils.isNumeric(in)) {
+                try {
+                    // Parse input
+                    r = Integer.parseInt(in);
+                    // Check if r is in range
+                    if ( r < min || r > max ) {
+                        // Output
+                        System.out.println("Il valore inserito non rientra tra quelli proposti.");
+                        // Reset r
+                        r = -1;
+                    }
+                } catch (Exception e) {
+                    // Error return
+                    r = -1;
+                }
+            }
+        }
+        // Return value
+        return r;
     }
     /*
      * Ricerca tutti i Parameters inseriti di un'Area Geografica.
@@ -381,6 +467,6 @@ public class Parameters {
     }
     //TODO rimuovere 
     public static void main (String [] args){
-        System.out.println(insertDate());
+        Parameters.getList(Parameters.ricercaPerArea("12345"));
     }
 }
