@@ -29,6 +29,8 @@ import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 
 import src.common.CSV_Utilities;
+import src.common.CommonMethods;
+import src.common.InputScanner;
 import src.geographicarea.GeographicArea;
 
 /**
@@ -206,7 +208,80 @@ public class Parameters {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
-
+    // TODO JD
+    public static void SearchList( String area, int runtime_print ) {
+        // TODO Check Method
+        // Output Integer array
+        Integer [] lines = new Integer[1];
+        // Minimum run constant
+        final int min_run = 10;
+        // Huge number of lines
+        final int huge = 20;
+        // Search
+        lines = ricercaPerArea(area);
+        // Print if there is something
+        if (lines != null && lines.length > 0) {
+            // If the number of lines is huge force runtime_print
+            if ( lines.length > huge && runtime_print <= 0) {
+                runtime_print = min_run;
+            }
+            // If runtime print is enable print in runtime mode
+            if ( runtime_print > 0 ) {
+                // Limit of item to print
+                int limit = runtime_print;
+                // limit counter
+                int l = 0;
+                // Lines counter
+                int i = 0;
+                // String which
+                String ans = "N";
+                do {
+                    for ( l = 0; l < limit && i < lines.length; i++) {
+                        // Print runtime the string
+                        System.out.println(RunTimeLine(lines[i], i + 1 ));
+                        // Increase limit counter
+                        l++;
+                    }
+                    // Print remaining resoults
+                    System.out.println("Risultati rimanenti: " + ( lines.length - i ));
+                    // If you can still pront something
+                    if ( i < lines.length ) {
+                        // Output for Scanner
+                        System.out.print("Continuare l'elenco(S/N)? ");
+                        // Input
+                        ans = InputScanner.INPUT_SCANNER.next();
+                        // Up all the letters
+                        ans = ans.toUpperCase();
+                        // If quit, exit
+                        if ( CommonMethods.ExitLoop(ans) ) {
+                            // Exit
+                            l = -1;
+                        }
+                        // Add a line
+                        System.out.println();
+                    } else
+                        // Exit the loop
+                        l = -1;
+                } while ( l >= 0);
+            } else
+                System.out.println(toList(lines));
+        } else {
+            // Message if there is no output
+            System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
+        }
+    }
+    private static Integer[] ricercaPerArea(String area) {
+        // TODO
+        return null;
+    }
+    private static char[] toList(Integer[] lines) {
+        // TODO
+        return null;
+    }
+    private static char[] RunTimeLine(Integer integer, int i) {
+        // TODO
+        return null;
+    }
     //TODO rimuovere 
     public static void main (String [] args){
         System.out.println(insertDate());
