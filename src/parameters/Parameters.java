@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
+import src.common.Research;
 import src.geographicarea.GeographicArea;
 
 /**
@@ -270,9 +271,14 @@ public class Parameters {
             System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
         }
     }
+    /*
+     * Ricerca tutti i Parameters inseriti di un'Area Geografica.
+     * @param area Area Geografica
+     * @return l'array delle righe dove sono presenti i parametri
+     */
     private static Integer[] ricercaPerArea(String area) {
-        // TODO
-        return null;
+        // Search all Parameters for this area
+        return Research.AllStringInCol(file, IndexOf.geoname_id, area);
     }
     private static char[] toList(Integer[] lines) {
         // TODO
