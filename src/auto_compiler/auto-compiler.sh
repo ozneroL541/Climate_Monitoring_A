@@ -25,8 +25,6 @@
 
 # Move in a directory different from src
 
-#TODO JAVADOC
-#javadoc src/*/*.java -d doc/ -cp tmp/lib/
 # Go to the upper directory
 if cd $(dirname $(which $0)) && cd ../../
 then
@@ -79,6 +77,18 @@ then
         echo "Compilation: failed"
         echo ""
     fi
+    # Make JavaDoc
+    if javadoc src/*/*.java -d doc/ -cp tmp/lib/
+    then
+        echo ""
+        echo "JavaDoc creation: succeed"
+        echo ""
+    else
+        echo ""
+        echo "JavaDoc creation: failed"
+        echo ""
+    fi
+    # Remove Temporary Directory
     if rm -r tmp
     then
         echo ""
