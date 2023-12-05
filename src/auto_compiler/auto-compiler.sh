@@ -25,6 +25,8 @@
 
 # Move in a directory different from src
 
+#TODO JAVADOC
+#javadoc src/*/*.java -d doc/ -cp tmp/lib/
 # Go to the upper directory
 if cd $(dirname $(which $0)) && cd ../../
 then
