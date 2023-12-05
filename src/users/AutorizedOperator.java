@@ -39,7 +39,7 @@ import src.monitoringcentre.MonitoringCentre;
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
- * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
+ * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
  * @version 0.13.4
  */
@@ -420,7 +420,7 @@ public class AutorizedOperator extends User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-    
+    // TODO JavaDoc
     //TODO terminare metodo
     public void menu(){
 

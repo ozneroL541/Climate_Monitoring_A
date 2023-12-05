@@ -154,9 +154,9 @@ public class CommonMethods {
         // Return true
         return true;
     }
-        /**
+    /**
      * Ritorna una stringa trasformata in modo tale che sia tutta maiuscola e le vocali non abbiano accenti.
-     * @param address string
+     * @param str string
      * @return stringa trasformata
      */
     public static String toNoAccent( String str ) {

@@ -83,8 +83,8 @@ public class MainMenu {
     /**
      * Controlla che l'intero inserito abbia lo stesso indice del comando di uscita
      * @param n input
-     * @return true se l'input &egrave uguale all'uscita
-     * @return false se l'input &egrave diverso dall'uscita
+     * @return true se l'input è uguale all'uscita
+     * @return false se l'input è diverso dall'uscita
      */
     public boolean isQuit( short n ) {
         return n == exit_number;

@@ -169,7 +169,7 @@ public class GeographicArea {
         }
     }
     /*
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
      * @param id Geoname ID
      * @return Numero della riga
     */
@@ -180,7 +180,7 @@ public class GeographicArea {
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
     /*
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui è contenuto
      * in un array di Integer di un elemento.
      * Se non viene trovato nulla ritorna null.
      * @param id Geoname ID
@@ -215,7 +215,7 @@ public class GeographicArea {
         }
     }
     /*
-     * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param nome Nome
      * @return Numeri elle righe
      */
@@ -224,7 +224,7 @@ public class GeographicArea {
         return Research.AllStringInCol(file, IndexOf.real_name, nome);
     }
     /*
-     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param ascii_n Nome in formato ASCII
      * @return Numeri delle righe
      */
@@ -233,7 +233,7 @@ public class GeographicArea {
         return Research.AllStringInCol_notCaseS(file, IndexOf.ascii_name, ascii_n);
     }
     /*
-     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param n Nome
      * @return Numeri delle righe
      */
@@ -253,7 +253,7 @@ public class GeographicArea {
         return Research.AllStringInCol_notCaseS(file, index, n);
     }
     /*
-     * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param c_c Country Code
      * @return Numeri delle righe
      */
@@ -262,7 +262,7 @@ public class GeographicArea {
         return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
     }
     /*
-     * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param c_n Country Name
      * @return Numeri delle righe
      */
@@ -375,7 +375,7 @@ public class GeographicArea {
     /**
      * Ritorna Coordinates come array di double.
      * L'array contiene 2 elementi.
-     * Il primo elemento &egrave la latitudine e il secondo &egrave la longitudine.
+     * Il primo elemento è la latitudine e il secondo è la longitudine.
      * @return coordinates
      */
     public double[] getCoordinates() {
@@ -383,7 +383,7 @@ public class GeographicArea {
     }
     /**
      * Ritorna Coordinates come String.
-     * Il formato &egrave il seguente:
+     * Il formato è il seguente:
      * "<em>latitudine, longitudine</em>"
      * @return coordinate
      */
@@ -411,8 +411,8 @@ public class GeographicArea {
     /**
      * Cerca delle area geografiche e ne stampa la lista.
      * Il primo parametro si riferisce al tipo di ricerca.
-     * Il secondo parametro &egrave l'argomento della ricerca.
-     * Il terzo parametro &egrave il numero di aree da stampare in caso di lista troppo grande.
+     * Il secondo parametro è l'argomento della ricerca.
+     * Il terzo parametro è il numero di aree da stampare in caso di lista troppo grande.
      * Se <code>runtime_print</code> è 0 o negativo il numero di aree stampate sarà di valore fissato.
      * Numero massimo di aree stampabili insieme:    20
      * Numero di aree stampate in caso di <code>runtime_print == 0</code>:   10
@@ -519,8 +519,8 @@ public class GeographicArea {
      * Metodo di test che non ammette input per calcolare la velocità di esecuzione pura.
      * Cerca delle area geografiche e ne stampa la lista.
      * Il primo parametro si riferisce al tipo di ricerca.
-     * Il secondo parametro &egrave l'argomento della ricerca.
-     * Il terzo parametro &egrave il numero di aree da stampare in caso di lista troppo grande.
+     * Il secondo parametro è l'argomento della ricerca.
+     * Il terzo parametro è il numero di aree da stampare in caso di lista troppo grande.
      * Se <code>runtime_print</code> è 0 o negativo il numero di aree stampate sarà di valore fissato.
      * Numero massimo di aree stampabili insieme:    20
      * Numero di aree stampate in caso di <code>runtime_print == 0</code>:   10
@@ -701,10 +701,10 @@ public class GeographicArea {
     }
     /**
      * Controlla la correttezza dell'argomento, campo dell'area geografica.
-     * Se l'argomento &egrave valido restituisce true altrimenti false.
+     * Se l'argomento è valido restituisce true altrimenti false.
      * @param str argomento
      * @param col_index indice della colonna
-     * @return true se l'argomento &egrave valido
+     * @return true se l'argomento è valido
      */
     public static boolean argumentCorrect( String str, int col_index ) {
         // If str in null exit

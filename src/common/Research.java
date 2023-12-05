@@ -245,8 +245,8 @@ public class Research {
      * Questo metodo ricerca le coordinate dei punti più vicini alla coordinata fornita
      * in un file CSV e ne
      * restituisce la riga di appartenenza.
-     * Il range &egrave costituito dall'errore.
-     * L'errore &egrave considerato in km.
+     * Il range è costituito dall'errore.
+     * L'errore è considerato in km.
      * @deprecated  Questo metodo è stato sostituito
      * <p> usa invece {@link Research#CoordinatesAdvancedV2( File file, int col, double[] c )}.
      * @param file file CSV
@@ -467,11 +467,11 @@ public class Research {
     /**
      * Questo metodo ricerca una stringa in un file CSV
      * in una determinata colonna e
-     * restituisce true se &egrave presente, false altrimenti.
+     * restituisce true se è presente, false altrimenti.
      * @param file file CSV
      * @param col  colonna
      * @param str  stringa
-     * @return true se la stringa &egrave presente
+     * @return true se la stringa è presente
      */
     public static boolean isStringInCol(File file, int col, String str) {
         try{
@@ -723,7 +723,7 @@ public class Research {
         } 
     }
     /**
-     * Controlla se, in un file CSV, esiste una linea in cui c'&egrave
+     * Controlla se, in un file CSV, esiste una linea in cui c'è
      * sia la prima stringa che la seconda
      * nelle rispettive colonne.
      * @param file file CSv
