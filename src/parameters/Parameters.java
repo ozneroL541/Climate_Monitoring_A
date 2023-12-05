@@ -28,8 +28,6 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 
-import org.apache.commons.lang3.StringUtils;
-
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
@@ -97,14 +95,10 @@ public class Parameters {
             String[] n = new String[IndexOf.table_length];
             // Add Table    
             for (short i = 0; i < IndexOf.table_length && !error; i++) {
-                if ( StringUtils.isNumeric(record[IndexOf.table + i]) ) {
-                    try {
-                        s[i] = Short.parseShort(record[IndexOf.table + i]);
-                        n[i] = record[IndexOf.table + IndexOf.table_length + i];  
-                    } catch (Exception e) {
-                        error = true;
-                    }
-                } else {
+                try {
+                    s[i] = Short.parseShort(record[IndexOf.table + i]);
+                    n[i] = record[IndexOf.table + IndexOf.table_length + i];  
+                } catch (Exception e) {
                     error = true;
                 }
             }
@@ -400,21 +394,19 @@ public class Parameters {
             // Input
             in = InputScanner.INPUT_SCANNER.nextLine();
             // Try to Parse in
-            if (StringUtils.isNumeric(in)) {
-                try {
-                    // Parse input
-                    r = Integer.parseInt(in);
-                    // Check if r is in range
-                    if ( r < min || r > max ) {
-                        // Output
-                        System.out.println("Il valore inserito non rientra tra quelli proposti.");
-                        // Reset r
-                        r = -1;
-                    }
-                } catch (Exception e) {
-                    // Error return
+            try {
+                // Parse input
+                r = Integer.parseInt(in);
+                // Check if r is in range
+                if ( r < min || r > max ) {
+                    // Output
+                    System.out.println("Il valore inserito non rientra tra quelli proposti.");
+                    // Reset r
                     r = -1;
                 }
+            } catch (Exception e) {
+                // Error return
+                r = -1;
             }
         }
         // Return value
