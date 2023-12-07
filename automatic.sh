@@ -157,31 +157,36 @@ function rmall {
     rmobj
     rmdoc
 }
-
+# Help menu
+function help {}
 
 # Move in a directory different from src
 
 # Check the Path
 if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
     case $1 in
+        # Help
+        "h" | "-h" | "help" | "-help" | "--help")
+            help
+        ;;
         # Temporary
-        "t" | "-t" | "tmp" | "temporary")
+        "t" | "-t" | "tmp" | "temporary" | "--tmp" | "--temporary")
             maketmp
         ;;
         # Compile
-        "c" | "-c" | "compile" | "javac" | "-compile")
+        "c" | "-c" | "compile" | "javac" | "-compile" | "--javac" | "--compile")
             maketmp && (compile; rmtmp)
         ;;
         # JAR
-        "j" | "-j" | "-jar" | "jar")
+        "j" | "-j" | "-jar" | "jar" | "--jar")
             maketmp && (compile_jar; rmtmp)
         ;;
         # Doument
-        "d" | "-d" | "document" | "javadoc" | "-document")
+        "d" | "-d" | "document" | "javadoc" | "-document" | "--document" | "--javadoc")
             maketmp && (document; rmtmp)
         ;;
         # Remove
-        "r" | "-r" | "rm" | "-rm" | "remove" | "-remove")
+        "r" | "-r" | "rm" | "-rm" | "remove" | "-remove"  | "--remove")
         case $2 in
             # Remove tmp
             "tmp" | "temporary")
