@@ -34,77 +34,80 @@ jar="ClimateMonitor.jar"
 # Do not remove
 description=".description.txt"
 
+# Function Result
+function result {
+    if [ $1 -eq 0 ]; then
+        success "$2"
+    else
+        failed "$2"
+    fi
+}
+# Positive result
+function success {
+    echo ""
+    echo "$1: succeeded"
+    echo ""
+}
+# Negative Result
+function failed {
+    echo ""
+    echo "$1: failed"
+    echo ""
+    return -1
+}
 # Make Temporary File
 function maketmp {
-    if rm -r tmp; mkdir $tmp && cd $tmp && mkdir $lib && cd $lib
+    # Make tmp dir
+    rmtmp; mkdir $tmp && cd $tmp && mkdir $lib && cd $lib
+    res=$?
+    if result $res "Temporary directory making"
     then
-        echo ""
-        echo "tmp dir making: succeed"
-        echo ""
-        if jar -xf ../../$lib"opencsv-5.5.2.jar"
-        then
-            echo ""
-            echo "JAR extraction: succeed"
-            echo ""
-        else
-            echo ""
-            echo "JAR extraction: failed"
-            echo ""
-            exit -1
-        fi
+        # Extract JAR file
+        jar -xf ../../$lib"opencsv-5.5.2.jar"
+        res=$?
+        result $res "JAR extraction"
         cd ../..
-    else
-        echo ""
-        echo "tmp dir making: failed"
-        echo ""
-        exit -1
     fi
+    return $res
 }
 # Remove Temporary
 function rmtmp {
-    if rm -r $tmp
+    if test -d $tmp
     then
-        echo ""
-        echo "Execution: succedeed"
-        echo ""
+        rm -r $tmp
+        result $? "Temporary directory removing"
     else
         echo ""
-        echo "Execution: failed"
+        echo "Temporary directory does not exist"
         echo ""
-        exit -1
     fi
 }
 # Compile
+function compile_jar {
+    # Compile java
+    if compile && cd $bin
+    then
+        # Make an executable JAR
+        jar cvfe $jar src.climatemonitoring.ClimateMonitor $src*/*.class
+        res=$?
+        cd ..
+        if result $res "JAR creation"
+        then
+            # Remove Compiled files
+            rmobj
+        fi
+    fi
+}
+# Compile to Objects
 function compile {
     # Compile java
-    if javac $src*/*.java -d $bin -cp $tmp$lib
-    then
-        echo ""
-        echo "Compilation: succedeed"
-        echo ""
-        if cd $bin
-        then
-            # Make an executable JAR
-            if jar cvfe $jar src.climatemonitoring.ClimateMonitor $src*/*.class
-            then
-                rm -r $src
-                echo ""
-                echo "JAR creation: succeed"
-                echo ""
-            else
-                echo ""
-                echo "JAR creation: failed"
-                echo ""
-                exit -1
-            fi
-            cd ..
-        fi
-    else
-        echo ""
-        echo "Compilation: failed"
-        echo ""
-        exit -1
-    fi
+    javac $src*/*.java -d $bin -cp $tmp$lib
+    result $? "Compilation"
+}
+# Remove Objects files
+function rmobj {
+    rm -r $bin$src
+    result $? "Object files removing"
 }
 # Remove JAR
 function rmjar {
@@ -154,24 +157,74 @@ function rmdoc {
         cd ..
     fi
 }
+# Compile and Document
+function comp_doc {
+    # Create tmp directory
+    if maketmp
+    then
+        # Compile Java and Make JAR
+        compile_jar
+        # Make JavaDoc
+        document
+        # Remove Temporary Directory
+        rmtmp
+    fi
+}
+# Remove all
+function rmall {
+    rmtmp
+    rmjar
+    rmdoc
+}
 
 
 # Move in a directory different from src
 
 # Check the Path
 if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
-    # Create tmp directory
-    if maketmp
-    then
-        # Compile Java and Make JAR
-        compile
-        # Make JavaDoc
-        document
-        # Remove Temporary Directory
-        rmtmp
-    fi
+    case $1 in
+        # Temporary
+        "t" | "-t" | "tmp" | "temporary")
+            maketmp
+        ;;
+        # Compile
+        "c" | "-c" | "compile" | "javac" | "-compile")
+            maketmp && (compile; rmtmp)
+        ;;
+        # JAR
+        "j" | "-j" | "-jar" | "jar")
+            maketmp && (compile_jar; rmtmp)
+        ;;
+        # Doument
+        "d" | "-d" | "document" | "javadoc" | "-document")
+            maketmp && (document; rmtmp)
+        ;;
+        # Remove
+        "r" | "-r" | "remove" | "-remove")
+        case $2 in
+            # Remove tmp
+            "tmp" | "temporary")
+                rmtmp
+            ;;
+            # Remove JAR
+            "jar" | "javac")
+                rmjar
+            ;;
+            # Remove Documentation
+            "doc" | "documentation")
+                rmdoc
+            ;;
+            # Remove all
+            *)
+                rmall
+            ;;
+        esac
+        ;;
+        *)
+        # Do all
+        comp_doc
+        ;;
+    esac
 else
     echo "Error: Wrong Path"
 fi
-
-
