@@ -158,7 +158,21 @@ function rmall {
     rmdoc
 }
 # Help menu
-function help {}
+function help {
+    echo "Help Menu"
+    echo "  -h      print this menu"
+    echo "  -t      create temporary files"
+    echo "  -c      compile with javac"
+    echo "  -j      make executable jar and delete object files"
+    echo "  -d      make documentation with javadoc"
+    echo "  -r      remove"
+    echo "      t   temporary files"
+    echo "      o   object files"
+    echo "      j   JAR file"
+    echo "      d   documentation"
+    echo "      *   all"
+    echo "  *       build jar and make documentation without making garbage"
+}
 
 # Move in a directory different from src
 
@@ -189,7 +203,7 @@ if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
         "r" | "-r" | "rm" | "-rm" | "remove" | "-remove"  | "--remove")
         case $2 in
             # Remove tmp
-            "tmp" | "temporary")
+            "t" | "tmp" | "temporary")
                 rmtmp
             ;;
             # Remove Object files
@@ -197,11 +211,11 @@ if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
                 rmobj
             ;;
             # Remove JAR
-            "jar" | "javac")
+            "j" | "jar" | "javac")
                 rmjar
             ;;
             # Remove Documentation
-            "doc" | "documentation")
+            "d" |"doc" | "documentation")
                 rmdoc
             ;;
             # Remove all
