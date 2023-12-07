@@ -27,7 +27,7 @@
 bin="bin/"
 doc="doc/"
 src="src/"
-lib="lib/"
+lib="lib/ "
 tmp="tmp/"
 # Executable
 jar="ClimateMonitor.jar"
@@ -111,50 +111,28 @@ function rmobj {
 }
 # Remove JAR
 function rmjar {
-    if rm $bin$jar
-    then
-        echo ""
-        echo "JAR removing: succeed"
-        echo ""
-    else
-        echo ""
-        echo "JAR removing: failed"
-        echo ""
-        exit -1
-    fi
+    rm $bin$jar
+    result $? "JAR removing"
 }
 # Document
 function document {
-    if javadoc $src*/*.java -d $doc -cp $tmp$lib
-    then
-        echo ""
-        echo "Documentation creation: succeed"
-        echo ""
-    else
-        echo ""
-        echo "Documentation creation: failed"
-        echo ""
-        exit -1
-    fi
+    javadoc $src*/*.java -d $doc -cp $tmp$lib
+    result $? "Documentation creation"
 }
 # Remove Documetation
 function rmdoc {
     if cd $doc
     then
         # Delete all files and directories except description
-        if find . ! -name $description -type f -delete && find . -mindepth 1 -maxdepth 1 ! -name $description -type d -exec rm -rf {} +
-        then
-            echo ""
-            echo "Documentation removing: succeed"
-            echo ""
-        else
-            echo ""
-            echo "Documentation removing: failed"
-            echo ""
-            exit -1
-        fi
-
+        find . ! -name $description -type f -delete && find . -mindepth 1 -maxdepth 1 ! -name $description -type d -exec rm -rf {} +
+        res=$?
+        result $res "Documentation removing"
         cd ..
+        return $res
+    else
+        echo ""
+        echo "No doc found"
+        echo ""
     fi
 }
 # Compile and Document
@@ -168,6 +146,8 @@ function comp_doc {
         document
         # Remove Temporary Directory
         rmtmp
+    else
+        return -1
     fi
 }
 # Remove all
