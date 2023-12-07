@@ -27,7 +27,7 @@
 bin="bin/"
 doc="doc/"
 src="src/"
-lib="lib/ "
+lib="lib/"
 tmp="tmp/"
 # Executable
 jar="ClimateMonitor.jar"
@@ -154,6 +154,7 @@ function comp_doc {
 function rmall {
     rmtmp
     rmjar
+    rmobj
     rmdoc
 }
 
@@ -180,11 +181,15 @@ if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
             maketmp && (document; rmtmp)
         ;;
         # Remove
-        "r" | "-r" | "remove" | "-remove")
+        "r" | "-r" | "rm" | "-rm" | "remove" | "-remove")
         case $2 in
             # Remove tmp
             "tmp" | "temporary")
                 rmtmp
+            ;;
+            # Remove Object files
+            "o" | "obj" | "object" | "javac")
+                rmobj
             ;;
             # Remove JAR
             "jar" | "javac")
