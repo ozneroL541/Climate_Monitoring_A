@@ -80,7 +80,7 @@ public class GeographicArea {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecord(file, line);
         // Check validity
-        if ( record != null && record.length == IndexOf.max_index ) {
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
@@ -388,6 +388,10 @@ public class GeographicArea {
      * @return coordinate
      */
     public String getCoordinatestoString() {
+        // Check existence
+        if ( this.coordinates == null || this.coordinates.length != 2 ) {
+            return null;
+        }
         // Format coordinates to get a string
         String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);
         // Put a point instead of commas
