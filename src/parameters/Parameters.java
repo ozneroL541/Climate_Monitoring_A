@@ -224,7 +224,7 @@ public class Parameters {
      */
     private static short insertID(String centre) {
         // Geoname ID
-        short id = 0;
+        String id;
         String[] aree=null;
         boolean exit=false;
 
@@ -245,23 +245,21 @@ public class Parameters {
         //user choose area
         System.out.print("\nScegliere l'area inserendone il nome: ");
         do{
-            try {
-                id=InputScanner.INPUT_SCANNER.nextShort();
-                //check if user input is a valid id
-                for(String value: aree){
-                    if(!value.equals(id)){
-                        System.out.print("Area inserita inesistente\nInserire un'area valida: ");
-                    }else{
-                        exit=true;
-                    }
-                } 
-            } catch (InputMismatchException e) {
-                InputScanner.INPUT_SCANNER.next();
-                System.out.print("Area inserita inesistente\nInserire un'area valida: ");
-            }
+            id=InputScanner.INPUT_SCANNER.nextLine();
+            //check if user input is a valid id
+            for(String value: aree){
+                if(!value.equals(id)){
+                    System.out.print("Area inserita inesistente\nInserire un'area valida: ");
+                }else{
+                    //consume invalid token
+                    InputScanner.INPUT_SCANNER.next();
+                    exit=true;
+                }
+            } 
+        
         }while(!exit);
 
-        return id;
+        return (short)Integer.parseInt(id);
     }
     /*
      * Richiede o assegna la data.
