@@ -384,9 +384,10 @@ public class Parameters {
         // Input
         String in = "";
         // Ask
-        System.out.println("Vuoi visualizzare maggiori informazioni su un parametro(S/N)?\t");
+        System.out.print("Vuoi visualizzare maggiori informazioni su un parametro(S/N)?\t");
         // Input
         in = InputScanner.INPUT_SCANNER.next();
+        // TODO IDK but it doesn't work
         // Check for positive input
         if ( in != null && in.length() > 1 && ( in.toUpperCase().charAt(0) == 'S' || in.toUpperCase().charAt(0) == 'Y' )) {
             // Ask
