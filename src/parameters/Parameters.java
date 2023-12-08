@@ -499,14 +499,13 @@ public class Parameters {
     //TODO rimuovere 
     public static void main (String [] args){
 
-        Parameters.MostraParametri("3178229");
-        /*
         Parameters p = Parameters.MakeParameters("Insubria");
         if ( p != null && p.addToCSV()) {
             System.out.println("Success");
         } else {
             System.out.println("Fail");
         }
-        */
+
+        Parameters.MostraParametri("3178229");
     }
 }
