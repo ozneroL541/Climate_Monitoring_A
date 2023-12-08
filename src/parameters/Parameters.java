@@ -242,7 +242,7 @@ public class Parameters {
         }
 
         //user choose area
-        System.out.print("\nScegliere l'area inserendone il codice: ");
+        System.out.print("\nScegliere l'area inserendone il Geoname ID: ");
         do{
             area=InputScanner.INPUT_SCANNER.nextLine();
             //check if user input is a valid id
