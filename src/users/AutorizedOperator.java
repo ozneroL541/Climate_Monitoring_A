@@ -503,7 +503,7 @@ public class AutorizedOperator extends User {
                 //create centre
                 case 5:
                     if(!this.centre.equals(defaultValueOfCentre)){
-                        String centre=creaCentro();
+                        String centre=registraCentroAree();
                         boolean success=addCentreToFile(centre);
                         if(!success){
                             System.out.println("Errore nell'aggiornamento del file");
@@ -569,7 +569,7 @@ public class AutorizedOperator extends User {
                 //user create a new centre
                 case 2:
                     //TODO testare funzionamento
-                    centre=creaCentro();
+                    centre=registraCentroAree();
                     exit=false;
                     break;
                 
@@ -594,7 +594,7 @@ public class AutorizedOperator extends User {
 
     //TODO TESTARE FUNZIONAMENTO, SOPRATUTTO GESTIRE IL NULL DI RITORNO
     //user create a new centre
-    private static String creaCentro(){
+    private static String registraCentroAree(){
 
         MonitoringCentre centre=MonitoringCentre.createCentre();
         if(centre!=null){
@@ -669,7 +669,7 @@ public class AutorizedOperator extends User {
             System.out.println("Errore nell'aggiornamento del file");
         }
 
-        //creaCentro();
+        //registraCentroAree();
 
         //System.out.println(AutorizedOperator.associaCentro());
         
