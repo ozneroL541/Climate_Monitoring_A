@@ -33,6 +33,7 @@ import src.common.CommonMethods;
 import src.common.InputScanner;
 import src.common.Research;
 import src.geographicarea.GeographicArea;
+import src.monitoringcentre.MonitoringCentre;
 
 /**
  * Un oggetto della classe <code>Parameters</code> rappresenta i parametri
@@ -166,7 +167,7 @@ public class Parameters {
         // Table
         Table t = null;
         // Assign Geoname ID
-        id = insertID();
+        id = insertID(centre);
         // Check ID
         if ( ! GeographicArea.IndexExist(id) ) {
             // Error output
@@ -210,14 +211,35 @@ public class Parameters {
      * Richiede l'inserimento del Geoname ID
      * @return geoname_id
      */
-    private static short insertID() {
+    private static short insertID(String centre) {
         // Geoname ID
         short id = 0;
+        String[] aree=null;
+        boolean exit=false;
 
-        //TODO
-        //partendo dal nome del centro, leggere file dei centri, prendere ultima colonna(aree)
-        //fare scegliere aree tra quelle valide
-        //ritornare una area
+        MonitoringCentre c=MonitoringCentre.getCentreByName(centre);
+        aree=c.getAreeInteresse();
+
+        //show areas to user
+        //TODO modificare il messaggio di output?
+        System.out.println("Aree associate al centro " + centre + ":");
+        for(int i=0;i<aree.length;i++){
+            System.out.println(aree[i]);
+        }
+
+        //user choose area
+        System.out.print("\nScegliere l'area inserendone il nome: ");
+        do{
+            id=InputScanner.INPUT_SCANNER.nextShort();
+            //check if user input is a valid id
+            for(String value: aree){
+                if(!value.equals(id)){
+                    System.out.print("Area inserita inesistente\nInserire un'area valida: ");
+                }else{
+                    exit=true;
+                }
+            }
+        }while(!exit);
 
         return id;
     }
