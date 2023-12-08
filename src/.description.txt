@@ -1,1 +1,1 @@
-La directory src contenente il codice sorgente del progetto
+La directory src contenente il codice sorgente del progetto.

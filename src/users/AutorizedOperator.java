@@ -5,38 +5,47 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
+/*
+    This file is part of Climate Monitoring.
+
+    Climate Monitoring is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Climate Monitoring is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package src.users;
-//TODO remove unused import
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.util.regex.Pattern;
-// TODO: Remove and pass everything throw research
-import com.opencsv.CSVReader;
 
-import javax.annotation.processing.SupportedOptions;
+import src.common.*;
 
 import src.monitoringcentre.MonitoringCentre;
-import src.research.Research;
+
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
  * un utente con privilegi speciali.
- * Ciò che l'operatore autorizzato può fare &egrave descritto nei metodi che gli appartengono.
+ * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.10.0
+ * @version 0.20.0
  */
 public class AutorizedOperator extends User {
+    // User Identity Code
+    private short userid;
     // Name
     private String nome;
     // Surname
@@ -45,224 +54,224 @@ public class AutorizedOperator extends User {
     private String codice_fiscale;
     // e-mail address
     private String email_address;
-    // User Identity Code
-    private short userid;
     // User Password
     private String passwd;
     // Monitoring Centre
-    //TODO
-    //cambiare il tipo della variabile in short
-    private MonitoringCentre centre;
+    private String centre;
+    //private short centre;
 
     // Make the path platform independent
-    private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.csv").toFile();
+    private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
+
+    //dafault value for attribute centre if user does not choose a centre during registration
+    private final static String defaultValueOfCentre="";
+
+    //file header
+    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
+
+    //indexes in CSV file
+    private final static class IndexOf {
+        private final static short matricola=0;
+        private final static short nome=1;
+        private final static short cognome=2;
+        private final static short codice_fiscale=3;
+        private final static short email=4;
+        private final static short password=5;
+        private final static short centro=6;
+        //number of indexes
+        private final static short indexes = 7;
+    }
 
     /**
-    * Costruisce un operatore autorizzato
+    * Costruttore vuoto
     */
     public AutorizedOperator() {}
 
-    //TODO
-    //java doc
-    public static void registrazione() {
-        // Datas
-        String nome = "", cognome = "", codFisc = "", email = "", centre = "", passwd = "";
-        // Exit loop
-        boolean exit = false;
-        // Max number of operators
-        final int max_operators = 99999;
-        try {
-            Scanner in = new Scanner(System.in);
-            // Check if number of operators exceded
-            if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
-                // Error Output
-                System.err.println("Numero massimo di operatori raggiunto.\nNon è possibile effettuare la registrazione");
-            } else {
-                //TODO
-                //migliorare la grafica
-                System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
-                
-                // Insert name
-                System.out.print("Inserire il nome: ");
-                do{
-                    nome=in.nextLine();
-                    //check if name contains only letters
-                    if(!onlyLettersInString(nome)){
-                        System.out.print("Nome non valido.\nReinserire: ");
-                    }else{
-                        //exit loop
-                        exit=true;
-                    }
-                }while(!exit);  //loop if name is wrong
-                exit = false;
-                // Insert last name
-                System.out.print("Inserire il cognome: ");
-                do{
-                    cognome=in.nextLine();
-                    //check if last name contains only letters
-                    if(!onlyLettersInString(cognome)){
-                        System.out.print("Cognome non valido.\nReinserire: ");
-                    }else{
-                        //exit loop
-                        exit=true;
-                    }
-                }while(!exit);  //loop if last name is wrong
-                exit = false;
-                // Insert codice fiscale
-                System.out.print("Inserire il codice fiscale: ");
-                codFisc="";
-                do{
-                    // Input Fiscal Code
-                    codFisc=in.nextLine();
-                    // Upper case Fiscal Code
-                    codFisc = codFisc.toUpperCase();
-                    //check if fiscal code is correct
-                    if(!ControlloCodiceFiscale(codFisc)){
-                        System.out.print("Codice fiscale non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
-                        System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
-                    } else {
-                        // Exit the loop
-                        exit = true;
-                    }
-                }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
-                // Insert email
-                System.out.print("Inserire l'indirizzo e-mail: ");
-                email="";
-                exit = false;
-                do{
-                    email=in.nextLine();
-                    //check if email is correct
-                    if(!ControlloEmail(email)){
-                        System.out.print("Indirizzo non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 4, email)){
-                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
-                    } else {
-                        // Exit loop
-                        exit = true;
-                    }
-                } while( ! exit );   //loop if email is wrong and if it is not unique in the file
-
-                //insert monitoring centre
-                //TODO
-                centre=null;
-
-                // Insert password
-                System.out.print("Inserire la password: ");
-                passwd=in.nextLine();
-            }
-        } catch ( IOException e ){
-            // Print Error
-            e.printStackTrace();
-        } catch (InputMismatchException e) {
-            // Print Error
-            e.printStackTrace();
-        } catch ( Exception e ) {
-            // Print Error
-            e.printStackTrace();
-        }
-        // Set the userid
-        short userid=setUserId();
-
-        // Add the operator to the file
-        aggiungiOperatore(userid, nome, cognome, codFisc, email, passwd, centre);
-        
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + String.format("%05d", userid) + " e la password scelta");
+    /**
+     * Costruttore di <code>AutorizedOperator</code>
+     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametri
+     * @param id id univoco dell'operatore
+     * @param nome nome dell'operatore
+     * @param cognome cognome dell'operatore
+     * @param cod_fis codice fiscale dell'operatore
+     * @param email_add indirizzo email dell'operatore
+     * @param password password scelta dall'operatore
+     * @param centre centro al quale l'operatore appartiene. Se non appartiene a nessun centro assume un valore di default 
+     */
+    public AutorizedOperator(short id, String nome, String cognome, String cod_fis, String email_add, String password, String centre){
+        this.userid=id;
+        this.nome=nome;
+        this.cognome=cognome;
+        this.codice_fiscale=cod_fis;
+        this.email_address=email_add;
+        this.passwd=password;
+        this.centre=centre;
     }
 
-    //TODO
-    //java doc
-    //return true if authentication is successful
-    //TODO
-    /*cambiare il tipo del ritorno in int per avere più codici di errore(?)
-     * Ritornare vari numeri negativi a seconda dell'errore.
-     * 0 se è avvenuta l'autenticazione
-    */
-    public boolean autenticazione() {
-        // If file doesn't exist exit
-        if ( ! file.exists() ){
-            // Error Output
-            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
-            // Error return
-            return false;
+    @Override
+    public String toString(){
+        String str = "";
+        str += "User ID: " + String.format("%05d", this.userid) + "\n";
+        str += "Nome: "   + this.nome + "\n";
+        str += "Cognome: "       + this.cognome + "\n";
+        str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
+        str += "Indirizzo Email: " + this.email_address + "\n";
+        str += "Password: "     + this.passwd + "\n" ;
+        if(this.centre==defaultValueOfCentre){
+            /* TODO se metti
+             * final static String nocentre = "NESSUNO"
+             * in caso di modifica o ripetizione in altri
+             * possibili output è più funzionale. 
+             * 
+             * Comunque non crei una nuova costante perché 
+             * le stringhe scritte così le salva già come costante.
+            */
+            str += "Id Centro di appartenenza: NESSUNO";
+        }else{
+            str += "Id Centro di appartenenza: "    + this.centre;
         }
-        // Attempt limit
-        final int limit = 3;
-        // Counter 
-        int c = 0;
-        //TODO
-        //migliorare la grafica
-        System.out.println("LOGIN\n");
-        System.out.print("Inserire l'User-ID: ");
-        try {
-            Scanner in = new Scanner(System.in);
-            String userid = in.nextLine();
-            // loop if userdId does not exist in the file
-            while(!Research.isStringInCol(file, 0, userid) && c < limit) {
-                System.out.print("User-ID non riconosciuto.\nReinserire: ");
-                userid = in.nextLine();
-                c++;
-            }
-            // Check before go on
-            if ( c > limit ) {
-                //TODO Output
-                // Exit
-                return false;
-            }
-            //return the column where UserId is
-            int riga=Research.OneStringInCol(file, 0, userid);
-            // Initialize record
-            String[] record = null;
-            // Check if the research returned a valid result
-            if(riga > 0)
-                record = Research.getRecord(file, riga);
-            // If the result is valis
-            if(record!=null){
-                System.out.print("Inserire la password: ");
-                String password=in.nextLine();
-                //if password match set the object's attributes
-                if(record[5].equals(password)){
+        return str;
+    }
 
-                    this.userid=Short.valueOf(userid);
-                    this.nome=record[1];
-                    this.cognome=record[2];
-                    this.codice_fiscale=record[3];
-                    this.email_address=record[4];
-                    this.passwd=password;
-                    //TODO
-                    //aggiungere quando i centri sono fatti
-                    //this.centre=record[6].toString();
-                    this.centre=null;   //usato temporaneamente, va cambiato
-                    return true;
-                }else{
-                    return false;
-                }
+    /**
+     * Ritorna DefaultValueOfCentre come Short
+     * @return DefaultValueOfCentre
+     */
+    public static String getDefaultValueOfCentre(){
+        return defaultValueOfCentre;
+    }
+
+    /**
+     * Permette all'utente di registrarsi come Operatore Autorizzato
+     * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
+     */
+    public static void registrazione(){
+        String [] nomi_campi=header.split(",");
+        //swtich password with centre
+        //centre comes after password in the file
+        //but is asked first during registration
+        String temp=nomi_campi[IndexOf.password];
+        nomi_campi[IndexOf.password]=nomi_campi[IndexOf.centro];
+        nomi_campi[IndexOf.centro]=temp;
+        // Max number of operators
+        final int max_operators = 99999;
+
+        String [] campi=new String[IndexOf.indexes];
+        String campo;
+
+        try{
+            if(file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1)){
+                System.err.println("Numero massimo di operatori raggiunto.\nNon è possibile effettuare la registrazione");
             }else{
-                //TODO
-                //migliorare?
-                System.err.println("Errore");
-                return false;
+                System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
+
+                for(int i=1;i<IndexOf.indexes;i++){
+                    System.out.print(nomi_campi[i] + ": ");
+                    do{
+                        campo=campoValido(i);
+                    }while(campo==null);
+                    campi[i]=campo;
+                }
+                //swtich password with centre
+                //centre comes after password in the file
+                //but is asked first during registration
+                temp=campi[IndexOf.password];
+                campi[IndexOf.password]=campi[IndexOf.centro];
+                campi[IndexOf.centro]=temp;
             }
-        } catch( InputMismatchException e ){
+        }catch ( IOException e ){
+            // Print Error
             e.printStackTrace();
-            return false;
-        }catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        }catch ( Exception e ) {
+            // Print Error
+            e.printStackTrace();            
+        }
+
+        campi[0]=setUserId();
+        CSV_Utilities.addArraytoCSV(file, campi, header);
+        System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");
+    }
+
+    //check if a field is correct
+    private static String campoValido(int indice_campo){
+        String campo;
+        try {
+            switch(indice_campo){
+
+            //insert name
+            case 1:
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //check if name contains only letters
+                if(!CommonMethods.isValidName(campo)){
+                    System.out.print("Nome non valido.\nReinserire: ");
+                    return null;
+                }else{
+                    return campo;
+                }
+
+            //insert last name                
+            case 2:
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //check if last name contains only letters
+                if(!CommonMethods.isValidName(campo)){
+                    System.out.print("Cognome non valido.\nReinserire: ");
+                    return null;
+                }else{
+                    return campo;
+                }
+
+            //insert codice fiscale                
+            case 3:
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //upper case codice fiscale
+                campo=campo.toUpperCase();
+                //check if fiscal code is correct
+                if(!ControlloCodiceFiscale(campo)){
+                    System.out.print("Codice fiscale non valido.\nReinserire: ");
+                    return null;
+                }else if( file.exists() && Research.isStringInCol(file, IndexOf.codice_fiscale, campo)){ //check if fiscal code is unique in the file
+                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+                    return null;
+                } else {
+                    return campo;
+                }
+                
+            //insert email                
+            case 4:
+                campo=InputScanner.INPUT_SCANNER.nextLine();
+                //check if email is correct
+                if(!ControlloEmail(campo)){
+                    System.out.print("Indirizzo non valido.\nReinserire: ");
+                    return null;
+                }else if( file.exists() && Research.isStringInCol(file, IndexOf.email, campo)){ //check if email is unique in the file
+                    System.out.print("Indirizzo già utilizzato.\nReinserire: "); 
+                    return null;
+                } else {
+                    return campo;
+                }
+
+            //insert centre             
+            case 5:
+                campo=setCentro();
+                return campo;
+             
+            //insert password               
+            case 6:                
+                return campo=InputScanner.INPUT_SCANNER.nextLine();
+            default:
+                return null;
+            }  
+        } catch (InputMismatchException e) {
+            System.err.print("Errore nell'inserimento dei dati.\nReinserire: ");
+            return null;
         }
     }
 
     //set the userid
-    private static short setUserId(){
+    private static String setUserId(){
+
         long id=0;
-        //if the file doesn't exist, create it and add the first operator with userid 00001, else add the operator with incremental userid
         if(!file.exists()){
-            try {
-                file.createNewFile();
-                addHeader();
-            } catch (IOException e) {
-                System.err.println("Errore nella creazione del file");
-            }
             id=1;
         }else{
             try {
@@ -273,11 +282,84 @@ public class AutorizedOperator extends User {
                 e.printStackTrace();
             } 
         }
-        return (short)id;
+        return String.format("%05d", id);
     }
-    
+
+
+    /**
+     * Permette all'utente di autenticarsi inserendo il proprio id e la password
+     * Ritorna un oggetto di AutorizedOperator se l'autenticazione avviene con successo, altrimenti ritorna null
+     * @return oggetto di AutorizedOperator
+     */
+    public static AutorizedOperator autenticazione(){
+        //userid and password must be guessed under a finite number of attemps
+        // Attempt limit
+        final int limit = 3;
+        //counter
+        int c=0;
+        //AutorizedOperator object
+        AutorizedOperator u=null;
+
+        // If file doesn't exist exit
+        if ( ! file.exists() ){
+            // Error Output
+            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
+            // Error return
+            return null;
+        }
+
+        u=login();
+        while(u==null && c<limit){
+            System.out.println("User-ID e password non riconosciuti (tentativi rimasti: " + (limit-c) + ").\nReinserire");
+            u=login();
+            c++;
+        }
+        if ( c >= limit ) {
+            // Exit
+            return null;
+        }
+        return u;
+    }
+
+    //evaluate userid and password
+    private static AutorizedOperator login(){
+        // TODO Test
+        int riga = -1;
+        AutorizedOperator a = null;
+        String userid;
+        String password;
+        System.out.println("LOGIN\n");
+
+        System.out.print("Inserire l'User-ID: ");
+        userid = InputScanner.INPUT_SCANNER.nextLine();
+        System.out.print("Inserire la password: ");
+        password=InputScanner.INPUT_SCANNER.nextLine();
+
+        //return the column where UserId is
+        riga=Research.OneStringInCol(file, IndexOf.matricola, userid);
+        if ( riga > 0 ) {
+            // Initialize record
+            String[] record = null;
+            // Check if the research returned a valid result
+            record = Research.getRecord(file, riga);
+            if(record!=null){
+                //if password match, set the object's attributes
+                if(record[IndexOf.password].equals(password)){
+                    a =  new AutorizedOperator(Short.valueOf(userid), record[IndexOf.nome], record[IndexOf.cognome], record[IndexOf.codice_fiscale], record[IndexOf.email], password, record[IndexOf.centro]);
+                }
+            }
+        }
+        // Return a
+        return a;
+    }
+
     // Check Codice Fiscale
     private static boolean ControlloCodiceFiscale( String cf ) {
+        // Check if ASCII
+        if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(cf)) {
+            // The Fiscal Code is not ASCII
+            return false;
+        }
         // Output declaration
         boolean check = true;
         // The length of Codice Fiscale must be 16 characters for fisical people
@@ -294,7 +376,7 @@ public class AutorizedOperator extends User {
                 if ( j < int_index.length && i == int_index[j]) {
                     j++;
                 } else {
-                    // If the current character is not a letter the string isn incorrect
+                    // If the current character is not a letter the string is not incorrect
                     if ( ! Character.isLetter(cf.charAt(i)) ) {
                         check = false;
                     }
@@ -303,7 +385,7 @@ public class AutorizedOperator extends User {
             // If the string can still be true continue with the verification else terminate the execution fo the function
             if (check) {
                 // Characters of the months
-                char[] m = { 'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T' };
+                final char[] m = { 'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T' };
                 // This check if the month character is correct
                 boolean month_chek = false;
                 // Check for every character of the months
@@ -342,45 +424,234 @@ public class AutorizedOperator extends User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
+    
+    /**
+     * Mostra il menù e permette di scegliere le azioni eseguibili dall'operatore autorizzato
+     */
+    //TODO terminare metodo
+    public void menu(){
 
-    private static boolean onlyLettersInString(String s){
-        return s.matches("[a-zA-Z]+");
-    }
-
-    // Create the file OperatoriRegistrati.csv and set the header of it
-    private static void addHeader(){
-        // File Header
-        final String header = "Matricola,Nome,Cognome,Codice Fiscale,Email,Password,Centro di Monitoraggio\n";
-        BufferedWriter scrivi;
-
-        try {
-            scrivi=new BufferedWriter(new FileWriter(file, true));
-            scrivi.append(header);
-            scrivi.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    //Update the file OperatoriRegistrati with a new record
-    private static void aggiungiOperatore(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
-
-        String s=String.format("%05d", userid);
-        s += "," + nome + "," + cognome + "," + codice_fiscale + "," + email_address + "," + passwd + "," + centre + "\n";
+        final String menu="\n\nMenù Operatore Autorizzato\n"+
+                            "1) Cerca area geografica\n"+
+                            "2) Visualizza area geografica\n"+
+                            "3) Aggiunta parametri climatici\n"+
+                            "4) Selezione centro di appartenenza\n"+
+                            "5) Creazione nuovo centro di monitoraggio\n"+
+                            "6) Logout\n";    
         
-        BufferedWriter scrivi;
+        boolean exit=true;
+        int scelta;
 
-        try {
-            scrivi=new BufferedWriter(new FileWriter(file, true));
-            scrivi.append(s);
-            scrivi.close();
+        do{
+            scelta=0;
+            System.out.print(menu);
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.print("\nInserire codice: ");
+
+            try{
+                scelta=InputScanner.INPUT_SCANNER.nextInt();
+            }catch(InputMismatchException e){
+                //consume invalid token
+                InputScanner.INPUT_SCANNER.next();
+                System.out.println("ERRORE");
+                System.out.println("Codice inserito errato!");
+                scelta=0;
+            }
+
+            switch (scelta) {
+
+                //search geographic area
+                case 1:
+                    cercaAreaGeografica();
+                    exit=true;
+                    break;
+                
+                //view geographic area
+                case 2:
+                    //visualizzaAreaGeografica();
+                    exit=true;
+                    break;
+                
+                //add climate parameters
+                case 3:
+                    //TODO aggiungere metodo
+                    //aggiungi parametri ad una area del centro (solo se utente ha un centro)
+                    //rimuovere il primo println
+                    System.out.println("AGGIUNTA PARAMETRI");
+                    System.out.println("\n\nOperazione terminata");
+                    System.out.println("Ritorno al menù");
+                    exit=true;
+                    break;
+                
+                //select centre
+                case 4:
+                    //if user does not have a center
+                    if(!this.centre.equals(defaultValueOfCentre)){
+                        String centre=associaCentro();
+                        boolean success=addCentreToFile(centre);
+                        if(success){
+                            System.out.println("Errore nell'aggiornamento del file");
+                        }                        
+                    }else{
+                        System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
+                    }
+                    System.out.println("\n\nOperazione terminata");
+                    System.out.println("Ritorno al menù");
+                    exit=true;
+                    break;
+                
+                //create centre
+                case 5:
+                    if(!this.centre.equals(defaultValueOfCentre)){
+                        String centre=registraCentroAree();
+                        boolean success=addCentreToFile(centre);
+                        if(!success){
+                            System.out.println("Errore nell'aggiornamento del file");
+                        }
+                    }else{
+                        System.out.println("Impossibile creare un nuovo centro\nSei già associato al centro "+ this.centre);
+                    }
+                    System.out.println("\n\nOperazione terminata");
+                    System.out.println("Ritorno al menù");
+                    exit=true;
+                    break;
+
+                //logout
+                case 6:
+                    exit=false;
+                    break;
+            
+                default:
+                    System.out.println("Codice inserito errato!");
+                    exit=true;
+                    break;
+            }
+        }while(exit);
+    }
+
+    //TODO Rendere modulare
+    //show a menù with different way of associate the centre to the operator
+    private static String setCentro(){
+
+        final String menu="\n\nMenù associazione centro\n"+
+                            "1) Associazione ad un centro esistente\n"+
+                            "2) Associazione ad un centro nuovo\n"+
+                            "3) Associazione in un secondo momento\n"; 
+        
+        boolean exit=true;
+        int scelta;
+        String centre="";
+
+        do{
+            scelta=0;
+            System.out.print(menu);
+
+            System.out.print("\nInserire codice: ");
+
+            try{
+                scelta=InputScanner.INPUT_SCANNER.nextInt();
+            }catch(InputMismatchException e){
+                //consume invalid token
+                InputScanner.INPUT_SCANNER.next();
+                System.out.println("ERRORE");
+                System.out.println("Codice inserito errato!");
+                scelta=0;
+            }
+
+            switch (scelta) {
+
+                //user choose an existing centre
+                case 1:
+                    centre=associaCentro();
+                    exit=false;
+                    break;
+                
+                //user create a new centre
+                case 2:
+                    //TODO testare funzionamento
+                    centre=registraCentroAree();
+                    exit=false;
+                    break;
+                
+                //user does not choose a centre
+                case 3:
+                    //consume invalid token
+                    InputScanner.INPUT_SCANNER.nextLine();
+                    centre=defaultValueOfCentre;
+                    exit=false;
+                    break;
+            
+                default:
+                    System.out.println("Codice inserito errato!");
+                    exit=true;
+                    break;
+            }
+        }while(exit);
+
+        return centre;
+    }
+
+
+    //TODO TESTARE FUNZIONAMENTO, SOPRATUTTO GESTIRE IL NULL DI RITORNO
+    //user create a new centre
+    private static String registraCentroAree(){
+
+        MonitoringCentre centre=MonitoringCentre.createCentre();
+        if(centre!=null){
+            return centre.getNome();
+        }else{
+            return null;
         }
+        
+    }
+
+    //user choose a centre from the existing ones
+    private static String associaCentro(){
+
+        String [] centri;
+        String nome="";
+
+        //show centres to user
+        centri=MonitoringCentre.getCentri();
+        System.out.println("Centri esistenti:");
+        for(int i=0;i<centri.length;i++){
+            System.out.println(centri[i]);
+        }
+
+        //user choose centre
+        System.out.print("\nScegliere il centro inserendone il nome: ");
+        do{
+            nome=InputScanner.INPUT_SCANNER.nextLine();
+            if(!MonitoringCentre.CenterExistence(nome)){
+                System.out.print("Nome inserito inesistente\nInserire un nome valido: ");
+            }
+        }while(!MonitoringCentre.CenterExistence(nome));
+
+        return nome;
+    }
+
+    //update file with new value of centre
+    private boolean addCentreToFile(String centre){
+        int riga=Research.OneStringInCol(file, IndexOf.matricola, Short.toString(this.userid));
+        return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
+    }
+
+    //TODO
+    //cambiare anche tipo di ritorno
+    public void inserisciParametriClimatici(){}
+
+    /**
+     * Ritorna il nome dell'operatore autorizzato
+     * @return nome
+     */
+    public String getNome() {
+        return nome;
+    }
+    /**
+     * Ritorna il cognome dell'operatore autorizzato
+     * @return cognome
+     */
+    public String getCognome() {
+        return cognome;
     }
 }

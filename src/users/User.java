@@ -5,19 +5,35 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
+/*
+    This file is part of Climate Monitoring.
+
+    Climate Monitoring is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Climate Monitoring is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package src.users;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
+import src.common.InputScanner;
 import src.geographicarea.GeographicArea;
 
 /**
  * Un oggetto della classe <code>User</code> rappresenta un utente.
- * Ciò che l'utente può fare &egrave descritto nei metodi che gli appartengono.
+ * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.20.0
  */
 public class User {
     /**
@@ -30,73 +46,76 @@ public class User {
      * Permette all'utente di effettuare la ricerca di aree geografiche.
      * @author Lorenzo Radice
      */
-    public static void Ricerca() {
+    public static void cercaAreaGeografica() {
         // Loop exit variable
         boolean exit = true;
         // Input integer
         int in = -1;
-        // Input
-        Scanner sc = new Scanner(System.in);
-        // While exit is false
-        do {
-            // Input
-            try {
-                // Print indexes menu
-                GeographicArea.printIndexesMenu();
-                // Output
-                System.out.println("Seleziona il tipo di parametro con cui effettuare la ricerca.");
-                // Output for input
-                System.out.print  ("Inserire il codice: ");
-                // Input integer
-                in = sc.nextInt();
-                // Collect trash
-                sc.nextLine();
-                // If the chosen integer exist 
-                if (GeographicArea.IndexExist(in)) {
-                    // Research Argument
-                    String arg = "";
+        // Check file existence
+        if ( GeographicArea.doesCSVExist() ) {
+            // While exit is false
+            do {
+                // Input
+                try {
+                    // Print indexes menu
+                    GeographicArea.printIndexesMenu();
                     // Output
-                    System.out.print("Inserire il parametro per la ricerca: ");
-                    do {
-                        // Input string
-                        arg = sc.nextLine();
-                        // If the argument is correct
-                        if (GeographicArea.argumentCorrect(arg, in)) {
-                            // New Line
-                            System.out.println();
-                            // Search
-                            GeographicArea.SearchList(in, arg, 0);
-                            // Exit true
-                            exit = true;
-                        } else {
-                            // Output
-                            System.out.print("Reinserire il parametro: ");
-                            // Not Exit
-                            exit = false;
-                        }
-                    } while (!exit);
-                } else {
-                    // Error output
-                    System.out.println("L'indice selezionato non è disponibile.");
+                    System.out.println("Seleziona il tipo di parametro con cui effettuare la ricerca.");
+                    // Output for input
+                    System.out.print  ("Inserire il codice: ");
+                    // Input integer
+                    in = InputScanner.INPUT_SCANNER.nextInt();
+                    // Collect trash
+                    InputScanner.INPUT_SCANNER.nextLine();
+                    // If the chosen integer exist 
+                    if (GeographicArea.IndexExist(in)) {
+                        // Research Argument
+                        String arg = "";
+                        // Output
+                        System.out.print("Inserire il parametro per la ricerca: ");
+                        do {
+                            // Input string
+                            arg = InputScanner.INPUT_SCANNER.nextLine();
+                            // If the argument is correct
+                            if (GeographicArea.argumentCorrect(arg, in)) {
+                                // New Line
+                                System.out.println();
+                                // Search
+                                GeographicArea.SearchList(in, arg, 0);
+                                // Exit true
+                                exit = true;
+                            } else {
+                                // Output
+                                System.out.print("Reinserire il parametro: ");
+                                // Not Exit
+                                exit = false;
+                            }
+                        } while (!exit);
+                    } else {
+                        // Error output
+                        System.out.println("\nL'indice selezionato non è disponibile.");
+                        System.out.println();
+                        // Not exit
+                        exit = false;
+                    }
+                } catch ( InputMismatchException e) {
+                    // Reset input scanner
+                    InputScanner.INPUT_SCANNER.nextLine();
+                    // Error Output
+                    System.err.println("\nInserimento non valido.\nInserire uno dei numeri mostrati per selezionare un'opzione.");
+                    // New line
                     System.out.println();
                     // Not exit
                     exit = false;
+                } catch (Exception e) {
+                    // Output Exception
+                    e.printStackTrace();
+                    // Exit 
+                    exit = true;
                 }
-            } catch ( InputMismatchException e) {
-                // Reset input scanner
-                sc.nextLine();
-                // Error Output
-                System.err.println("Inserimento non valido.\nInserire uno dei numeri mostrati per selezionare un'opzione.");
-                // New line
-                System.out.println();
-                // Not exit
-                exit = false;
-            } catch (Exception e) {
-                // Output Exception
-                e.printStackTrace();
-                // Exit 
-                exit = true;
-            }
-        } while (!exit);
+            } while (!exit);
+        } else {
+            System.out.println("\nNon è presente alcuna area di interesse per cui effettuare la ricerca.");
+        }
     }
 }

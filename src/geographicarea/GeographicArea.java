@@ -5,22 +5,38 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
+/*
+    This file is part of Climate Monitoring.
+
+    Climate Monitoring is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Climate Monitoring is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package src.geographicarea;
 
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
-import java.util.Scanner;
+import java.util.ArrayList;
 
-import src.research.Research;
+import src.common.*;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.20.0
  */
 public class GeographicArea {
     // Geoname ID
@@ -34,21 +50,27 @@ public class GeographicArea {
     // Country Name
     private String country_name = "";
     // Coordinates
-    private double [] coordinates = { 0.0, 0.0 };
+    private double [] coordinates = null;
     // Areas File
-    private final static File file = FileSystems.getDefault().getPath("data", "geonames-and-coordinates.csv").toFile();
+    private final static File file = FileSystems.getDefault().getPath("data", "CoordinateMonitoraggio.dati.csv").toFile();
+    // Header
+    private final static String header = "Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates";
     // Indexes in CSV file
     private final static class IndexOf {
-        private final static int geoname_id = 0;
-        private final static int real_name = 1;
-        private final static int ascii_name = 2;
-        private final static int generic_name = 10;
-        private final static int country_code = 3;
-        private final static int country_name = 4;
-        private final static int coordinates = 5;
+        private final static short geoname_id = 0;
+        private final static short real_name = 1;
+        private final static short ascii_name = 2;
+        private final static short generic_name = 10;
+        private final static short country_code = 3;
+        private final static short country_name = 4;
+        private final static short coordinates = 5;
+        // Number of indexes
+        private final static short indexes = 7;
+        // Max index value
+        private final static short max_index = 5;
     }
     /**
-     * Costruttore di Area Geografica
+     * Costruttore di Area Geografica.
      * Data una riga in input crea l'oggetto Area Geografica utilizzando i dati appartenenti a tale riga.
      * I dati che vengono salvati sono
      * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
@@ -57,16 +79,44 @@ public class GeographicArea {
     public GeographicArea ( Integer line ) {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecord(file, line);
-        // Save the datas
-        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
-        this.name         = record[IndexOf.real_name];
-        this.ascii_name   = record[IndexOf.ascii_name];
-        this.country_code = record[IndexOf.country_code];
-        this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        // Check validity
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+            
+        }
     }
     /**
-     * Costruttore di Area Geografica
+     * Costruttore di Area Geografica.
+     * Data un Geoname ID in input crea l'oggetto Area Geografica.
+     * I dati che vengono salvati sono
+     * Geoname ID, Name, ASCII Name, Country Code, Country Name, Coordinates
+     * @param id geoname_ID
+     */
+    public GeographicArea ( int id ) {
+        // ID to String
+        String id_String = "" + id;
+        // Copy the record in a auxiliary variable
+        String[] record = Research.getRecordByData(file, IndexOf.geoname_id, id_String);
+        // Check validity
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+            
+        }
+    }
+    /**
+     * Costruttore di Area Geografica.
      * Fornito un dato in input crea l'oggetto Area Geografica utilizzando i dati appartenenti al corrispondente.
      * Se viene fornito in input un ID e come secondo argomento 0 l'Area Geografica sarà univoca.
      * Se viene fornito un qualsiasi altro dato verrà creata un'Area Geografica corrispondenta alla sua prima occorrenza.
@@ -78,26 +128,59 @@ public class GeographicArea {
     public GeographicArea ( String data, int col ) {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecordByData(file, col, data);
-        // Save the datas
-        this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
-        this.name         = record[IndexOf.real_name];
-        this.ascii_name   = record[IndexOf.ascii_name];
-        this.country_code = record[IndexOf.country_code];
-        this.country_name = record[IndexOf.country_name];
-        this.coordinates  = Research.parseCoordinates(record[IndexOf.coordinates]);
+        // Check validity
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+            
+        }
+    }
+    /**
+     * Cotruttore vuoto di Area Geografica.
+     */
+    public GeographicArea() {
+        this.geoname_id   = 0;
+        this.name         = "";
+        this.ascii_name   = "";
+        this.country_code = "";
+        this.country_name = "";
+        this.coordinates  = null;
+    }
+    /**
+     * Costruttore di Area Geografica.
+     * Assegna ogni elemento dell'array di stringhe passato come parametro ai campi di GeographicArea.
+     * @param record array di Strings
+     */
+    public GeographicArea(String[] record) {
+        // Check validity
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
+            // Save the datas
+            this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
+            this.name         = record[IndexOf.real_name];
+            this.ascii_name   = record[IndexOf.ascii_name];
+            this.country_code = record[IndexOf.country_code];
+            this.country_name = record[IndexOf.country_name];
+            this.coordinates  = Coordinates.parseCoordinates(record[IndexOf.coordinates]);
+        }
     }
     /*
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui &egrave contenuto.
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
      * @param id Geoname ID
      * @return Numero della riga
     */
     private static int ricercaPerID( int id ) {
         // Translate id into string
         String is_str = ((Integer) id).toString();
+        // Search the id
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
     /*
-     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui è contenuto
      * in un array di Integer di un elemento.
      * Se non viene trovato nulla ritorna null.
      * @param id Geoname ID
@@ -132,23 +215,25 @@ public class GeographicArea {
         }
     }
     /*
-     * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param nome Nome
      * @return Numeri elle righe
      */
     private static Integer[] ricercaPerRealeNome(String nome){
+        // Search all possibles names
         return Research.AllStringInCol(file, IndexOf.real_name, nome);
     }
     /*
-     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param ascii_n Nome in formato ASCII
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerASCIINome(String ascii_n){
+        // Search all possibles names
         return Research.AllStringInCol_notCaseS(file, IndexOf.ascii_name, ascii_n);
     }
     /*
-     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param n Nome
      * @return Numeri delle righe
      */
@@ -164,22 +249,25 @@ public class GeographicArea {
             // Assign name index
             index = IndexOf.real_name;
         }
+        // Search all possibles names
         return Research.AllStringInCol_notCaseS(file, index, n);
     }
     /*
-     * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param c_c Country Code
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerCodiceNazione(String c_c){
+        // Search all areas in the nation
         return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
     }
     /*
-     * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui &egrave contenuto
+     * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param c_n Country Name
      * @return Numeri delle righe
      */
     private static Integer[] ricercaPerNazione(String c_n){
+        // Search all areas in the nation
         return Research.AllStringInCol_notCaseS(file, IndexOf.country_name, c_n);
     }
     /*
@@ -190,14 +278,21 @@ public class GeographicArea {
      * @see ricercaPerCoordinate
      */
     private static Integer[] ricercaPerCoordinate( String c ){
-        // Pass to double
-        double [] coordinates = Research.parseCoordinates(c);
-        // Use search with doubles
-        return ricercaPerCoordinate(coordinates);
+        try {
+            // Pass to double
+            double [] coordinates = Coordinates.parseCoordinates(c);
+            // Use search with doubles
+            return ricercaPerCoordinate(coordinates);   
+        } catch (Exception e) {
+            // Error message
+            System.err.println("Formato coordinate incorretto.");
+            //Exit
+            return null;
+        }
     }
     /*
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
-     * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
+     * Se le coordinate sono inesatte si restituiranno le x righe delle coordinate più vicine a quelle fornite.
      * @param coo Coordinates
      * @return Numeri delle righe
      */
@@ -236,26 +331,8 @@ public class GeographicArea {
             // Exit
             return out;
         else {
-            // Set out to null
-            out = null;
-            // Set range to 1km
-            double err = 1;
-            // Set error limit
-            final double limit = 7500.00;
-            // While there is no point of interest
-            do {
-                // Search the nearest point
-                out = Research.CoordinatesAdvanced(file, IndexOf.coordinates, coo, err);
-                // Double the range
-                err *= 2;
-            } while ( out != null && out.length <= 0 && err < limit );
-            // If the error is bigger than the security limit abort
-            if ( err > limit ){
-                // Error Output
-                System.err.println("Nessuna Area Geografica nel raggio di " + limit + "km");
-                // Return null
-                return null;
-            }
+            // Return the first x nearest areas
+            out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
             // Return the output
             return out;
         }
@@ -298,7 +375,7 @@ public class GeographicArea {
     /**
      * Ritorna Coordinates come array di double.
      * L'array contiene 2 elementi.
-     * Il primo elemento &egrave la latitudine e il secondo &egrave la longitudine.
+     * Il primo elemento è la latitudine e il secondo è la longitudine.
      * @return coordinates
      */
     public double[] getCoordinates() {
@@ -306,14 +383,20 @@ public class GeographicArea {
     }
     /**
      * Ritorna Coordinates come String.
-     * Il formato &egrave il seguente:
+     * Il formato è il seguente:
      * "<em>latitudine, longitudine</em>"
      * @return coordinate
      */
     public String getCoordinatestoString() {
-        // Copy coordinates
-        String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);;
+        // Check existence
+        if ( this.coordinates == null || this.coordinates.length != 2 ) {
+            return null;
+        }
+        // Format coordinates to get a string
+        String s = String.format("%3.5f* %3.5f", this.coordinates[0], this.coordinates[1]);
+        // Put a point instead of commas
         s = s.replace(",", ".");
+        // Put a comma between coordinates
         s = s.replace("*", ",");
         return s;
     }
@@ -332,8 +415,8 @@ public class GeographicArea {
     /**
      * Cerca delle area geografiche e ne stampa la lista.
      * Il primo parametro si riferisce al tipo di ricerca.
-     * Il secondo parametro &egrave l'argomento della ricerca.
-     * Il terzo parametro &egrave il numero di aree da stampare in caso di lista troppo grande.
+     * Il secondo parametro è l'argomento della ricerca.
+     * Il terzo parametro è il numero di aree da stampare in caso di lista troppo grande.
      * Se <code>runtime_print</code> è 0 o negativo il numero di aree stampate sarà di valore fissato.
      * Numero massimo di aree stampabili insieme:    20
      * Numero di aree stampate in caso di <code>runtime_print == 0</code>:   10
@@ -412,20 +495,16 @@ public class GeographicArea {
                     System.out.println("Risultati rimanenti: " + ( lines.length - i ));
                     // If you can still pront something
                     if ( i < lines.length ) {
-                        // Input Scanner
-                        Scanner sc = new Scanner(System.in);
                         // Output for Scanner
                         System.out.print("Continuare l'elenco(S/N)? ");
                         // Input
-                        ans = sc.next();
+                        ans = InputScanner.INPUT_SCANNER.next();
                         // Up all the letters
                         ans = ans.toUpperCase();
                         // If quit, exit
-                        if ( ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT")) {
+                        if ( CommonMethods.ExitLoop(ans) ) {
                             // Exit
                             l = -1;
-                            // Close input scanner
-                            sc.close();
                         }
                         // Add a line
                         System.out.println();
@@ -433,6 +512,90 @@ public class GeographicArea {
                         // Exit the loop
                         l = -1;
                 } while ( l >= 0);
+            } else
+                System.out.println(toList(lines));
+        } else {
+            // Message if there is no output
+            System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
+        }
+    }
+    /**
+     * Metodo di test che non ammette input per calcolare la velocità di esecuzione pura.
+     * Cerca delle area geografiche e ne stampa la lista.
+     * Il primo parametro si riferisce al tipo di ricerca.
+     * Il secondo parametro è l'argomento della ricerca.
+     * Il terzo parametro è il numero di aree da stampare in caso di lista troppo grande.
+     * Se <code>runtime_print</code> è 0 o negativo il numero di aree stampate sarà di valore fissato.
+     * Numero massimo di aree stampabili insieme:    20
+     * Numero di aree stampate in caso di <code>runtime_print == 0</code>:   10
+     * @param col_index numero della ricerca
+     * @param arg argomento da ricercare
+     * @param runtime_print numero di item da stampare
+     */
+    public static void SearchListTEST( int col_index, String arg, int runtime_print ) {
+        // Output Integer array
+        Integer [] lines = new Integer[1];
+        // Minimum run constant
+        final int min_run = 10;
+        // Huge number of lines
+        final int huge = 20;
+        // Search
+        switch (col_index) {
+            // Univocal item
+            case IndexOf.geoname_id:
+                lines = ricercaPerID(arg);
+                // Impossible to have more than one case
+                runtime_print = -1;
+                break;
+            // Multiple, but few, items
+            case IndexOf.real_name:
+                lines = ricercaPerRealeNome(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.ascii_name:
+                lines = ricercaPerASCIINome(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.generic_name:
+                lines = ricercaPerNomeGenerico(arg);
+                break;
+            // Huge list
+            case IndexOf.country_code:
+                lines = ricercaPerCodiceNazione(arg);
+                break;
+            // Huge list
+            case IndexOf.country_name:
+                lines = ricercaPerNazione(arg);
+                break;
+            // Multiple, but few, items
+            case IndexOf.coordinates:
+                lines = ricercaPerCoordinate(arg);
+                break;
+            default:
+                // Error
+                System.err.println("Errore: codice lista inesistente");
+                return;
+        }
+        // Print if there is something
+        if (lines != null && lines.length > 0) {
+            // If the number of lines is huge force runtime_print
+            if ( lines.length > huge && runtime_print <= 0) {
+                runtime_print = min_run;
+            }
+            // If runtime print is enable print in runtime mode
+            if ( runtime_print > 0 ) {
+                // Limit of item to print
+                int limit = runtime_print;
+                // limit counter
+                int l = 0;
+                // Lines counter
+                int i = 0;
+                for ( l = 0; l < limit && i < lines.length; i++) {
+                        // Print runtime the string
+                        System.out.println(RunTimeLine(lines[i], i + 1 ));
+                        // Increase limit counter
+                        l++;
+                    }
             } else
                 System.out.println(toList(lines));
         } else {
@@ -471,7 +634,7 @@ public class GeographicArea {
         nam[2] = ga.getCountry_name();
         for (int j = 0; j < nam.length; j++) {
             if( nam[j].length() > 15 )
-            nam[j] = nam[j].substring(0, 15);
+                nam[j] = nam[j].substring(0, 15);
         }
         // Formatted output list
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
@@ -495,19 +658,19 @@ public class GeographicArea {
         // Counter
         int i = 0;
         // Array of possible selections
-        int[] ind = new int[7];
-        // Possible options
-        ind[i++] += IndexOf.geoname_id;
-        ind[i++] += IndexOf.real_name;
-        ind[i++] += IndexOf.ascii_name;
-        ind[i++] += IndexOf.country_code;
-        ind[i++] += IndexOf.country_name;
-        ind[i++] += IndexOf.coordinates;
-        ind[i++] += IndexOf.generic_name;
+        int[] ind = new int[IndexOf.indexes];
         // Error catcher
         if ( ind.length != col_names.length ) {
-            System.err.println("Errore Opzioni Area Geografica.");
+            System.err.println("Errore Opzioni di menu Area Geografica.");
         } else {
+            // Possible options
+            ind[i++] = IndexOf.geoname_id;
+            ind[i++] = IndexOf.real_name;
+            ind[i++] = IndexOf.ascii_name;
+            ind[i++] = IndexOf.country_code;
+            ind[i++] = IndexOf.country_name;
+            ind[i++] = IndexOf.coordinates;
+            ind[i++] = IndexOf.generic_name;
             // Output String
             String s = "";
             // Create the Option menu
@@ -526,33 +689,31 @@ public class GeographicArea {
      */
     public static boolean IndexExist( int in ) {
         // If index exist return true
-        if (in == IndexOf.geoname_id)
-            return true;
-        if (in == IndexOf.real_name)
-            return true;
-        if (in == IndexOf.ascii_name)
-            return true;
-        if (in == IndexOf.country_code)
-            return true;
-        if (in == IndexOf.country_name)
-            return true;
-        if (in == IndexOf.coordinates)
-            return true;
-        if (in == IndexOf.generic_name)
-            return true;
-        // The index does not exist: return false
-        return false;
+        switch (in) {
+            case IndexOf.geoname_id:
+            case IndexOf.real_name:
+            case IndexOf.ascii_name:
+            case IndexOf.country_code:
+            case IndexOf.country_name:
+            case IndexOf.coordinates:
+            case IndexOf.generic_name:
+                return true;        
+            default:
+            // The index does not exist: return false
+                return false;
+        }
     }
     /**
      * Controlla la correttezza dell'argomento, campo dell'area geografica.
-     * Se l'argomento &egrave valido restituisce true altrimenti false.
+     * Se l'argomento è valido restituisce true altrimenti false.
      * @param str argomento
      * @param col_index indice della colonna
-     * @return true se l'argomento &egrave valido
+     * @return true se l'argomento è valido
      */
     public static boolean argumentCorrect( String str, int col_index ) {
         // If str in null exit
         if (str == null || str.length() < 1) {
+            // Return false
             return false;
         }
         // Search
@@ -566,7 +727,7 @@ public class GeographicArea {
                     // Integer is valid only if it is positive
                     if ( id < 0 ) {
                         // Error output
-                        System.out.println( "Il Geoname ID inserito non è valido.");
+                        System.out.println("Il Geoname ID inserito non è valido.");
                         // Return false
                         return false;
                     }
@@ -583,16 +744,31 @@ public class GeographicArea {
             case IndexOf.real_name:
             // Check Generic name
             case IndexOf.generic_name:
-                // Return True
-                return true;
+                // Check if name is valid
+                if (CommonMethods.isValidName(str)) {
+                    // Return True
+                    return true;
+                } else {
+                    // Error output
+                    System.out.println("Il nome inserito contiene caratteri non validi.");
+                    // Return False
+                    return false;
+                }
             // Check ASCII name
             case IndexOf.ascii_name:
             // Check Country Name
             case IndexOf.country_name:
                 // If is ASCII return true
                 if (Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
-                    // Return True
-                    return true;
+                    if ( CommonMethods.isValidASCIIName(str) ) {
+                        // Return True
+                        return true;
+                    } else {
+                        // Error output
+                        System.out.println("Il nome inserito contiene caratteri non validi.");
+                        // Return False
+                        return false;
+                    }
                 } else {
                     // Error output
                     System.out.println("Il nome inserito deve essere formato solo da caratteri ASCII.");
@@ -601,16 +777,21 @@ public class GeographicArea {
                 }
             // Check Country Code
             case IndexOf.country_code:
-                // Check cc lenght
+                // Check cc length
                 if ( str.length() != 2 ) {
                     // Error Ouptut
                     System.out.println("Lunghezza Country Code errata.");
                     System.out.println("Il Country Code deve essere di 2 caratteri.");
                     // Return False
                     return false;
-                } else if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(str)) {
+                } else if ( ! CommonMethods.isTwoLetters(str) ) {
                     // Error output
-                    System.out.println("Il codeice inserito deve essere formato solo da caratteri ASCII.");
+                    System.out.println("Il codice inserito deve essere formato solo da caratteri ASCII.");
+                    // Return False
+                    return false;
+                } else if (! (str.matches("[a-zA-Z]+"))) {
+                    // Error output
+                    System.out.println("Il codice inserito deve essere formato solo da lettere.");
                     // Return False
                     return false;
                 } else {
@@ -622,7 +803,7 @@ public class GeographicArea {
                 // Try Parsing
                 try {
                     // Pass to double
-                    double [] coo = Research.parseCoordinates(str);
+                    double [] coo = Coordinates.parseCoordinates(str);
                     // If the coordinates are not in the range of the Earth
                     if ( coo[0] > 90.0 || coo[0] < -90.0 || coo[1] > 180.0 || coo[1] < -180.0 ) {
                         // Error message
@@ -649,8 +830,238 @@ public class GeographicArea {
                 return true;
             default:
                 // Error
-                System.err.println("Errore: codice lista inesistente");
+                System.err.println("ERRORE: codice lista inesistente");
                 return false;
         }
+    }
+    /**
+     * Permette di creare un area di interesse inserendone i dati e la ritorna.
+     * Se la creazione fallisce ritorna null.
+     * @return area di interesse creata
+     */
+    public static GeographicArea createArea() {
+        // ISO-3166 fil
+        final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-coutries.csv").toFile();
+        // Error string
+        final String error = "Creazione area geografica terminata: creazione fallita";
+        // Check if file exist
+        if ( ! f_iso.exists() ) {
+            // Print Error
+            System.err.println("ERRORE: il file " + f_iso.getName() + " non si trova nella cartella \'" + f_iso.getParent() + "\'.\n" );
+            // Return null
+            return null;
+        }
+        // Geographic Area to be returned
+        GeographicArea ga = new GeographicArea();
+        // Array of strings of fields
+        String[] fieldStrings = new String[IndexOf.max_index + 1];
+        // Input String
+        String in = "";
+        // Exit condition
+        boolean exit = false;
+        // Try catch for Input Exception
+        try {
+            do {
+                // Request
+                System.out.print("Inserire Geoname ID:\t\t");
+                // Input
+                in = InputScanner.INPUT_SCANNER.nextLine();
+                // Check if it is correct
+                if ((exit = argumentCorrect(in, IndexOf.geoname_id))) {
+                    // Check if there is another area wth the same id
+                    if ( file.exists() && Research.OneStringInCol(file, IndexOf.geoname_id, in) >= 0 ) {
+                        // Output
+                        System.out.println("Esiste già un'area geografica con lo stesso ID.");
+                        System.out.println(error);
+                        // Exit
+                        return null;
+                    } else {
+                        // Assign input to geoname_id
+                        fieldStrings[IndexOf.geoname_id] = in;
+                    }
+                }
+            } while (!exit);
+            // Request
+            System.out.print("Inserire nome area:\t\t");
+            // Input
+            in = InputScanner.INPUT_SCANNER.nextLine();
+            // Assign input to real_name
+            fieldStrings[IndexOf.real_name] = in;
+            // If input is ASCII
+            if (Charset.forName("US-ASCII").newEncoder().canEncode(in) && CommonMethods.isValidASCIIName(in)) {
+                // Assign input to ascii_name
+                fieldStrings[IndexOf.ascii_name] = in;
+            // Else request for ascii_name
+            } else {
+                do {
+                    // Request
+                    System.out.print("Inserire nome in formato ASCII:\t");
+                    // Input
+                    in = InputScanner.INPUT_SCANNER.nextLine();
+                    // Check if input is ASCII
+                    if ( (exit = argumentCorrect(in, IndexOf.ascii_name))) {
+                        // If input is ASCII assign it to real_name
+                        fieldStrings[IndexOf.ascii_name] = in;
+                        // Exit
+                        exit = true;
+                    } else{
+                        // Do not exit
+                        exit = false;
+                    }
+                } while (!exit);
+            }
+            do {
+                // Request
+                System.out.print("Inserire codice nazione:\t");
+                // Input
+                in = InputScanner.INPUT_SCANNER.nextLine();
+                // Country Code must be made of 2 characters
+                if ( ! argumentCorrect(in, IndexOf.country_code) ) {
+                    // Stay in loop
+                    exit = false;
+                } else {
+                    // To upper case
+                    in = in.toUpperCase();
+                    // Record array
+                    String [] cc_array = Research.getRecordByData(f_iso, 1, in);
+                    // If Country code does not exist
+                    if (cc_array == null ) {
+                        // Output
+                        System.out.println("Non è stata trovata alcuna nazione col codice inserito.");
+                        // Stay in loop
+                        exit = false;
+                    } else {
+                        // Assign Country Code
+                        fieldStrings[IndexOf.country_code] = in;
+                        // Assign Country Name
+                        fieldStrings[IndexOf.country_name] = cc_array[0];
+                        // Output
+                        System.out.println("Nazione selezionata:\t\t" + fieldStrings[IndexOf.country_name] );
+                        // Exit
+                        exit = true;
+                    }
+                }
+            } while (!exit);
+            do {
+                // Request
+                System.out.print("Inserire cordinate geografiche:\t");
+                // Input
+                in = InputScanner.INPUT_SCANNER.nextLine();
+                // Check if coordinates are valid
+                if ( exit = argumentCorrect(in, IndexOf.coordinates) ) {
+                    if ( file.exists() && Research.OneStringInCol(file, IndexOf.coordinates, in) >= 0 ) {
+                        // Output
+                        System.out.println("Esiste già un'area geografica con le stesse coordinate.");
+                        System.out.println(error);
+                        // Exit
+                        return null;
+                    } else {
+                        // Assign Coordinates
+                        fieldStrings[IndexOf.coordinates] = in;
+                    }
+                }
+            } while (!exit);
+        } catch (Exception e) {
+            // Output Exception
+            e.printStackTrace();
+        }
+        // Build Geographic Area
+        ga = new GeographicArea(fieldStrings);
+        // Return Geographic Area
+        return ga;        
+    }
+    /**
+     * Crea una riga coi campi dell'Area Geografica che può essere aggiunta ad un file CSV.
+     * La stringa creata include il newline successivo.
+     * @return stringa per CSV
+     */
+    public String toCSVLine() {
+        // Return CSV line
+        return CSV_Utilities.toCSVLine(toStringRecord());
+    }
+    // Create a record of strings from the fields
+    private String[] toStringRecord() {
+        // To be returned
+        String[] record = new String[IndexOf.max_index + 1];
+        record[IndexOf.geoname_id]      = "" + this.geoname_id;
+        record[IndexOf.real_name]       = this.name;
+        record[IndexOf.ascii_name]      = this.ascii_name;
+        record[IndexOf.country_code]    = this.country_code;
+        record[IndexOf.country_name]    = this.country_name;
+        record[IndexOf.coordinates]     = "" + this.coordinates[0] + ", " + this.coordinates[1];
+        return record;
+    }
+    /**
+     * Aggiunge l'Area Geografica al file CSV.
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
+    public boolean addToCSV() {
+        // Array of fields
+        String [] fields_arr = toStringRecord();
+        // If there are no fields
+        if ( fields_arr == null || fields_arr.length < 1 ) {
+            // Exit without write
+            return false;
+        }
+        // Add to CSV File
+        return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
+    }
+    /**
+     * Controlla l'esistenza del file CSV.
+     * @return true se il file esiste
+     */
+    public static boolean doesCSVExist() {
+        // Check file existence
+        return file.exists();
+    }
+    /**
+     * Controlla l'esistenza dell'area.
+     * @return true se l'area esiste
+     */
+    public boolean Exist() {
+        // If the id is positive, then exist
+        return this.geoname_id > 0;
+    }
+    /**
+     * Controlla che il Geoname ID esista.
+     * @param id geoname ID
+     * @return true se l'ID esiste
+     */
+    public static boolean doesIDExist( String id ) {
+        // Check ID correctness
+        if ( ! argumentCorrect(id, IndexOf.geoname_id) ) {
+            return false;
+        }
+        // Search ID
+        Integer[] a = ricercaPerID(id);
+        // Check if the search gave a result
+        if (a != null && a.length > 0) {
+            return true;
+        } else {
+            System.out.println("Il Geoname ID inserito non esiste.");
+            return false;
+        }
+    }
+    /**
+     * Ritorna la lista delle aree corrispondenti agli ID in ingresso.
+     * @param ids Geoname ID delle aree
+     * @return lista delle aree
+     */
+    public static String ListIDs( String [] ids ) {
+        // List of lines
+        ArrayList<Integer> lines = new ArrayList<Integer>();
+        // ID
+        int id = 0;
+        // For each ID
+        for (String i : ids) {
+            // If the ID exist
+            if (argumentCorrect(i, IndexOf.geoname_id)) {
+                id = (int) Integer.parseInt(i);
+                if ( id > 0 )
+                    lines.add(ricercaPerID(id));
+            }
+        }
+        // Return the correctness of the execution
+        return (toList(lines.toArray(new Integer[0])));
     }
 }

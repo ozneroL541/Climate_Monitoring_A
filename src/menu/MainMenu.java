@@ -5,12 +5,32 @@
  * 753252       Radice      Lorenzo
  * Sede: Como
 ***************************************/
+/*
+    This file is part of Climate Monitoring.
+
+    Climate Monitoring is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Climate Monitoring is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package src.menu;
+
+import src.common.InputScanner;
+import src.header.Header;
+
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.20.0
  */
 public class MainMenu {
     // Menu string
@@ -25,17 +45,20 @@ public class MainMenu {
      * Costruisce un oggetto menù
      */
     public MainMenu(){
+        // Header
+        final String header = "\n\tMenù principale\n";
         // Options array
         final String[] options = {
             "Ricerca aree",
             "Login",
             "Registrazione",
+            "Info",
             exit
         };
         // Separator string
         final String separator = " - ";
         // Initialize menu
-        this.menu = "";
+        this.menu = header;
         // For every element in the options array
         for ( short i = 0; i < options.length; i++ ) {
             // Create the menu string
@@ -50,7 +73,7 @@ public class MainMenu {
     }
     // This method returns the menu string
     /**
-     * Restituisce la stringa che rapresenta il menù
+     * Restituisce la stringa che rappresenta il menù
      * @return menù
      */
     public String getMenu() {
@@ -60,8 +83,8 @@ public class MainMenu {
     /**
      * Controlla che l'intero inserito abbia lo stesso indice del comando di uscita
      * @param n input
-     * @return true se l'input &egrave uguale all'uscita
-     * @return false se l'input &egrave diverso dall'uscita
+     * @return true se l'input è uguale all'uscita
+     * @return false se l'input è diverso dall'uscita
      */
     public boolean isQuit( short n ) {
         return n == exit_number;
@@ -82,5 +105,67 @@ public class MainMenu {
      */
     public short NumberOfOptions() {
         return op_number;
+    }
+    /**
+     * Mostra il menù e permette di sceglierne le opzioni.
+     */
+    public static void ChooseOption() {
+        // Menu Object creation
+        MainMenu menu = new MainMenu();
+        // Short integer for the menu options
+        short mainmenu_input = 0;
+        // Input
+        String input = "";
+        // While exit is not selected
+        do {
+            // Output the menu
+            System.out.println(menu.getMenu());
+            // Request
+            System.out.print("Inserire codice:\t");
+            // Input
+            try {
+                // Input
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                // Parse input
+                mainmenu_input = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                // Set to 0
+                mainmenu_input = 0;
+            } catch (Exception e) {
+                // Set to -1
+                mainmenu_input = -1;
+            }
+        // Check if exit
+        } while ( menu.selectedAction(mainmenu_input) );
+    }
+    // Execute selected action
+    private boolean selectedAction( short input ) {
+        // Select the method choosen by the user
+        switch (input) {
+            case 1:
+                // Ricerca aree
+                // TODO
+                return true;
+            case 2:
+                // Login
+                // TODO
+                return true;
+            case 3:
+                // Registrazione
+                // TODO
+                return true;
+            case 4:
+                // Info
+                Header.ChooseOption();
+                return true;
+            case 5:
+                // Esci
+                return false;
+            default:
+                // Error Message
+                System.out.println("\nIl valore inserito non è corretto.");
+                System.out.println("Inserire un numero valido per continuare.\n");
+                return true;
+        }
     }
 }

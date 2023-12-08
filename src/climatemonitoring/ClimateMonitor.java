@@ -3,51 +3,49 @@
  * 754530       Galimberti  Riccardo
  * 755152       Paredi      Giacomo
  * 753252       Radice      Lorenzo
- * Sede: Como
+ * Sede: Como  
 ***************************************/
+/*
+    This file is part of Climate Monitoring.
+
+    Climate Monitoring is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Climate Monitoring is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package src.climatemonitoring;
+
+import src.header.Header;
 import src.menu.MainMenu;
+
 /**
  * Classe che contiene il Main del programma
  * @author Lorenzo Radice
- * @version 0.10.0
+ * @version 0.20.0
  */
 public class ClimateMonitor {
-    // MAIN
+    /**
+     * Main
+     * @param args Main arguments
+     */
     public static void main(String[] args) {
-        // Menu Object cration
-        MainMenu menu = new MainMenu();
-        // Short integer for the menu options
-        short mainmenu_input = 0;
-        // While exit is not selected
-        while ( ! menu.isQuit(mainmenu_input) ) {
-            // Output the menu
-            System.out.println(menu.getMenu());
-            // input
-            // TODO
-            // Select the method choosen by the user
-            switch (mainmenu_input) {
-                case 1:
-                    // Ricerca aree
-                    // TODO
-                    break;
-                case 2:
-                    // Login
-                    // TODO
-                    break;
-                case 3:
-                    // Registrazione
-                    // TODO
-                    break;
-                case 4:
-                    // Esci
-                    break;
-                default:
-                    // Error Message
-                    System.err.println("Il valore inserito non &egrave corretto.\nInserire un numero valido per continuare.");
-                    break;
-            }
+        // Check if the user entered a valid command
+        if ( ! Header.evalCommand(args) ) {
+            // Print Header
+            Header.print_header();
+            // While not ENTER
+            while ( Header.doWhat() ) {}
+            // Go to Menu
+            MainMenu.ChooseOption();
         }
     }
 }
