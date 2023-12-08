@@ -27,6 +27,7 @@ package src.parameters;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
+import java.util.InputMismatchException;
 
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
@@ -240,14 +241,19 @@ public class Parameters {
         //user choose area
         System.out.print("\nScegliere l'area inserendone il nome: ");
         do{
-            id=InputScanner.INPUT_SCANNER.nextShort();
-            //check if user input is a valid id
-            for(String value: aree){
-                if(!value.equals(id)){
-                    System.out.print("Area inserita inesistente\nInserire un'area valida: ");
-                }else{
-                    exit=true;
-                }
+            try {
+                id=InputScanner.INPUT_SCANNER.nextShort();
+                //check if user input is a valid id
+                for(String value: aree){
+                    if(!value.equals(id)){
+                        System.out.print("Area inserita inesistente\nInserire un'area valida: ");
+                    }else{
+                        exit=true;
+                    }
+                } 
+            } catch (InputMismatchException e) {
+                InputScanner.INPUT_SCANNER.next();
+                System.out.print("Area inserita inesistente\nInserire un'area valida: ");
             }
         }while(!exit);
 
@@ -496,7 +502,10 @@ public class Parameters {
     //TODO rimuovere 
     public static void main (String [] args){
         // TODO Debugging
-        Parameters.MostraParametri("6534484");
+
+        System.out.println(insertID("Insubria"));
+
+        //Parameters.MostraParametri("6534484");
         /*
         Parameters p = Parameters.MakeParameters("6534484");
         if (p.addToCSV()) {
