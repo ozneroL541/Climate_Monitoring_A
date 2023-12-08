@@ -27,8 +27,6 @@ package src.parameters;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
-import java.util.InputMismatchException;
-
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
