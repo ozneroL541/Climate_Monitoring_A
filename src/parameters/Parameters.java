@@ -250,7 +250,7 @@ public class Parameters {
                 if(value.equals(area)){
                     exit=true;
                     try {
-                        id = Integer.parseShort(value);
+                        id = Integer.parseInt(value);
                     } catch (Exception e) {
                         id = -1;
                         System.err.println("Errore: area inestinte salvata nel file dei Centri di Monitoraggio.");
