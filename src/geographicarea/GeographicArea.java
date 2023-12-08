@@ -36,7 +36,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.13.3
+ * @version 0.13.4
  */
 public class GeographicArea {
     // Geoname ID
@@ -80,7 +80,7 @@ public class GeographicArea {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecord(file, line);
         // Check validity
-        if ( record != null && record.length != IndexOf.max_index ) {
+        if ( record != null && record.length == IndexOf.max_index ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
@@ -102,9 +102,9 @@ public class GeographicArea {
         // ID to String
         String id_String = "" + id;
         // Copy the record in a auxiliary variable
-        String[] record = Research.getRecordByData(file, IndexOf.generic_name, id_String);
+        String[] record = Research.getRecordByData(file, IndexOf.geoname_id, id_String);
         // Check validity
-        if ( record != null && record.length != IndexOf.max_index ) {
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
@@ -129,7 +129,7 @@ public class GeographicArea {
         // Copy the record in a auxiliary variable
         String[] record = Research.getRecordByData(file, col, data);
         // Check validity
-        if ( record != null && record.length != IndexOf.max_index ) {
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
@@ -158,7 +158,7 @@ public class GeographicArea {
      */
     public GeographicArea(String[] record) {
         // Check validity
-        if ( record != null && record.length != IndexOf.max_index ) {
+        if ( record != null && record.length == IndexOf.max_index+1 ) {
             // Save the datas
             this.geoname_id   = Integer.parseInt(record[IndexOf.geoname_id]);
             this.name         = record[IndexOf.real_name];
