@@ -150,6 +150,16 @@ public class Parameters {
     public Table getTable() {
         return this.table;
     }
+    @Override
+    public String toString() {
+        String str = "";
+        str += "Geoname ID:\t"  + this.geoname_id   + "\n";
+        str += "Data:\t\t"      + this.date         + "\n";
+        str += "Centro:\t\t"    + this.centre       + "\n";
+        str += "\nParametri\n";
+        str += this.table.toString();
+        return str;
+    }
     /**
      * Crea un oggetto Parameters e lo ritorna.
      * @return oggetto Parameters
@@ -359,6 +369,8 @@ public class Parameters {
                     Parameters p = new Parameters(lines[i-1]);
                     // Check for existence
                     if ( p != null && p.Exist() ) {
+                        // New Line
+                        System.out.println();
                         // Print Parameter
                         System.out.println(p.toString());   
                     }
