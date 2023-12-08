@@ -285,10 +285,14 @@ public class AutorizedOperator extends User {
         return String.format("%05d", id);
     }
 
-    //TODO
-    //fare javadoc
-    //return an AutorizedOperator object if userid and password are guessed under 3 attemps
+
+    /**
+     * Permette all'utente di autenticarsi inserendo il proprio id e la password
+     * Ritorna un oggetto di AutorizedOperator se l'autenticazione avviene con successo, altrimenti ritorna null
+     * @return oggetto di AutorizedOperator
+     */
     public static AutorizedOperator autenticazione(){
+        //userid and password must be guessed under a finite number of attemps
         // Attempt limit
         final int limit = 3;
         //counter
