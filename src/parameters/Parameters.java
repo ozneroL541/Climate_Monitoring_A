@@ -71,7 +71,7 @@ public class Parameters {
      * @param c centre
      * @param t table
      */
-    public Parameters( short id, String d, String c, Table t) {
+    public Parameters( int id, String d, String c, Table t) {
         this.geoname_id = id;
         this.date = d;
         this.centre = c;
@@ -168,7 +168,7 @@ public class Parameters {
         // Output
         Parameters p = null;
         // Geoname ID
-        short id = 0;
+        int id = 0;
         // Date
         String d = "";
         // Monitoring Centre
@@ -220,9 +220,9 @@ public class Parameters {
      * Richiede l'inserimento del Geoname ID
      * @return geoname_id
      */
-    private static short insertID(String centre) {
+    private static int insertID(String centre) {
         // Geoname ID
-        short id = 0;
+        int id = 0;
         String area = null;
         String[] aree=null;
         boolean exit=false;
@@ -250,7 +250,7 @@ public class Parameters {
                 if(value.equals(area)){
                     exit=true;
                     try {
-                        id = Short.parseShort(value);
+                        id = Integer.parseShort(value);
                     } catch (Exception e) {
                         id = -1;
                         System.err.println("Errore: area inestinte salvata nel file dei Centri di Monitoraggio.");
