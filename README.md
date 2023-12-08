@@ -3,7 +3,7 @@
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
 
 ## Versione
-0.10.0
+0.20.0
 
 ## Requisiti
 Richiede Java 17.
