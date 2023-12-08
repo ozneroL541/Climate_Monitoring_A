@@ -488,7 +488,10 @@ public class AutorizedOperator extends User {
                     //if user does not have a center
                     if(!this.centre.equals(defaultValueOfCentre)){
                         String centre=associaCentro();
-                        //TODO fare update del file operatoriAutorizzati
+                        boolean success=addCentreToFile(centre);
+                        if(success){
+                            System.out.println("Errore nell'aggiornamento del file");
+                        }                        
                     }else{
                         System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
                     }
@@ -501,7 +504,10 @@ public class AutorizedOperator extends User {
                 case 5:
                     if(!this.centre.equals(defaultValueOfCentre)){
                         String centre=creaCentro();
-                        //TODO fare update del file operatoriAutorizzati
+                        boolean success=addCentreToFile(centre);
+                        if(!success){
+                            System.out.println("Errore nell'aggiornamento del file");
+                        }
                     }else{
                         System.out.println("Impossibile creare un nuovo centro\nSei già associato al centro "+ this.centre);
                     }
@@ -622,6 +628,12 @@ public class AutorizedOperator extends User {
         }while(!MonitoringCentre.CenterExistence(nome));
 
         return nome;
+    }
+
+    //update file with new value of centre
+    private boolean addCentreToFile(String centre){
+        int riga=Research.OneStringInCol(file, IndexOf.matricola, Short.toString(this.userid));
+        return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
 
     //TODO
