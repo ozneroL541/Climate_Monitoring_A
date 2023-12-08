@@ -72,8 +72,6 @@ public class MonitoringCentre {
         }
         // Number of indexes
         private final static short indexes = 3;
-        // Max index value
-        private final static short max_index = 2;
     }
 
     /**
