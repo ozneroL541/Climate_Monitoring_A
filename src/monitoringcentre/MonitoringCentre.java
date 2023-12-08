@@ -92,6 +92,7 @@ public class MonitoringCentre {
      * Permette di costruire un oggetto MonitoringCentre conoscendo solo il nome.
      * I restanti attributi verranno letti dal file CentroMonitoraggio.dati.csv 
      * @param nome nome del centro
+     * @return centro di monitoraggio
      */
     public static MonitoringCentre getCentreByName(String nome){
 
