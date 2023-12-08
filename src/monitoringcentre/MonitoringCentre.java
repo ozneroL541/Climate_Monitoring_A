@@ -192,6 +192,7 @@ public class MonitoringCentre {
 
         return record;
     }
+    //TODO aggiungere commenti?
     private String areasforCSV() {
         final String delimiter = "-";
         String str = "";
@@ -230,6 +231,8 @@ public class MonitoringCentre {
     public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
+    //TODO fare javadoc
+    //TODO questo metodo non viene mai usato, i centri non vengono mai scritti su file
     public static boolean insertCentre() {
         // Create Centre
         MonitoringCentre mc = createCentre();
@@ -269,6 +272,8 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
+    
+    //TODO commenti?
     private static String AskName() {
         boolean exit = true;
         String in = "";
@@ -295,6 +300,8 @@ public class MonitoringCentre {
         } while (!exit);
         return name;
     }
+
+    //TODO commenti?
     private static String[] AskAddress() {
         // Address
         String[] address = new String[IndexOf.Iadd.length];
