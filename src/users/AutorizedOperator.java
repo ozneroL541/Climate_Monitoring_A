@@ -424,7 +424,10 @@ public class AutorizedOperator extends User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-    // TODO JavaDoc
+    
+    /**
+     * Mostra il menù e permette di scegliere le azioni eseguibili dall'operatore autorizzato
+     */
     //TODO terminare metodo
     public void menu(){
 
