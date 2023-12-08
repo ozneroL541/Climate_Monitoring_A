@@ -265,7 +265,7 @@ public class Parameters {
             }
         }while(!exit);
 
-        return (short)Integer.parseInt(id);
+        return id;
     }
     /*
      * Richiede o assegna la data.
