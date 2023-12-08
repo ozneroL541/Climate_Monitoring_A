@@ -177,13 +177,6 @@ public class Parameters {
         Table t = null;
         // Assign Geoname ID
         id = insertID(centre);
-        // Check ID
-        if ( ! GeographicArea.IndexExist(id) ) {
-            // Error output
-            System.err.println("Errore nell'assegnazione dell'Area Geografica.");
-            // return Error
-            return null;
-        }
         // Assign Date
         d = insertDate();
         // Check Date
@@ -293,7 +286,7 @@ public class Parameters {
             strings[IndexOf.geoname_id] = "" + this.geoname_id;
             strings[IndexOf.date] = "" + this.date;
             strings[IndexOf.centre] = this.centre;
-            for (short i = 0; i < IndexOf.table_length; i++) {
+            for (short i = 0; i < IndexOf.table_length*2; i++) {
                 strings[IndexOf.table + i] = t[i];
             }
             return strings;   
@@ -488,31 +481,28 @@ public class Parameters {
      * @return linea per lista
      */
     private static String RunTimeLine(Integer line, int index) {
+        // Parameters
         Parameters ga = new Parameters(line);
         // Output string
         String out = "";
         // If is the first line
         if( index <= 1 )
         // Put a head
-            out += "N\tGeoname ID\tData\tCentro\tVento\tUmidità\tPressione\tTemperatura\tPrecipitazioni\tAltitudine dei ghiacciai\tMassa dei ghiacciai\n";
+            out += "N\tGeoname ID\tData\t\t\tCentro\n";
         // Write the index
         out += String.format("%5d", index);
         // Formatted output list
         out += String.format("\t%-10s\t%-10s\t%-10s", ga.getGeoname_id(), ga.getDate(), ga.getCentre());
-        // TODO: add Parameters
         // Return String
         return out;
     }
     //TODO rimuovere 
     public static void main (String [] args){
-        // TODO Debugging
 
-        System.out.println(insertID("Insubria"));
-
-        //Parameters.MostraParametri("6534484");
+        Parameters.MostraParametri("3178229");
         /*
-        Parameters p = Parameters.MakeParameters("6534484");
-        if (p.addToCSV()) {
+        Parameters p = Parameters.MakeParameters("Insubria");
+        if ( p != null && p.addToCSV()) {
             System.out.println("Success");
         } else {
             System.out.println("Fail");
