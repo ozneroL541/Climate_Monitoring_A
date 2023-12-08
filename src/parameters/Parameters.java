@@ -237,10 +237,8 @@ public class Parameters {
         //show areas to user
         //TODO modificare il messaggio di output?
         System.out.println("Aree associate al centro " + centre + ":");
-        for(int i=0;i<aree.length;i++){
-            System.out.println(aree[i]);
-        }
-
+        // Print areas
+        System.out.println(c.ListAreas());
         //user choose area
         System.out.print("\nScegliere l'area inserendone il Geoname ID: ");
         do{

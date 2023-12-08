@@ -140,27 +140,12 @@ public class MonitoringCentre {
         String str = "";
         str += "Nome:\t" + this.nome + "\n";
         str += addresstoFormat() + "\n";
-        str += "Aree di Interesse\n" + GeographicArea.ListIDs(this.areeInteresse);
+        str += "Aree di Interesse\n" + ListAreas();
         return str;
     }
-    // TODO Remove
-    /*
-     * Ritorna l'indirizzo come stringa su un'unica riga
-     * @return indirizzo
-     *
-    private String addresstoLine() {
-        String str = "";
-        short i = 0;
-        for ( i = 0; i < IndexOf.Iadd.length -1; i++) {
-            str += this.indirizzo[i] + " ";
-        }
-        str += this.indirizzo[i];
-        return str;
-    }*/
-    /*
-     * Memorizza il centro in un file CSV.
-     * @return true se l'esecuzione è avvenuta correttamente
-     */
+    public String ListAreas() {
+        return GeographicArea.ListIDs(this.areeInteresse);
+    }
     public boolean memorizzaCentro(){
         // Check existance
         if ( Exist() ) {
