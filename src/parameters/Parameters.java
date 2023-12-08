@@ -228,6 +228,10 @@ public class Parameters {
         boolean exit=false;
 
         MonitoringCentre c=MonitoringCentre.getCentreByName(centre);
+        if ( c == null ) {
+            System.err.println("Centro inesistente");
+            return -1;
+        }
         aree=c.getAreeInteresse();
 
         //show areas to user
