@@ -524,6 +524,7 @@ public class AutorizedOperator extends User {
     }
 
     //TODO Rendere modulare
+    //show a menù with different way of associate the centre to the operator
     private static String setCentro(){
 
         final String menu="\n\nMenù associazione centro\n"+
