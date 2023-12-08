@@ -88,7 +88,7 @@ public class Parameters {
         // Error Checker
         boolean error = false;
         // Check validity
-        if ( record != null && record.length != IndexOf.max_cols ) {
+        if ( record != null && record.length == IndexOf.max_cols ) {
             // Parameters
             short [] s = new short[IndexOf.table_length];
             // Notes
@@ -356,7 +356,7 @@ public class Parameters {
                 // Check index
                 if ( i > 0 ) {
                     // Create Parameter
-                    Parameters p = new Parameters(lines[i]);
+                    Parameters p = new Parameters(lines[i-1]);
                     // Check for existence
                     if ( p != null && p.Exist() ) {
                         // Print Parameter
@@ -387,11 +387,12 @@ public class Parameters {
         System.out.print("Vuoi visualizzare maggiori informazioni su un parametro(S/N)?\t");
         // Input
         in = InputScanner.INPUT_SCANNER.next();
-        // TODO IDK but it doesn't work
         // Check for positive input
-        if ( in != null && in.length() > 1 && ( in.toUpperCase().charAt(0) == 'S' || in.toUpperCase().charAt(0) == 'Y' )) {
+        if ( in != null && in.length() >= 1 && ( in.toUpperCase().charAt(0) == 'S' || in.toUpperCase().charAt(0) == 'Y' )) {
+            // Collect garbage
+            in = InputScanner.INPUT_SCANNER.nextLine();
             // Ask
-            System.out.println("Inserire l'indice della ricerca (" + min + "-" + max + "):\t");
+            System.out.print("Inserire l'indice della ricerca (" + min + "-" + max + "):\t");
             // Input
             in = InputScanner.INPUT_SCANNER.nextLine();
             // Try to Parse in
@@ -461,7 +462,7 @@ public class Parameters {
     //TODO rimuovere 
     public static void main (String [] args){
         // TODO Debugging
-        Parameters.MostraParametri("0");
+        Parameters.MostraParametri("6534484");
         /*
         Parameters p = Parameters.MakeParameters("6534484");
         if (p.addToCSV()) {
