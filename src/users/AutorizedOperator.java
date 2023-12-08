@@ -41,7 +41,7 @@ import src.monitoringcentre.MonitoringCentre;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.13.4
+ * @version 0.20.0
  */
 public class AutorizedOperator extends User {
     // User Identity Code
@@ -468,7 +468,7 @@ public class AutorizedOperator extends User {
                 
                 //view geographic area
                 case 2:
-                    visualizzaAreaGeografica();
+                    //visualizzaAreaGeografica();
                     exit=true;
                     break;
                 
@@ -653,54 +653,5 @@ public class AutorizedOperator extends User {
      */
     public String getCognome() {
         return cognome;
-    }
-    //rimuovere
-    public static void main(String[] args) {
-
-        
-        int riga=Research.OneStringInCol(file, IndexOf.matricola, "00001");
-        System.out.println(riga);
-        int col=IndexOf.centro;
-
-
-        if(CSV_Utilities.addCellAtEndOfLine(file, "Insubria", riga)){
-            System.out.println("Aggiornamento file andato a buon fine");
-        }else{
-            System.out.println("Errore nell'aggiornamento del file");
-        }
-
-        //registraCentroAree();
-
-        //System.out.println(AutorizedOperator.associaCentro());
-        
-        /*AutorizedOperator.registrazione();
-        AutorizedOperator u=autenticazione();
-        //u.menu();
-        System.out.println(u);
-
-
-
-        //TODO 
-        //implementare alla fine di autenticazione()
-        //oppure
-        //implementare all'inizio di menu(), prima della stampa del menu effettivo
-        // Sarebbe carino da implementare
-        /*
-        if ( u != null )
-            System.out.println("Autenticazione effettuata come: " + u.getCognome() + " " + u.getNome());
-
-        
-        System.out.println(u);*/
-        //AutorizedOperator.cercaAreaGeografica();
-        
-        /*
-        AutorizedOperator.registrazione();
-        AutorizedOperator u=autenticazione();
-        if(u==null){
-            System.out.println("Autenticazione fallita");
-        }else{
-            System.out.println(u);
-        }
-        */
     }
 }

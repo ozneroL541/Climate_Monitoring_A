@@ -40,7 +40,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.2.1
+ * @version 0.20.0
  */
 public class Parameters {
     // Parameters File
@@ -495,17 +495,5 @@ public class Parameters {
         out += String.format("\t%-10s\t%-10s\t%-10s", ga.getGeoname_id(), ga.getDate(), ga.getCentre());
         // Return String
         return out;
-    }
-    //TODO rimuovere 
-    public static void main (String [] args){
-
-        Parameters p = Parameters.MakeParameters("Insubria");
-        if ( p != null && p.addToCSV()) {
-            System.out.println("Success");
-        } else {
-            System.out.println("Fail");
-        }
-
-        Parameters.MostraParametri("3178229");
     }
 }

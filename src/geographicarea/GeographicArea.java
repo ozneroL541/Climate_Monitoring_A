@@ -36,7 +36,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.13.4
+ * @version 0.20.0
  */
 public class GeographicArea {
     // Geoname ID

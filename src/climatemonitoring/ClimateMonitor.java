@@ -30,7 +30,7 @@ import src.menu.MainMenu;
 /**
  * Classe che contiene il Main del programma
  * @author Lorenzo Radice
- * @version 0.10.3
+ * @version 0.20.0
  */
 public class ClimateMonitor {
     /**

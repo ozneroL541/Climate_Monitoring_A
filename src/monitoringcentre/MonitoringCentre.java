@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.10.0
+ * @version 0.20.0
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -590,13 +590,5 @@ public class MonitoringCentre {
      */
     public boolean Exist() {
         return (this.nome != null && this.nome.length() > 0);
-    }
-    // TODO Remove test main
-    public static void main(String[] args) {
-
-        MonitoringCentre m=getCentreByName("Insubria");
-        System.out.println(m);
-
-        //MonitoringCentre.insertCentre();
     }
 }

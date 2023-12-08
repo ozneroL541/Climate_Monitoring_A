@@ -30,7 +30,7 @@ import src.header.Header;
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.10.1
+ * @version 0.20.0
  */
 public class MainMenu {
     // Menu string
