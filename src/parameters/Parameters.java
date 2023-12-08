@@ -224,7 +224,8 @@ public class Parameters {
      */
     private static short insertID(String centre) {
         // Geoname ID
-        String id;
+        short id = 0;
+        String area = null;
         String[] aree=null;
         boolean exit=false;
 
@@ -245,18 +246,23 @@ public class Parameters {
         //user choose area
         System.out.print("\nScegliere l'area inserendone il nome: ");
         do{
-            id=InputScanner.INPUT_SCANNER.nextLine();
+            area=InputScanner.INPUT_SCANNER.nextLine();
             //check if user input is a valid id
             for(String value: aree){
-                if(!value.equals(id)){
-                    System.out.print("Area inserita inesistente\nInserire un'area valida: ");
-                }else{
-                    //consume invalid token
-                    InputScanner.INPUT_SCANNER.next();
+                if(value.equals(area)){
                     exit=true;
+                    try {
+                        id = Short.parseShort(value);
+                    } catch (Exception e) {
+                        id = -1;
+                        System.err.println("Errore: area inestinte salvata nel file dei Centri di Monitoraggio.");
+                        exit = false;
+                    }
                 }
-            } 
-        
+            }
+            if (!exit) {
+                System.out.print("Area inserita inesistente\nInserire un'area valida: ");
+            }
         }while(!exit);
 
         return (short)Integer.parseInt(id);
