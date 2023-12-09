@@ -26,11 +26,12 @@ package src.menu;
 
 import src.common.InputScanner;
 import src.header.Header;
+import src.users.*;
 
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.20.0
+ * @version 0.20.1
  */
 public class MainMenu {
     // Menu string
@@ -50,6 +51,7 @@ public class MainMenu {
         // Options array
         final String[] options = {
             "Ricerca aree",
+            "Visualizza informazioni aree",
             "Login",
             "Registrazione",
             "Info",
@@ -140,27 +142,42 @@ public class MainMenu {
     }
     // Execute selected action
     private boolean selectedAction( short input ) {
+        AutorizedOperator a;
+        
         // Select the method choosen by the user
-        //TODO aggiungere un case in più per la visualalizzazione dei parametri di una area 
-        //l'utente base può cercare le aree E, se vuole, visualizzzare i parametri delle aree (che hanno i parametri)
         switch (input) {
             case 1:
+                //TODO è strano che non debba creare un oggetto per eseguire questo metodo (magari togliere static?)
                 // Ricerca aree
-                // TODO
+                User.cercaAreaGeografica();
                 return true;
             case 2:
-                // Login
-                // TODO
+                //TODO è strano che non debba creare un oggetto per eseguire questo metodo (magari togliere static?)
+                // Visualizza info aree
+                User.visualizzaAreaGeografica();
                 return true;
             case 3:
-                // Registrazione
-                // TODO
+                // Login
+                a=AutorizedOperator.autenticazione();
+                a.menu();
                 return true;
             case 4:
+                // Registrazione
+                AutorizedOperator.registrazione();
+                //TODO scegliere cosa fare
+                /*
+                dopo la registrazione viene chiamata automaticamente la autenticazione oppure 
+                viene mostrato ancora questo menu?
+                
+                a=AutorizedOperator.autenticazione();
+                a.menu();
+                */
+                return true;
+            case 5:
                 // Info
                 Header.ChooseOption();
                 return true;
-            case 5:
+            case 6:
                 // Esci
                 return false;
             default:
