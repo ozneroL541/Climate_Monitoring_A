@@ -125,11 +125,12 @@ public class User {
      * @param id id dell'area
      */
     public void visualizzaAreaGeografica(){
+        // TODO fa un po' cagare va sistemato
         boolean exit=false;
         String id;
         String aree[]=Parameters.getIDAree();
         if(aree!=null){
-            System.out.println("Id delle aree disponibili:");
+            System.out.println("Aree disponibili:");
             for(String area: aree){
                 System.out.println(area);
             }

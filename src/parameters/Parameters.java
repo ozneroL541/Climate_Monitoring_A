@@ -506,13 +506,7 @@ public class Parameters {
      * @return array di stringhe. Se nel file non sono presenti aree ritorna null
      */
     public static String[] getIDAree(){
-        String[] aree=null;
-        aree=Research.getColArray(file, IndexOf.geoname_id);
-        if(aree!=null){
-            //remove duplicates
-            aree = new HashSet<String>(Arrays.asList(aree)).toArray(new String[0]);
-        }
-        return aree;
+        return Research.getColNoRepetition(file, IndexOf.geoname_id);
     }
 
 
