@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.20.0
+ * @version 0.20.1
  */
 public class User {
     /**
@@ -126,18 +126,46 @@ public class User {
      */
     //Suggerimento, avere come parametro di input l'id dell'area interessata
     //modificare il tipo di ritorno di cercaAreaGeografica() in modo tale che ritorni come valore l'id dell'area
-    public static void visualizzaAreaGeografica(String id){
+    public static void visualizzaAreaGeografica(){
+        boolean exit=false;
+        String id;
+        String aree[]=Parameters.getIDAree();
+        if(aree!=null){
+            System.out.println("Id delle aree disponibili:");
+            for(String area: aree){
+                System.out.println(area);
+            }
+            System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
 
-        //metodo per vedere le aree disponibili, da fare in Parameters
-        System.out.println("Inserire l'id dell'area per visualizzarne le informazioni: ");
-        Parameters.MostraParametri(id);
+            do{
+                id=InputScanner.INPUT_SCANNER.nextLine();
+                //check if user input is a valid id
+                for(String value: aree){
+                    if(value.equals(id)){
+                        exit=true;
+                        break;
+                    }else{
+                        exit=false;
+                        break;
+                    }
+                }
+                if (!exit) {
+                    System.out.print("Id non valido\nInserire un id tra quelli disponibili: ");
+                }
+            }while(!exit);
+
+            Parameters.MostraParametri(id);
+            
+        }else{
+            System.out.println("Nessuna area disponibile");
+        }
     }
 
 
     //TODO rimuovere test main
     public static void main(String []args){
 
-        cercaAreaGeografica();
-        visualizzaAreaGeografica("3178229");
+        //cercaAreaGeografica();
+        visualizzaAreaGeografica();
     }
 }
