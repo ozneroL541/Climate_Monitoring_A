@@ -162,6 +162,7 @@ public class Parameters {
     }
     /**
      * Crea un oggetto Parameters e lo ritorna.
+     * @param centre id del centro
      * @return oggetto Parameters
      */
     public static Parameters MakeParameters(String centre) {
