@@ -491,7 +491,7 @@ public class AutorizedOperator extends User {
                     if(!this.centre.equals(defaultValueOfCentre)){
                         String centre=associaCentro();
                         boolean success=addCentreToFile(centre);
-                        if(success){
+                        if(!success){
                             System.out.println("Errore nell'aggiornamento del file");
                         }                        
                     }else{
