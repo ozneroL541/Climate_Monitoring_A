@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.20.1
+ * @version 0.20.2
  */
 public class User {
     /**
@@ -47,7 +47,7 @@ public class User {
      * Permette all'utente di effettuare la ricerca di aree geografiche.
      * @author Lorenzo Radice
      */
-    public static void cercaAreaGeografica() {
+    public void cercaAreaGeografica() {
         // Loop exit variable
         boolean exit = true;
         // Input integer
@@ -124,7 +124,7 @@ public class User {
      * Permette all'utente di visualizzare le informazioni associate ad una area geografica.
      * @param id id dell'area
      */
-    public static void visualizzaAreaGeografica(){
+    public void visualizzaAreaGeografica(){
         boolean exit=false;
         String id;
         String aree[]=Parameters.getIDAree();
@@ -157,13 +157,5 @@ public class User {
         }else{
             System.out.println("Nessuna area disponibile");
         }
-    }
-
-
-    //TODO rimuovere test main
-    public static void main(String []args){
-
-        //cercaAreaGeografica();
-        visualizzaAreaGeografica();
     }
 }

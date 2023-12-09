@@ -31,7 +31,7 @@ import src.users.*;
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.20.1
+ * @version 0.20.2
  */
 public class MainMenu {
     // Menu string
@@ -142,36 +142,29 @@ public class MainMenu {
     }
     // Execute selected action
     private boolean selectedAction( short input ) {
-        AutorizedOperator a;
-        
+        // User
+        User user = new User();        
         // Select the method choosen by the user
         switch (input) {
             case 1:
-                //TODO è strano che non debba creare un oggetto per eseguire questo metodo (magari togliere static?)
                 // Ricerca aree
-                User.cercaAreaGeografica();
+                user.cercaAreaGeografica();
                 return true;
             case 2:
-                //TODO è strano che non debba creare un oggetto per eseguire questo metodo (magari togliere static?)
                 // Visualizza info aree
-                User.visualizzaAreaGeografica();
+                user.visualizzaAreaGeografica();
                 return true;
             case 3:
                 // Login
-                a=AutorizedOperator.autenticazione();
-                a.menu();
+                user = AutorizedOperator.autenticazione();
+                /* TODO rendere il menu dell'operatore autorizzato "chiamabile"
+                 * da user con controllo per vedere se è autorizzato
+                */
                 return true;
             case 4:
                 // Registrazione
+                /* TODO renderlo un metodo non-statico di User */
                 AutorizedOperator.registrazione();
-                //TODO scegliere cosa fare
-                /*
-                dopo la registrazione viene chiamata automaticamente la autenticazione oppure 
-                viene mostrato ancora questo menu?
-                
-                a=AutorizedOperator.autenticazione();
-                a.menu();
-                */
                 return true;
             case 5:
                 // Info
