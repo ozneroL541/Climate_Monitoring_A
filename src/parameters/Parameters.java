@@ -27,6 +27,9 @@ package src.parameters;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.HashSet;
+
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
@@ -499,12 +502,25 @@ public class Parameters {
     }
 
     /**
-     * Ritorna 
-     * @return
+     * Ritorna un array di stringhe univoche contenente gli id delle aree presenti nel file ParametriClimatici.dati.csv
+     * @return array di stringhe. Se nel file non sono presenti aree ritorna null
      */
-    public static String[] getIdAree(){
+    public static String[] getIDAree(){
         String[] aree=null;
-        //TODO fare il metodo
+        aree=Research.getColArray(file, IndexOf.geoname_id);
+        if(aree!=null){
+            //remove duplicates
+            aree = new HashSet<String>(Arrays.asList(aree)).toArray(new String[0]);
+        }
         return aree;
+    }
+
+
+    //TODO rimuovere test main
+    public static void main(String [] args){
+        String aree[]=getIDAree();
+        for(String area: aree){
+            System.out.println(area);
+        }
     }
 }
