@@ -124,8 +124,6 @@ public class User {
      * Permette all'utente di visualizzare le informazioni associate ad una area geografica.
      * @param id id dell'area
      */
-    //Suggerimento, avere come parametro di input l'id dell'area interessata
-    //modificare il tipo di ritorno di cercaAreaGeografica() in modo tale che ritorni come valore l'id dell'area
     public static void visualizzaAreaGeografica(){
         boolean exit=false;
         String id;
