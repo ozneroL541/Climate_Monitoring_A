@@ -429,7 +429,6 @@ public class AutorizedOperator extends User {
     /**
      * Mostra il menù e permette di scegliere le azioni eseguibili dall'operatore autorizzato
      */
-    //TODO terminare metodo
     public void menu(){
 
         final String menu="\n\nMenù Operatore Autorizzato\n"+
@@ -469,6 +468,7 @@ public class AutorizedOperator extends User {
                 
                 //view geographic area
                 case 2:
+                    //TODO de-commentare una volta fatto il metodo
                     //visualizzaAreaGeografica();
                     exit=true;
                     break;
@@ -638,8 +638,8 @@ public class AutorizedOperator extends User {
         return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
 
-    //TODO
-    //cambiare anche tipo di ritorno
+    //cambiare tipo di ritorno in boolean?
+    //user inserts climatic parameters
     private static void inserisciParametriClimatici(String centre){
         Parameters p=Parameters.MakeParameters(centre);
         //TODO fare controllo sulla esistenza? altrimenti questo oggetto è abbastanza inutile
