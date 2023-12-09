@@ -118,4 +118,14 @@ public class User {
             System.out.println("\nNon è presente alcuna area di interesse per cui effettuare la ricerca.");
         }
     }
+
+    /**
+     * Permette all'utente di visualizzare le informazioni associate ad una area geografica.
+     */
+    //Suggerimento, avere come parametro di input l'id dell'area interessata
+    //modificare il tipo di ritorno di cercaAreaGeografica() in modo tale che ritorni come valore l'id dell'area
+    public static void visualizzaAreaGeografica(){
+
+        //TODO FARE IL METODO
+    }
 }
