@@ -497,4 +497,14 @@ public class Parameters {
         // Return String
         return out;
     }
+
+    /**
+     * Ritorna 
+     * @return
+     */
+    public static String[] getIdAree(){
+        String[] aree=null;
+        //TODO fare il metodo
+        return aree;
+    }
 }
