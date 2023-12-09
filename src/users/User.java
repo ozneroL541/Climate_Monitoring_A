@@ -28,6 +28,7 @@ import java.util.InputMismatchException;
 
 import src.common.InputScanner;
 import src.geographicarea.GeographicArea;
+import src.parameters.Parameters;
 
 /**
  * Un oggetto della classe <code>User</code> rappresenta un utente.
@@ -121,11 +122,22 @@ public class User {
 
     /**
      * Permette all'utente di visualizzare le informazioni associate ad una area geografica.
+     * @param id id dell'area
      */
     //Suggerimento, avere come parametro di input l'id dell'area interessata
     //modificare il tipo di ritorno di cercaAreaGeografica() in modo tale che ritorni come valore l'id dell'area
-    public static void visualizzaAreaGeografica(){
+    public static void visualizzaAreaGeografica(String id){
 
-        //TODO FARE IL METODO
+        //metodo per vedere le aree disponibili, da fare in Parameters
+        System.out.println("Inserire l'id dell'area per visualizzarne le informazioni: ");
+        Parameters.MostraParametri(id);
+    }
+
+
+    //TODO rimuovere test main
+    public static void main(String []args){
+
+        cercaAreaGeografica();
+        visualizzaAreaGeografica("3178229");
     }
 }
