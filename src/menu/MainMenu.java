@@ -152,6 +152,7 @@ public class MainMenu {
                 return true;
             case 2:
                 // Visualizza info aree
+                // TODO Bug fixing
                 user.visualizzaAreaGeografica();
                 return true;
             case 3:
