@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 import src.common.*;
 
 import src.monitoringcentre.MonitoringCentre;
+import src.parameters.Parameters;
 
 /**
  * Un oggetto della classe <code>AutorizedOperator</code> rappresenta
@@ -474,10 +475,11 @@ public class AutorizedOperator extends User {
                 
                 //add climate parameters
                 case 3:
-                    //TODO aggiungere metodo
-                    //aggiungi parametri ad una area del centro (solo se utente ha un centro)
-                    //rimuovere il primo println
-                    System.out.println("AGGIUNTA PARAMETRI");
+                    if(!this.centre.equals(defaultValueOfCentre)){
+                        inserisciParametriClimatici(this.centre);
+                    }else{
+                        System.out.println("Impossibile inserire i parametri climatici\nPer inserire i parametri devi essere associato ad un centro");
+                    }
                     System.out.println("\n\nOperazione terminata");
                     System.out.println("Ritorno al menù");
                     exit=true;
@@ -638,7 +640,10 @@ public class AutorizedOperator extends User {
 
     //TODO
     //cambiare anche tipo di ritorno
-    public void inserisciParametriClimatici(){}
+    private static void inserisciParametriClimatici(String centre){
+        Parameters p=Parameters.MakeParameters(centre);
+        //TODO fare controllo sulla esistenza? altrimenti questo oggetto è abbastanza inutile
+    }
 
     /**
      * Ritorna il nome dell'operatore autorizzato
@@ -653,5 +658,11 @@ public class AutorizedOperator extends User {
      */
     public String getCognome() {
         return cognome;
+    }
+
+    //TODO rimuovere test main
+    public static void main(String[] args){
+
+        inserisciParametriClimatici("Insubria");
     }
 }
