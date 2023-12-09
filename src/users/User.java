@@ -130,10 +130,10 @@ public class User {
         String id;
         String aree[]=Parameters.getIDAree();
         if(aree!=null){
+            // Print Areas
             System.out.println("Aree disponibili:");
-            for(String area: aree){
-                System.out.println(area);
-            }
+            System.out.println(GeographicArea.ListIDs(aree));
+            // Ask
             System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
 
             do{
