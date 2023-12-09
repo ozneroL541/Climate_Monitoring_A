@@ -42,7 +42,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.20.0
+ * @version 0.20.1
  */
 public class AutorizedOperator extends User {
     // User Identity Code
@@ -468,8 +468,7 @@ public class AutorizedOperator extends User {
                 
                 //view geographic area
                 case 2:
-                    //TODO de-commentare una volta fatto il metodo
-                    //visualizzaAreaGeografica();
+                    visualizzaAreaGeografica();
                     exit=true;
                     break;
                 
