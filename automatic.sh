@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
 
-# GNU Bash automatic compiler for ClimateMonitor program
+# Bash automatic compiler for ClimateMonitor program
 
 # Paths
 bin="bin/"
