@@ -141,6 +141,8 @@ public class MainMenu {
     // Execute selected action
     private boolean selectedAction( short input ) {
         // Select the method choosen by the user
+        //TODO aggiungere un case in più per la visualalizzazione dei parametri di una area 
+        //l'utente base può cercare le aree E, se vuole, visualizzzare i parametri delle aree (che hanno i parametri)
         switch (input) {
             case 1:
                 // Ricerca aree
