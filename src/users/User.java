@@ -138,18 +138,17 @@ public class User {
 
             do{
                 id=InputScanner.INPUT_SCANNER.nextLine();
+                // Set Exit
+                exit = false;
                 //check if user input is a valid id
                 for(String value: aree){
+                    // Area is in options
                     if(value.equals(id)){
                         exit=true;
-                        break;
-                    }else{
-                        exit=false;
-                        break;
                     }
                 }
                 if (!exit) {
-                    System.out.print("Id non valido\nInserire un id tra quelli disponibili: ");
+                    System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
                 }
             }while(!exit);
 
