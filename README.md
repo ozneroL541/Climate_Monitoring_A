@@ -31,7 +31,9 @@ Tramite linea di comando.
      ./automatic.sh --compile
 
 #### Windows
-Siccome Windows non dispone nativamente della shell bash non è disponibile la compilazione automatizzata di default. È comunque possibile usufruire di questa funzione se si utilizzano applicazioni che utilizzano **bash** come ad esempio **GIT** o **WSL**. In tal caso bisognerà eseguire, *mediante shell bash*, il seguente comando.
+Siccome Windows non dispone nativamente della shell bash non è disponibile la compilazione automatizzata di default.
+
+È comunque possibile usufruire di questa funzione se si utilizzano applicazioni che utilizzano **bash** come ad esempio **GIT** o **WSL**. In tal caso bisognerà eseguire, *mediante shell bash*, il seguente comando.
 
      bash automatic.sh --compile
 
