@@ -964,20 +964,13 @@ public class GeographicArea {
         } catch (Exception e) {
             // Output Exception
             e.printStackTrace();
+            // Error Return
+            return null;
         }
         // Build Geographic Area
         ga = new GeographicArea(fieldStrings);
         // Return Geographic Area
         return ga;        
-    }
-    /**
-     * Crea una riga coi campi dell'Area Geografica che può essere aggiunta ad un file CSV.
-     * La stringa creata include il newline successivo.
-     * @return stringa per CSV
-     */
-    public String toCSVLine() {
-        // Return CSV line
-        return CSV_Utilities.toCSVLine(toStringRecord());
     }
     // Create a record of strings from the fields
     private String[] toStringRecord() {
