@@ -506,7 +506,7 @@ public class AutorizedOperator extends User {
                     MonitoringCentre.insertCentre();
                     exit=true;
                     break;
-
+                // TODO Manca la creazione dell'area geografica
                 //logout
                 case 6:
                     exit=false;
