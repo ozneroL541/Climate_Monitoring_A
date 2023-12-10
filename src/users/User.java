@@ -184,13 +184,6 @@ public class User {
             System.out.println("Nessuna area disponibile");
         }
     }
-    // TODO JavaDoc
-    public void login_privilegies() {
-        AutorizedOperator a = AutorizedOperator.autenticazione();
-        if (a != null) {
-            a.menu();
-        }
-    }
     /**
      * Permette all'utente di registrarsi come Operatore Autorizzato
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv

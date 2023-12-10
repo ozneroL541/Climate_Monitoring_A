@@ -156,7 +156,10 @@ public class MainMenu {
                 return true;
             case 3:
                 // Login
-                user.login_privilegies();
+                user = AutorizedOperator.autenticazione();
+                if (user != null) {
+                    ((AutorizedOperator) user).menu();
+                }
                 return true;
             case 4:
                 // Registrazione
