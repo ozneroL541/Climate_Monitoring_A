@@ -230,14 +230,14 @@ public class MonitoringCentre {
         return mc.memorizzaCentro();
     }
     /**
-     * Permette di creare un Centro di Monitoraggio inserendone i dati e la ritorna.
+     * Permette di creare un Centro di Monitoraggio e lo ritorna.
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
      */
     public static MonitoringCentre createCentre() {
         // Error string
         final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
-        String nome="";
+        String nome = null;
         String [] indirizzo = new String [IndexOf.Iadd.length];
 
         // Name
