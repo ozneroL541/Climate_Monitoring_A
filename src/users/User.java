@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Lorenzo Radice
- * @version 0.20.2
+ * @version 0.20.3
  */
 public class User {
     /**
@@ -125,7 +125,6 @@ public class User {
      * @param id id dell'area
      */
     public void visualizzaAreaGeografica(){
-        // TODO fa un po' cagare va sistemato
         boolean exit=false;
         String id;
         String aree[]=Parameters.getIDAree();
