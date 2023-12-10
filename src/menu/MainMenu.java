@@ -157,10 +157,7 @@ public class MainMenu {
                 return true;
             case 3:
                 // Login
-                user = AutorizedOperator.autenticazione();
-                /* TODO rendere il menu dell'operatore autorizzato "chiamabile"
-                 * da user con controllo per vedere se è autorizzato
-                */
+                user.login_privilegies();
                 return true;
             case 4:
                 // Registrazione
