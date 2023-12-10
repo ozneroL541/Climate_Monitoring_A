@@ -441,7 +441,9 @@ public class AutorizedOperator extends User {
                             "6) Logout\n";    
         
         boolean exit=true;
-        int scelta;
+        // input
+        String input = null;
+        short scelta = 0;
 
         do{
             scelta=0;
@@ -449,14 +451,18 @@ public class AutorizedOperator extends User {
 
             System.out.print("\nInserire codice: ");
 
-            try{
-                scelta=InputScanner.INPUT_SCANNER.nextInt();
-            }catch(InputMismatchException e){
-                //consume invalid token
-                InputScanner.INPUT_SCANNER.next();
-                System.out.println("ERRORE");
-                System.out.println("Codice inserito errato!");
-                scelta=0;
+            // Input
+            try {
+                // Input
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                // Parse input
+                scelta = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                // Set to 0
+                scelta = 0;
+            } catch (Exception e) {
+                // Set to -1
+                scelta = -1;
             }
 
             switch (scelta) {
