@@ -157,7 +157,7 @@ public class MainMenu {
             case 3:
                 // Login
                 user = AutorizedOperator.autenticazione();
-                if (user != null) {
+                if (user != null && (user instanceof AutorizedOperator )) {
                     ((AutorizedOperator) user).menu();
                 }
                 return true;
