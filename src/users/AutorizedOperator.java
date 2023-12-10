@@ -661,7 +661,7 @@ public class AutorizedOperator extends User {
 
     //TODO rimuovere test main
     public static void main(String[] args){
-
-        inserisciParametriClimatici("Insubria");
+        AutorizedOperator a = AutorizedOperator.login();
+        a.menu();
     }
 }
