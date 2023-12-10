@@ -25,7 +25,9 @@
 package src.users;
 
 import src.common.Research;
+import src.geographicarea.GeographicArea;
 import src.common.CSV_Utilities;
+import src.common.CommonMethods;
 import src.common.InputScanner;
 
 import src.monitoringcentre.MonitoringCentre;
@@ -186,7 +188,7 @@ public class AutorizedOperator extends User {
         final String menu="\n\nMenù Operatore Autorizzato\n"+
                             "1) Cerca area geografica\n"+
                             "2) Visualizza area geografica\n"+
-                            "3) Creazione area geografica"+
+                            "3) Creazione area geografica\n"+
                             "4) Aggiunta parametri climatici\n"+
                             "5) Selezione centro di appartenenza\n"+
                             "6) Creazione nuovo centro di monitoraggio\n"+
@@ -233,7 +235,7 @@ public class AutorizedOperator extends User {
                 
                 //create geographic area
                 case 3:
-                    //TODO creazione area geografica
+                    makeArea();
                     exit=true;
                     break;
                 //add climate parameters
@@ -270,7 +272,6 @@ public class AutorizedOperator extends User {
                     MonitoringCentre.insertCentre();
                     exit=true;
                     break;
-                // TODO Manca la creazione dell'area geografica
                 //logout
                 case 7:
                     exit=false;
@@ -309,5 +310,42 @@ public class AutorizedOperator extends User {
      */
     public String getCognome() {
         return cognome;
+    }
+    /**
+     * Crea un'area geografica e la salva sul file.
+     * @return true se l'esecuzion è avvenuta correttamente.
+     */
+    public boolean makeArea() {
+        // Input string
+        String in = null;
+        // Create Geografica Area
+        GeographicArea ga = GeographicArea.createArea();
+        // Check if creation succeded
+        if (ga != null) {
+            // Print Area
+            System.out.println(ga.toString());
+            // Ask
+            System.out.println("Aggiungere l'area(S/N)?");
+            // Input
+            in = InputScanner.INPUT_SCANNER.nextLine();
+            // Check input
+            if (! CommonMethods.ExitLoop(in)) {
+                // Add area to file
+                if (ga.addToCSV()) {
+                    // Return true
+                    return true;
+                } else {
+                    // Error message
+                    System.err.println("Errore: l'area non è stata aggiunta al file.");
+                    // Return false
+                    return false;
+                }
+            } else
+                // End correctly
+                return true;
+        } else {
+            System.out.println("Creazione area Geografica fallita");
+            return false;
+        }
     }
 }
