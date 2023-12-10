@@ -503,17 +503,7 @@ public class AutorizedOperator extends User {
                 
                 //create centre
                 case 5:
-                    if(this.centre.equals(defaultValueOfCentre)){
-                        String centre=registraCentroAree();
-                        boolean success=addCentreToFile(centre);
-                        if(!success){
-                            System.out.println("Errore nell'aggiornamento del file");
-                        }
-                    }else{
-                        System.out.println("Impossibile creare un nuovo centro\nSei già associato al centro "+ this.centre);
-                    }
-                    System.out.println("\n\nOperazione terminata");
-                    System.out.println("Ritorno al menù");
+                    MonitoringCentre.insertCentre();
                     exit=true;
                     break;
 
