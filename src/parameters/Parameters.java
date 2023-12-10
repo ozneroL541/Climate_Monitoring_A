@@ -40,7 +40,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.20.0
+ * @version 0.21.0
  */
 public class Parameters {
     // Parameters File
@@ -162,6 +162,7 @@ public class Parameters {
     }
     /**
      * Crea un oggetto Parameters e lo ritorna.
+     * @param centre id del centro
      * @return oggetto Parameters
      */
     public static Parameters MakeParameters(String centre) {
@@ -495,5 +496,22 @@ public class Parameters {
         out += String.format("\t%-10s\t%-10s\t%-10s", ga.getGeoname_id(), ga.getDate(), ga.getCentre());
         // Return String
         return out;
+    }
+
+    /**
+     * Ritorna un array di stringhe univoche contenente gli id delle aree presenti nel file ParametriClimatici.dati.csv
+     * @return array di stringhe. Se nel file non sono presenti aree ritorna null
+     */
+    public static String[] getIDAree(){
+        return Research.getColNoRepetition(file, IndexOf.geoname_id);
+    }
+
+
+    //TODO rimuovere test main
+    public static void main(String [] args){
+        String aree[]=getIDAree();
+        for(String area: aree){
+            System.out.println(area);
+        }
     }
 }

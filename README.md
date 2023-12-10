@@ -3,9 +3,9 @@
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
 
 ## Versione
-0.20.0
+0.21.0 Alpha
 
-## Requisiti
+## Requisiti software
 Richiede Java 17.
 
 ## Download
@@ -18,15 +18,27 @@ Link per il download in formato compresso:
 <https://github.com/ozneroL541/Climate_Monitoring/tree/main>
 
 ## Compilazione
-### GNU/Linux
-Tramite linea di comando shell che supporta scripting <code>sh</code> (sh, bash, zsh, csh,...).
+Per compilare bisogna trovarsi nella cartella principale della repository.
 
-     cd Climate_Monitoring && src/auto_compiler/auto-compiler.sh
+     cd Climate_Monitoring
 
-### MacOS
+### Compilazione automatizzata
+Per la compilazione automatizzata è richiesta, come prerequisito, la presenza della shell **bash**.
+
+#### GNU/Linux
 Tramite linea di comando.
 
-     cd Climate_Monitoring && src/auto_compiler/auto-compiler.sh
+     ./automatic.sh --compile
+
+#### Windows
+Siccome Windows non dispone nativamente della shell bash non è disponibile la compilazione automatizzata di default. È comunque possibile usufruire di questa funzione se si utilizzano applicazioni che utilizzano **bash** come ad esempio **GIT** o **WSL**. In tal caso bisognerà eseguire, *mediante shell bash*, il seguente comando.
+
+     bash automatic.sh --compile
+
+#### MacOS
+Tramite linea di comando.
+
+     ./automatic.sh --compile
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty

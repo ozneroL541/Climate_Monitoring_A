@@ -36,7 +36,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.20.0
+ * @version 0.21.0
  */
 public class Research {
     /**
@@ -416,7 +416,7 @@ public class Research {
     }
     /**
      * Ricerca binaria in lista di double
-     * @param arr list
+     * @param arr lista
      * @param target obiettivo di ricerca
      * @return l'indice dove inserire l'obiettivo
      */
@@ -774,5 +774,102 @@ public class Research {
         }
         // Return false
         return false;
+    }
+    /**
+     * Ritorna tutte le celle appartenenti alla colonna selezionata nel file CSV passato come argomento.
+     * @param file file CSV
+     * @param col colonna
+     * @return array di stringhe della colonna
+     */
+    public static String[] getColNoRepetition(File file, int col) {
+        try{
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord = null;
+            // List of cell
+            ArrayList<String> cellList = new ArrayList<String>();
+            // Array of datas
+            String [] colArray = null;
+            // Index 
+            int i = 0;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col
+            if ( nextRecord.length <= col ) {
+                // Error Output
+                System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\n");
+                // Error
+                return null;
+            }
+            // While there is somthing to read
+            while ((nextRecord = creader.readNext()) != null) {
+                // Calc index
+                i = BinSearchArrListStr(cellList, nextRecord[col]);
+                if ( i >= 0 )
+                    // Add cell to the list
+                    cellList.add( i , nextRecord[col] );
+            }
+            // Close the file reader
+            creader.close();
+            // Pass arraylist to array
+            colArray = ((String[]) cellList.toArray(new String[0]));
+            // Return the array
+            return colArray;
+        }catch(FileNotFoundException e){ // If file not found
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return null
+            return null;
+        }catch(NullPointerException e){
+            // File not read
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
+        } 
+    }
+    /**
+     * Ricerca binaria in lista di Strings.
+     * In caso la lista esista ritorna il valore -1,
+     * @param arr lista
+     * @param target obiettivo di ricerca
+     * @return l'indice dove inserire l'obiettivo
+     */
+    private static int BinSearchArrListStr(ArrayList<String> arr, String target) {
+        // Left side
+        int left = 0;
+        // Right side
+        int right = arr.size() - 1;
+        // Middle
+        int mid = 0;
+        // While left is smaller than right
+        while (left <= right) {
+            // Set middle
+            mid = left + (right - left) / 2;
+            // Not necessary because the target is never equals to something in the list
+            if (arr.get(mid).equals(target)) {
+                // If the target value is already in the list, return its index
+                return -1;
+            } else
+                // If the target is bigger
+                if ( arr.get(mid).compareTo(target) < 0 ) {
+                    // If the middle element is less than the target, search the right half
+                    left = mid + 1;
+                } else {
+                    // If the middle element is greater than the target, search the left half
+                    right = mid - 1;
+                }
+        }
+        // Return the index
+        return left;
     }
 }

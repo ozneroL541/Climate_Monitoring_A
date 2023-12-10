@@ -26,11 +26,12 @@ package src.menu;
 
 import src.common.InputScanner;
 import src.header.Header;
+import src.users.*;
 
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.20.0
+ * @version 0.21.0
  */
 public class MainMenu {
     // Menu string
@@ -50,6 +51,7 @@ public class MainMenu {
         // Options array
         final String[] options = {
             "Ricerca aree",
+            "Visualizza informazioni aree",
             "Login",
             "Registrazione",
             "Info",
@@ -140,25 +142,37 @@ public class MainMenu {
     }
     // Execute selected action
     private boolean selectedAction( short input ) {
+        // User
+        User user = new User();        
         // Select the method choosen by the user
         switch (input) {
             case 1:
                 // Ricerca aree
-                // TODO
+                user.cercaAreaGeografica();
                 return true;
             case 2:
-                // Login
-                // TODO
+                // Visualizza info aree
+                user.visualizzaAreaGeografica();
                 return true;
             case 3:
-                // Registrazione
-                // TODO
+                // Login
+                // Autenticate
+                user = AutorizedOperator.autenticazione();
+                // Check autentication result
+                if (user != null && (user instanceof AutorizedOperator )) {
+                    // Autorized Operator Menu
+                    ((AutorizedOperator) user).menu();
+                }
                 return true;
             case 4:
+                // Registrazione
+                User.registrazione();
+                return true;
+            case 5:
                 // Info
                 Header.ChooseOption();
                 return true;
-            case 5:
+            case 6:
                 // Esci
                 return false;
             default:

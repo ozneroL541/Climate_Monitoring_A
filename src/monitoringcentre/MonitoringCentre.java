@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.20.0
+ * @version 0.21.0
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -146,7 +146,7 @@ public class MonitoringCentre {
     }
     public boolean memorizzaCentro(){
         // Check existance
-        if ( Exist() ) {
+        if ( !Exist() ) {
             return false;
         }
         return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
@@ -176,7 +176,7 @@ public class MonitoringCentre {
 
         return record;
     }
-    //TODO aggiungere commenti?
+    // Make a cell for Areas for CSV
     private String areasforCSV() {
         final String delimiter = "-";
         String str = "";
@@ -215,13 +215,15 @@ public class MonitoringCentre {
     public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
-    //TODO fare javadoc
-    //TODO questo metodo non viene mai usato, i centri non vengono mai scritti su file
+    /**
+     * Richiede all'utente di creare un centro, se la creazione ha avuto successo, la salva sul file.
+     * @return true se l'esecuzion ha avuto successo
+     */
     public static boolean insertCentre() {
         // Create Centre
         MonitoringCentre mc = createCentre();
         // Check if center was created
-        if ( mc == null || mc.Exist() ) {
+        if ( mc == null || !mc.Exist() ) {
             // Error message
             System.err.println("Errore: Centro non creato.");
             return false;
@@ -230,14 +232,14 @@ public class MonitoringCentre {
         return mc.memorizzaCentro();
     }
     /**
-     * Permette di creare un Centro di Monitoraggio inserendone i dati e la ritorna.
+     * Permette di creare un Centro di Monitoraggio e lo ritorna.
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
      */
     public static MonitoringCentre createCentre() {
         // Error string
         final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
-        String nome="";
+        String nome = null;
         String [] indirizzo = new String [IndexOf.Iadd.length];
 
         // Name
