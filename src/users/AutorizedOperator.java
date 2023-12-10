@@ -487,7 +487,7 @@ public class AutorizedOperator extends User {
                 //select centre
                 case 4:
                     //if user does not have a center
-                    if(!this.centre.equals(defaultValueOfCentre)){
+                    if(this.centre.equals(defaultValueOfCentre)){
                         String centre=associaCentro();
                         boolean success=addCentreToFile(centre);
                         if(!success){
@@ -503,7 +503,7 @@ public class AutorizedOperator extends User {
                 
                 //create centre
                 case 5:
-                    if(!this.centre.equals(defaultValueOfCentre)){
+                    if(this.centre.equals(defaultValueOfCentre)){
                         String centre=registraCentroAree();
                         boolean success=addCentreToFile(centre);
                         if(!success){
@@ -662,6 +662,7 @@ public class AutorizedOperator extends User {
     //TODO rimuovere test main
     public static void main(String[] args){
         AutorizedOperator a = AutorizedOperator.login();
+        System.out.println(a);
         a.menu();
     }
 }
