@@ -176,7 +176,7 @@ public class MonitoringCentre {
 
         return record;
     }
-    //TODO aggiungere commenti?
+    // Make a cell for Areas for CSV
     private String areasforCSV() {
         final String delimiter = "-";
         String str = "";

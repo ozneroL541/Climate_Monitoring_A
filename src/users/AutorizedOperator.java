@@ -430,6 +430,7 @@ public class AutorizedOperator extends User {
      * Mostra il menù e permette di scegliere le azioni eseguibili dall'operatore autorizzato
      */
     public void menu(){
+        // TODO Modularizzare
 
         final String menu="\n\nMenù Operatore Autorizzato\n"+
                             "1) Cerca area geografica\n"+
