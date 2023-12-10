@@ -24,9 +24,9 @@
 
 package src.users;
 
-import java.io.File;
-import java.nio.file.FileSystems;
-import src.common.*;
+import src.common.Research;
+import src.common.CSV_Utilities;
+import src.common.InputScanner;
 
 import src.monitoringcentre.MonitoringCentre;
 import src.parameters.Parameters;
