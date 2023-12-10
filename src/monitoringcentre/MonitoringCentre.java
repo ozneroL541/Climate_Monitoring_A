@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.20.1
+ * @version 0.21.0
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;

@@ -27,9 +27,6 @@ package src.parameters;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.HashSet;
-
 import src.common.CSV_Utilities;
 import src.common.CommonMethods;
 import src.common.InputScanner;
@@ -43,7 +40,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.20.1
+ * @version 0.21.0
  */
 public class Parameters {
     // Parameters File

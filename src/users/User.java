@@ -42,7 +42,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.20.4
+ * @version 0.21.0
  */
 public class User {
     // File header

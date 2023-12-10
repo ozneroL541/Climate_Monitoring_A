@@ -31,7 +31,7 @@ import src.users.*;
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.20.2
+ * @version 0.21.0
  */
 public class MainMenu {
     // Menu string
@@ -156,8 +156,11 @@ public class MainMenu {
                 return true;
             case 3:
                 // Login
+                // Autenticate
                 user = AutorizedOperator.autenticazione();
+                // Check autentication result
                 if (user != null && (user instanceof AutorizedOperator )) {
+                    // Autorized Operator Menu
                     ((AutorizedOperator) user).menu();
                 }
                 return true;

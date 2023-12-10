@@ -36,7 +36,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.20.1
+ * @version 0.21.0
  */
 public class Research {
     /**
