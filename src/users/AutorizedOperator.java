@@ -435,10 +435,11 @@ public class AutorizedOperator extends User {
         final String menu="\n\nMenù Operatore Autorizzato\n"+
                             "1) Cerca area geografica\n"+
                             "2) Visualizza area geografica\n"+
-                            "3) Aggiunta parametri climatici\n"+
-                            "4) Selezione centro di appartenenza\n"+
-                            "5) Creazione nuovo centro di monitoraggio\n"+
-                            "6) Logout\n";    
+                            "3) Creazione area geografica"+
+                            "4) Aggiunta parametri climatici\n"+
+                            "5) Selezione centro di appartenenza\n"+
+                            "6) Creazione nuovo centro di monitoraggio\n"+
+                            "7) Logout\n";    
         
         boolean exit=true;
         // input
@@ -479,8 +480,13 @@ public class AutorizedOperator extends User {
                     exit=true;
                     break;
                 
-                //add climate parameters
+                //create geographic area
                 case 3:
+                    //TODO creazione area geografica
+                    exit=true;
+                    break;
+                //add climate parameters
+                case 4:
                     if(!this.centre.equals(defaultValueOfCentre)){
                         inserisciParametriClimatici(this.centre);
                     }else{
@@ -492,7 +498,7 @@ public class AutorizedOperator extends User {
                     break;
                 
                 //select centre
-                case 4:
+                case 5:
                     //if user does not have a center
                     if(this.centre.equals(defaultValueOfCentre)){
                         String centre=associaCentro();
@@ -509,13 +515,13 @@ public class AutorizedOperator extends User {
                     break;
                 
                 //create centre
-                case 5:
+                case 6:
                     MonitoringCentre.insertCentre();
                     exit=true;
                     break;
                 // TODO Manca la creazione dell'area geografica
                 //logout
-                case 6:
+                case 7:
                     exit=false;
                     break;
             
