@@ -101,7 +101,7 @@ function compile_jar {
 # Compile to Objects
 function compile {
     # Compile java
-    javac $src*/*.java -d $bin -cp $tmp$lib
+    javac $src*/*.java -d $bin -cp $lib"opencsv-5.5.2.jar" $lib"commons-lang3-3.1.jar"
     result $? "Compilation"
 }
 # Remove Objects files

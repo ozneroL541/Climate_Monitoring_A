@@ -230,6 +230,7 @@ public class CSV_Utilities {
      * @param col colonna della cella
      * @return true se l'esecuzione è avvenuta correttamente
      */
+    @Deprecated
     public static boolean updateCellInCSV(File file, String update, int line, int col){
         
         // Check file existence
