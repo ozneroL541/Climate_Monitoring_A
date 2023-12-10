@@ -215,8 +215,10 @@ public class MonitoringCentre {
     public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
-    //TODO fare javadoc
-    //TODO questo metodo non viene mai usato, i centri non vengono mai scritti su file
+    /**
+     * Richiede all'utente di creare un centro, se la creazione ha avuto successo, la salva sul file.
+     * @return true se l'esecuzion ha avuto successo
+     */
     public static boolean insertCentre() {
         // Create Centre
         MonitoringCentre mc = createCentre();
