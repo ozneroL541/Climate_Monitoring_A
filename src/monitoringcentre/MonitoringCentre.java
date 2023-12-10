@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.20.0
+ * @version 0.20.1
  */
 public class MonitoringCentre {
     // private String via, civico, cap, comune, provincia;
@@ -146,7 +146,7 @@ public class MonitoringCentre {
     }
     public boolean memorizzaCentro(){
         // Check existance
-        if ( Exist() ) {
+        if ( !Exist() ) {
             return false;
         }
         return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
@@ -221,7 +221,7 @@ public class MonitoringCentre {
         // Create Centre
         MonitoringCentre mc = createCentre();
         // Check if center was created
-        if ( mc == null || mc.Exist() ) {
+        if ( mc == null || !mc.Exist() ) {
             // Error message
             System.err.println("Errore: Centro non creato.");
             return false;
