@@ -152,7 +152,6 @@ public class MainMenu {
                 return true;
             case 2:
                 // Visualizza info aree
-                // TODO Bug fixing
                 user.visualizzaAreaGeografica();
                 return true;
             case 3:
@@ -161,8 +160,7 @@ public class MainMenu {
                 return true;
             case 4:
                 // Registrazione
-                /* TODO renderlo un metodo non-statico di User */
-                AutorizedOperator.registrazione();
+                User.registrazione();
                 return true;
             case 5:
                 // Info

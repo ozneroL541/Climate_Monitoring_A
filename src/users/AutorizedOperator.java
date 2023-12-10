@@ -25,13 +25,7 @@
 package src.users;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.util.InputMismatchException;
-import java.util.regex.Pattern;
-
 import src.common.*;
 
 import src.monitoringcentre.MonitoringCentre;
@@ -42,7 +36,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.20.1
+ * @version 0.20.2
  */
 public class AutorizedOperator extends User {
     // User Identity Code
@@ -59,24 +53,6 @@ public class AutorizedOperator extends User {
     private String passwd;
     // Monitoring Centre
     private String centre;
-    //private short centre;
-    // Indexes in CSV file
-    private final static class IndexOf {
-        private final static short matricola=0;
-        private final static short nome=1;
-        private final static short cognome=2;
-        private final static short codice_fiscale=3;
-        private final static short email=4;
-        private final static short password=5;
-        private final static short centro=6;
-        //number of indexes
-        private final static short indexes = 7;
-    }
-    // Make the path platform independent
-    private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
-    //dafault value for attribute centre if user does not choose a centre during registration
-    private final static String defaultValueOfCentre="";
-
     /**
     * Costruttore vuoto
     */

@@ -43,28 +43,29 @@ import src.parameters.Parameters;
 /**
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
+ * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 0.20.3
+ * @version 0.20.4
  */
 public class User {
     // File header
     private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
     // Indexes in CSV file
-    private final static class IndexOf {
-        private final static short matricola=0;
-        private final static short nome=1;
-        private final static short cognome=2;
-        private final static short codice_fiscale=3;
-        private final static short email=4;
-        private final static short password=5;
-        private final static short centro=6;
+    protected final static class IndexOf {
+        final static short matricola=0;
+        final static short nome=1;
+        final static short cognome=2;
+        final static short codice_fiscale=3;
+        final static short email=4;
+        final static short password=5;
+        final static short centro=6;
         //number of indexes
-        private final static short indexes = 7;
+        final static short indexes = 7;
     }
     // Make the path platform independent
-    private final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
+    protected final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
     //dafault value for attribute centre if user does not choose a centre during registration
-    private final static String defaultValueOfCentre="";
+    protected final static String defaultValueOfCentre="";
     /**
      * Crea un utente
      */
