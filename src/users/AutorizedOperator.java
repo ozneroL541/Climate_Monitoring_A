@@ -36,7 +36,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.20.2
+ * @version 0.21.0
  */
 public class AutorizedOperator extends User {
     // User Identity Code
@@ -309,12 +309,5 @@ public class AutorizedOperator extends User {
      */
     public String getCognome() {
         return cognome;
-    }
-
-    //TODO rimuovere test main
-    public static void main(String[] args){
-        AutorizedOperator a = AutorizedOperator.login();
-        System.out.println(a);
-        a.menu();
     }
 }
