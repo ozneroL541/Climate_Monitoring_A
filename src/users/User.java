@@ -148,7 +148,6 @@ public class User {
 
     /**
      * Permette all'utente di visualizzare le informazioni associate ad una area geografica.
-     * @param id id dell'area
      */
     public void visualizzaAreaGeografica(){
         boolean exit=false;
