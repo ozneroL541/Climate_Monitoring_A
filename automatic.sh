@@ -69,7 +69,8 @@ function maketmp {
     if result $res "Temporary directory making"
     then
         # Create the MANIFEST.MF file
-        echo "Main-Class: src.climatemonitoring.ClimateMonitor" > $manifest && echo "Class-Path: ../$lib"opencsv-5.5.2.jar ../"$lib"commons-lang3-3.1.jar"" >> $manifest
+        d=$(echo "Main-Class: src.climatemonitoring.ClimateMonitor" > $manifest && echo "Class-Path: ../$lib"opencsv-5.5.2.jar ../"$lib"commons-lang3-3.1.jar"" >> $manifest)
+        echo $d && $d
         res=$?
         result $res "Manifest file creation" 
     fi
@@ -79,7 +80,8 @@ function maketmp {
 function rmtmp {
     if test -d $tmp
     then
-        rm -r $tmp
+        d=$(rm -r $tmp)
+        echo $d && $d
         result $? "Temporary directory removing"
     else
         echo ""
@@ -93,8 +95,8 @@ function compile_jar {
     if compile && cd $bin
     then
         # Make an executable JAR
-        echo "jar cvfm "$jar" ../"$manifest" src/*/*.class"
-        jar cvfm $jar ../$manifest src/*/*.class
+        d=$(jar cvfm $jar ../$manifest src/*/*.class)
+        echo $d && $d
         res=$?
         cd ..
         if result $res "JAR creation"
@@ -107,17 +109,20 @@ function compile_jar {
 # Compile to Objects
 function compile {
     # Compile java
-    javac $args $bin $cp
+    d=$(javac $args $bin $cp)
+    echo $d && $d
     result $? "Compilation"
 }
 # Remove Objects files
 function rmobj {
-    rm -r $bin$src
+    d=$(rm -r $bin$src)
+    echo $d && $d
     result $? "Object files removing"
 }
 # Remove JAR
 function rmjar {
-    rm $bin$jar
+    d=$(rm $bin$jar)
+    echo $d && $d
     result $? "JAR removing"
 }
 # Document
@@ -130,7 +135,8 @@ function rmdoc {
     if cd $doc
     then
         # Delete all files and directories except description
-        find . ! -name $description -type f -delete && find . -mindepth 1 -maxdepth 1 ! -name $description -type d -exec rm -rf {} +
+        d=$(find . ! -name $description -type f -delete && find . -mindepth 1 -maxdepth 1 ! -name $description -type d -exec rm -rf {} +)
+        echo $d && $d
         res=$?
         result $res "Documentation removing"
         cd ..
