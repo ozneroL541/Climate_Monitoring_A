@@ -48,34 +48,33 @@ Tramite linea di comando.
 ---
 #### GNU/Linux
 Entrare nella cartella
-```
+
      cd Climate_Monitoring
-```
+
 ##### Compilazione
-```
+
      javac src/*/*.java -d bin/ -cp lib/opencsv-5.5.2.jar:lib/commons-lang3-3.1.jar:.
-```
+
 ##### Creazione JAR Eseguibile
 Creare file manifesto temporaneo
-```
+
      mkdir tmp && echo Main-Class: src.climatemonitoring.ClimateMonitor > tmp/MANIFEST.MF && echo Class-Path: ../lib/opencsv-5.5.2.jar ../lib/commons-lang3-3.1.jar >> tmp/MANIFEST.MF
-```
+
 Entrare nella cartella bin
-```
+
      cd bin
-```
+
 Creare JAR eseguibile
-```
+
      jar cvfm ClimateMonitor.jar ../tmp/MANIFEST.MF src/*/*.class
-```
+
 Uscire dalla cartella bin
-```
+
      cd ..
-```
+
 Rimuovere file manifest temporaneo
-```
+
      rm -r tmp
-```
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
