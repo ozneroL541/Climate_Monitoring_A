@@ -75,6 +75,17 @@ Uscire dalla cartella bin
 Rimuovere file manifest temporaneo
 
      rm -r tmp
+## Esecuzione
+Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella *bin*.
+
+Lanciare il comando:
+
+     java -jar bin/ClimateMonitor.jar
+
+In altenativa, nel caso si desideri eseguirlo direttamente nella cartella *bin*:
+
+     cd bin 
+     java -jar ClimateMonitor.jar
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
