@@ -23,6 +23,7 @@ Per compilare bisogna trovarsi nella cartella principale della repository.
      cd Climate_Monitoring
 
 ### Compilazione automatizzata
+---
 Per la compilazione automatizzata è richiesta, come prerequisito, la presenza della shell **bash**.
 
 #### GNU/Linux
@@ -41,6 +42,32 @@ Siccome Windows non dispone nativamente della shell bash non è disponibile la c
 Tramite linea di comando.
 
      ./automatic.sh --compile
+
+
+### Compilazione Manuale
+---
+#### GNU/Linux
+Entrare nella cartella
+```
+     cd Climate_Monitoring
+```
+##### Compilazione
+```
+     javac src/*/*.java -d bin/ -cp lib/opencsv-5.5.2.jar:lib/commons-lang3-3.1.jar:.
+```
+##### Creazione JAR Eseguibile
+Creare file manifesto temporaneo
+```
+     mkdir tmp && echo Main-Class: src.climatemonitoring.ClimateMonitor > tmp/MANIFEST.MF && echo Class-Path: ../lib/opencsv-5.5.2.jar ../lib/commons-lang3-3.1.jar >> tmp/MANIFEST.MF
+```
+Creare JAR eseguibile
+```
+     javac src/*/*.java -d bin/ -cp lib/opencsv-5.5.2.jar:lib/commons-lang3-3.1.jar:.
+```
+Rimuovere file manifest temporaneo
+```
+     rm -r tmp
+```
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
