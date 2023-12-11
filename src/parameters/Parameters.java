@@ -505,13 +505,4 @@ public class Parameters {
     public static String[] getIDAree(){
         return Research.getColNoRepetition(file, IndexOf.geoname_id);
     }
-
-
-    //TODO rimuovere test main
-    public static void main(String [] args){
-        String aree[]=getIDAree();
-        for(String area: aree){
-            System.out.println(area);
-        }
-    }
 }

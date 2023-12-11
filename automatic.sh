@@ -29,6 +29,12 @@ doc="doc/"
 src="src/"
 lib="lib/"
 tmp="tmp/"
+# ClassPath
+cp="-cp $lib"opencsv-5.5.2.jar:"$lib"commons-lang3-3.1.jar:.""
+# Javac Arguments
+args="$src*/*.java -d"
+# Manifest file
+manifest="$tmp"MANIFEST.MF""
 # Executable
 jar="ClimateMonitor.jar"
 # Do not remove
@@ -58,15 +64,14 @@ function failed {
 # Make Temporary File
 function maketmp {
     # Make tmp dir
-    rmtmp; mkdir $tmp && cd $tmp && mkdir $lib && cd $lib
+    rmtmp; mkdir $tmp
     res=$?
     if result $res "Temporary directory making"
     then
-        # Extract JAR file
-        jar -xf ../../$lib"opencsv-5.5.2.jar"
+        # Create the MANIFEST.MF file
+        echo "Main-Class: src.climatemonitoring.ClimateMonitor" > $manifest && echo "Class-Path: ../$lib"opencsv-5.5.2.jar ../"$lib"commons-lang3-3.1.jar"" >> $manifest
         res=$?
-        result $res "JAR extraction"
-        cd ../..
+        result $res "Manifest file creation" 
     fi
     return $res
 }
@@ -88,7 +93,8 @@ function compile_jar {
     if compile && cd $bin
     then
         # Make an executable JAR
-        jar cvfe $jar src.climatemonitoring.ClimateMonitor $src*/*.class
+        echo "jar cvfm "$jar" ../"$manifest" src/*/*.class"
+        jar cvfm $jar ../$manifest src/*/*.class
         res=$?
         cd ..
         if result $res "JAR creation"
@@ -101,7 +107,7 @@ function compile_jar {
 # Compile to Objects
 function compile {
     # Compile java
-    javac $src*/*.java -d $bin -cp $tmp$lib
+    javac $args $bin $cp
     result $? "Compilation"
 }
 # Remove Objects files
@@ -116,7 +122,7 @@ function rmjar {
 }
 # Document
 function document {
-    javadoc $src*/*.java -d $doc -cp $tmp$lib
+    javadoc $args $doc $cp
     result $? "Documentation creation"
 }
 # Remove Documetation
@@ -138,17 +144,13 @@ function rmdoc {
 # Compile and Document
 function comp_doc {
     # Create tmp directory
-    if maketmp
-    then
-        # Compile Java and Make JAR
-        compile_jar
-        # Make JavaDoc
-        document
-        # Remove Temporary Directory
-        rmtmp
-    else
-        return -1
-    fi
+    maketmp
+    # Compile Java and Make JAR
+    compile_jar
+    # Make JavaDoc
+    document
+    # Remove Temporary Directory
+    rmtmp
 }
 # Remove all
 function rmall {
@@ -189,7 +191,7 @@ if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
         ;;
         # Compile
         "c" | "-c" | "compile" | "javac" | "-compile" | "--javac" | "--compile")
-            maketmp && (compile; rmtmp)
+            compile
         ;;
         # JAR
         "j" | "-j" | "-jar" | "jar" | "--jar")
