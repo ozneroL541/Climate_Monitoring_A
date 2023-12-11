@@ -245,4 +245,3 @@ if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
 else
     echo "Error: Wrong Path"
 fi
-
