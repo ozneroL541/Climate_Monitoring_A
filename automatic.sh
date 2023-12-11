@@ -210,7 +210,7 @@ if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
         ;;
         # Doument
         "d" | "-d" | "document" | "javadoc" | "-document" | "--document" | "--javadoc")
-            maketmp && (document; rmtmp)
+            document
         ;;
         # Remove
         "r" | "-r" | "rm" | "-rm" | "remove" | "-remove"  | "--remove")
