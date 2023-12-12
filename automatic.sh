@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # * Matricola    Cognome     Nome
 # * 754530       Galimberti  Riccardo
