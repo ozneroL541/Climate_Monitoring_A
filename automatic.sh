@@ -132,9 +132,10 @@ document() {
 # Remove Documetation
 rmdoc() {
     if cd $doc; then
-        # Delete all files and directories except description
+        # Delete all files except description
         d1="find . ! -name $description -type f -delete"
-        d2="find . -mindepth 1 -maxdepth 1 ! -name '$description' -type d -exec rm -rf {} +"
+        # Delete all directories
+        d2="rm */*; rm *"
         echo "$d1" && $d1
         echo "$d2" && $d2
         res=$?
