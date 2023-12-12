@@ -135,9 +135,9 @@ rmdoc() {
         # Delete all files except description
         d1="find . ! -name $description -type f -delete"
         # Delete all directories
-        d2="rm */*; rm *"
-        echo "$d1" && $d1
-        echo "$d2" && $d2
+        d2="rmdir */*; rmdir *"
+        echo "$d1" && eval $d1
+        echo "$d2" && eval $d2
         res=$?
         result $res "Documentation removal"
         cd ..
@@ -190,7 +190,7 @@ help() {
 # Move in a directory different from src
 
 # Check the Path
-if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
+if  [ "$(basename "$(pwd)")" = "Climate_Monitoring" ]; then
     case $1 in
         # Help
         "h" | "-h" | "help" | "-help" | "--help")
