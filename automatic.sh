@@ -82,7 +82,7 @@ function rmtmp {
     if test -d $tmp
     then
         d="rm -r $tmp"
-        echo "$d" && $d
+        echo "$d" && eval $d
         result $? "Temporary directory removing"
     else
         echo ""
@@ -97,7 +97,7 @@ function compile_jar {
     then
         # Make an executable JAR
         d="jar cvfm $jar ../$manifest src/*/*.class"
-        echo "$d" && $d
+        echo "$d" && eval $d
         res=$?
         cd ..
         if result $res "JAR creation"
@@ -111,26 +111,25 @@ function compile_jar {
 function compile {
     # Compile java
     d="javac $args $bin $cp"
-    echo "$d"
-    $d
+    echo "$d" && eval $d
     result $? "Compilation"
 }
 # Remove Objects files
 function rmobj {
     d="rm -r $bin$src"
-    echo "$d" && $d
+    echo "$d" && eval $d
     result $? "Object files removing"
 }
 # Remove JAR
 function rmjar {
     d="rm $bin$jar"
-    echo "$d" && $d
+    echo "$d" && eval $d
     result $? "JAR removing"
 }
 # Document
 function document {
     d="javadoc $args $doc $cp"
-    echo "$d" && $d
+    echo "$d" && eval $d
     result $? "Documentation creation"
 }
 # Remove Documetation
@@ -140,8 +139,8 @@ function rmdoc {
         # Delete all files and directories except description
         d1="find . ! -name $description -type f -delete"
         d2="find . -mindepth 1 -maxdepth 1 ! -name '$description' -type d -exec rm -rf {} +"
-        echo "$d1" && $d1
-        echo "$d2" && $d2
+        echo "$d1" && eval $d1
+        echo "$d2" && eval $d2
         res=$?
         result $res "Documentation removing"
         cd ..
@@ -190,7 +189,7 @@ function help {
 # Move in a directory different from src
 
 # Check the Path
-if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
+if  [ "$(basename "$(pwd)")"=="Climate_Monitoring" ]; then
     case $1 in
         # Help
         "h" | "-h" | "help" | "-help" | "--help")
