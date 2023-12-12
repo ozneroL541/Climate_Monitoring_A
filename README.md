@@ -24,7 +24,7 @@ Per compilare bisogna trovarsi nella cartella principale della repository.
 
 ### Compilazione automatizzata
 ---
-Per la compilazione automatizzata è richiesta, come prerequisito, la presenza della shell **bash**.
+Per la compilazione automatizzata è richiesta, come prerequisito, la presenza della shell **sh**.
 
 #### GNU/Linux
 Tramite linea di comando.
@@ -32,11 +32,11 @@ Tramite linea di comando.
      ./automatic.sh --compile
 
 #### Windows
-Siccome Windows non dispone nativamente della shell bash non è disponibile la compilazione automatizzata di default.
+Siccome Windows non dispone nativamente della shell sh non è disponibile la compilazione automatizzata di default.
 
-È comunque possibile usufruire di questa funzione se si utilizzano applicazioni che utilizzano **bash** come ad esempio **GIT** o **WSL**. In tal caso bisognerà eseguire, *mediante shell bash*, il seguente comando.
+È comunque possibile usufruire di questa funzione se si utilizzano applicazioni che utilizzano **sh** come ad esempio **GIT** o **WSL**. In tal caso bisognerà eseguire, *mediante shell sh*, il seguente comando.
 
-     bash automatic.sh --compile
+     sh automatic.sh --compile
 
 #### MacOS
 Tramite linea di comando.
