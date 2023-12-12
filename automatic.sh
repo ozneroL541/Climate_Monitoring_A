@@ -114,14 +114,14 @@ compile() {
 # Remove Objects files
 rmobj() {
     d="rm -r $bin$src"
-    echo "$d" && eval $d
-    result $? "Object files removal"
+    echo "$d" && $d
+    result $? "Object files removing"
 }
 # Remove JAR
 rmjar() {
     d="rm $bin$jar"
-    echo "$d" && eval $d
-    result $? "JAR removal"
+    echo "$d" && $d
+    result $? "JAR removing"
 }
 # Document
 document() {
@@ -132,11 +132,12 @@ document() {
 # Remove Documetation
 rmdoc() {
     if cd $doc; then
-        # Delete all files and directories except description
+        # Delete all files except description
         d1="find . ! -name $description -type f -delete"
-        d2="rmdir */* && rmdir *"
-        echo "$d1" && eval $d1
-        echo "$d2" && eval $d2
+        # Delete all directories
+        d2="rm */*; rm *"
+        echo "$d1" && $d1
+        echo "$d2" && $d2
         res=$?
         result $res "Documentation removal"
         cd ..
@@ -189,7 +190,7 @@ help() {
 # Move in a directory different from src
 
 # Check the Path
-if  [ "$(basename "$(pwd)")" = "Climate_Monitoring" ]; then
+if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
     case $1 in
         # Help
         "h" | "-h" | "help" | "-help" | "--help")
