@@ -41,7 +41,7 @@ jar="ClimateMonitor.jar"
 description=".description.txt"
 
 # Function Result
-function result {
+result() {
     if [ $1 -eq 0 ]; then
         success "$2"
     else
@@ -49,26 +49,25 @@ function result {
     fi
 }
 # Positive result
-function success {
+success() {
     echo ""
     echo "$1: succeeded"
     echo ""
 }
 # Negative Result
-function failed {
+failed() {
     echo ""
     echo "$1: failed"
     echo ""
-    return -1
+    return 1
 }
 # Make Temporary File
-function maketmp {
+maketmp() {
     # Make tmp dir
     rmtmp
     mkdir $tmp
     res=$?
-    if result $res "Temporary directory making"
-    then
+    if result $res "Temporary directory making"; then
         # Create the MANIFEST.MF file
         echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest" && echo "Class-Path: ../"$lib"opencsv-5.5.2.jar ../"$lib"commons-lang3-3.1.jar" >> "$manifest""
         echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest" && echo "Class-Path: ../"$lib"opencsv-5.5.2.jar ../"$lib"commons-lang3-3.1.jar" >> "$manifest"
@@ -78,12 +77,11 @@ function maketmp {
     return $res
 }
 # Remove Temporary
-function rmtmp {
-    if test -d $tmp
-    then
+rmtmp() {
+    if test -d $tmp; then
         d="rm -r $tmp"
-        echo "$d" && $d
-        result $? "Temporary directory removing"
+        echo "$d" && eval $d
+        result $? "Temporary directory removal"
     else
         echo ""
         echo "Temporary directory does not exist"
@@ -91,13 +89,12 @@ function rmtmp {
     fi
 }
 # Compile
-function compile_jar {
+compile_jar() {
     # Compile java
-    if compile && cd $bin
-    then
+    if compile && cd $bin; then
         # Make an executable JAR
         d="jar cvfm $jar ../$manifest src/*/*.class"
-        echo "$d" && $d
+        echo "$d" && eval $d
         res=$?
         cd ..
         if result $res "JAR creation"
@@ -108,42 +105,40 @@ function compile_jar {
     fi
 }
 # Compile to Objects
-function compile {
+compile() {
     # Compile java
     d="javac $args $bin $cp"
-    echo "$d"
-    $d
+    echo "$d" && eval $d
     result $? "Compilation"
 }
 # Remove Objects files
-function rmobj {
+rmobj() {
     d="rm -r $bin$src"
-    echo "$d" && $d
-    result $? "Object files removing"
+    echo "$d" && eval $d
+    result $? "Object files removal"
 }
 # Remove JAR
-function rmjar {
+rmjar() {
     d="rm $bin$jar"
-    echo "$d" && $d
-    result $? "JAR removing"
+    echo "$d" && eval $d
+    result $? "JAR removal"
 }
 # Document
-function document {
+document() {
     d="javadoc $args $doc $cp"
-    echo "$d" && $d
+    echo "$d" && eval $d
     result $? "Documentation creation"
 }
 # Remove Documetation
-function rmdoc {
-    if cd $doc
-    then
+rmdoc() {
+    if cd $doc; then
         # Delete all files and directories except description
         d1="find . ! -name $description -type f -delete"
-        d2="find . -mindepth 1 -maxdepth 1 ! -name '$description' -type d -exec rm -rf {} +"
-        echo "$d1" && $d1
-        echo "$d2" && $d2
+        d2="rmdir */* && rmdir *"
+        echo "$d1" && eval $d1
+        echo "$d2" && eval $d2
         res=$?
-        result $res "Documentation removing"
+        result $res "Documentation removal"
         cd ..
         return $res
     else
@@ -153,7 +148,7 @@ function rmdoc {
     fi
 }
 # Compile and Document
-function comp_doc {
+comp_doc() {
     # Create tmp directory
     maketmp
     # Compile Java and Make JAR
@@ -164,14 +159,18 @@ function comp_doc {
     rmtmp
 }
 # Remove all
-function rmall {
+rmall() {
+    # Remove Temporary directory
     rmtmp
+    # Remove JAR
     rmjar
+    # Remove Object files
     rmobj
+    # Remove Documentation
     rmdoc
 }
 # Help menu
-function help {
+help() {
     echo "Help Menu"
     echo "  -h      print this menu"
     echo "  -t      create temporary files"
@@ -190,7 +189,7 @@ function help {
 # Move in a directory different from src
 
 # Check the Path
-if  [ "$(basename "$(pwd)")" == "Climate_Monitoring" ]; then
+if  [ "$(basename "$(pwd)")" = "Climate_Monitoring" ]; then
     case $1 in
         # Help
         "h" | "-h" | "help" | "-help" | "--help")
