@@ -256,8 +256,6 @@ public class Table {
         }
         // Exit condition
         boolean exit = true;
-        // Integer input
-        Integer integ_in = 0;
         // String input
         String str_in = "";
         // Short input
@@ -267,10 +265,8 @@ public class Table {
         // Input Score
         do {
             try{
-                // Integer Input
-                integ_in = InputScanner.INPUT_SCANNER.nextInt();
-                // Pass input as a short
-                short_in = integ_in.shortValue();
+                // Short Input
+                short_in = InputScanner.INPUT_SCANNER.nextShort();
                 // Check the input
                 if ( ! Table.isScoreCorrect(short_in) ) {
                     // Do not exit
