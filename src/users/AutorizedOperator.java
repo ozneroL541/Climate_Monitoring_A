@@ -291,6 +291,22 @@ public class AutorizedOperator extends User {
         return cognome;
     }
     /**
+     * Assegna un Centro di Monitoraggio all'Operatore autorizzato, se non lo ha già.
+     * @param centre centro di monitoraggio
+     */
+    public void setCentre(String centre) {
+        //if user does not have a center
+        if(! this.centre.equals(defaultValueOfCentre)){
+            this.centre = centre;
+            if(! addCentreToFile(centre) ){
+                System.err.println("Errore nell'aggiornamento del file");
+                this.centre = defaultValueOfCentre;
+            }                        
+        }else{
+            System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
+        }
+    }
+    /**
      * Crea un'area geografica e la salva sul file.
      * @return true se l'esecuzion è avvenuta correttamente.
      */
@@ -359,7 +375,7 @@ public class AutorizedOperator extends User {
                 return true;
             case MenuOperator.IndexOf.set_centre:
                 // Set a Centre
-                MonitoringCentre.insertCentre();
+                setCentre(associaCentro());
                 return true;
             case MenuOperator.IndexOf.make_centre:
                 // Make Centre
