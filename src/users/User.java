@@ -415,6 +415,7 @@ public class User {
             System.out.print("\nInserire codice: ");
 
             try{
+                // TODO Remove nextInt
                 scelta=InputScanner.INPUT_SCANNER.nextInt();
             }catch(InputMismatchException e){
                 //consume invalid token
