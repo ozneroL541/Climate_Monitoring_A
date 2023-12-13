@@ -174,6 +174,13 @@ public class CSV_Utilities {
             return false;
         }
 
+        // Check line
+        if (line <= 0) {
+            // Error
+            System.err.println("ERRORE: riga inesistente.");
+            return false;
+        }
+
         final String temp_file_name = ".tempfile";
         String temp_file_path = FileSystems.getDefault().getPath(file.getParent(), temp_file_name).toString();
         File f = new File(temp_file_path);
