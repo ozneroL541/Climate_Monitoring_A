@@ -45,8 +45,6 @@ import src.parameters.Parameters;
  * @version 0.21.0
  */
 public class User {
-    // File header
-    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
     // Indexes in CSV file
     protected final static record IndexOf() {
         final static short matricola=0;
@@ -59,127 +57,12 @@ public class User {
         //number of indexes
         final static short indexes = 7;
     }
+    // File header
+    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
     // Make the path platform independent
     protected final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
     //dafault value for attribute centre if user does not choose a centre during registration
     protected final static String defaultValueOfCentre="";
-    /**
-     * Crea un utente
-     */
-    public User() {}
-    /**
-     * Permette all'utente di effettuare la ricerca di aree geografiche.
-     * @author Lorenzo Radice
-     */
-    public void cercaAreaGeografica() {
-        // Loop exit variable
-        boolean exit = true;
-        // Input integer
-        int in = -1;
-        // Check file existence
-        if ( GeographicArea.doesCSVExist() ) {
-            // While exit is false
-            do {
-                // Input
-                try {
-                    // Print indexes menu
-                    GeographicArea.printIndexesMenu();
-                    // Output
-                    System.out.println("Seleziona il tipo di parametro con cui effettuare la ricerca.");
-                    // Output for input
-                    System.out.print  ("Inserire il codice: ");
-                    // Input integer
-                    in = InputScanner.INPUT_SCANNER.nextInt();
-                    // Collect trash
-                    InputScanner.INPUT_SCANNER.nextLine();
-                    // If the chosen integer exist 
-                    if (GeographicArea.IndexExist(in)) {
-                        // Research Argument
-                        String arg = "";
-                        // Output
-                        System.out.print("Inserire il parametro per la ricerca: ");
-                        do {
-                            // Input string
-                            arg = InputScanner.INPUT_SCANNER.nextLine();
-                            // If the argument is correct
-                            if (GeographicArea.argumentCorrect(arg, in)) {
-                                // New Line
-                                System.out.println();
-                                // Search
-                                GeographicArea.SearchList(in, arg, 0);
-                                // Exit true
-                                exit = true;
-                            } else {
-                                // Output
-                                System.out.print("Reinserire il parametro: ");
-                                // Not Exit
-                                exit = false;
-                            }
-                        } while (!exit);
-                    } else {
-                        // Error output
-                        System.out.println("\nL'indice selezionato non è disponibile.");
-                        System.out.println();
-                        // Not exit
-                        exit = false;
-                    }
-                } catch ( InputMismatchException e) {
-                    // Reset input scanner
-                    InputScanner.INPUT_SCANNER.nextLine();
-                    // Error Output
-                    System.err.println("\nInserimento non valido.\nInserire uno dei numeri mostrati per selezionare un'opzione.");
-                    // New line
-                    System.out.println();
-                    // Not exit
-                    exit = false;
-                } catch (Exception e) {
-                    // Output Exception
-                    e.printStackTrace();
-                    // Exit 
-                    exit = true;
-                }
-            } while (!exit);
-        } else {
-            System.out.println("\nNon è presente alcuna area di interesse per cui effettuare la ricerca.");
-        }
-    }
-
-    /**
-     * Permette all'utente di visualizzare le informazioni associate ad una area geografica.
-     */
-    public void visualizzaAreaGeografica(){
-        boolean exit=false;
-        String id;
-        String aree[]=Parameters.getIDAree();
-        if(aree!=null){
-            // Print Areas
-            System.out.println("Aree disponibili:");
-            System.out.println(GeographicArea.ListIDs(aree));
-            // Ask
-            System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
-
-            do{
-                id=InputScanner.INPUT_SCANNER.nextLine();
-                // Set Exit
-                exit = false;
-                //check if user input is a valid id
-                for(String value: aree){
-                    // Area is in options
-                    if(value.equals(id)){
-                        exit=true;
-                    }
-                }
-                if (!exit) {
-                    System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
-                }
-            }while(!exit);
-
-            Parameters.MostraParametri(id);
-            
-        }else{
-            System.out.println("Nessuna area disponibile");
-        }
-    }
     /**
      * Permette all'utente di registrarsi come Operatore Autorizzato
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
@@ -230,6 +113,31 @@ public class User {
         CSV_Utilities.addArraytoCSV(file, campi, header);
         System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");
     }
+    //user choose a centre from the existing ones
+    protected static String associaCentro(){
+
+        String [] centri;
+        String nome="";
+
+        //show centres to user
+        centri=MonitoringCentre.getCentri();
+        System.out.println("Centri esistenti:");
+        for(int i=0;i<centri.length;i++){
+            System.out.println(centri[i]);
+        }
+
+        //user choose centre
+        System.out.print("\nScegliere il centro inserendone il nome: ");
+        do{
+            nome=InputScanner.INPUT_SCANNER.nextLine();
+            if(!MonitoringCentre.CenterExistence(nome)){
+                System.out.print("Nome inserito inesistente\nInserire un nome valido: ");
+            }
+        }while(!MonitoringCentre.CenterExistence(nome));
+
+        return nome;
+    }
+
     //check if a field is correct
     private static String campoValido(int indice_campo){
         String campo;
@@ -304,7 +212,6 @@ public class User {
             return null;
         }
     }
-
     //set the userid
     private static String setUserId(){
 
@@ -387,14 +294,12 @@ public class User {
         }
         return check;
     }
-    
+
     // Check email
     private static boolean ControlloEmail(String email){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-
-
     //TODO Rendere modulare
     //show a menù with different way of associate the centre to the operator
     private static String setCentro(){
@@ -457,6 +362,7 @@ public class User {
 
         return centre;
     }
+    
     //TODO TESTARE FUNZIONAMENTO, SOPRATUTTO GESTIRE IL NULL DI RITORNO
     //user create a new centre
     private static String registraCentroAree(){
@@ -469,28 +375,122 @@ public class User {
         }
         
     }
-    //user choose a centre from the existing ones
-    protected static String associaCentro(){
 
-        String [] centri;
-        String nome="";
 
-        //show centres to user
-        centri=MonitoringCentre.getCentri();
-        System.out.println("Centri esistenti:");
-        for(int i=0;i<centri.length;i++){
-            System.out.println(centri[i]);
+    /**
+     * Crea un utente
+     */
+    public User() {}
+    /**
+     * Permette all'utente di effettuare la ricerca di aree geografiche.
+     * @author Lorenzo Radice
+     */
+    public void cercaAreaGeografica() {
+        // Loop exit variable
+        boolean exit = true;
+        // Input integer
+        int in = -1;
+        // Check file existence
+        if ( GeographicArea.doesCSVExist() ) {
+            // While exit is false
+            do {
+                // Input
+                try {
+                    // Print indexes menu
+                    GeographicArea.printIndexesMenu();
+                    // Output
+                    System.out.println("Seleziona il tipo di parametro con cui effettuare la ricerca.");
+                    // Output for input
+                    System.out.print  ("Inserire il codice: ");
+                    // Input integer
+                    in = InputScanner.INPUT_SCANNER.nextInt();
+                    // Collect trash
+                    InputScanner.INPUT_SCANNER.nextLine();
+                    // If the chosen integer exist 
+                    if (GeographicArea.IndexExist(in)) {
+                        // Research Argument
+                        String arg = "";
+                        // Output
+                        System.out.print("Inserire il parametro per la ricerca: ");
+                        do {
+                            // Input string
+                            arg = InputScanner.INPUT_SCANNER.nextLine();
+                            // If the argument is correct
+                            if (GeographicArea.argumentCorrect(arg, in)) {
+                                // New Line
+                                System.out.println();
+                                // Search
+                                GeographicArea.SearchList(in, arg, 0);
+                                // Exit true
+                                exit = true;
+                            } else {
+                                // Output
+                                System.out.print("Reinserire il parametro: ");
+                                // Not Exit
+                                exit = false;
+                            }
+                        } while (!exit);
+                    } else {
+                        // Error output
+                        System.out.println("\nL'indice selezionato non è disponibile.");
+                        System.out.println();
+                        // Not exit
+                        exit = false;
+                    }
+                } catch ( InputMismatchException e) {
+                    // Reset input scanner
+                    InputScanner.INPUT_SCANNER.nextLine();
+                    // Error Output
+                    System.err.println("\nInserimento non valido.\nInserire uno dei numeri mostrati per selezionare un'opzione.");
+                    // New line
+                    System.out.println();
+                    // Not exit
+                    exit = false;
+                } catch (Exception e) {
+                    // Output Exception
+                    e.printStackTrace();
+                    // Exit 
+                    exit = true;
+                }
+            } while (!exit);
+        } else {
+            System.out.println("\nNon è presente alcuna area di interesse per cui effettuare la ricerca.");
         }
+    }
+    /**
+     * Permette all'utente di visualizzare le informazioni associate ad una area geografica.
+     */
+    public void visualizzaAreaGeografica(){
+        boolean exit=false;
+        String id;
+        String aree[]=Parameters.getIDAree();
+        if(aree!=null){
+            // Print Areas
+            System.out.println("Aree disponibili:");
+            System.out.println(GeographicArea.ListIDs(aree));
+            // Ask
+            System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
 
-        //user choose centre
-        System.out.print("\nScegliere il centro inserendone il nome: ");
-        do{
-            nome=InputScanner.INPUT_SCANNER.nextLine();
-            if(!MonitoringCentre.CenterExistence(nome)){
-                System.out.print("Nome inserito inesistente\nInserire un nome valido: ");
-            }
-        }while(!MonitoringCentre.CenterExistence(nome));
+            do{
+                id=InputScanner.INPUT_SCANNER.nextLine();
+                // Set Exit
+                exit = false;
+                //check if user input is a valid id
+                for(String value: aree){
+                    // Area is in options
+                    if(value.equals(id)){
+                        exit=true;
+                    }
+                }
+                if (!exit) {
+                    System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
+                }
+            }while(!exit);
 
-        return nome;
+            Parameters.MostraParametri(id);
+            
+        }else{
+            System.out.println("Nessuna area disponibile");
+        }
     }
 }

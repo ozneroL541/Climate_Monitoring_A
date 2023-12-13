@@ -34,12 +34,6 @@ import src.users.*;
  * @version 0.21.0
  */
 public class MainMenu {
-    // Menu string
-    private String menu = null;
-    // Number of options
-    private short op_number = 0;
-    // Exit Option
-    private final String exit = "Esci";
     /**
      * Indexes
      */
@@ -51,6 +45,44 @@ public class MainMenu {
         private static final short info = 5;
         private static final short exit = 6;
     }
+    /**
+     * Mostra il menù e permette di sceglierne le opzioni.
+     */
+    public static void ChooseOption() {
+        // Menu Object creation
+        MainMenu menu = new MainMenu();
+        // Short integer for the menu options
+        short mainmenu_input = 0;
+        // Input
+        String input = "";
+        // While exit is not selected
+        do {
+            // Output the menu
+            System.out.println(menu.getMenu());
+            // Request
+            System.out.print("Inserire codice:\t");
+            // Input
+            try {
+                // Input
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                // Parse input
+                mainmenu_input = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                // Set to 0
+                mainmenu_input = 0;
+            } catch (Exception e) {
+                // Set to -1
+                mainmenu_input = -1;
+            }
+        // Check if exit
+        } while ( menu.selectedAction(mainmenu_input) );
+    }
+    // Menu string
+    private String menu = null;
+    // Number of options
+    private short op_number = 0;
+    // Exit Option
+    private final String exit = "Esci";
     /**
      * Costruisce un oggetto menù
      */
@@ -112,38 +144,6 @@ public class MainMenu {
      */
     public short NumberOfOptions() {
         return op_number;
-    }
-    /**
-     * Mostra il menù e permette di sceglierne le opzioni.
-     */
-    public static void ChooseOption() {
-        // Menu Object creation
-        MainMenu menu = new MainMenu();
-        // Short integer for the menu options
-        short mainmenu_input = 0;
-        // Input
-        String input = "";
-        // While exit is not selected
-        do {
-            // Output the menu
-            System.out.println(menu.getMenu());
-            // Request
-            System.out.print("Inserire codice:\t");
-            // Input
-            try {
-                // Input
-                input = InputScanner.INPUT_SCANNER.nextLine();
-                // Parse input
-                mainmenu_input = (short) Short.valueOf(input);
-            } catch (NumberFormatException e) {
-                // Set to 0
-                mainmenu_input = 0;
-            } catch (Exception e) {
-                // Set to -1
-                mainmenu_input = -1;
-            }
-        // Check if exit
-        } while ( menu.selectedAction(mainmenu_input) );
     }
     // Execute selected action
     private boolean selectedAction( short input ) {

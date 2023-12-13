@@ -41,64 +41,6 @@ import src.parameters.Parameters;
  * @version 0.21.0
  */
 public class AutorizedOperator extends User {
-    // User Identity Code
-    private short userid;
-    // Name
-    private String nome;
-    // Surname
-    private String cognome;
-    // Fiscal Code
-    private String codice_fiscale;
-    // e-mail address
-    private String email_address;
-    // User Password
-    private String passwd;
-    // Monitoring Centre
-    private String centre;
-    /**
-    * Costruttore vuoto
-    */
-    public AutorizedOperator() {}
-
-    /**
-     * Costruttore di <code>AutorizedOperator</code>
-     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametri
-     * @param id id univoco dell'operatore
-     * @param nome nome dell'operatore
-     * @param cognome cognome dell'operatore
-     * @param cod_fis codice fiscale dell'operatore
-     * @param email_add indirizzo email dell'operatore
-     * @param password password scelta dall'operatore
-     * @param centre centro al quale l'operatore appartiene. Se non appartiene a nessun centro assume un valore di default 
-     */
-    public AutorizedOperator(short id, String nome, String cognome, String cod_fis, String email_add, String password, String centre){
-        this.userid=id;
-        this.nome=nome;
-        this.cognome=cognome;
-        this.codice_fiscale=cod_fis;
-        this.email_address=email_add;
-        this.passwd=password;
-        this.centre=centre;
-    }
-
-    @Override
-    public String toString(){
-        final String none = "NESSUNO";
-        String str = "";
-        str += "User ID: " + String.format("%05d", this.userid) + "\n";
-        str += "Nome: "   + this.nome + "\n";
-        str += "Cognome: "       + this.cognome + "\n";
-        str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
-        str += "Indirizzo Email: " + this.email_address + "\n";
-        str += "Password: "     + this.passwd + "\n" ;
-        if(this.centre==defaultValueOfCentre){
-            str += "Id Centro di appartenenza: " + none;
-        }else{
-            str += "Id Centro di appartenenza: "    + this.centre;
-        }
-        return str;
-    }
-
     /**
      * Ritorna DefaultValueOfCentre come Short
      * @return DefaultValueOfCentre
@@ -140,7 +82,6 @@ public class AutorizedOperator extends User {
         }
         return u;
     }
-
     //evaluate userid and password
     private static AutorizedOperator login(){
         int riga = -1;
@@ -170,6 +111,71 @@ public class AutorizedOperator extends User {
         }
         // Return a
         return a;
+    }
+    //cambiare tipo di ritorno in boolean?
+    //user inserts climatic parameters
+    private static void inserisciParametriClimatici(String centre){
+        Parameters p=Parameters.MakeParameters(centre);
+        //TODO fare controllo sulla esistenza? altrimenti questo oggetto è abbastanza inutile
+    }
+    // User Identity Code
+    private short userid;
+    // Name
+    private String nome;
+    // Surname
+    private String cognome;
+    // Fiscal Code
+    private String codice_fiscale;
+
+    // e-mail address
+    private String email_address;
+
+    // User Password
+    private String passwd;
+
+    // Monitoring Centre
+    private String centre;
+    /**
+    * Costruttore vuoto
+    */
+    public AutorizedOperator() {}
+
+    /**
+     * Costruttore di <code>AutorizedOperator</code>
+     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametri
+     * @param id id univoco dell'operatore
+     * @param nome nome dell'operatore
+     * @param cognome cognome dell'operatore
+     * @param cod_fis codice fiscale dell'operatore
+     * @param email_add indirizzo email dell'operatore
+     * @param password password scelta dall'operatore
+     * @param centre centro al quale l'operatore appartiene. Se non appartiene a nessun centro assume un valore di default 
+     */
+    public AutorizedOperator(short id, String nome, String cognome, String cod_fis, String email_add, String password, String centre){
+        this.userid=id;
+        this.nome=nome;
+        this.cognome=cognome;
+        this.codice_fiscale=cod_fis;
+        this.email_address=email_add;
+        this.passwd=password;
+        this.centre=centre;
+    }
+    @Override
+    public String toString(){
+        final String none = "NESSUNO";
+        String str = "";
+        str += "User ID: " + String.format("%05d", this.userid) + "\n";
+        str += "Nome: "   + this.nome + "\n";
+        str += "Cognome: "       + this.cognome + "\n";
+        str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
+        str += "Indirizzo Email: " + this.email_address + "\n";
+        str += "Password: "     + this.passwd + "\n" ;
+        if(this.centre==defaultValueOfCentre){
+            str += "Id Centro di appartenenza: " + none;
+        }else{
+            str += "Id Centro di appartenenza: "    + this.centre;
+        }
+        return str;
     }
     /**
      * Mostra il menù e permette di scegliere le azioni eseguibili dall'operatore autorizzato
@@ -276,18 +282,6 @@ public class AutorizedOperator extends User {
             }
         }while(exit);
     }
-    //update file with new value of centre
-    private boolean addCentreToFile(String centre){
-        int riga=Research.OneStringInCol(file, IndexOf.matricola, Short.toString(this.userid));
-        return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
-    }
-
-    //cambiare tipo di ritorno in boolean?
-    //user inserts climatic parameters
-    private static void inserisciParametriClimatici(String centre){
-        Parameters p=Parameters.MakeParameters(centre);
-        //TODO fare controllo sulla esistenza? altrimenti questo oggetto è abbastanza inutile
-    }
 
     /**
      * Ritorna il nome dell'operatore autorizzato
@@ -296,6 +290,7 @@ public class AutorizedOperator extends User {
     public String getNome() {
         return nome;
     }
+
     /**
      * Ritorna il cognome dell'operatore autorizzato
      * @return cognome
@@ -339,5 +334,10 @@ public class AutorizedOperator extends User {
             System.out.println("Creazione area Geografica fallita");
             return false;
         }
+    }
+    //update file with new value of centre
+    private boolean addCentreToFile(String centre){
+        int riga=Research.OneStringInCol(file, IndexOf.matricola, Short.toString(this.userid));
+        return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
 }

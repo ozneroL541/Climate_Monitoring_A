@@ -32,6 +32,16 @@ import src.common.InputScanner;
  * @version 0.21.0
  */
 public class Header {
+    /**
+     * Indexes
+     */
+    private static final record IndexOf() {
+        private static final short license = 1;
+        private static final short warranty = 2;
+        private static final short conditions = 3;
+        private static final short version = 4;
+        private static final short exit = 5;
+    }
     // TODO: Always remember to Update (remove this TODO only after version 1.0.0)
     // Program version
     private final static String version = "0.21.0";
@@ -69,16 +79,6 @@ public class Header {
             "\t\t-show w\t\t--show w\t\tShow the License Warranty\r\n" + //
             "\t-v\t-version\t--version\t\tShow the current program version\r\n" + //
             "\nEnter no command to start the actual program.";
-    /**
-     * Indexes
-     */
-    private static final record IndexOf() {
-        private static final short license = 1;
-        private static final short warranty = 2;
-        private static final short conditions = 3;
-        private static final short version = 4;
-        private static final short exit = 5;
-    }
     /**
      * Stampa a schermo un breve messaggio con la licenza.
      */
@@ -139,13 +139,6 @@ public class Header {
     public static void print_warranty() {
         System.out.println();
         System.out.println(warranty);
-        System.out.println();
-    }
-    /**
-     * Stampa a schermo i possibili comandi
-     */
-    private static void print_help() {
-        System.out.println(help);
         System.out.println();
     }
     /**
@@ -268,6 +261,13 @@ public class Header {
             }
         // Check if exit
         } while ( selectedAction(menu_input) );
+    }
+    /**
+     * Stampa a schermo i possibili comandi
+     */
+    private static void print_help() {
+        System.out.println(help);
+        System.out.println();
     }
     // Execute selected action
     private static boolean selectedAction( short input ) {

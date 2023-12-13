@@ -67,11 +67,6 @@ public class CommonMethods {
         // Character valid: return true
         return true;
     }
-    // Check if the character is an ASCII letter
-    private static boolean isASCIILetter( char c ) {
-        // Return if it is an ASCII Letter
-        return ( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) );
-    }
     /**
      * Controlla che il valore inserito sia una stringa di caratteri ASCII accettabili per un indirizzo.
      * @param add indirizzo da controllare
@@ -205,5 +200,10 @@ public class CommonMethods {
         // Input to upper case
         input = input.toUpperCase();
         return input.contains("N") || input.contains("Q") || input.contains("ESC") || input.contains("EXIT");
+    }
+    // Check if the character is an ASCII letter
+    private static boolean isASCIILetter( char c ) {
+        // Return if it is an ASCII Letter
+        return ( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) );
     }
 }
