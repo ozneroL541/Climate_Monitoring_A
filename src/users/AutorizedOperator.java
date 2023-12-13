@@ -38,7 +38,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.21.0
+ * @version 0.21.1
  */
 public class AutorizedOperator extends User {
     /**
@@ -356,6 +356,10 @@ public class AutorizedOperator extends User {
             case MenuOperator.IndexOf.add_parameters:
                 // Add Parameters
                 inserisciParametriClimatici();
+                return true;
+            case MenuOperator.IndexOf.set_centre:
+                // Set a Centre
+                MonitoringCentre.insertCentre();
                 return true;
             case MenuOperator.IndexOf.make_centre:
                 // Make Centre

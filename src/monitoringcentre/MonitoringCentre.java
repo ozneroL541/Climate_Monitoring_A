@@ -120,8 +120,7 @@ public class MonitoringCentre {
         MonitoringCentre mc = createCentre();
         // Check if center was created
         if ( mc == null || !mc.Exist() ) {
-            // Error message
-            System.err.println("Errore: Centro non creato.");
+            // Do not insert the centre
             return false;
         }
         // Save Centre
@@ -178,9 +177,15 @@ public class MonitoringCentre {
                 } else {
                     // Assign input to name
                     name = in;
+                    // Exit
+                    exit = true;
                 }
+            } else {
+                // Output
+                System.out.println("Caratteri inseriti non validi.");
             }
         } while (!exit);
+        // Return the name
         return name;
     }
     // Ask the address of the centre to the user
@@ -576,9 +581,11 @@ public class MonitoringCentre {
         String str = "";
         short i = 0;
         for ( i = 0; i < this.areeInteresse.length - 1; i++) {
-            str += this.areeInteresse[i] + delimiter;
+            str += this.areeInteresse[i];
+            if ( i < this.areeInteresse.length - 1) {
+                str += delimiter;
+            }
         }
-        str += this.areeInteresse[i];
         return str;
     }
     /**

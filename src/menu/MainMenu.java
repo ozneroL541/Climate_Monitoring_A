@@ -31,7 +31,7 @@ import src.users.*;
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.21.0
+ * @version 0.21.1
  */
 public class MainMenu {
     /**
