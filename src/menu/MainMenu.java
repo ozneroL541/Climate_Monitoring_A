@@ -43,6 +43,17 @@ public class MainMenu {
     // Exit Option
     private final String exit = "Esci";
     /**
+     * Indexes
+     */
+    private static final record IndexOf() {
+        private static final short research = 1;
+        private static final short view_areas = 2;
+        private static final short login = 3;
+        private static final short registration = 4;
+        private static final short info = 5;
+        private static final short exit = 6;
+    }
+    /**
      * Costruisce un oggetto menù
      */
     public MainMenu(){
@@ -146,15 +157,15 @@ public class MainMenu {
         User user = new User();        
         // Select the method choosen by the user
         switch (input) {
-            case 1:
+            case IndexOf.research:
                 // Ricerca aree
                 user.cercaAreaGeografica();
                 return true;
-            case 2:
+            case IndexOf.view_areas:
                 // Visualizza info aree
                 user.visualizzaAreaGeografica();
                 return true;
-            case 3:
+            case IndexOf.login:
                 // Login
                 // Autenticate
                 user = AutorizedOperator.autenticazione();
@@ -164,15 +175,15 @@ public class MainMenu {
                     ((AutorizedOperator) user).menu();
                 }
                 return true;
-            case 4:
+            case IndexOf.registration:
                 // Registrazione
                 User.registrazione();
                 return true;
-            case 5:
+            case IndexOf.info:
                 // Info
                 Header.ChooseOption();
                 return true;
-            case 6:
+            case IndexOf.exit:
                 // Esci
                 return false;
             default:
