@@ -229,7 +229,6 @@ public class Parameters {
         aree=c.getAreeInteresse();
 
         //show areas to user
-        //TODO modificare il messaggio di output?
         System.out.println("Aree associate al centro " + centre + ":");
         // Print areas
         System.out.println(c.ListAreas());
