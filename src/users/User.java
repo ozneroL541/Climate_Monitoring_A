@@ -66,9 +66,7 @@ public class User {
     /**
      * Crea un utente
      */
-    public User() {
-        //TODO
-    }
+    public User() {}
     /**
      * Permette all'utente di effettuare la ricerca di aree geografiche.
      * @author Lorenzo Radice
