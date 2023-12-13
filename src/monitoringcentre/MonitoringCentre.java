@@ -61,7 +61,7 @@ public class MonitoringCentre {
         private final static short name = 0;
         private final static short address = 1;
         private final static short areas = 2;
-        private final static class Iadd {
+        private final static record Iadd() {
             private final static short via = 0;
             private final static short civico = 1;
             private final static short CAP = 2;
