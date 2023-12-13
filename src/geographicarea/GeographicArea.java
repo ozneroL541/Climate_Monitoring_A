@@ -56,7 +56,7 @@ public class GeographicArea {
     // Header
     private final static String header = "Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates";
     // Indexes in CSV file
-    private final static class IndexOf {
+    private final static record IndexOf() {
         private final static short geoname_id = 0;
         private final static short real_name = 1;
         private final static short ascii_name = 2;

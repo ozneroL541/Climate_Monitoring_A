@@ -56,7 +56,7 @@ public class Parameters {
     // Table
     private Table table = null;
     // Indexes
-    private static final class IndexOf {
+    private static final record IndexOf() {
         private static final short geoname_id = 0;
         private static final short date = 1;
         private static final short centre = 2;

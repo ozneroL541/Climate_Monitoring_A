@@ -49,7 +49,7 @@ public class MonitoringCentre {
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
     private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
-    private final static class col_comuni {
+    private final static record col_comuni() {
         private final static short comune = 0;
         private final static short CAP = 2;
         private final static short provincia = 1;        
@@ -57,7 +57,7 @@ public class MonitoringCentre {
     // CAP length
     private final static short cap_length = 5;
     // Indexes in CSV file
-    private final static class IndexOf {
+    private final static record IndexOf() {
         private final static short name = 0;
         private final static short address = 1;
         private final static short areas = 2;

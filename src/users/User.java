@@ -48,7 +48,7 @@ public class User {
     // File header
     private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
     // Indexes in CSV file
-    protected final static class IndexOf {
+    protected final static record IndexOf() {
         final static short matricola=0;
         final static short nome=1;
         final static short cognome=2;
