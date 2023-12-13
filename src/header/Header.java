@@ -32,6 +32,9 @@ import src.common.InputScanner;
  * @version 0.21.0
  */
 public class Header {
+    // TODO: Always remember to Update (remove this TODO only after version 1.0.0)
+    // Program version
+    private final static String version = "0.21.0";
     // Program Name
     private final static String p_name = "Climate Monitoring";
     // Short License Reminder
@@ -43,7 +46,8 @@ public class Header {
             "    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
             "    under certain conditions; type `show c' for details. ";
-    // TODO write show c
+    // Conditions
+    private final static String conditions = "View <http://www.gnu.org/licenses/>.";
     // Warranty
     private final static String warranty =
             "\tDisclaimer of Warranty.\r\n" + //
@@ -56,8 +60,6 @@ public class Header {
             "PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM\r\n" + //
             "IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF\r\n" + //
             "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\n";
-    // Program version
-    private final static String version = "0.10.0";
     // Help
     private final static String help = 
             "\nUsage: ClimateMonitor.jar [options]\r\n" + //
@@ -67,6 +69,16 @@ public class Header {
             "\t\t-show w\t\t--show w\t\tShow the License Warranty\r\n" + //
             "\t-v\t-version\t--version\t\tShow the current program version\r\n" + //
             "\nEnter no command to start the actual program.";
+    /**
+     * Indexes
+     */
+    private static final record IndexOf() {
+        private static final short license = 1;
+        private static final short warranty = 2;
+        private static final short conditions = 3;
+        private static final short version = 4;
+        private static final short exit = 5;
+    }
     /**
      * Stampa a schermo un breve messaggio con la licenza.
      */
@@ -114,6 +126,14 @@ public class Header {
         return version;
     }
     /**
+     * Stampa a schermo le condizioni di utilizzo
+     */
+    public static void print_conditions() {
+        System.out.println();
+        System.out.println(conditions);
+        System.out.println();
+    }
+    /**
      * Stampa a schermo la garazia.
      */
     public static void print_warranty() {
@@ -136,10 +156,12 @@ public class Header {
      * @return true se viene stampato qualcosa.
      */
     public static boolean evalCommand( String[] cmd ) {
+        // Return
+        boolean exit = false;
         // For each command
-        for ( short i = 0; i < cmd.length; i++ ) {
+        for ( short i = 0; !exit && i < cmd.length; i++ ) {
             // If str is...
-            switch (cmd[i]) {
+            switch (cmd[i].toLowerCase()) {
                 // Conditions
                 case "--show":
                 case "-show":
@@ -149,34 +171,35 @@ public class Header {
                         // Conditions argument
                         if (cmd[i + 1].toLowerCase().equals("c")) {
                             // Conditions
-                            // TODO Print Conditions
-                            return true;
+                            exit = selectedAction(IndexOf.conditions);
                         // Warranty argument
                         } else if (cmd[i + 1].toLowerCase().equals("w")) {
                             // Warranty
-                            print_warranty();
-                            return true;
+                            exit = selectedAction(IndexOf.warranty);
                         }
-                    } else
-                        break;
+                    } else {
+                        exit = false;
+                    }
+                    break;
                 // Version
                 case "--version":
                 case "-version":
                 case "-v":
-                    print_version();
-                    return true;
+                    exit = selectedAction(IndexOf.version);
+                    break;
                 // Help
                 case "--help":
                 case "-help":
                 case "-h":
                     print_help();
-                    return true;
+                    exit = true;
                 // Nothing
                 default:
                     break;
             }
         }
-        return false;
+        // Return
+        return exit;
     }
     /**
      * Valuta se l'utente richiede informazioni riguardo al software e le fornisce.
@@ -188,7 +211,7 @@ public class Header {
         // Splitted input
         String[] in = null;
         // Output Message
-        System.out.println("\nPremere INVIO per continuare...");
+        System.out.println("\nPress ENTER to continue...");
         try {
             // Read input
             input = InputScanner.INPUT_SCANNER.nextLine();
@@ -250,23 +273,23 @@ public class Header {
     private static boolean selectedAction( short input ) {
         // Select the method choosen by the user
         switch (input) {
-            case 1:
+            case IndexOf.license:
                 // License
                 print_license();
                 return true;
-            case 2:
+            case IndexOf.warranty:
                 // Warranty
                 print_warranty();
                 return true;
-            case 3:
+            case IndexOf.conditions:
                 // Conditions
-                // TODO Conditions
+                print_conditions();
                 return true;
-            case 4:
+            case IndexOf.version:
                 // Version
                 print_version();
                 return true;
-            case 5:
+            case IndexOf.exit:
                 // Esci
                 return false;
             default:
