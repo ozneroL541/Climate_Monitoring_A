@@ -42,6 +42,93 @@ import src.parameters.Parameters;
  */
 public class AutorizedOperator extends User {
     /**
+     * Classe che contiene il menù operatore.
+     * @author Lorenzo Radice
+     * @version 0.21.0
+     */
+    public class MenuOperator {
+        /**
+         * Indexes
+         */
+        private static final record IndexOf() {
+            private static final short research = 1;
+            private static final short view_areas = 2;
+            private static final short make_area = 3;
+            private static final short add_parameters = 4;
+            private static final short set_centre = 5;
+            private static final short make_centre = 6;
+            private static final short exit = 7;
+        }
+        // Menu string
+        private String menu = null;
+        // Exit Option
+        private final String exit = "Logout";
+        /**
+         * Costruisce un oggetto menù
+         */
+        public MenuOperator(){
+            // Separator string
+            final String separator = " - ";
+            // Header
+            final String header = "\n\tMenù Operatore Autorizzato\n";
+            // Options array
+            final String[] options = {
+                (IndexOf.research       + separator + "Ricerca aree"),
+                (IndexOf.view_areas     + separator + "Visualizza informazioni aree"),
+                (IndexOf.make_area      + separator + "Crea area"),
+                (IndexOf.add_parameters + separator + "Aggiungi parametri"),
+                (IndexOf.set_centre     + separator + "Seleziona centro"),
+                (IndexOf.make_centre    + separator + "Crea centro di monitoraggio"),
+                (IndexOf.exit           + separator + exit)
+            };
+            // Initialize menu
+            this.menu = header;
+            // For every element in the options array
+            for ( short i = 0; i < options.length; i++ ) {
+                // Create the menu string
+                this.menu += options[i] + '\n';
+                // If the current option string is equal to exit than
+            }
+        }
+        /**
+         * Mostra il menù e permette di sceglierne le opzioni.
+         */
+        public void ChooseOption() {
+            // Short integer for the menu options
+            short mainmenu_input = 0;
+            // Input
+            String input = "";
+            // While exit is not selected
+            do {
+                // Output the menu
+                System.out.println(this.getMenu());
+                // Request
+                System.out.print("Inserire codice:\t");
+                // Input
+                try {
+                    // Input
+                    input = InputScanner.INPUT_SCANNER.nextLine();
+                    // Parse input
+                    mainmenu_input = (short) Short.valueOf(input);
+                } catch (NumberFormatException e) {
+                    // Set to 0
+                    mainmenu_input = 0;
+                } catch (Exception e) {
+                    // Set to -1
+                    mainmenu_input = -1;
+                }
+            // Check if exit
+            } while ( selectedAction(mainmenu_input) );
+        }
+        /**
+         * Restituisce la stringa che rappresenta il menù
+         * @return menù
+         */
+        public String getMenu() {
+            return this.menu;
+        }
+    }
+    /**
      * Ritorna DefaultValueOfCentre come Short
      * @return DefaultValueOfCentre
      */
@@ -112,12 +199,6 @@ public class AutorizedOperator extends User {
         // Return a
         return a;
     }
-    //cambiare tipo di ritorno in boolean?
-    //user inserts climatic parameters
-    private static void inserisciParametriClimatici(String centre){
-        Parameters p=Parameters.MakeParameters(centre);
-        //TODO fare controllo sulla esistenza? altrimenti questo oggetto è abbastanza inutile
-    }
     // User Identity Code
     private short userid;
     // Name
@@ -160,6 +241,21 @@ public class AutorizedOperator extends User {
         this.passwd=password;
         this.centre=centre;
     }
+    // TODO JD
+    //cambiare tipo di ritorno in boolean?
+    //user inserts climatic parameters
+    public boolean inserisciParametriClimatici(){
+        if(!this.centre.equals(defaultValueOfCentre)){
+            Parameters p = Parameters.MakeParameters(centre);
+            if (p != null) {
+                return p.addToCSV();
+            } else
+                return false;
+        }else{
+            System.out.println("Impossibile inserire i parametri climatici\nPer inserire i parametri bisogna essere associati ad un centro");
+            return false;
+        }
+    }
     @Override
     public String toString(){
         final String none = "NESSUNO";
@@ -177,111 +273,6 @@ public class AutorizedOperator extends User {
         }
         return str;
     }
-    /**
-     * Mostra il menù e permette di scegliere le azioni eseguibili dall'operatore autorizzato
-     */
-    public void menu(){
-        // TODO Modularizzare
-
-        final String menu="\n\nMenù Operatore Autorizzato\n"+
-                            "1) Cerca area geografica\n"+
-                            "2) Visualizza area geografica\n"+
-                            "3) Creazione area geografica\n"+
-                            "4) Aggiunta parametri climatici\n"+
-                            "5) Selezione centro di appartenenza\n"+
-                            "6) Creazione nuovo centro di monitoraggio\n"+
-                            "7) Logout\n";    
-        
-        boolean exit=true;
-        // input
-        String input = null;
-        short scelta = 0;
-
-        do{
-            scelta=0;
-            System.out.print(menu);
-
-            System.out.print("\nInserire codice: ");
-
-            // Input
-            try {
-                // Input
-                input = InputScanner.INPUT_SCANNER.nextLine();
-                // Parse input
-                scelta = (short) Short.valueOf(input);
-            } catch (NumberFormatException e) {
-                // Set to 0
-                scelta = 0;
-            } catch (Exception e) {
-                // Set to -1
-                scelta = -1;
-            }
-
-            switch (scelta) {
-
-                //search geographic area
-                case 1:
-                    cercaAreaGeografica();
-                    exit=true;
-                    break;
-                
-                //view geographic area
-                case 2:
-                    visualizzaAreaGeografica();
-                    exit=true;
-                    break;
-                
-                //create geographic area
-                case 3:
-                    makeArea();
-                    exit=true;
-                    break;
-                //add climate parameters
-                case 4:
-                    if(!this.centre.equals(defaultValueOfCentre)){
-                        inserisciParametriClimatici(this.centre);
-                    }else{
-                        System.out.println("Impossibile inserire i parametri climatici\nPer inserire i parametri devi essere associato ad un centro");
-                    }
-                    System.out.println("\n\nOperazione terminata");
-                    System.out.println("Ritorno al menù");
-                    exit=true;
-                    break;
-                
-                //select centre
-                case 5:
-                    //if user does not have a center
-                    if(this.centre.equals(defaultValueOfCentre)){
-                        String centre=associaCentro();
-                        boolean success=addCentreToFile(centre);
-                        if(!success){
-                            System.out.println("Errore nell'aggiornamento del file");
-                        }                        
-                    }else{
-                        System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
-                    }
-                    System.out.println("\n\nOperazione terminata");
-                    System.out.println("Ritorno al menù");
-                    exit=true;
-                    break;
-                
-                //create centre
-                case 6:
-                    MonitoringCentre.insertCentre();
-                    exit=true;
-                    break;
-                //logout
-                case 7:
-                    exit=false;
-                    break;
-            
-                default:
-                    System.out.println("Codice inserito errato!");
-                    exit=true;
-                    break;
-            }
-        }while(exit);
-    }
 
     /**
      * Ritorna il nome dell'operatore autorizzato
@@ -290,7 +281,6 @@ public class AutorizedOperator extends User {
     public String getNome() {
         return nome;
     }
-
     /**
      * Ritorna il cognome dell'operatore autorizzato
      * @return cognome
@@ -335,9 +325,48 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
+    // TODO JD
+    public void menu() {
+        MenuOperator mo = new MenuOperator();
+        mo.ChooseOption();
+    }
     //update file with new value of centre
     private boolean addCentreToFile(String centre){
         int riga=Research.OneStringInCol(file, IndexOf.matricola, Short.toString(this.userid));
         return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
-}
+    // Execute selected action
+    private boolean selectedAction( short input ) {       
+        // Select the method choosen by the user
+        switch (input) {
+            case MenuOperator.IndexOf.research:
+                // Ricerca aree
+                cercaAreaGeografica();
+                return true;
+            case MenuOperator.IndexOf.view_areas:
+                // Visualizza info aree
+                visualizzaAreaGeografica();
+                return true;
+            case MenuOperator.IndexOf.make_area:
+                // Make area
+                makeArea();
+                return true;
+            case MenuOperator.IndexOf.add_parameters:
+                // Add Parameters
+                inserisciParametriClimatici();
+                return true;
+            case MenuOperator.IndexOf.make_centre:
+                // Make Centre
+                MonitoringCentre.insertCentre();
+                return true;
+            case MenuOperator.IndexOf.exit:
+                // Logout
+                return false;
+            default:
+                // Error Message
+                System.out.println("\nIl valore inserito non è corretto.");
+                System.out.println("Inserire un numero valido per continuare.\n");
+                return true;
+            }
+        }
+    }
