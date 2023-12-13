@@ -74,6 +74,8 @@ public class MainMenu {
                 // Set to -1
                 mainmenu_input = -1;
             }
+            // New line
+            System.out.println();
         // Check if exit
         } while ( menu.selectedAction(mainmenu_input) );
     }

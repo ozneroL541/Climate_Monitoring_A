@@ -117,6 +117,8 @@ public class AutorizedOperator extends User {
                     // Set to -1
                     mainmenu_input = -1;
                 }
+                // New Line
+                System.out.println();
             // Check if exit
             } while ( selectedAction(mainmenu_input) );
         }
