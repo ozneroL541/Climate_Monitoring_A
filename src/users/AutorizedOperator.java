@@ -296,7 +296,7 @@ public class AutorizedOperator extends User {
      */
     public void setCentre(String centre) {
         //if user does not have a center
-        if(! this.centre.equals(defaultValueOfCentre)){
+        if(this.centre.equals(defaultValueOfCentre)){
             this.centre = centre;
             if(! addCentreToFile(centre) ){
                 System.err.println("Errore nell'aggiornamento del file");
