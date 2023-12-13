@@ -258,8 +258,7 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
-    
-    //TODO commenti?
+    // Ask the name of the Centre to the user
     private static String AskName() {
         boolean exit = true;
         String in = "";
@@ -286,8 +285,7 @@ public class MonitoringCentre {
         } while (!exit);
         return name;
     }
-
-    //TODO commenti?
+    // Ask the address of the centre to the user
     private static String[] AskAddress() {
         // Address
         String[] address = new String[IndexOf.Iadd.length];
