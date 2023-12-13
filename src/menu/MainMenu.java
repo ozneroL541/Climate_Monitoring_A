@@ -73,7 +73,7 @@ public class MainMenu {
         // For every element in the options array
         for ( short i = 0; i < options.length; i++ ) {
             // Create the menu string
-            this.menu += (i + 1) +  separator + options[i] + '\n';
+            this.menu += options[i] + '\n';
             // If the current option string is equal to exit than
         }
         // Number of options is the number of elements of the array
