@@ -38,8 +38,6 @@ public class MainMenu {
     private String menu = null;
     // Number of options
     private short op_number = 0;
-    // Number of the exit option
-    private short exit_number = 0;
     // Exit Option
     private final String exit = "Esci";
     /**
@@ -57,29 +55,26 @@ public class MainMenu {
      * Costruisce un oggetto menù
      */
     public MainMenu(){
+        // Separator string
+        final String separator = " - ";
         // Header
         final String header = "\n\tMenù principale\n";
         // Options array
         final String[] options = {
-            "Ricerca aree",
-            "Visualizza informazioni aree",
-            "Login",
-            "Registrazione",
-            "Info",
-            exit
+            (IndexOf.research       + separator + "Ricerca aree"),
+            (IndexOf.view_areas     + separator + "Visualizza informazioni aree"),
+            (IndexOf.login          + separator + "Login"),
+            (IndexOf.registration   + separator + "Registrazione"),
+            (IndexOf.info           + separator + "Info"),
+            (IndexOf.exit           + separator + exit)
         };
-        // Separator string
-        final String separator = " - ";
         // Initialize menu
         this.menu = header;
         // For every element in the options array
         for ( short i = 0; i < options.length; i++ ) {
             // Create the menu string
             this.menu += (i + 1) +  separator + options[i] + '\n';
-            // If the current option string is equal to exit than 
-            if ( exit.equals(options[i]) )
-                // The exit option number is the current number
-                this.exit_number = (short) (i + 1);
+            // If the current option string is equal to exit than
         }
         // Number of options is the number of elements of the array
         this.op_number = (short) options.length;
@@ -100,7 +95,7 @@ public class MainMenu {
      * @return false se l'input è diverso dall'uscita
      */
     public boolean isQuit( short n ) {
-        return n == exit_number;
+        return (n == IndexOf.exit);
     }
     // Return the Number of the Exit Option
     /**
@@ -108,7 +103,7 @@ public class MainMenu {
      * @return l'intero dell'uscita
      */
     public short getQuit() {
-        return exit_number;
+        return IndexOf.exit;
     }
     // Return the Number of Options of the Menu
     // It's the max (which is the last) number displayed by the Menu
