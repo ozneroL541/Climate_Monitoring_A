@@ -83,6 +83,7 @@ public class AutorizedOperator extends User {
 
     @Override
     public String toString(){
+        final String none = "NESSUNO";
         String str = "";
         str += "User ID: " + String.format("%05d", this.userid) + "\n";
         str += "Nome: "   + this.nome + "\n";
@@ -91,15 +92,7 @@ public class AutorizedOperator extends User {
         str += "Indirizzo Email: " + this.email_address + "\n";
         str += "Password: "     + this.passwd + "\n" ;
         if(this.centre==defaultValueOfCentre){
-            /* TODO se metti
-             * final static String nocentre = "NESSUNO"
-             * in caso di modifica o ripetizione in altri
-             * possibili output è più funzionale. 
-             * 
-             * Comunque non crei una nuova costante perché 
-             * le stringhe scritte così le salva già come costante.
-            */
-            str += "Id Centro di appartenenza: NESSUNO";
+            str += "Id Centro di appartenenza: " + none;
         }else{
             str += "Id Centro di appartenenza: "    + this.centre;
         }
@@ -150,7 +143,6 @@ public class AutorizedOperator extends User {
 
     //evaluate userid and password
     private static AutorizedOperator login(){
-        // TODO Test
         int riga = -1;
         AutorizedOperator a = null;
         String userid;
