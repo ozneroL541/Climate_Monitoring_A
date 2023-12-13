@@ -350,7 +350,7 @@ public class AutorizedOperator extends User {
     }
     //update file with new value of centre
     private boolean addCentreToFile(String centre){
-        int riga=Research.OneStringInCol(file, IndexOf.matricola, Short.toString(this.userid));
+        int riga=Research.OneStringInCol(file, IndexOf.matricola, String.format("%05d", this.userid));
         return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
     // Execute selected action
