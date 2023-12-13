@@ -173,8 +173,6 @@ public class AutorizedOperator extends User {
     }
     //evaluate userid and password
     private static AutorizedOperator login(){
-        int riga = -1;
-        AutorizedOperator a = null;
         String userid;
         String password;
         System.out.println("LOGIN\n");
@@ -183,23 +181,8 @@ public class AutorizedOperator extends User {
         userid = InputScanner.INPUT_SCANNER.nextLine();
         System.out.print("Inserire la password: ");
         password=InputScanner.INPUT_SCANNER.nextLine();
-
-        //return the column where UserId is
-        riga=Research.OneStringInCol(file, IndexOf.matricola, userid);
-        if ( riga > 0 ) {
-            // Initialize record
-            String[] record = null;
-            // Check if the research returned a valid result
-            record = Research.getRecord(file, riga);
-            if(record!=null){
-                //if password match, set the object's attributes
-                if(record[IndexOf.password].equals(password)){
-                    a =  new AutorizedOperator(Short.valueOf(userid), record[IndexOf.nome], record[IndexOf.cognome], record[IndexOf.codice_fiscale], record[IndexOf.email], password, record[IndexOf.centro]);
-                }
-            }
-        }
-        // Return a
-        return a;
+        // Return
+        return new AutorizedOperator(Short.valueOf(userid), password);
     }
     // User Identity Code
     private short userid;
@@ -218,6 +201,34 @@ public class AutorizedOperator extends User {
 
     // Monitoring Centre
     private String centre;
+    /**
+     * Costruisce un Operatore Autorizzato usando userid e password.
+     * @param userid userid
+     * @param passwd password
+     */
+    public AutorizedOperator(short userid, String passwd) {
+        //return the column where UserId is
+        int riga=Research.OneStringInCol(file, IndexOf.matricola, String.format("%05d", userid));
+        if ( riga > 0 ) {
+            // Initialize record
+            String[] record = null;
+            // Check if the research returned a valid result
+            record = Research.getRecord(file, riga);
+            if(record!=null){
+                //if password match, set the object's attributes
+                if(record[IndexOf.password].equals(passwd)){
+                    this.userid         = userid;
+                    this.passwd         = passwd;
+                    this.nome           = record[IndexOf.nome];
+                    this.cognome        = record[IndexOf.cognome];
+                    this.codice_fiscale = record[IndexOf.codice_fiscale];
+                    this.email_address  = record[IndexOf.email];
+                    this.passwd         = passwd;
+                    this.centre         = record[IndexOf.centro];
+                }
+            }
+        }
+    }
     /**
     * Costruttore vuoto
     */
@@ -389,6 +400,16 @@ public class AutorizedOperator extends User {
                 System.out.println("Il valore inserito non è corretto.");
                 System.out.println("Inserire un numero valido per continuare.\n");
                 return true;
-            }
         }
     }
+    // TODO Remove test main
+    public static void main(String[] args) {
+        AutorizedOperator a = new AutorizedOperator( (short) 2, "qwerty" );
+        if (a == null || a.passwd == null) {
+            System.err.println("Login Failed");
+        } else {
+            System.out.println(a.toString());
+        }
+        a.setCentre("Test");
+    }
+}
