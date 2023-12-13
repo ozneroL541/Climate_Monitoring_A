@@ -366,7 +366,7 @@ public class AutorizedOperator extends User {
                 return false;
             default:
                 // Error Message
-                System.out.println("\nIl valore inserito non è corretto.");
+                System.out.println("Il valore inserito non è corretto.");
                 System.out.println("Inserire un numero valido per continuare.\n");
                 return true;
             }
