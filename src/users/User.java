@@ -121,6 +121,12 @@ public class User {
 
         //show centres to user
         centri=MonitoringCentre.getCentri();
+        // Check
+        if (centri == null) {
+            System.out.println("Attualmente non sono presente Centri di Monitoraggio.");
+            System.out.println("Crea un centro di Monitoraggio per effetturare l'associazione");
+            return defaultValueOfCentre;
+        }
         System.out.println("Centri esistenti:");
         for(int i=0;i<centri.length;i++){
             System.out.println(centri[i]);

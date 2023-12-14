@@ -264,16 +264,26 @@ public class AutorizedOperator extends User {
         this.passwd=password;
         this.centre=centre;
     }
-    // TODO JD
-    //cambiare tipo di ritorno in boolean?
-    //user inserts climatic parameters
+    /**
+     * Permette all'Operatore Autorizzato di inserire i parametri climatici per un'area geografica appartenente
+     * al suo centro di monitoraggio
+     * @return true se i parametri sono stati aggiunti al loro file con successo
+     */
     public boolean inserisciParametriClimatici(){
+        // Check if the operator is associate with a centre
         if(hasCentre()){
+            // Make Parameters
             Parameters p = Parameters.MakeParameters(centre);
+            // Check result of the operation
             if (p != null) {
+                // Add Parameters to CSV
                 return p.addToCSV();
-            } else
+            } else {
+                // Error message
+                System.err.println("Paramtri non aggiunti.");
+                // Return with error
                 return false;
+            }
         }else{
             System.out.println("Impossibile inserire i parametri climatici\nPer inserire i parametri bisogna essere associati ad un centro");
             return false;
@@ -368,9 +378,13 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    // TODO JD
+    /**
+     * Mostra il menù dell'Operatore Autorizzato e ne esegue le opzioni
+     */
     public void menu() {
+        // Make a menu
         MenuOperator mo = new MenuOperator();
+        // Choose the options
         mo.ChooseOption();
     }
     //update file with new value of centre
@@ -423,7 +437,10 @@ public class AutorizedOperator extends User {
     public boolean Exist() {
         return this.nome != null && this.nome.length() > 0;
     }
-    // TODO JD
+    /**
+     * Viene richiesto all'Operatore Autorizzato il centro a cui associarsi tra quelli presenti.
+     * @return true se l'associazione ha avuto successo o se l'operatore è già associato ad un centro.
+     */
     public boolean chooseCentre() {
         // Check centre is not null
         if (this.centre != null) {
