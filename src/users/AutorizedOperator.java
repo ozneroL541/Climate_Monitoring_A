@@ -42,95 +42,6 @@ import src.parameters.Parameters;
  */
 public class AutorizedOperator extends User {
     /**
-     * Classe che contiene il menù operatore.
-     * @author Lorenzo Radice
-     * @version 0.21.0
-     */
-    public class MenuOperator {
-        /**
-         * Indexes
-         */
-        private static final record IndexOf() {
-            private static final short research = 1;
-            private static final short view_areas = 2;
-            private static final short make_area = 3;
-            private static final short add_parameters = 4;
-            private static final short set_centre = 5;
-            private static final short make_centre = 6;
-            private static final short exit = 7;
-        }
-        // Menu string
-        private String menu = null;
-        // Exit Option
-        private final String exit = "Logout";
-        /**
-         * Costruisce un oggetto menù
-         */
-        public MenuOperator(){
-            // Separator string
-            final String separator = " - ";
-            // Header
-            final String header = "\n\tMenù Operatore Autorizzato\n";
-            // Options array
-            final String[] options = {
-                (IndexOf.research       + separator + "Ricerca aree"),
-                (IndexOf.view_areas     + separator + "Visualizza informazioni aree"),
-                (IndexOf.make_area      + separator + "Crea area"),
-                (IndexOf.add_parameters + separator + "Aggiungi parametri"),
-                (IndexOf.set_centre     + separator + "Seleziona centro"),
-                (IndexOf.make_centre    + separator + "Crea centro di monitoraggio"),
-                (IndexOf.exit           + separator + exit)
-            };
-            // Initialize menu
-            this.menu = header;
-            // For every element in the options array
-            for ( short i = 0; i < options.length; i++ ) {
-                // Create the menu string
-                this.menu += options[i] + '\n';
-                // If the current option string is equal to exit than
-            }
-        }
-        /**
-         * Mostra il menù e permette di sceglierne le opzioni.
-         */
-        public void ChooseOption() {
-            // Short integer for the menu options
-            short mainmenu_input = 0;
-            // Input
-            String input = "";
-            // While exit is not selected
-            do {
-                // Output the menu
-                System.out.println(this.getMenu());
-                // Request
-                System.out.print("Inserire codice:\t");
-                // Input
-                try {
-                    // Input
-                    input = InputScanner.INPUT_SCANNER.nextLine();
-                    // Parse input
-                    mainmenu_input = (short) Short.valueOf(input);
-                } catch (NumberFormatException e) {
-                    // Set to 0
-                    mainmenu_input = 0;
-                } catch (Exception e) {
-                    // Set to -1
-                    mainmenu_input = -1;
-                }
-                // New Line
-                System.out.println();
-            // Check if exit
-            } while ( selectedAction(mainmenu_input) );
-        }
-        /**
-         * Restituisce la stringa che rappresenta il menù
-         * @return menù
-         */
-        public String getMenu() {
-            return this.menu;
-        }
-    }
-    /**
      * Ritorna DefaultValueOfCentre come Short
      * @return DefaultValueOfCentre
      */
@@ -346,7 +257,7 @@ public class AutorizedOperator extends User {
     // TODO JD
     public void menu() {
         MenuOperator mo = new MenuOperator();
-        mo.ChooseOption();
+        ChooseOption(mo);
     }
     //update file with new value of centre
     private boolean addCentreToFile(String centre){
@@ -389,6 +300,38 @@ public class AutorizedOperator extends User {
                 System.out.println("Il valore inserito non è corretto.");
                 System.out.println("Inserire un numero valido per continuare.\n");
                 return true;
-            }
         }
     }
+    /**
+     * Mostra il menù e permette di sceglierne le opzioni.
+     */
+    private void ChooseOption(MenuOperator m) {
+        // Short integer for the menu options
+        short mainmenu_input = 0;
+        // Input
+        String input = "";
+        // While exit is not selected
+        do {
+            // Output the menu
+            System.out.println(m.getMenu());
+            // Request
+            System.out.print("Inserire codice:\t");
+            // Input
+            try {
+                // Input
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                // Parse input
+                mainmenu_input = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                // Set to 0
+                mainmenu_input = 0;
+            } catch (Exception e) {
+                // Set to -1
+                mainmenu_input = -1;
+            }
+            // New Line
+            System.out.println();
+        // Check if exit
+        } while ( selectedAction(mainmenu_input) );
+    }
+}
