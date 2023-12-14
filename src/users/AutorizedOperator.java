@@ -316,16 +316,20 @@ public class AutorizedOperator extends User {
      * Assegna un Centro di Monitoraggio all'Operatore autorizzato, se non lo ha già.
      * @param centre centro di monitoraggio
      */
-    public void setCentre(String centre) {
+    public boolean setCentre(String centre) {
         //if user does not have a center
-        if(this.centre.equals(defaultValueOfCentre)){
+        if(this.centre != null && this.centre.equals(defaultValueOfCentre)){
             this.centre = centre;
             if(! addCentreToFile(centre) ){
-                System.err.println("Errore nell'aggiornamento del file");
+                System.err.println("ERRORE: aggiornamento file centri fallito.");
                 this.centre = defaultValueOfCentre;
-            }                        
+                return false;
+            } else {
+                return true;
+            }
         }else{
-            System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
+            System.err.println("ERRORE: il centro non è nel valore di default.");
+            return false;
         }
     }
     /**
@@ -396,8 +400,8 @@ public class AutorizedOperator extends User {
                 inserisciParametriClimatici();
                 return true;
             case MenuOperator.IndexOf.set_centre:
-                // Set a Centre
-                setCentre(associaCentro());
+                // Choose a Centre
+                chooseCentre();
                 return true;
             case MenuOperator.IndexOf.make_centre:
                 // Make Centre
@@ -420,14 +424,23 @@ public class AutorizedOperator extends User {
     public boolean Exist() {
         return this.nome != null && this.nome.length() > 0;
     }
-    // TODO Remove test main
-    public static void main(String[] args) {
-        AutorizedOperator a = new AutorizedOperator( (short) 2, "qwerty" );
-        if (a == null || a.passwd == null) {
-            System.err.println("Login Failed");
+    // TODO JD
+    public boolean chooseCentre() {
+        // Check centre is not null
+        if (this.centre != null) {
+            // If centre equals default vaulue go on
+            if (this.centre.equals(defaultValueOfCentre)) {
+                // Set Centre
+                return setCentre(associaCentro());
+            } else {
+                // The Operator is already associate to a centre 
+                System.out.println("Impossibile associarsi ad un centro.\nSei già associato al centro " + this.centre + ".");
+                return true;
+            }
         } else {
-            System.out.println(a.toString());
+            // Error, centre cannot be null
+            System.err.println("ERRORE: oggetto Operatore Autorizzato corrotto.");
+            return false;
         }
-        a.setCentre("Test");
     }
 }
