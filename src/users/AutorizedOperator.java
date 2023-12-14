@@ -131,13 +131,6 @@ public class AutorizedOperator extends User {
         }
     }
     /**
-     * Ritorna DefaultValueOfCentre come Short
-     * @return DefaultValueOfCentre
-     */
-    public static String getDefaultValueOfCentre(){
-        return defaultValueOfCentre;
-    }
-    /**
      * Permette all'utente di autenticarsi inserendo il proprio id e la password
      * Ritorna un oggetto di AutorizedOperator se l'autenticazione avviene con successo, altrimenti ritorna null
      * @return oggetto di AutorizedOperator
@@ -269,7 +262,7 @@ public class AutorizedOperator extends User {
     //cambiare tipo di ritorno in boolean?
     //user inserts climatic parameters
     public boolean inserisciParametriClimatici(){
-        if(!this.centre.equals(defaultValueOfCentre)){
+        if(hasCentre()){
             Parameters p = Parameters.MakeParameters(centre);
             if (p != null) {
                 return p.addToCSV();
@@ -284,16 +277,16 @@ public class AutorizedOperator extends User {
     public String toString(){
         final String none = "NESSUNO";
         String str = "";
-        str += "User ID: " + String.format("%05d", this.userid) + "\n";
-        str += "Nome: "   + this.nome + "\n";
-        str += "Cognome: "       + this.cognome + "\n";
-        str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
-        str += "Indirizzo Email: " + this.email_address + "\n";
-        str += "Password: "     + this.passwd + "\n" ;
-        if(this.centre==defaultValueOfCentre){
-            str += "Id Centro di appartenenza: " + none;
+        str += "User ID:\t" + String.format("%05d", this.userid) + "\n";
+        str += "Nome:\t"   + this.nome + "\n";
+        str += "Cognome:\t"       + this.cognome + "\n";
+        str += "Codice Fiscale:\t "   + this.codice_fiscale + "\n";
+        str += "Indirizzo Email:\t " + this.email_address + "\n";
+        str += "Password:\t"     + this.passwd + "\n" ;
+        if(hasCentre()){
+            str += "Id Centro di appartenenza:\t" + this.centre;
         }else{
-            str += "Id Centro di appartenenza: "    + this.centre;
+            str += "Id Centro di appartenenza:\t" + none;
         }
         return str;
     }
@@ -318,7 +311,7 @@ public class AutorizedOperator extends User {
      */
     public boolean setCentre(String centre) {
         //if user does not have a center
-        if(this.centre != null && this.centre.equals(defaultValueOfCentre)){
+        if(this.centre != null && !hasCentre()){
             this.centre = centre;
             if(! addCentreToFile(centre) ){
                 System.err.println("ERRORE: aggiornamento file centri fallito.");
@@ -429,7 +422,7 @@ public class AutorizedOperator extends User {
         // Check centre is not null
         if (this.centre != null) {
             // If centre equals default vaulue go on
-            if (this.centre.equals(defaultValueOfCentre)) {
+            if (!hasCentre()) {
                 // Set Centre
                 return setCentre(associaCentro());
             } else {
@@ -442,5 +435,12 @@ public class AutorizedOperator extends User {
             System.err.println("ERRORE: oggetto Operatore Autorizzato corrotto.");
             return false;
         }
+    }
+    /**
+     * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
+     * @return true se l'operatore è associato ad un centro
+     */
+    public boolean hasCentre() {
+        return !(this.centre.equals(defaultValueOfCentre));
     }
 }
