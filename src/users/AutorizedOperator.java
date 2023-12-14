@@ -153,8 +153,8 @@ public class AutorizedOperator extends User {
 
         // If file doesn't exist exit
         if ( ! file.exists() ){
-            // Error Output
-            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
+            // Output
+            System.out.println("Non ci sono Operatori Autorizzati registrati.");
             // Error return
             return null;
         }
@@ -219,6 +219,7 @@ public class AutorizedOperator extends User {
     public AutorizedOperator(short userid, String passwd) {
         //return the column where UserId is
         int riga=Research.OneStringInCol(file, IndexOf.matricola, String.format("%05d", userid));
+        // Check
         if ( riga > 0 ) {
             // Initialize record
             String[] record = null;
