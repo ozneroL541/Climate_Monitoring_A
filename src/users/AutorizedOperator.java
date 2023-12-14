@@ -402,6 +402,13 @@ public class AutorizedOperator extends User {
                 return true;
         }
     }
+    /**
+     * Controlla l'esistenza dell'oggetto Operatore
+     * @return true se il centro esiste
+     */
+    public boolean Exist() {
+        return this.nome != null && this.nome.length() > 0;
+    }
     // TODO Remove test main
     public static void main(String[] args) {
         AutorizedOperator a = new AutorizedOperator( (short) 2, "qwerty" );
