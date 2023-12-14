@@ -177,8 +177,14 @@ public class AutorizedOperator extends User {
         // Ask
         System.out.print("Inserire la password: ");
         password=InputScanner.INPUT_SCANNER.nextLine();
-        // Create Operator
-        a = new AutorizedOperator(Short.valueOf(userid), password);
+        // Check for Parsing
+        try {
+            // Create Operator
+            a = new AutorizedOperator(Short.valueOf(userid), password);
+        } catch (NumberFormatException e) {
+            // Set a as null
+            a = null;
+        }
         // Check creation (a == null compulsory) 
         if ( a == null || !a.Exist() ) {
             // Set a as null
