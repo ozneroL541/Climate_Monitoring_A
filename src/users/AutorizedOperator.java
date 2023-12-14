@@ -277,16 +277,16 @@ public class AutorizedOperator extends User {
     public String toString(){
         final String none = "NESSUNO";
         String str = "";
-        str += "User ID:\t" + String.format("%05d", this.userid) + "\n";
-        str += "Nome:\t"   + this.nome + "\n";
-        str += "Cognome:\t"       + this.cognome + "\n";
-        str += "Codice Fiscale:\t "   + this.codice_fiscale + "\n";
-        str += "Indirizzo Email:\t " + this.email_address + "\n";
-        str += "Password:\t"     + this.passwd + "\n" ;
+        str += "User ID:\t\t"           + String.format("%05d", this.userid) + "\n";
+        str += "Nome:\t\t\t"            + this.nome + "\n";
+        str += "Cognome:\t\t"           + this.cognome + "\n";
+        str += "Codice Fiscale:\t\t"    + this.codice_fiscale + "\n";
+        str += "Indirizzo Email:\t"     + this.email_address + "\n";
+        str += "Password:\t\t"          + this.passwd + "\n" ;
         if(hasCentre()){
-            str += "Id Centro di appartenenza:\t" + this.centre;
+            str += "Centro di appartenenza:\t" + this.centre;
         }else{
-            str += "Id Centro di appartenenza:\t" + none;
+            str += "Centro di appartenenza:\t" + none;
         }
         return str;
     }
