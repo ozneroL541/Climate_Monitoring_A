@@ -160,7 +160,7 @@ public class AutorizedOperator extends User {
         }
 
         u=login();
-        while(u==null && c<limit){
+        while((u==null || !u.Exist()) && c<limit){
             System.out.println("User-ID e password non riconosciuti (tentativi rimasti: " + (limit-c) + ").\nReinserire");
             u=login();
             c++;
@@ -173,16 +173,26 @@ public class AutorizedOperator extends User {
     }
     //evaluate userid and password
     private static AutorizedOperator login(){
-        String userid;
-        String password;
-        System.out.println("LOGIN\n");
-
+        AutorizedOperator a = null;
+        String userid = null;
+        String password = null;
+        // Title
+        System.out.println("LOGIN");
+        // Ask
         System.out.print("Inserire l'User-ID: ");
         userid = InputScanner.INPUT_SCANNER.nextLine();
+        // Ask
         System.out.print("Inserire la password: ");
         password=InputScanner.INPUT_SCANNER.nextLine();
+        // Create Operator
+        a = new AutorizedOperator(Short.valueOf(userid), password);
+        // Check creation (a == null compulsory) 
+        if ( a == null || !a.Exist() ) {
+            // Set a as null
+            a = null;
+        }
         // Return
-        return new AutorizedOperator(Short.valueOf(userid), password);
+        return a;
     }
     // User Identity Code
     private short userid;
