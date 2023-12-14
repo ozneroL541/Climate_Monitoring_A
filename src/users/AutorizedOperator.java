@@ -44,7 +44,7 @@ public class AutorizedOperator extends User {
     /**
      * Classe che contiene il menù operatore.
      * @author Lorenzo Radice
-     * @version 0.21.0
+     * @version 0.21.1
      */
     public class MenuOperator {
         /**
