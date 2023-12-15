@@ -24,4 +24,15 @@ class Distance implements Comparable<Distance>{
         }
         return a;
     }
+    public static Integer[] LineArrayC( Comparable[] arr ) {
+        Integer[] a = new Integer[arr.length];
+        Distance d = null;
+        for (int i = 0; i < arr.length; i++) {
+            if ( arr[i] instanceof Distance ) {
+                d = (Distance) arr[i];
+                a[i] = d.getLine();
+            }
+        }
+        return a;
+    }
 }

@@ -492,16 +492,8 @@ public class Research {
             // Return null
             return null;
         }
-        // While
-        Distance[] a = (Distance[]) heap.sort();
-        // Check
-        if (a[0] instanceof Distance) {
-            out = Distance.LineArray( a );
-        } else {
-            System.err.println("ERRORE: ordinamento fallito.");
-            return null;
-        }
-         Distance.LineArray((Distance[]) heap.sort());
+        Comparable[] a = heap.sort();
+        out = Distance.LineArrayC( a );
         // Return the lines
         return out;
     }
