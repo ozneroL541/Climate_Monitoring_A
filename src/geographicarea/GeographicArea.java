@@ -1062,6 +1062,6 @@ public class GeographicArea {
     }
     // TODO Remove Test Main
     public static void main(String[] args) {
-        GeographicArea.SearchListTEST(IndexOf.coordinates, "45.81025, 9.086139" , 100);
+        GeographicArea.SearchListTEST(IndexOf.coordinates, "45.81025, 9.086139" , 1);
     }
 }
