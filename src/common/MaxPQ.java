@@ -4,6 +4,8 @@ import java.lang.Comparable;
 public class MaxPQ {
     // Maximum Priority Queue array
     private Comparable[] pq;
+    // Mac lenght
+    private int max = 0;
     // Lenght of the array
     private int n = 0;
     /**
@@ -13,6 +15,7 @@ public class MaxPQ {
      */
     public MaxPQ ( int dim ){
         this.pq = new Comparable[dim+1];
+        this.max = dim;
     }
     /**
      * Check if the heap is empty
@@ -35,12 +38,25 @@ public class MaxPQ {
      * O(log(n)) worst
      * @param v item to insert
      */
-    public void insert(Comparable v){
-        // Increment the size of heap
-        // Assign v to the first void space of the array
-        pq[++n] = v;
-        // Reorder the array
-        swim(n);
+    public void insert(Comparable v) {
+        // If the current elemets reached the maximum
+        if ( (this.max -1) < n) {
+            if ( pq[1].compareTo(v) >= 0 ) {
+                delete();
+                n--;
+                // Increment the size of heap
+                // Assign v to the first void space of the array
+                pq[++n] = v;
+                // Reorder the array
+                swim(n);
+            }
+        } else {
+            // Increment the size of heap
+            // Assign v to the first void space of the array
+            pq[++n] = v;
+            // Reorder the array
+            swim(n);
+        }
     }
     /**
      * Read the element of the heap with more priority

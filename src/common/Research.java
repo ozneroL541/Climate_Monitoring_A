@@ -35,7 +35,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.21.0
+ * @version 0.21.1
  */
 public class Research {
     /**
@@ -428,6 +428,8 @@ public class Research {
         final short limit = 3000;
         // Max number to return
         final short max =  100;
+        // Create an array where store the list
+        Integer[] out = null;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -491,8 +493,15 @@ public class Research {
             return null;
         }
         // While
-        // Create an array where store the list
-        Integer[] out = Distance.LineArray((Distance[]) heap.sort());
+        Distance[] a = (Distance[]) heap.sort();
+        // Check
+        if (a[0] instanceof Distance) {
+            out = Distance.LineArray( a );
+        } else {
+            System.err.println("ERRORE: ordinamento fallito.");
+            return null;
+        }
+         Distance.LineArray((Distance[]) heap.sort());
         // Return the lines
         return out;
     }
