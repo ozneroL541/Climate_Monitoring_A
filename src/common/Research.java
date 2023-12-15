@@ -466,10 +466,6 @@ public class Research {
                 c2 = Coordinates.parseCoordinates(nextRecord[col]);
                 // Calculate distance between coordinates
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
-                // TODO Remove
-                if ( line >= 12758) {
-                    System.err.println("Check");
-                }
                 // Accept only distances in the limit
                 if ( dist < limit ) {
                     // Create a Distance Object

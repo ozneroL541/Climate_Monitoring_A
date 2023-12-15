@@ -43,7 +43,6 @@ public class MaxPQ {
         if ( (this.max - 1) < n) {
             if ( pq[1].compareTo(v) >= 0 ) {
                 delete();
-                n--;
                 // Increment the size of heap
                 // Assign v to the first void space of the array
                 pq[++n] = v;

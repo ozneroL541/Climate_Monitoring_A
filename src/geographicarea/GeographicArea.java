@@ -796,8 +796,8 @@ public class GeographicArea {
             // Return the first x nearest areas
             // TODO Check
             // TODO Remove
-            //out = Research.CoordinatesAdvancedV3(file, IndexOf.coordinates, coo);
-            out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
+            out = Research.CoordinatesAdvancedV3(file, IndexOf.coordinates, coo);
+            //out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
             // Return the output
             return out;
         }
