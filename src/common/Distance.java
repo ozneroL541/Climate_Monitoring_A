@@ -15,7 +15,7 @@ class Distance implements Comparable<Distance>{
     }
     @Override
     public int compareTo(Distance arg0) {
-        return dist.compareTo(dist);
+        return dist.compareTo(arg0.dist);
     }
     public static Integer[] LineArray( Distance[] d ) {
         Integer[] a = new Integer[d.length];

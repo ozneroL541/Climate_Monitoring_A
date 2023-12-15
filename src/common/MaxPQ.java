@@ -40,7 +40,7 @@ public class MaxPQ {
      */
     public void insert(Comparable v) {
         // If the current elemets reached the maximum
-        if ( (this.max -1) < n) {
+        if ( (this.max - 1) < n) {
             if ( pq[1].compareTo(v) >= 0 ) {
                 delete();
                 n--;

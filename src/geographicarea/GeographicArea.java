@@ -795,7 +795,9 @@ public class GeographicArea {
         else {
             // Return the first x nearest areas
             // TODO Check
-            out = Research.CoordinatesAdvancedV3(file, IndexOf.coordinates, coo);
+            // TODO Remove
+            //out = Research.CoordinatesAdvancedV3(file, IndexOf.coordinates, coo);
+            out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
             // Return the output
             return out;
         }
@@ -1060,6 +1062,6 @@ public class GeographicArea {
     }
     // TODO Remove Test Main
     public static void main(String[] args) {
-        GeographicArea.SearchListTEST(IndexOf.coordinates, "45.0, 34.5" , 100);
+        GeographicArea.SearchListTEST(IndexOf.coordinates, "45.81025, 9.086139" , 100);
     }
 }
