@@ -35,7 +35,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.21.1
+ * @version 0.21.2
  */
 public class Research {
     /**
@@ -331,7 +331,7 @@ public class Research {
         // Limit of acceptable distance
         final short limit = 3000;
         // Max number to return
-        final short max =  100;
+        final short max =  10000;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -413,7 +413,6 @@ public class Research {
         // Return the lines
         return out;
     }
-    // TODO Change JD
     /**
      * Restituisce tutte le linee che contengono le coordinate più vicine a quella passata in argomento.
      * L'array è restituito con le celle in ordine di vicinanza.
@@ -427,7 +426,7 @@ public class Research {
         // Limit of acceptable distance
         final short limit = 3000;
         // Max number to return
-        final short max =  100;
+        final short max =  10000;
         // Create an array where store the list
         Integer[] out = null;
         // Coordinates
