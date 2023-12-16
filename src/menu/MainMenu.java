@@ -170,6 +170,10 @@ public class MainMenu {
                     // Autorized Operator Menu
                     ((AutorizedOperator) user).menu();
                 }
+                // Logout
+                user = null;
+                // Reset user
+                user = new User();
                 return true;
             case IndexOf.registration:
                 // Registrazione

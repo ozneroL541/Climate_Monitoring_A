@@ -42,7 +42,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.21.0
+ * @version 0.21.1
  */
 public class User {
     // Indexes in CSV file
@@ -121,6 +121,12 @@ public class User {
 
         //show centres to user
         centri=MonitoringCentre.getCentri();
+        // Check
+        if (centri == null) {
+            System.out.println("Attualmente non sono presente Centri di Monitoraggio.");
+            System.out.println("Crea un centro di Monitoraggio per effetturare l'associazione");
+            return defaultValueOfCentre;
+        }
         System.out.println("Centri esistenti:");
         for(int i=0;i<centri.length;i++){
             System.out.println(centri[i]);
