@@ -438,7 +438,7 @@ public class Research {
         // Distance Object
         Distance d = null;
         // Heap
-        MaxPQ heap = new MaxPQ(max);
+        MaxPQ<Distance> heap = new MaxPQ<Distance>(max);
         // Copy of coordinates
         double[] c1 = new double[2];
         // Pre-compute coordinates
@@ -491,7 +491,7 @@ public class Research {
             // Return null
             return null;
         }
-        Comparable[] a = heap.sort();
+        Comparable<Distance>[] a = heap.sort();
         out = Distance.LineArrayC( a );
         // Return the lines
         return out;
