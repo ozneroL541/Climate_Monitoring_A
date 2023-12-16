@@ -255,7 +255,7 @@ public class AutorizedOperator extends User {
                 return true;
             }
         }else{
-            System.err.println("ERRORE: il centro non è nel valore di default.");
+            System.err.println("ERRORE: il centro non è al valore di default.");
             return false;
         }
     }
@@ -382,7 +382,6 @@ public class AutorizedOperator extends User {
      */
     public boolean hasCentre() {
         return !(this.centre.equals(defaultValueOfCentre));
-        }
     }
     /**
      * Mostra il menù e permette di sceglierne le opzioni.
