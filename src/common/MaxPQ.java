@@ -24,6 +24,11 @@
 
 package src.common;
 
+/**
+ * Maximum Priority Queue
+ * @author Lorenzo Radice
+ * @version 0.21.0
+ */
 public class MaxPQ<T extends Comparable<T>> {
     // Maximum Priority Queue array
     private T[] pq;
@@ -178,6 +183,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * Bottom Up build.
      * Complexity
      * Theta(n)
+     * Unstable
      * @param a
      */
     public void buildBU( T[] a){
@@ -195,6 +201,12 @@ public class MaxPQ<T extends Comparable<T>> {
                 sink(i);
         }
     }
+    /**
+     * Return the array of the sorted heap
+     * Complexity
+     * O(log(n))
+     * @return sorted array
+     */
     public Comparable<T>[] sort() {
         Comparable<T>[] a = new Comparable[n];
         // For every element of the array from the back
@@ -203,5 +215,12 @@ public class MaxPQ<T extends Comparable<T>> {
             // to the following element of the array
             a[i] = this.delete();
         return a;
+    }
+    /**
+     * Return Heap Lenght
+     * @return n
+     */
+    public int getN() {
+        return n;
     }
 }

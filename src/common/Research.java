@@ -492,7 +492,7 @@ public class Research {
             return null;
         }
         Comparable<Distance>[] a = heap.sort();
-        out = Distance.LineArrayC( a );
+        out = Distance.toLineArray( a );
         // Return the lines
         return out;
     }

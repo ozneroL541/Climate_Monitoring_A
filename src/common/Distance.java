@@ -23,40 +23,80 @@
  */
 
 package src.common;
-// TODO JD
+
+/**
+ * Classe di appoggio per la ricerca delle coordinate.
+ * Memorizza al suo interno la distanza di una coordinata dalla coordinata cercata e la linea di riferimento.
+ * @author Lorenzo Radice
+ * @version 0.21.0
+ */
 class Distance implements Comparable<Distance>{
+    // Distance
     private Double dist = 0.0;
+    // Line
     private int line = 0;
+    /**
+     * Costruttore dell'oggetto Distance.
+     * Assegna la distanza e la linea di riferimento nel file.
+     * @param dist distanza
+     * @param line riga
+     */
     public Distance(double dist, int line) {
         this.dist = dist;
         this.line = line;
     }
+    /**
+     * Restituisce il campo distanza come <code>double</code>
+     * @return distanza
+     */
     public double getDist() {
         return dist;
     }
+    /**
+     * Restituisce il campo riga come <code>int</code>
+     * @return riga
+     */
     public int getLine() {
         return line;
     }
+    /**
+     * Compara un oggetto Distance con un altro oggetto della stessa classe.
+     */
     @Override
     public int compareTo(Distance arg0) {
         return dist.compareTo(arg0.dist);
     }
-    public static Integer[] LineArray( Distance[] d ) {
-        Integer[] a = new Integer[d.length];
-        for (int i = 0; i < d.length; i++) {
-            a[i] = d[i].getLine();
-        }
-        return a;
-    }
-    public static Integer[] LineArrayC( Comparable[] arr ) {
-        Integer[] a = new Integer[arr.length];
+    /**
+     * Dato un array di oggetti della classe <code>Distance</code> il metodo ritorna l'array delle righe.
+     * @param a2 array delle distanze
+     * @return array delle linee
+     */
+    public static Integer[] toLineArray( Comparable<Distance>[] a2 ) {
+        // Lines Array
+        Integer[] a = new Integer[a2.length];
+        // Support Distance
         Distance d = null;
-        for (int i = 0; i < arr.length; i++) {
-            if ( arr[i] instanceof Distance ) {
-                d = (Distance) arr[i];
+        for (int i = 0; i < a2.length; i++) {
+            if ( a2[i] instanceof Distance ) {
+                d = (Distance) a2[i];
                 a[i] = d.getLine();
             }
         }
+        return a;
+    }
+    /**
+     * Dato un array di oggetti della classe <code>Distance</code> il metodo ritorna l'array delle righe.
+     * @param a2 array delle distanze
+     * @return array delle linee
+     */
+    public static Integer[] toLines( MaxPQ<Distance> a2 ) {
+        // Lines Array
+        Integer[] a = new Integer[a2.getN()];
+        // For every element of the array from the back
+        for( int i = a2.getN()-1; i >= 0; i-- )
+            // Assign the item with maximum priority
+            // to the following element of the array
+            a[i] = a2.delete().getLine();
         return a;
     }
 }
