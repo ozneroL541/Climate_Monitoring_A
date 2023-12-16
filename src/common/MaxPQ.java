@@ -23,7 +23,6 @@
  */
 
 package src.common;
-import java.lang.Comparable;
 
 public class MaxPQ {
     // Maximum Priority Queue array
