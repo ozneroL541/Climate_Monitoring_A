@@ -491,8 +491,7 @@ public class Research {
             // Return null
             return null;
         }
-        Comparable<Distance>[] a = heap.sort();
-        out = Distance.toLineArray( a );
+        out = Distance.toLines(heap);
         // Return the lines
         return out;
     }

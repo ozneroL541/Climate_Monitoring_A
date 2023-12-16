@@ -86,16 +86,6 @@ public class MaxPQ<T extends Comparable<T>> {
         }
     }
     /**
-     * Read the element of the heap with more priority
-     * @return first element
-     * Complexity
-     * O(1)
-     */
-    private T read(){
-        // Return the first element of the array
-        return pq[1];
-    }
-    /**
      * Delete the element of the heap with more priority
      * and return it.
      * Complexity
@@ -114,6 +104,60 @@ public class MaxPQ<T extends Comparable<T>> {
         //
         sink(1);
         return max;
+    }
+    /**
+     * Bottom Up build.
+     * Complexity
+     * Theta(n)
+     * Unstable
+     * @param a
+     */
+    public void buildBU( T[] a){
+        // If the lenght of a is smaller than pq
+        if( a.length < pq.length ){
+            // Assign the lenght of a to n
+            n = a.length;
+            // For every element of a
+            for( int i = 0; i < a.length; i++ )
+                // Assign a[i] to pq[i+1]
+                pq[i+1] = a[i];
+            // From n/2 to 1
+            for( int i = n/2; i >= 1; i-- )
+                // Sink i
+                sink(i);
+        }
+    }
+    /**
+     * Return the array of the sorted heap
+     * Complexity
+     * O(log(n))
+     * @return sorted array
+     */
+    public Comparable<T>[] sort() {
+        Comparable<T>[] a = new Comparable[n];
+        // For every element of the array from the back
+        for( int i = n-1; i >= 0; i-- )
+            // Assign the item with maximum priority
+            // to the following element of the array
+            a[i] = this.delete();
+        return a;
+    }
+    /**
+     * Return Heap Lenght
+     * @return n
+     */
+    public int getN() {
+        return n;
+    }
+    /**
+     * Read the element of the heap with more priority
+     * @return first element
+     * Complexity
+     * O(1)
+     */
+    private T read(){
+        // Return the first element of the array
+        return pq[1];
     }
     /**
      * Check if pq[i] is less than pq[j]
@@ -178,49 +222,5 @@ public class MaxPQ<T extends Comparable<T>> {
             // Assign j to k
             k = j;
         }
-    }
-    /**
-     * Bottom Up build.
-     * Complexity
-     * Theta(n)
-     * Unstable
-     * @param a
-     */
-    public void buildBU( T[] a){
-        // If the lenght of a is smaller than pq
-        if( a.length < pq.length ){
-            // Assign the lenght of a to n
-            n = a.length;
-            // For every element of a
-            for( int i = 0; i < a.length; i++ )
-                // Assign a[i] to pq[i+1]
-                pq[i+1] = a[i];
-            // From n/2 to 1
-            for( int i = n/2; i >= 1; i-- )
-                // Sink i
-                sink(i);
-        }
-    }
-    /**
-     * Return the array of the sorted heap
-     * Complexity
-     * O(log(n))
-     * @return sorted array
-     */
-    public Comparable<T>[] sort() {
-        Comparable<T>[] a = new Comparable[n];
-        // For every element of the array from the back
-        for( int i = n-1; i >= 0; i-- )
-            // Assign the item with maximum priority
-            // to the following element of the array
-            a[i] = this.delete();
-        return a;
-    }
-    /**
-     * Return Heap Lenght
-     * @return n
-     */
-    public int getN() {
-        return n;
     }
 }
