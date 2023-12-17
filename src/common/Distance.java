@@ -54,14 +54,14 @@ class Distance implements Comparable<Distance>{
      * @param a2 array delle distanze
      * @return array delle linee
      */
-    public static Integer[] toLines( MaxPQ<Distance> a2 ) {
+    public static Integer[] toLines( MaxPQ a2 ) {
         // Lines Array
         Integer[] a = new Integer[a2.getN()];
         // For every element of the array from the back
         for( int i = a2.getN()-1; i >= 0; i-- )
             // Assign the item with maximum priority
             // to the following element of the array
-            a[i] = a2.delete().getLine();
+            a[i] = ((Distance) a2.delete()).getLine();
         return a;
     }
     // Distance

@@ -29,9 +29,9 @@ package src.common;
  * @author Lorenzo Radice
  * @version 0.21.0
  */
-public class MaxPQ<T extends Comparable<T>> {
+public class MaxPQ {
     // Maximum Priority Queue array
-    private T[] pq;
+    private Comparable[] pq;
     // Mac lenght
     private int max = 0;
     // Lenght of the array
@@ -42,7 +42,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * @param dim lenght
      */
     public MaxPQ ( int dim ){
-        this.pq = (T[]) new Comparable[dim+1];
+        this.pq = new Comparable[dim+1];
         this.max = dim;
     }
     /**
@@ -66,7 +66,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * O(log(n)) worst
      * @param v item to insert
      */
-    public void insert(T v) {
+    public void insert(Comparable v) {
         // If the current elemets reached the maximum
         if ( (this.max - 1) < n) {
             if ( pq[1].compareTo(v) >= 0 ) {
@@ -93,9 +93,9 @@ public class MaxPQ<T extends Comparable<T>> {
      * O(log(n)) worst
      * @return first element
      */
-    public T delete(){
+    public Comparable delete(){
         // Copy the first element of the heap
-        T max = pq[1];
+        Comparable max = pq[1];
         // Exchange the first element with the last one
         // and decrease the lenght of heap
         exch(1,n--);
@@ -112,7 +112,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * Unstable
      * @param a
      */
-    public void buildBU( T[] a){
+    public void buildBU( Comparable[] a){
         // If the lenght of a is smaller than pq
         if( a.length < pq.length ){
             // Assign the lenght of a to n
@@ -133,8 +133,8 @@ public class MaxPQ<T extends Comparable<T>> {
      * O(log(n))
      * @return sorted array
      */
-    public Comparable<T>[] sort() {
-        Comparable<T>[] a = new Comparable[n];
+    public Comparable<Comparable>[] sort() {
+        Comparable<Comparable>[] a = new Comparable[n];
         // For every element of the array from the back
         for( int i = n-1; i >= 0; i-- )
             // Assign the item with maximum priority
@@ -155,7 +155,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * Complexity
      * O(1)
      */
-    private T read(){
+    private Comparable read(){
         // Return the first element of the array
         return pq[1];
     }
@@ -175,7 +175,7 @@ public class MaxPQ<T extends Comparable<T>> {
      */
     private void exch(int i,int j){
         // Auxiliary variable
-        T t = pq[i];
+        Comparable t = pq[i];
         pq[i] = pq[j];
         pq[j] = t;
     }
