@@ -42,7 +42,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.21.1
+ * @version 0.21.2
  */
 public class User {
     // Indexes in CSV file
@@ -217,7 +217,8 @@ public class User {
 
             //insert centre             
             case 5:
-                campo=setCentro();
+                MenuCentre mc=new MenuCentre();
+                campo=setCentro(mc);
                 return campo;
              
             //insert password               
@@ -321,12 +322,7 @@ public class User {
     }
     //TODO Rendere modulare
     //show a menù with different way of associate the centre to the operator
-    private static String setCentro(){
-
-        final String menu="\n\nMenù associazione centro\n"+
-                            "1) Associazione ad un centro esistente\n"+
-                            "2) Associazione ad un centro nuovo\n"+
-                            "3) Associazione in un secondo momento\n"; 
+    private static String setCentro(MenuCentre mc){
         
         boolean exit=true;
         int scelta;
@@ -334,7 +330,7 @@ public class User {
 
         do{
             scelta=0;
-            System.out.print(menu);
+            System.out.print(mc.getMenu());
 
             System.out.print("\nInserire codice: ");
 
