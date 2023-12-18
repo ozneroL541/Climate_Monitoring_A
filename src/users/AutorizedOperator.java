@@ -146,7 +146,6 @@ public class AutorizedOperator extends User {
                 //if password match, set the object's attributes
                 if(record[IndexOf.password].equals(passwd)){
                     this.userid         = userid;
-                    this.passwd         = passwd;
                     this.nome           = record[IndexOf.nome];
                     this.cognome        = record[IndexOf.cognome];
                     this.codice_fiscale = record[IndexOf.codice_fiscale];
