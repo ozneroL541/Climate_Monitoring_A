@@ -42,7 +42,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.21.2
+ * @version 0.21.3
  */
 public class User {
     // Indexes in CSV file
@@ -320,62 +320,61 @@ public class User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-    //TODO Rendere modulare
-    //show a menù with different way of associate the centre to the operator
+
+    //show a menù with different ways of associate the centre to the operator
     private static String setCentro(MenuCentre mc){
         
-        boolean exit=true;
-        int scelta;
+        String input="";
+        Short choice=0;
         String centre="";
 
         do{
-            scelta=0;
             System.out.print(mc.getMenu());
 
             System.out.print("\nInserire codice: ");
 
-            try{
-                // TODO Remove nextInt
-                scelta=InputScanner.INPUT_SCANNER.nextInt();
-            }catch(InputMismatchException e){
-                //consume invalid token
-                InputScanner.INPUT_SCANNER.next();
-                System.out.println("ERRORE");
-                System.out.println("Codice inserito errato!");
-                scelta=0;
+            try {
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                choice = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                choice=0;
+            } catch (Exception e) {
+                choice=0;
             }
+            centre=centreChoice(choice);            
+        }while(centre==null);
 
-            switch (scelta) {
+        return centre;
+    }
+
+    //handle different ways of associate the centre to the operator
+    private static String centreChoice(short choice){
+        String centre;
+        switch (choice) {
 
                 //user choose an existing centre
-                case 1:
+                case MenuCentre.IndexOf.existingCentre:
                     centre=associaCentro();
-                    exit=false;
-                    break;
-                
+                    return centre;
+                                   
                 //user create a new centre
-                case 2:
+                case MenuCentre.IndexOf.newCentre:
                     //TODO testare funzionamento
                     centre=registraCentroAree();
-                    exit=false;
-                    break;
+                    return centre;
                 
                 //user does not choose a centre
-                case 3:
+                case MenuCentre.IndexOf.doNothing:
+                    //TODO rimuovere? fare testing
                     //consume invalid token
                     InputScanner.INPUT_SCANNER.nextLine();
                     centre=defaultValueOfCentre;
-                    exit=false;
-                    break;
+                    return centre;
             
                 default:
                     System.out.println("Codice inserito errato!");
-                    exit=true;
-                    break;
+                    return null;
             }
-        }while(exit);
-
-        return centre;
     }
     
     //TODO TESTARE FUNZIONAMENTO, SOPRATUTTO GESTIRE IL NULL DI RITORNO
