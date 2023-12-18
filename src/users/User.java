@@ -110,8 +110,21 @@ public class User {
         }
 
         campi[0]=setUserId();
-        CSV_Utilities.addArraytoCSV(file, campi, header);
-        System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");
+
+        boolean fieldIsNull=false;;
+        //check if one of the fields is null
+        for(String field: campi){
+            if(field==null){
+                fieldIsNull=true;
+                System.err.println("\nRegistrazione fallita");
+                return;
+            }
+        }
+        //if all fields are not null
+        if(fieldIsNull){
+            CSV_Utilities.addArraytoCSV(file, campi, header);
+            System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");
+        }        
     }
     //user choose a centre from the existing ones
     protected static String associaCentro(){
@@ -229,8 +242,8 @@ public class User {
                 id=(Files.lines(file.toPath()).count());
                 //id++;
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.err.print("Errore nella lettura del file");
+                return null;
             } 
         }
         return String.format("%05d", id);
@@ -498,5 +511,11 @@ public class User {
         }else{
             System.out.println("Nessuna area disponibile");
         }
+    }
+
+    //TODO rimuovere test main
+    public static void main(String [] args){
+
+        registrazione();
     }
 }
