@@ -28,8 +28,47 @@ package src.users;
 /**
  * Classe che contiene il menù per le operazioni riguardanti i centri.
  * @author Giacomo Paredi
- * @version 0.1.0
+ * @version 0.2.0
  */
+
+ //TODO visibilità package o protected?
 class MenuCentre {
+    //Indexes
+    protected static final record IndexOf() {
+        protected static final short existingCentre = 1;
+        protected static final short newCentre = 2;
+        protected static final short doNothing = 3;
+    }
+    // Menu string
+    private String menu = null;
     
+    /**
+     * Costruisce un oggetto menù
+     */
+    protected MenuCentre(){
+        // Separator string
+        final String separator = " - ";
+        // Header
+        final String header = "\n\tMenù associazione centro\n";
+        // Options array
+        final String[] options = {
+            (IndexOf.existingCentre     + separator + "Associazione ad un centro esistente"),
+            (IndexOf.newCentre          + separator + "Associazione ad un centro nuovo"),
+            (IndexOf.doNothing          + separator + "Associazione in un secondo momento"),
+        };
+        // Initialize menu
+        this.menu = header;
+        // For every element in the options array
+        for ( short i = 0; i < options.length; i++ ) {
+            // Create the menu string
+            this.menu += options[i] + '\n';
+        }
+    }
+    /**
+     * Restituisce la stringa che rappresenta il menù
+     * @return menù
+     */
+    protected String getMenu() {
+        return this.menu;
+    }
 }
