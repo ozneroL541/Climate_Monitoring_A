@@ -352,10 +352,14 @@ public class User {
                                    
                 //user create a new centre
                 case MenuCentre.IndexOf.newCentre:
-                    //TODO testare funzionamento
                     centre=registraCentroAree();
-                    return centre;
-                
+                    if(centre!=null){
+                        return centre;
+                    }else{
+                        System.err.println("Errore durante la creazione di un nuovo centro");
+                        return null;
+                    }
+                    
                 //user does not choose a centre
                 case MenuCentre.IndexOf.doNothing:
                     centre=defaultValueOfCentre;
@@ -366,20 +370,16 @@ public class User {
                     return null;
             }
     }
-    
-    //TODO TESTARE FUNZIONAMENTO, SOPRATUTTO GESTIRE IL NULL DI RITORNO
+
     //user create a new centre
     private static String registraCentroAree(){
-
         MonitoringCentre centre=MonitoringCentre.createCentre();
         if(centre!=null){
             return centre.getNome();
         }else{
             return null;
         }
-        
     }
-
 
     /**
      * Crea un utente
