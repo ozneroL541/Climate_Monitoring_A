@@ -31,7 +31,6 @@ package src.users;
  * @version 0.2.0
  */
 
- //TODO visibilità package o protected?
 class MenuCentre {
     //Indexes
     protected static final record IndexOf() {
