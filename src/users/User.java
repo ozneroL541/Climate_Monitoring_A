@@ -111,20 +111,8 @@ public class User {
 
         campi[0]=setUserId();
 
-        boolean fieldIsNull=false;;
-        //check if one of the fields is null
-        for(String field: campi){
-            if(field==null){
-                fieldIsNull=true;
-                System.err.println("\nRegistrazione fallita");
-                return;
-            }
-        }
-        //if all fields are not null
-        if(fieldIsNull){
-            CSV_Utilities.addArraytoCSV(file, campi, header);
-            System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");
-        }        
+        CSV_Utilities.addArraytoCSV(file, campi, header);
+        System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");       
     }
     //user choose a centre from the existing ones
     protected static String associaCentro(){
@@ -367,7 +355,7 @@ public class User {
                 case MenuCentre.IndexOf.doNothing:
                     //TODO rimuovere? fare testing
                     //consume invalid token
-                    InputScanner.INPUT_SCANNER.nextLine();
+                    //InputScanner.INPUT_SCANNER.nextLine();
                     centre=defaultValueOfCentre;
                     return centre;
             
@@ -511,6 +499,11 @@ public class User {
     //TODO rimuovere test main
     public static void main(String [] args){
 
+        /* 
+        MenuCentre mc=new MenuCentre();
+        String s=setCentro(mc);
+        System.out.println(s);
+        */
         registrazione();
     }
 }
