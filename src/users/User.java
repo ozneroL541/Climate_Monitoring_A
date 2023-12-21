@@ -109,10 +109,15 @@ public class User {
             e.printStackTrace();            
         }
 
-        campi[0]=setUserId();
+        campi[IndexOf.matricola]=setUserId();
 
-        CSV_Utilities.addArraytoCSV(file, campi, header);
-        System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");       
+        if(campi[IndexOf.matricola]!=null){
+            CSV_Utilities.addArraytoCSV(file, campi, header);
+            System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");       
+        }else{
+            System.err.println("Errore durante la registrazione");
+        }
+
     }
     //user choose a centre from the existing ones
     protected static String associaCentro(){
