@@ -497,15 +497,4 @@ public class User {
             System.out.println("Nessuna area disponibile");
         }
     }
-
-    //TODO rimuovere test main
-    public static void main(String [] args){
-
-        /* 
-        MenuCentre mc=new MenuCentre();
-        String s=setCentro(mc);
-        System.out.println(s);
-        */
-        registrazione();
-    }
 }
