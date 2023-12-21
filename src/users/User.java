@@ -353,9 +353,6 @@ public class User {
                 
                 //user does not choose a centre
                 case MenuCentre.IndexOf.doNothing:
-                    //TODO rimuovere? fare testing
-                    //consume invalid token
-                    //InputScanner.INPUT_SCANNER.nextLine();
                     centre=defaultValueOfCentre;
                     return centre;
             
