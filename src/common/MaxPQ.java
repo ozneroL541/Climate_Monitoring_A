@@ -31,7 +31,7 @@ package src.common;
  */
 public class MaxPQ {
     // Maximum Priority Queue array
-    private Comparable<?>[] pq; 
+    private Comparable[] pq; 
     // Mac lenght
     private int max = 0;
     // Lenght of the array
@@ -66,7 +66,7 @@ public class MaxPQ {
      * O(log(n)) worst
      * @param v item to insert
      */
-    public void insert(Comparable<?> v) {
+    public void insert(Comparable v) {
         // If the current elemets reached the maximum
         if ( (this.max - 1) < n) {
             if ( pq[1].compareTo(v) >= 0 ) {
@@ -93,9 +93,9 @@ public class MaxPQ {
      * O(log(n)) worst
      * @return first element
      */
-    public Comparable<?> delete(){
+    public Comparable delete(){
         // Copy the first element of the heap
-        Comparable<?> max = pq[1];
+        Comparable max = pq[1];
         // Exchange the first element with the last one
         // and decrease the lenght of heap
         exch(1,n--);
@@ -112,7 +112,7 @@ public class MaxPQ {
      * Unstable
      * @param a
      */
-    public void buildBU( Comparable<?>[] a){
+    public void buildBU( Comparable[] a){
         // If the lenght of a is smaller than pq
         if( a.length < pq.length ){
             // Assign the lenght of a to n
@@ -133,8 +133,8 @@ public class MaxPQ {
      * O(log(n))
      * @return sorted array
      */
-    public Comparable<?>[] sort() {
-        Comparable<?>[] a = new Comparable<?>[n];
+    public Comparable[] sort() {
+        Comparable[] a = new Comparable[n];
         // For every element of the array from the back
         for( int i = n-1; i >= 0; i-- )
             // Assign the item with maximum priority
@@ -155,7 +155,7 @@ public class MaxPQ {
      * Complexity
      * O(1)
      */
-    private Comparable<?> read(){
+    private Comparable read(){
         // Return the first element of the array
         return pq[1];
     }
@@ -175,7 +175,7 @@ public class MaxPQ {
      */
     private void exch(int i,int j){
         // Auxiliary variable
-        Comparable<?> t = pq[i];
+        Comparable t = pq[i];
         pq[i] = pq[j];
         pq[j] = t;
     }
