@@ -30,9 +30,10 @@ package src.users;
  * @author Giacomo Paredi
  * @version 0.2.0
  */
-
 class MenuCentre {
-    //Indexes
+    /**
+     * Indexes
+     */
     protected static final record IndexOf() {
         protected static final short existingCentre = 1;
         protected static final short newCentre = 2;
