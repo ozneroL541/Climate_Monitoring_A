@@ -261,11 +261,13 @@ public class MonitoringCentre {
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 // Country Code must be made of 2 characters
                 if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
+                    // Error
+                    System.out.println("Codice Errato.\n");
                     // Stay in loop
                     exit = false;
                 } else {
                     // If province does not exist
-                    if ( ! Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
+                    if ( listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
                         // Output
                         System.out.println("Non è stata trovata alcuna provincia col codice inserito.");
                         // Stay in loop
@@ -386,6 +388,10 @@ public class MonitoringCentre {
                 // Element is incorrect return false
                 return false;
         }
+        // Check file existance
+        if (! listcomuni.exists()) {
+            return true;
+        }
         // Array of strings
         String [] arr_str = Research.getRecordByTwoDatas(listcomuni, col_comuni.comune, address[IndexOf.Iadd.comune], col_comuni.provincia, address[IndexOf.Iadd.prov]);
         // If there is no city in that province return false
@@ -448,13 +454,13 @@ public class MonitoringCentre {
                 return b;
             // CAP
             case IndexOf.Iadd.CAP:
-                return b && Research.isStringInCol(listcomuni, col_comuni.CAP, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.CAP, elem));
             // City
             case IndexOf.Iadd.comune:
-                return b && Research.isStringInCol(listcomuni, col_comuni.comune, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.comune, elem));
             // Province
             case IndexOf.Iadd.prov:
-                return b && Research.isStringInCol(listcomuni, col_comuni.provincia, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.provincia, elem));
             default:
                 // Error
                 System.err.println("ERRORE: indice elemento array indirizzo inesistente");
