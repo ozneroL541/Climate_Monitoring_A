@@ -256,13 +256,13 @@ public class MonitoringCentre {
             //Ask Provice
             do {
                 // Request
-                System.out.print("Inserire codice provincia:\t\t");
+                System.out.print("Inserire Codice Provincia:\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 // Country Code must be made of 2 characters
                 if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
                     // Error
-                    System.out.println("Codice Errato.\n");
+                    System.out.println("Codice errato.\n");
                     // Stay in loop
                     exit = false;
                 } else {
@@ -302,7 +302,10 @@ public class MonitoringCentre {
         final short max_areas = 1000;
 
         System.out.println("\nINSERIMENTO AREE GEOGRAFICHE");
-
+        if (!GeographicArea.doesCSVExist()) {
+            System.out.println("\nNon ci sono aree disponibili da associare al centro.\n");
+            return null;
+        }
         do{
             System.out.println("\nAree inserite: " + contAree);
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
