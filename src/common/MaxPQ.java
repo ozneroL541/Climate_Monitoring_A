@@ -42,7 +42,7 @@ public class MaxPQ {
      * @param dim lenght
      */
     public MaxPQ ( int dim ){
-        this.pq = new Comparable<?>[dim+1];
+        this.pq = new Comparable[dim+1];
         this.max = dim;
     }
     /**
