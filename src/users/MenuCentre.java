@@ -49,7 +49,7 @@ class MenuCentre {
         // Separator string
         final String separator = " - ";
         // Header
-        final String header = "\n\tMenù associazione centro\n";
+        final String header = "\tMenù associazione centro\n";
         // Options array
         final String[] options = {
             (IndexOf.existingCentre     + separator + "Associazione ad un centro esistente"),

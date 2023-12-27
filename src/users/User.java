@@ -316,6 +316,7 @@ public class User {
     }
 
     //show a menù with different ways of associate the centre to the operator
+    // TODO inutile passaggio di parametro
     private static String setCentro(MenuCentre mc){
         
         String input="";
@@ -348,6 +349,7 @@ public class User {
 
                 //user choose an existing centre
                 case MenuCentre.IndexOf.existingCentre:
+                    // TODO if file doesn't exist? Do not use errors
                     centre=associaCentro();
                     return centre;
                                    
