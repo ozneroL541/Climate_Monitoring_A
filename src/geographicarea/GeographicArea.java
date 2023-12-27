@@ -794,7 +794,7 @@ public class GeographicArea {
             return out;
         else {
             // Return the first x nearest areas
-            out = Research.CoordinatesAdvancedV2(file, IndexOf.coordinates, coo);
+            out = Research.CoordinatesAdvancedV3(file, IndexOf.coordinates, coo);
             // Return the output
             return out;
         }
@@ -1056,5 +1056,9 @@ public class GeographicArea {
         record[IndexOf.country_name]    = this.country_name;
         record[IndexOf.coordinates]     = "" + this.coordinates[0] + ", " + this.coordinates[1];
         return record;
+    }
+    // TODO Remove Test Main
+    public static void main(String[] args) {
+        GeographicArea.SearchListTEST(IndexOf.coordinates, "90.0, 90.0" , 1);
     }
 }

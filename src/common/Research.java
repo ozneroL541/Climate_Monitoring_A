@@ -30,7 +30,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
-
 import src.geographicarea.Coordinates;
 
 /**
@@ -332,7 +331,7 @@ public class Research {
         // Limit of acceptable distance
         final short limit = 3000;
         // Max number to return
-        final short max =  100;
+        final short max =  10000;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -411,6 +410,88 @@ public class Research {
         Integer[] out = new Integer[linesList.size()];
         // Put list in the array
         linesList.toArray(out);
+        // Return the lines
+        return out;
+    }
+    /**
+     * Restituisce tutte le linee che contengono le coordinate più vicine a quella passata in argomento.
+     * L'array è restituito con le celle in ordine di vicinanza.
+     * @param file file CSV
+     * @param col colonna
+     * @param c coordinata fornita
+     * @return array di Integer contenente le righe
+     * @version 3
+     */
+    public static Integer[] CoordinatesAdvancedV3( File file, int col, double[] c ) {
+        // Limit of acceptable distance
+        final short limit = 3000;
+        // Max number to return
+        final short max =  10000;
+        // Create an array where store the list
+        Integer[] out = null;
+        // Coordinates
+        double[] c2 = new double[2];
+        // Distance
+        double dist = 0.0;
+        // Numero della linea
+        int line = 1;
+        // Distance Object
+        Distance d = null;
+        // Heap
+        MaxPQ heap = new MaxPQ(max);
+        // Copy of coordinates
+        double[] c1 = new double[2];
+        // Pre-compute coordinates
+        c1[0] = Math.toRadians(c[0]);
+        c1[1] = Math.toRadians(c[1]);
+        // Manage files exceptions
+        try {
+            // CSV Reader
+            CSVReader creader = new CSVReader( new FileReader(file) );
+            // Line read
+            String [] nextRecord;
+            // Read first line
+            nextRecord = creader.readNext();
+            // If columns are less than col exit
+            if ( nextRecord.length <= col )
+                // Exit
+                return null;
+            // First line will not contain any researched element so increment and go on
+            // Line increment
+            line++;
+            // Read data line by line
+            while( (nextRecord = creader.readNext()) != null){
+                // Parse the coordinates just read
+                c2 = Coordinates.parseCoordinates(nextRecord[col]);
+                // Calculate distance between coordinates
+                dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
+                // Accept only distances in the limit
+                if ( dist < limit ) {
+                    // Create a Distance Object
+                    d = new Distance(dist, line);
+                    // Insert Distance Object in list
+                    heap.insert(d);
+                }
+                // Line increment
+                line++;
+            }
+            // Close the CSV Reader
+            creader.close();
+        } catch(FileNotFoundException e){ // If file not found
+            // Return null
+            return null;
+        }catch(NullPointerException e){
+            // File not read
+            // Return null
+            return null;
+        }catch(Exception e){
+            // Print Error
+            e.printStackTrace();
+            System.err.println();
+            // Return null
+            return null;
+        }
+        out = Distance.toLines(heap);
         // Return the lines
         return out;
     }
