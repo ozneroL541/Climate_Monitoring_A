@@ -210,6 +210,7 @@ public class User {
 
             //insert centre             
             case 5:
+                // TODO Error if file doesn't exist
                 MenuCentre mc=new MenuCentre();
                 campo=setCentro(mc);
                 return campo;
@@ -467,34 +468,39 @@ public class User {
     public void visualizzaAreaGeografica(){
         boolean exit=false;
         String id;
-        String aree[]=Parameters.getIDAree();
-        if(aree!=null){
-            // Print Areas
-            System.out.println("Aree disponibili:");
-            System.out.println(GeographicArea.ListIDs(aree));
-            // Ask
-            System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
+        String[] aree = null;
+        if ( Parameters.FileExist() ) {
+            aree = Parameters.getIDAree();
+            if(aree!=null){
+                // Print Areas
+                System.out.println("Aree disponibili:");
+                System.out.println(GeographicArea.ListIDs(aree));
+                // Ask
+                System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
 
-            do{
-                id=InputScanner.INPUT_SCANNER.nextLine();
-                // Set Exit
-                exit = false;
-                //check if user input is a valid id
-                for(String value: aree){
-                    // Area is in options
-                    if(value.equals(id)){
-                        exit=true;
+                do{
+                    id=InputScanner.INPUT_SCANNER.nextLine();
+                    // Set Exit
+                    exit = false;
+                    //check if user input is a valid id
+                    for(String value: aree){
+                        // Area is in options
+                        if(value.equals(id)){
+                            exit=true;
+                        }
                     }
-                }
-                if (!exit) {
-                    System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
-                }
-            }while(!exit);
+                    if (!exit) {
+                        System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
+                    }
+                }while(!exit);
 
-            Parameters.MostraParametri(id);
-            
-        }else{
-            System.out.println("Nessuna area disponibile");
+                Parameters.MostraParametri(id);
+                
+            } else {
+                System.out.println("Nessuna area disponibile.");
+            }
+        } else {
+            System.out.println("Non è presente alcun parametro attualmente.");
         }
     }
 }

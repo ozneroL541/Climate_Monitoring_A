@@ -504,4 +504,11 @@ public class Parameters {
         } else
             return null;
     }
+    /**
+     * Controlla che il file dei parametri esista e ne ritorna il risultato.
+     * @return true se il file esiste
+     */
+    public static boolean FileExist() {
+        return file.exists();
+    }
 }
