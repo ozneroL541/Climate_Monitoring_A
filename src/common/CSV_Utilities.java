@@ -41,7 +41,7 @@ import com.opencsv.CSVWriter;
  * Raccolta di metodi statici utili per la gestione dei file CSV.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class CSV_Utilities {
     /**
@@ -88,6 +88,188 @@ public class CSV_Utilities {
         }
         // Return formatted string
         return str;
+    }
+    /**
+     * Aggiunge un array di stringhe ad un file CSV.
+     * Se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
+     * Ritorna true se l'esecuzione è avvenuta correttamente.
+     * @param file file CSV
+     * @param linecells celle della linea da aggiungere
+     * @param header intestazione
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
+    public static boolean addArraytoCSV( File file, String[] linecells, String header ) {
+        // Line
+        String line = toCSVLine(linecells);
+        // Add line to File
+        return addLinewithCheck(file, line, header);
+    }
+    /**
+     * Aggiorna una cella di un file CSV
+     * @deprecated  Questo metodo è stato sostituito
+     * <p> usa invece {@link CSV_Utilities#addCellAtEndOfLine(File file, String string, int line)}.
+     * @param file file CSV
+     * @param update nuovo valore che la cella assumerà
+     * @param line linea della cella escludendo l'intestazione del file
+     * @param col colonna della cella
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
+    @Deprecated
+    public static boolean updateCellInCSV(File file, String update, int line, int col){
+        
+        // Check file existence
+        if (! file.exists()) {
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return false
+            return false;
+        }
+
+        try {
+            //Read existing file 
+            CSVReader reader=new CSVReader(new FileReader(file));
+            List<String[]> csvBody=reader.readAll();
+            //get CSV row column and replace with by using row and column
+            csvBody.get(line)[col]=update;
+            reader.close();
+
+            // Write to CSV file which is open
+            CSVWriter writer = new CSVWriter(new FileWriter(file));
+            writer.writeAll(csvBody);
+            writer.close();
+            
+        } catch ( IOException e ) {
+            // Return false
+            return false;
+        } catch (Exception e) { //to catch any exception inside try block
+            // Not managed Error
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return false;
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Aggiunge una stringa alla fine della riga di un file.
+     * @param file file
+     * @param update stringa da aggiungere
+     * @param line riga
+     * @return true se l'esecuzione è avvenuta correttamente
+     */
+    public static boolean addAtEndOfLine(File file, String update, int line){
+        
+        // Check file existence
+        if (! file.exists()) {
+            // File name
+            String f_str = file.getName();
+            // FIle Path
+            String f_path = file.getParent();
+            // Error Output
+            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
+            // Return false
+            return false;
+        }
+
+        // Check line
+        if (line <= 0) {
+            // Error
+            System.err.println("ERRORE: riga inesistente.");
+            return false;
+        }
+
+        final String temp_file_name = ".tempfile";
+        String temp_file_path = FileSystems.getDefault().getPath(file.getParent(), temp_file_name).toString();
+        File f = new File(temp_file_path);
+        File temp_file = file;
+        // Decrease line
+        line--;
+        // Rename file
+        if (! temp_file.renameTo(f)) {
+            // Error Output
+            System.err.println("ERRORE: Creazione file temporaneo fallita.");
+            // Return Error
+            return false;
+        }
+        temp_file = f;
+        f = file;
+
+        try {
+            if ( ! f.createNewFile() ) {
+                // Error Output
+                System.err.println("ERRORE: Creazione file di scrittura fallita.");
+                // Trying to rename back the old file
+                temp_file.renameTo(file);
+                // Return Error
+                return false;
+            }
+            BufferedReader read = new BufferedReader(new FileReader(temp_file));
+            try (BufferedWriter write = new BufferedWriter(new FileWriter(f))) {
+                String currentLine = "";
+                int i = 0;
+                boolean stop = false;
+
+                for( i = 0; i < line && ! stop; i++){
+                    //read records before the record that need to be updated
+                    currentLine = read.readLine();
+                    // Error catcher
+                    if ( currentLine == null ) {
+                        // Exit the loop
+                        stop = true;
+                    } else {
+                        //write records before the record that need to be updated
+                        write.write(currentLine + "\n");
+                    }
+                }
+                if (!stop) {
+                    //read the record to update
+                    currentLine = read.readLine();
+                    // Check
+                    if ( currentLine != null ) {
+                        // Update
+                        currentLine += update;
+                        // Copy
+                        do {
+                            // Write the previous line
+                            write.write(currentLine + "\n");
+                        // Read the next line
+                        } while( ( currentLine = read.readLine()) != null );
+                    }
+                }
+                write.close();
+            }
+            read.close();
+            
+            if ( ! temp_file.delete() ) {
+                // Error Output
+                System.err.println("ERRORE: Eliminazione file temporaneo fallita.");
+                // Return Error
+                return false;
+            }
+            
+        } catch ( IOException e ) {
+            // Return false
+            return false;
+        } catch (Exception e) { //to catch any exception inside try block
+            // Not managed Error
+            e.printStackTrace(); //used to print a throwable class along with other dataset class
+            // Return false;
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Aggiunge una stringa alla fine di una riga di un file CSV.
+     * @param file file CSV
+     * @param string stringa da aggiungere
+     * @param line riga
+     * @return true se l'esecuzione ha avuto successo
+     */
+    public static boolean addCellAtEndOfLine(File file, String string, int line) {
+        return addAtEndOfLine(file, CSVFormat(string), line);
     }
     /*
      * Aggiunge le virgolette all'inizio e alla fine della stringa
@@ -184,21 +366,6 @@ public class CSV_Utilities {
         // Write the line on file and return the result of method execution
         return WriteEOF_CSV(file, line, true);
     }
-    /**
-     * Aggiunge un array di stringhe ad un file CSV.
-     * Se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
-     * Ritorna true se l'esecuzione è avvenuta correttamente.
-     * @param file file CSV
-     * @param linecells celle della linea da aggiungere
-     * @param header intestazione
-     * @return true se l'esecuzione è avvenuta correttamente
-     */
-    public static boolean addArraytoCSV( File file, String[] linecells, String header ) {
-        // Line
-        String line = toCSVLine(linecells);
-        // Add line to File
-        return addLinewithCheck(file, line, header);
-    }
     /*
      * Controlla che il file esista e abbia almeno una riga, in caso contrario ritorna false
      * @param file file
@@ -219,165 +386,5 @@ public class CSV_Utilities {
             // In case of error return false
             return false;
         }
-    }
-    /**
-     * Aggiorna una cella di un file CSV
-     * @deprecated  Questo metodo è stato sostituito
-     * <p> usa invece {@link CSV_Utilities#addCellAtEndOfLine(File file, String string, int line)}.
-     * @param file file CSV
-     * @param update nuovo valore che la cella assumerà
-     * @param line linea della cella escludendo l'intestazione del file
-     * @param col colonna della cella
-     * @return true se l'esecuzione è avvenuta correttamente
-     */
-    @Deprecated
-    public static boolean updateCellInCSV(File file, String update, int line, int col){
-        
-        // Check file existence
-        if (! file.exists()) {
-            // File name
-            String f_str = file.getName();
-            // FIle Path
-            String f_path = file.getParent();
-            // Error Output
-            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
-            // Return false
-            return false;
-        }
-
-        try {
-            //Read existing file 
-            CSVReader reader=new CSVReader(new FileReader(file));
-            List<String[]> csvBody=reader.readAll();
-            //get CSV row column and replace with by using row and column
-            csvBody.get(line)[col]=update;
-            reader.close();
-
-            // Write to CSV file which is open
-            CSVWriter writer = new CSVWriter(new FileWriter(file));
-            writer.writeAll(csvBody);
-            writer.close();
-            
-        } catch ( IOException e ) {
-            // Return false
-            return false;
-        } catch (Exception e) { //to catch any exception inside try block
-            // Not managed Error
-            e.printStackTrace(); //used to print a throwable class along with other dataset class
-            // Return false;
-            return false;
-        }
-        return true;
-    }
-    /**
-     * Aggiunge una stringa alla fine della riga di un file.
-     * @param file file
-     * @param update stringa da aggiungere
-     * @param line riga
-     * @return true se l'esecuzione è avvenuta correttamente
-     */
-    public static boolean addAtEndOfLine(File file, String update, int line){
-        
-        // Check file existence
-        if (! file.exists()) {
-            // File name
-            String f_str = file.getName();
-            // FIle Path
-            String f_path = file.getParent();
-            // Error Output
-            System.err.println("ERRORE: il file " + f_str + " non si trova nella cartella \'" + f_path + "\'.\n" );
-            // Return false
-            return false;
-        }
-
-        final String temp_file_name = ".tempfile";
-        String temp_file_path = FileSystems.getDefault().getPath(file.getParent(), temp_file_name).toString();
-        File f = new File(temp_file_path);
-        File temp_file = file;
-        // Decrease line
-        line--;
-        // Rename file
-        if (! temp_file.renameTo(f)) {
-            // Error Output
-            System.err.println("ERRORE: Creazione file temporaneo fallita.");
-            // Return Error
-            return false;
-        }
-        temp_file = f;
-        f = file;
-
-        try {
-            if ( ! f.createNewFile() ) {
-                // Error Output
-                System.err.println("ERRORE: Creazione file di scrittura fallita.");
-                // Trying to rename back the old file
-                temp_file.renameTo(file);
-                // Return Error
-                return false;
-            }
-            BufferedReader read = new BufferedReader(new FileReader(temp_file));
-            try (BufferedWriter write = new BufferedWriter(new FileWriter(f))) {
-                String currentLine = "";
-                int i = 0;
-                boolean stop = false;
-
-                for( i = 0; i < line && ! stop; i++){
-                    //read records before the record that need to be updated
-                    currentLine = read.readLine();
-                    // Error catcher
-                    if ( currentLine == null ) {
-                        // Exit the loop
-                        stop = true;
-                    } else {
-                        //write records before the record that need to be updated
-                        write.write(currentLine + "\n");
-                    }
-                }
-                if (!stop) {
-                    //read the record to update
-                    currentLine = read.readLine();
-                    // Check
-                    if ( currentLine != null ) {
-                        // Update
-                        currentLine += update;
-                        // Copy
-                        do {
-                            // Write the previous line
-                            write.write(currentLine + "\n");
-                        // Read the next line
-                        } while( ( currentLine = read.readLine()) != null );
-                    }
-                }
-                write.close();
-            }
-            read.close();
-            
-            if ( ! temp_file.delete() ) {
-                // Error Output
-                System.err.println("ERRORE: Eliminazione file temporaneo fallita.");
-                // Return Error
-                return false;
-            }
-            
-        } catch ( IOException e ) {
-            // Return false
-            return false;
-        } catch (Exception e) { //to catch any exception inside try block
-            // Not managed Error
-            e.printStackTrace(); //used to print a throwable class along with other dataset class
-            // Return false;
-            return false;
-        }
-        return true;
-    }
-    /**
-     * Aggiunge una stringa alla fine di una riga di un file CSV.
-     * @param file file CSV
-     * @param string stringa da aggiungere
-     * @param line riga
-     * @return true se l'esecuzione ha avuto successo
-     */
-    public static boolean addCellAtEndOfLine(File file, String string, int line) {
-        return addAtEndOfLine(file, CSVFormat(string), line);
     }
 }

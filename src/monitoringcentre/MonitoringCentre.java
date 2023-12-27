@@ -36,32 +36,20 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class MonitoringCentre {
-    // private String via, civico, cap, comune, provincia;
-    private String nome = null;
-    private String [] indirizzo = new String[IndexOf.Iadd.length];
-    private String[] areeInteresse = null;
-    // Header
-    private final static String header = "Nome,Via,Civico,CAP,Comune,Provincia,Aree";
-    // File
-    private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
-    // Cities List
-    private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
-    private final static class col_comuni {
+    private final static record col_comuni() {
         private final static short comune = 0;
         private final static short CAP = 2;
         private final static short provincia = 1;        
     }
-    // CAP length
-    private final static short cap_length = 5;
     // Indexes in CSV file
-    private final static class IndexOf {
+    private final static record IndexOf() {
         private final static short name = 0;
         private final static short address = 1;
         private final static short areas = 2;
-        private final static class Iadd {
+        private final static record Iadd() {
             private final static short via = 0;
             private final static short civico = 1;
             private final static short CAP = 2;
@@ -73,19 +61,14 @@ public class MonitoringCentre {
         // Number of indexes
         private final static short indexes = 3;
     }
-
-    /**
-     * Costruttore dell'oggetto MonitoringCentre.
-     * @param nome nome del centro
-     * @param indirizzo indirizzo del centro
-     * @param areeInteresse aree di interesse
-     */
-    public MonitoringCentre(String nome, String [] indirizzo, String[] areeInteresse){
-        this.nome=nome;
-        this.indirizzo=indirizzo;
-        this.areeInteresse=areeInteresse;
-    }
-
+    // Header
+    private final static String header = "Nome,Via,Civico,CAP,Comune,Provincia,Aree";
+    // File
+    private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
+    // Cities List
+    private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
+    // CAP length
+    private final static short cap_length = 5;
     /**
      * Permette di costruire un oggetto MonitoringCentre conoscendo solo il nome.
      * I restanti attributi verranno letti dal file CentroMonitoraggio.dati.csv 
@@ -111,93 +94,6 @@ public class MonitoringCentre {
         }
         
     }
-
-    /**
-     * Ritorna il nome del centro.
-     * @return nome
-    */
-    public String getNome(){
-        return this.nome;
-    }
-    /**
-     * Ritorna un array di stringhe contenente gli ID delle aree di interresse.
-     * @return aree di interesse
-     */
-    public String[] getAreeInteresse() {
-        return areeInteresse;
-    }
-    /**
-     * Ritorna l'array di stringhe contenete l'indirizzo del centro di monitoraggio.
-     * @return indirizzo del centro
-     */
-    public String[] getIndirizzo() {
-        return indirizzo;
-    }
-    @Override
-    public String toString() {
-        String str = "";
-        str += "Nome:\t" + this.nome + "\n";
-        str += addresstoFormat() + "\n";
-        str += "Aree di Interesse\n" + ListAreas();
-        return str;
-    }
-    public String ListAreas() {
-        return GeographicArea.ListIDs(this.areeInteresse);
-    }
-    public boolean memorizzaCentro(){
-        // Check existance
-        if ( !Exist() ) {
-            return false;
-        }
-        return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
-    }
-    /**
-     * Trasforma tutti i campi della classe in un array di stringhe
-     * @return array dei campi
-     */
-    private String[] toStringRecord() {
-        // To be returned
-        /*
-        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length + this.areeInteresse.length];
-        */
-        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length - 1];
-
-        record[IndexOf.name] = this.nome;
-        record[IndexOf.address + IndexOf.Iadd.via]    = this.indirizzo[IndexOf.Iadd.via];
-        record[IndexOf.address + IndexOf.Iadd.civico] = this.indirizzo[IndexOf.Iadd.civico];
-        record[IndexOf.address + IndexOf.Iadd.CAP]    = this.indirizzo[IndexOf.Iadd.CAP];
-        record[IndexOf.address + IndexOf.Iadd.comune] = this.indirizzo[IndexOf.Iadd.comune];
-        record[IndexOf.address + IndexOf.Iadd.prov]   = this.indirizzo[IndexOf.Iadd.prov];
-        record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
-
-        /*
-        for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
-        */
-
-        return record;
-    }
-    // Make a cell for Areas for CSV
-    private String areasforCSV() {
-        final String delimiter = "-";
-        String str = "";
-        short i = 0;
-        for ( i = 0; i < this.areeInteresse.length - 1; i++) {
-            str += this.areeInteresse[i] + delimiter;
-        }
-        str += this.areeInteresse[i];
-        return str;
-    }
-    /**
-     * Ritorna l'indirisso formattato secondo lo standard di Poste Italiane.
-     * @return indirizzo
-     */
-    private String addresstoFormat() {
-        String str = "";
-        str += this.indirizzo[IndexOf.Iadd.via] + " " + this.indirizzo[IndexOf.Iadd.civico] + "\n";
-        str += this.indirizzo[IndexOf.Iadd.CAP] + " " + this.indirizzo[IndexOf.Iadd.comune] + " " + this.indirizzo[IndexOf.Iadd.prov];
-        return str;
-    }
-
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
      * Se non ci sono Centri ritorna null.
@@ -206,7 +102,6 @@ public class MonitoringCentre {
     public static String[] getCentri(){
         return Research.getColArray(f,IndexOf.name);
     }
-
     /**
      * Controlla se il nome inserito esiste all'interno del file CentroMonitoraggio.dati.csv
      * @param nome nome del centro
@@ -215,6 +110,7 @@ public class MonitoringCentre {
     public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
+
     /**
      * Richiede all'utente di creare un centro, se la creazione ha avuto successo, la salva sul file.
      * @return true se l'esecuzion ha avuto successo
@@ -224,13 +120,13 @@ public class MonitoringCentre {
         MonitoringCentre mc = createCentre();
         // Check if center was created
         if ( mc == null || !mc.Exist() ) {
-            // Error message
-            System.err.println("Errore: Centro non creato.");
+            // Do not insert the centre
             return false;
         }
         // Save Centre
         return mc.memorizzaCentro();
     }
+
     /**
      * Permette di creare un Centro di Monitoraggio e lo ritorna.
      * Se la creazione fallisce ritorna null.
@@ -258,8 +154,8 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
-    
-    //TODO commenti?
+
+    // Ask the name of the Centre to the user
     private static String AskName() {
         boolean exit = true;
         String in = "";
@@ -281,13 +177,18 @@ public class MonitoringCentre {
                 } else {
                     // Assign input to name
                     name = in;
+                    // Exit
+                    exit = true;
                 }
+            } else {
+                // Output
+                System.out.println("Caratteri inseriti non validi.");
             }
         } while (!exit);
+        // Return the name
         return name;
     }
-
-    //TODO commenti?
+    // Ask the address of the centre to the user
     private static String[] AskAddress() {
         // Address
         String[] address = new String[IndexOf.Iadd.length];
@@ -383,7 +284,6 @@ public class MonitoringCentre {
 
         return address;
     }
-
     //set the geographic area/areas associated with the center
     private static String[] setAreeGeografiche(){
 
@@ -435,7 +335,6 @@ public class MonitoringCentre {
 
         return out;
     }
-
     /*
      * Controlla che la stringa inserita sia valida.
      * @param str stringa
@@ -586,11 +485,117 @@ public class MonitoringCentre {
         // Test passed
         return true;
     }
+    // private String via, civico, cap, comune, provincia;
+    private String nome = null;
+
+    private String [] indirizzo = new String[IndexOf.Iadd.length];
+
+    private String[] areeInteresse = null;
+    /**
+     * Costruttore dell'oggetto MonitoringCentre.
+     * @param nome nome del centro
+     * @param indirizzo indirizzo del centro
+     * @param areeInteresse aree di interesse
+     */
+    public MonitoringCentre(String nome, String [] indirizzo, String[] areeInteresse){
+        this.nome=nome;
+        this.indirizzo=indirizzo;
+        this.areeInteresse=areeInteresse;
+    }
+    /**
+     * Ritorna il nome del centro.
+     * @return nome
+    */
+    public String getNome(){
+        return this.nome;
+    }
+    /**
+     * Ritorna un array di stringhe contenente gli ID delle aree di interresse.
+     * @return aree di interesse
+     */
+    public String[] getAreeInteresse() {
+        return areeInteresse;
+    }
+    /**
+     * Ritorna l'array di stringhe contenete l'indirizzo del centro di monitoraggio.
+     * @return indirizzo del centro
+     */
+    public String[] getIndirizzo() {
+        return indirizzo;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += "Nome:\t" + this.nome + "\n";
+        str += addresstoFormat() + "\n";
+        str += "Aree di Interesse\n" + ListAreas();
+        return str;
+    }
+
+    public String ListAreas() {
+        return GeographicArea.ListIDs(this.areeInteresse);
+    }
+    public boolean memorizzaCentro(){
+        // Check existance
+        if ( !Exist() ) {
+            return false;
+        }
+        return CSV_Utilities.addArraytoCSV(f,toStringRecord(),header);
+    }
     /**
      * Controlla l'esistenza dell'oggetto centro
      * @return true se l'oggetto esiste
      */
     public boolean Exist() {
         return (this.nome != null && this.nome.length() > 0);
+    }
+    /**
+     * Trasforma tutti i campi della classe in un array di stringhe
+     * @return array dei campi
+     */
+    private String[] toStringRecord() {
+        // To be returned
+        /*
+        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length + this.areeInteresse.length];
+        */
+        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length - 1];
+
+        record[IndexOf.name] = this.nome;
+        record[IndexOf.address + IndexOf.Iadd.via]    = this.indirizzo[IndexOf.Iadd.via];
+        record[IndexOf.address + IndexOf.Iadd.civico] = this.indirizzo[IndexOf.Iadd.civico];
+        record[IndexOf.address + IndexOf.Iadd.CAP]    = this.indirizzo[IndexOf.Iadd.CAP];
+        record[IndexOf.address + IndexOf.Iadd.comune] = this.indirizzo[IndexOf.Iadd.comune];
+        record[IndexOf.address + IndexOf.Iadd.prov]   = this.indirizzo[IndexOf.Iadd.prov];
+        record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
+
+        /*
+        for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
+        */
+
+        return record;
+    }
+    // Make a cell for Areas for CSV
+    private String areasforCSV() {
+        final String delimiter = "-";
+        String str = "";
+        short i = 0;
+        for ( i = 0; i < this.areeInteresse.length - 1; i++) {
+            str += this.areeInteresse[i];
+            if ( i < this.areeInteresse.length - 1) {
+                str += delimiter;
+            }
+        }
+        return str;
+    }
+    /**
+     * Ritorna l'indirisso formattato secondo lo standard di Poste Italiane.
+     * @return indirizzo
+     */
+    private String addresstoFormat() {
+        String str = "";
+        str += this.indirizzo[IndexOf.Iadd.via] + " " + this.indirizzo[IndexOf.Iadd.civico] + "\n";
+        str += this.indirizzo[IndexOf.Iadd.CAP] + " " + this.indirizzo[IndexOf.Iadd.comune] + " " + this.indirizzo[IndexOf.Iadd.prov];
+        return str;
     }
 }

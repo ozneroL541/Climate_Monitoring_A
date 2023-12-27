@@ -28,7 +28,7 @@ package src.common;
  * Raccolta di metodi statici utilizzati da più classi.
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class CommonMethods {
     /**
@@ -66,11 +66,6 @@ public class CommonMethods {
         }
         // Character valid: return true
         return true;
-    }
-    // Check if the character is an ASCII letter
-    private static boolean isASCIILetter( char c ) {
-        // Return if it is an ASCII Letter
-        return ( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) );
     }
     /**
      * Controlla che il valore inserito sia una stringa di caratteri ASCII accettabili per un indirizzo.
@@ -205,5 +200,10 @@ public class CommonMethods {
         // Input to upper case
         input = input.toUpperCase();
         return input.contains("N") || input.contains("Q") || input.contains("ESC") || input.contains("EXIT");
+    }
+    // Check if the character is an ASCII letter
+    private static boolean isASCIILetter( char c ) {
+        // Return if it is an ASCII Letter
+        return ( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) );
     }
 }

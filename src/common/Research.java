@@ -36,7 +36,7 @@ import src.geographicarea.Coordinates;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class Research {
     /**
@@ -415,56 +415,6 @@ public class Research {
         return out;
     }
     /**
-     * Ricerca binaria in lista di double
-     * @param arr lista
-     * @param target obiettivo di ricerca
-     * @return l'indice dove inserire l'obiettivo
-     */
-    private static int BinSearchArrList(ArrayList<Double> arr, Double target) {
-        // Left side
-        int left = 0;
-        // Right side
-        int right = arr.size() - 1;
-        // Middle
-        int mid = 0;
-        // While left is smaller than right
-        while (left <= right) {
-            // Set middle
-            mid = left + (right - left) / 2;
-            // Not necessary because the target is never equals to something in the list
-            /*if (arr.get(mid) == target) {
-                // If the target value is already in the list, return its index
-                return mid;
-            } else*/
-            // If the target is bigger
-            if (arr.get(mid) < target) {
-                // If the middle element is less than the target, search the right half
-                left = mid + 1;
-            } else {
-                // If the middle element is greater than the target, search the left half
-                right = mid - 1;
-            }
-        }
-        // Return the index
-        return left;
-    }
-    // Calculate distance between coordinates using Haversine
-    private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        // Earth's radius in kilometers
-        double R = 6371;
-        // Convert latitude and longitude from degrees to radians
-        lat2 = Math.toRadians(lat2);
-        lon2 = Math.toRadians(lon2);
-        // Haversine formula
-        double dlon = lon2 - lon1;
-        double dlat = lat2 - lat1;
-        double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
-        double c = 2 * Math.asin(Math.sqrt(a));
-        // Calculate the distance
-        double distance = R * c;
-        return distance;
-    }
-    /**
      * Questo metodo ricerca una stringa in un file CSV
      * in una determinata colonna e
      * restituisce true se è presente, false altrimenti.
@@ -836,6 +786,56 @@ public class Research {
             // Return null
             return null;
         } 
+    }
+    /**
+     * Ricerca binaria in lista di double
+     * @param arr lista
+     * @param target obiettivo di ricerca
+     * @return l'indice dove inserire l'obiettivo
+     */
+    private static int BinSearchArrList(ArrayList<Double> arr, Double target) {
+        // Left side
+        int left = 0;
+        // Right side
+        int right = arr.size() - 1;
+        // Middle
+        int mid = 0;
+        // While left is smaller than right
+        while (left <= right) {
+            // Set middle
+            mid = left + (right - left) / 2;
+            // Not necessary because the target is never equals to something in the list
+            /*if (arr.get(mid) == target) {
+                // If the target value is already in the list, return its index
+                return mid;
+            } else*/
+            // If the target is bigger
+            if (arr.get(mid) < target) {
+                // If the middle element is less than the target, search the right half
+                left = mid + 1;
+            } else {
+                // If the middle element is greater than the target, search the left half
+                right = mid - 1;
+            }
+        }
+        // Return the index
+        return left;
+    }
+    // Calculate distance between coordinates using Haversine
+    private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        // Earth's radius in kilometers
+        double R = 6371;
+        // Convert latitude and longitude from degrees to radians
+        lat2 = Math.toRadians(lat2);
+        lon2 = Math.toRadians(lon2);
+        // Haversine formula
+        double dlon = lon2 - lon1;
+        double dlat = lat2 - lat1;
+        double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        // Calculate the distance
+        double distance = R * c;
+        return distance;
     }
     /**
      * Ricerca binaria in lista di Strings.
