@@ -42,7 +42,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class User {
     // Indexes in CSV file
@@ -109,9 +109,15 @@ public class User {
             e.printStackTrace();            
         }
 
-        campi[0]=setUserId();
-        CSV_Utilities.addArraytoCSV(file, campi, header);
-        System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");
+        campi[IndexOf.matricola]=setUserId();
+
+        if(campi[IndexOf.matricola]!=null){
+            CSV_Utilities.addArraytoCSV(file, campi, header);
+            System.out.println("\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + campi[0] + " e la password scelta");       
+        }else{
+            System.err.println("Errore durante la registrazione");
+        }
+
     }
     //user choose a centre from the existing ones
     protected static String associaCentro(){
@@ -121,6 +127,12 @@ public class User {
 
         //show centres to user
         centri=MonitoringCentre.getCentri();
+        // Check
+        if (centri == null) {
+            System.out.println("Attualmente non sono presente Centri di Monitoraggio.");
+            System.out.println("Crea un centro di Monitoraggio per effetturare l'associazione");
+            return defaultValueOfCentre;
+        }
         System.out.println("Centri esistenti:");
         for(int i=0;i<centri.length;i++){
             System.out.println(centri[i]);
@@ -198,7 +210,8 @@ public class User {
 
             //insert centre             
             case 5:
-                campo=setCentro();
+                MenuCentre mc=new MenuCentre();
+                campo=setCentro(mc);
                 return campo;
              
             //insert password               
@@ -223,8 +236,8 @@ public class User {
                 id=(Files.lines(file.toPath()).count());
                 //id++;
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.err.print("Errore nella lettura del file");
+                return null;
             } 
         }
         return String.format("%05d", id);
@@ -300,82 +313,73 @@ public class User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-    //TODO Rendere modulare
-    //show a menù with different way of associate the centre to the operator
-    private static String setCentro(){
 
-        final String menu="\n\nMenù associazione centro\n"+
-                            "1) Associazione ad un centro esistente\n"+
-                            "2) Associazione ad un centro nuovo\n"+
-                            "3) Associazione in un secondo momento\n"; 
+    //show a menù with different ways of associate the centre to the operator
+    private static String setCentro(MenuCentre mc){
         
-        boolean exit=true;
-        int scelta;
+        String input="";
+        Short choice=0;
         String centre="";
 
         do{
-            scelta=0;
-            System.out.print(menu);
+            System.out.print(mc.getMenu());
 
             System.out.print("\nInserire codice: ");
 
-            try{
-                // TODO Remove nextInt
-                scelta=InputScanner.INPUT_SCANNER.nextInt();
-            }catch(InputMismatchException e){
-                //consume invalid token
-                InputScanner.INPUT_SCANNER.next();
-                System.out.println("ERRORE");
-                System.out.println("Codice inserito errato!");
-                scelta=0;
+            try {
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                choice = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                choice=0;
+            } catch (Exception e) {
+                choice=0;
             }
-
-            switch (scelta) {
-
-                //user choose an existing centre
-                case 1:
-                    centre=associaCentro();
-                    exit=false;
-                    break;
-                
-                //user create a new centre
-                case 2:
-                    //TODO testare funzionamento
-                    centre=registraCentroAree();
-                    exit=false;
-                    break;
-                
-                //user does not choose a centre
-                case 3:
-                    //consume invalid token
-                    InputScanner.INPUT_SCANNER.nextLine();
-                    centre=defaultValueOfCentre;
-                    exit=false;
-                    break;
-            
-                default:
-                    System.out.println("Codice inserito errato!");
-                    exit=true;
-                    break;
-            }
-        }while(exit);
+            centre=centreChoice(choice);            
+        }while(centre==null);
 
         return centre;
     }
-    
-    //TODO TESTARE FUNZIONAMENTO, SOPRATUTTO GESTIRE IL NULL DI RITORNO
+
+    //handle different ways of associate the centre to the operator
+    private static String centreChoice(short choice){
+        String centre;
+        switch (choice) {
+
+                //user choose an existing centre
+                case MenuCentre.IndexOf.existingCentre:
+                    centre=associaCentro();
+                    return centre;
+                                   
+                //user create a new centre
+                case MenuCentre.IndexOf.newCentre:
+                    centre=registraCentroAree();
+                    if(centre!=null){
+                        return centre;
+                    }else{
+                        System.err.println("Errore durante la creazione di un nuovo centro");
+                        return null;
+                    }
+                    
+                //user does not choose a centre
+                case MenuCentre.IndexOf.doNothing:
+                    centre=defaultValueOfCentre;
+                    return centre;
+            
+                default:
+                    System.out.println("Codice inserito errato!");
+                    return null;
+            }
+    }
+
     //user create a new centre
     private static String registraCentroAree(){
-
         MonitoringCentre centre=MonitoringCentre.createCentre();
         if(centre!=null){
             return centre.getNome();
         }else{
             return null;
         }
-        
     }
-
 
     /**
      * Crea un utente

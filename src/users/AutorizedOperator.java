@@ -38,98 +38,9 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.21.1
+ * @version 0.22.0
  */
 public class AutorizedOperator extends User {
-    /**
-     * Classe che contiene il menù operatore.
-     * @author Lorenzo Radice
-     * @version 0.21.0
-     */
-    public class MenuOperator {
-        /**
-         * Indexes
-         */
-        private static final record IndexOf() {
-            private static final short research = 1;
-            private static final short view_areas = 2;
-            private static final short make_area = 3;
-            private static final short add_parameters = 4;
-            private static final short set_centre = 5;
-            private static final short make_centre = 6;
-            private static final short exit = 7;
-        }
-        // Menu string
-        private String menu = null;
-        // Exit Option
-        private final String exit = "Logout";
-        /**
-         * Costruisce un oggetto menù
-         */
-        public MenuOperator(){
-            // Separator string
-            final String separator = " - ";
-            // Header
-            final String header = "\n\tMenù Operatore Autorizzato\n";
-            // Options array
-            final String[] options = {
-                (IndexOf.research       + separator + "Ricerca aree"),
-                (IndexOf.view_areas     + separator + "Visualizza informazioni aree"),
-                (IndexOf.make_area      + separator + "Crea area"),
-                (IndexOf.add_parameters + separator + "Aggiungi parametri"),
-                (IndexOf.set_centre     + separator + "Seleziona centro"),
-                (IndexOf.make_centre    + separator + "Crea centro di monitoraggio"),
-                (IndexOf.exit           + separator + exit)
-            };
-            // Initialize menu
-            this.menu = header;
-            // For every element in the options array
-            for ( short i = 0; i < options.length; i++ ) {
-                // Create the menu string
-                this.menu += options[i] + '\n';
-                // If the current option string is equal to exit than
-            }
-        }
-        /**
-         * Mostra il menù e permette di sceglierne le opzioni.
-         */
-        public void ChooseOption() {
-            // Short integer for the menu options
-            short mainmenu_input = 0;
-            // Input
-            String input = "";
-            // While exit is not selected
-            do {
-                // Output the menu
-                System.out.println(this.getMenu());
-                // Request
-                System.out.print("Inserire codice:\t");
-                // Input
-                try {
-                    // Input
-                    input = InputScanner.INPUT_SCANNER.nextLine();
-                    // Parse input
-                    mainmenu_input = (short) Short.valueOf(input);
-                } catch (NumberFormatException e) {
-                    // Set to 0
-                    mainmenu_input = 0;
-                } catch (Exception e) {
-                    // Set to -1
-                    mainmenu_input = -1;
-                }
-                // New Line
-                System.out.println();
-            // Check if exit
-            } while ( selectedAction(mainmenu_input) );
-        }
-        /**
-         * Restituisce la stringa che rappresenta il menù
-         * @return menù
-         */
-        public String getMenu() {
-            return this.menu;
-        }
-    }
     /**
      * Ritorna DefaultValueOfCentre come Short
      * @return DefaultValueOfCentre
@@ -153,14 +64,14 @@ public class AutorizedOperator extends User {
 
         // If file doesn't exist exit
         if ( ! file.exists() ){
-            // Error Output
-            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
+            // Output
+            System.out.println("Non ci sono Operatori Autorizzati registrati.");
             // Error return
             return null;
         }
 
         u=login();
-        while(u==null && c<limit){
+        while((u==null || !u.Exist()) && c<limit){
             System.out.println("User-ID e password non riconosciuti (tentativi rimasti: " + (limit-c) + ").\nReinserire");
             u=login();
             c++;
@@ -173,32 +84,31 @@ public class AutorizedOperator extends User {
     }
     //evaluate userid and password
     private static AutorizedOperator login(){
-        int riga = -1;
         AutorizedOperator a = null;
-        String userid;
-        String password;
-        System.out.println("LOGIN\n");
-
+        String userid = null;
+        String password = null;
+        // Title
+        System.out.println("LOGIN");
+        // Ask
         System.out.print("Inserire l'User-ID: ");
         userid = InputScanner.INPUT_SCANNER.nextLine();
+        // Ask
         System.out.print("Inserire la password: ");
         password=InputScanner.INPUT_SCANNER.nextLine();
-
-        //return the column where UserId is
-        riga=Research.OneStringInCol(file, IndexOf.matricola, userid);
-        if ( riga > 0 ) {
-            // Initialize record
-            String[] record = null;
-            // Check if the research returned a valid result
-            record = Research.getRecord(file, riga);
-            if(record!=null){
-                //if password match, set the object's attributes
-                if(record[IndexOf.password].equals(password)){
-                    a =  new AutorizedOperator(Short.valueOf(userid), record[IndexOf.nome], record[IndexOf.cognome], record[IndexOf.codice_fiscale], record[IndexOf.email], password, record[IndexOf.centro]);
-                }
-            }
+        // Check for Parsing
+        try {
+            // Create Operator
+            a = new AutorizedOperator(Short.valueOf(userid), password);
+        } catch (NumberFormatException e) {
+            // Set a as null
+            a = null;
         }
-        // Return a
+        // Check creation (a == null compulsory) 
+        if ( a == null || !a.Exist() ) {
+            // Set a as null
+            a = null;
+        }
+        // Return
         return a;
     }
     // User Identity Code
@@ -218,6 +128,34 @@ public class AutorizedOperator extends User {
 
     // Monitoring Centre
     private String centre;
+    /**
+     * Costruisce un Operatore Autorizzato usando userid e password.
+     * @param userid userid
+     * @param passwd password
+     */
+    public AutorizedOperator(short userid, String passwd) {
+        //return the column where UserId is
+        int riga=Research.OneStringInCol(file, IndexOf.matricola, String.format("%05d", userid));
+        // Check
+        if ( riga > 0 ) {
+            // Initialize record
+            String[] record = null;
+            // Check if the research returned a valid result
+            record = Research.getRecord(file, riga);
+            if(record!=null){
+                //if password match, set the object's attributes
+                if(record[IndexOf.password].equals(passwd)){
+                    this.userid         = userid;
+                    this.nome           = record[IndexOf.nome];
+                    this.cognome        = record[IndexOf.cognome];
+                    this.codice_fiscale = record[IndexOf.codice_fiscale];
+                    this.email_address  = record[IndexOf.email];
+                    this.passwd         = passwd;
+                    this.centre         = record[IndexOf.centro];
+                }
+            }
+        }
+    }
     /**
     * Costruttore vuoto
     */
@@ -243,16 +181,26 @@ public class AutorizedOperator extends User {
         this.passwd=password;
         this.centre=centre;
     }
-    // TODO JD
-    //cambiare tipo di ritorno in boolean?
-    //user inserts climatic parameters
+    /**
+     * Permette all'Operatore Autorizzato di inserire i parametri climatici per un'area geografica appartenente
+     * al suo centro di monitoraggio
+     * @return true se i parametri sono stati aggiunti al loro file con successo
+     */
     public boolean inserisciParametriClimatici(){
-        if(!this.centre.equals(defaultValueOfCentre)){
+        // Check if the operator is associate with a centre
+        if(hasCentre()){
+            // Make Parameters
             Parameters p = Parameters.MakeParameters(centre);
+            // Check result of the operation
             if (p != null) {
+                // Add Parameters to CSV
                 return p.addToCSV();
-            } else
+            } else {
+                // Error message
+                System.err.println("Paramtri non aggiunti.");
+                // Return with error
                 return false;
+            }
         }else{
             System.out.println("Impossibile inserire i parametri climatici\nPer inserire i parametri bisogna essere associati ad un centro");
             return false;
@@ -262,16 +210,16 @@ public class AutorizedOperator extends User {
     public String toString(){
         final String none = "NESSUNO";
         String str = "";
-        str += "User ID: " + String.format("%05d", this.userid) + "\n";
-        str += "Nome: "   + this.nome + "\n";
-        str += "Cognome: "       + this.cognome + "\n";
-        str += "Codice Fiscale: "   + this.codice_fiscale + "\n";
-        str += "Indirizzo Email: " + this.email_address + "\n";
-        str += "Password: "     + this.passwd + "\n" ;
-        if(this.centre==defaultValueOfCentre){
-            str += "Id Centro di appartenenza: " + none;
+        str += "User ID:\t\t"           + String.format("%05d", this.userid) + "\n";
+        str += "Nome:\t\t\t"            + this.nome + "\n";
+        str += "Cognome:\t\t"           + this.cognome + "\n";
+        str += "Codice Fiscale:\t\t"    + this.codice_fiscale + "\n";
+        str += "Indirizzo Email:\t"     + this.email_address + "\n";
+        str += "Password:\t\t"          + this.passwd + "\n" ;
+        if(hasCentre()){
+            str += "Centro di appartenenza:\t" + this.centre;
         }else{
-            str += "Id Centro di appartenenza: "    + this.centre;
+            str += "Centro di appartenenza:\t" + none;
         }
         return str;
     }
@@ -294,16 +242,20 @@ public class AutorizedOperator extends User {
      * Assegna un Centro di Monitoraggio all'Operatore autorizzato, se non lo ha già.
      * @param centre centro di monitoraggio
      */
-    public void setCentre(String centre) {
+    public boolean setCentre(String centre) {
         //if user does not have a center
-        if(this.centre.equals(defaultValueOfCentre)){
+        if(this.centre != null && !hasCentre()){
             this.centre = centre;
             if(! addCentreToFile(centre) ){
-                System.err.println("Errore nell'aggiornamento del file");
+                System.err.println("ERRORE: aggiornamento file centri fallito.");
                 this.centre = defaultValueOfCentre;
-            }                        
+                return false;
+            } else {
+                return true;
+            }
         }else{
-            System.out.println("Impossibile associarsi ad un altro centro\nSei già associato al centro "+ this.centre);
+            System.err.println("ERRORE: il centro non è al valore di default.");
+            return false;
         }
     }
     /**
@@ -343,10 +295,13 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    // TODO JD
+    /**
+     * Mostra il menù dell'Operatore Autorizzato e ne esegue le opzioni
+     */
     public void menu() {
+        // Make a menu
         MenuOperator mo = new MenuOperator();
-        mo.ChooseOption();
+        ChooseOption(mo);
     }
     //update file with new value of centre
     private boolean addCentreToFile(String centre){
@@ -374,8 +329,8 @@ public class AutorizedOperator extends User {
                 inserisciParametriClimatici();
                 return true;
             case MenuOperator.IndexOf.set_centre:
-                // Set a Centre
-                setCentre(associaCentro());
+                // Choose a Centre
+                chooseCentre();
                 return true;
             case MenuOperator.IndexOf.make_centre:
                 // Make Centre
@@ -389,6 +344,74 @@ public class AutorizedOperator extends User {
                 System.out.println("Il valore inserito non è corretto.");
                 System.out.println("Inserire un numero valido per continuare.\n");
                 return true;
-            }
         }
     }
+    /**
+     * Controlla l'esistenza dell'oggetto Operatore
+     * @return true se il centro esiste
+     */
+    public boolean Exist() {
+        return this.nome != null && this.nome.length() > 0;
+    }
+    /**
+     * Viene richiesto all'Operatore Autorizzato il centro a cui associarsi tra quelli presenti.
+     * @return true se l'associazione ha avuto successo o se l'operatore è già associato ad un centro.
+     */
+    public boolean chooseCentre() {
+        // Check centre is not null
+        if (this.centre != null) {
+            // If centre equals default vaulue go on
+            if (!hasCentre()) {
+                // Set Centre
+                return setCentre(associaCentro());
+            } else {
+                // The Operator is already associate to a centre 
+                System.out.println("Impossibile associarsi ad un centro.\nSei già associato al centro " + this.centre + ".");
+                return true;
+            }
+        } else {
+            // Error, centre cannot be null
+            System.err.println("ERRORE: oggetto Operatore Autorizzato corrotto.");
+            return false;
+        }
+    }
+    /**
+     * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
+     * @return true se l'operatore è associato ad un centro
+     */
+    public boolean hasCentre() {
+        return !(this.centre.equals(defaultValueOfCentre));
+    }
+    /**
+     * Mostra il menù e permette di sceglierne le opzioni.
+     */
+    private void ChooseOption(MenuOperator m) {
+        // Short integer for the menu options
+        short mainmenu_input = 0;
+        // Input
+        String input = "";
+        // While exit is not selected
+        do {
+            // Output the menu
+            System.out.println(m.getMenu());
+            // Request
+            System.out.print("Inserire codice:\t");
+            // Input
+            try {
+                // Input
+                input = InputScanner.INPUT_SCANNER.nextLine();
+                // Parse input
+                mainmenu_input = (short) Short.valueOf(input);
+            } catch (NumberFormatException e) {
+                // Set to 0
+                mainmenu_input = 0;
+            } catch (Exception e) {
+                // Set to -1
+                mainmenu_input = -1;
+            }
+            // New Line
+            System.out.println();
+        // Check if exit
+        } while ( selectedAction(mainmenu_input) );
+    }
+}

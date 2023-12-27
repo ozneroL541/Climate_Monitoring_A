@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class MonitoringCentre {
     private final static record col_comuni() {

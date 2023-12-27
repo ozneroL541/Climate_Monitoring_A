@@ -29,7 +29,7 @@ import src.common.InputScanner;
 /**
  * Classe contenete informazioni su versione e licenza del software.
  * @author Lorenzo Radice
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class Header {
     /**
@@ -44,7 +44,7 @@ public class Header {
     }
     // TODO: Always remember to Update (remove this TODO only after version 1.0.0)
     // Program version
-    private final static String version = "0.21.0";
+    private final static String version = "0.22.0\tAlpha";
     // Program Name
     private final static String p_name = "Climate Monitoring";
     // Short License Reminder
