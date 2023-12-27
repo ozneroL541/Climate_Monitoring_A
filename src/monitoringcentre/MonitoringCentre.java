@@ -39,12 +39,17 @@ import src.geographicarea.GeographicArea;
  * @version 0.22.0
  */
 public class MonitoringCentre {
+    /**
+     * File field indexes
+     */
     private final static record col_comuni() {
         private final static short comune = 0;
         private final static short CAP = 2;
         private final static short provincia = 1;        
     }
-    // Indexes in CSV file
+    /**
+     * Indexes in CSV file
+     */
     private final static record IndexOf() {
         private final static short name = 0;
         private final static short address = 1;
@@ -92,7 +97,6 @@ public class MonitoringCentre {
             areeInteresse=record[IndexOf.Iadd.length - 1 + IndexOf.areas].split("-");
             return new MonitoringCentre(nome, indirizzo, areeInteresse);
         }
-        
     }
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.

@@ -27,7 +27,7 @@ package src.common;
 /**
  * Maximum Priority Queue
  * @author Lorenzo Radice
- * @version 0.21.0
+ * @version 0.22.0
  */
 public class MaxPQ {
     // Maximum Priority Queue array

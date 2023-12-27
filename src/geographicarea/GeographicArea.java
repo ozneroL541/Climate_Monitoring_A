@@ -630,6 +630,10 @@ public class GeographicArea {
         // Return the correctness of the execution
         return (toList(lines.toArray(new Integer[0])));
     }
+    // TODO Remove Test Main
+    public static void main(String[] args) {
+        GeographicArea.SearchListTEST(IndexOf.coordinates, "90.0, 90.0" , 1);
+    }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
      * @param id Geoname ID
@@ -1056,9 +1060,5 @@ public class GeographicArea {
         record[IndexOf.country_name]    = this.country_name;
         record[IndexOf.coordinates]     = "" + this.coordinates[0] + ", " + this.coordinates[1];
         return record;
-    }
-    // TODO Remove Test Main
-    public static void main(String[] args) {
-        GeographicArea.SearchListTEST(IndexOf.coordinates, "90.0, 90.0" , 1);
     }
 }

@@ -154,13 +154,23 @@ public class CSV_Utilities {
         return true;
     }
     /**
+     * Aggiunge una stringa alla fine di una riga di un file CSV.
+     * @param file file CSV
+     * @param string stringa da aggiungere
+     * @param line riga
+     * @return true se l'esecuzione ha avuto successo
+     */
+    public static boolean addCellAtEndOfLine(File file, String string, int line) {
+        return addAtEndOfLine(file, CSVFormat(string), line);
+    }
+    /**
      * Aggiunge una stringa alla fine della riga di un file.
      * @param file file
      * @param update stringa da aggiungere
      * @param line riga
      * @return true se l'esecuzione è avvenuta correttamente
      */
-    public static boolean addAtEndOfLine(File file, String update, int line){
+    private static boolean addAtEndOfLine(File file, String update, int line){
         
         // Check file existence
         if (! file.exists()) {
@@ -260,16 +270,6 @@ public class CSV_Utilities {
             return false;
         }
         return true;
-    }
-    /**
-     * Aggiunge una stringa alla fine di una riga di un file CSV.
-     * @param file file CSV
-     * @param string stringa da aggiungere
-     * @param line riga
-     * @return true se l'esecuzione ha avuto successo
-     */
-    public static boolean addCellAtEndOfLine(File file, String string, int line) {
-        return addAtEndOfLine(file, CSVFormat(string), line);
     }
     /*
      * Aggiunge le virgolette all'inizio e alla fine della stringa

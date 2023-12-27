@@ -106,7 +106,7 @@ public class Parameters {
         // Return Parameters
         return p;
     }
-    /*
+    /**
      * Dato un Geoname ID stampa i parametri riguardanti quell'Area.
      * @param id geoname_id
      */

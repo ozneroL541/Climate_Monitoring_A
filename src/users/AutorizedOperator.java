@@ -303,6 +303,42 @@ public class AutorizedOperator extends User {
         MenuOperator mo = new MenuOperator();
         ChooseOption(mo);
     }
+    /**
+     * Controlla l'esistenza dell'oggetto Operatore
+     * @return true se il centro esiste
+     */
+    public boolean Exist() {
+        return this.nome != null && this.nome.length() > 0;
+    }
+    /**
+     * Viene richiesto all'Operatore Autorizzato il centro a cui associarsi tra quelli presenti.
+     * @return true se l'associazione ha avuto successo o se l'operatore è già associato ad un centro.
+     */
+    public boolean chooseCentre() {
+        // Check centre is not null
+        if (this.centre != null) {
+            // If centre equals default vaulue go on
+            if (!hasCentre()) {
+                // Set Centre
+                return setCentre(associaCentro());
+            } else {
+                // The Operator is already associate to a centre 
+                System.out.println("Impossibile associarsi ad un centro.\nSei già associato al centro " + this.centre + ".");
+                return true;
+            }
+        } else {
+            // Error, centre cannot be null
+            System.err.println("ERRORE: oggetto Operatore Autorizzato corrotto.");
+            return false;
+        }
+    }
+    /**
+     * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
+     * @return true se l'operatore è associato ad un centro
+     */
+    public boolean hasCentre() {
+        return !(this.centre.equals(defaultValueOfCentre));
+    }
     //update file with new value of centre
     private boolean addCentreToFile(String centre){
         int riga=Research.OneStringInCol(file, IndexOf.matricola, String.format("%05d", this.userid));
@@ -345,42 +381,6 @@ public class AutorizedOperator extends User {
                 System.out.println("Inserire un numero valido per continuare.\n");
                 return true;
         }
-    }
-    /**
-     * Controlla l'esistenza dell'oggetto Operatore
-     * @return true se il centro esiste
-     */
-    public boolean Exist() {
-        return this.nome != null && this.nome.length() > 0;
-    }
-    /**
-     * Viene richiesto all'Operatore Autorizzato il centro a cui associarsi tra quelli presenti.
-     * @return true se l'associazione ha avuto successo o se l'operatore è già associato ad un centro.
-     */
-    public boolean chooseCentre() {
-        // Check centre is not null
-        if (this.centre != null) {
-            // If centre equals default vaulue go on
-            if (!hasCentre()) {
-                // Set Centre
-                return setCentre(associaCentro());
-            } else {
-                // The Operator is already associate to a centre 
-                System.out.println("Impossibile associarsi ad un centro.\nSei già associato al centro " + this.centre + ".");
-                return true;
-            }
-        } else {
-            // Error, centre cannot be null
-            System.err.println("ERRORE: oggetto Operatore Autorizzato corrotto.");
-            return false;
-        }
-    }
-    /**
-     * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
-     * @return true se l'operatore è associato ad un centro
-     */
-    public boolean hasCentre() {
-        return !(this.centre.equals(defaultValueOfCentre));
     }
     /**
      * Mostra il menù e permette di sceglierne le opzioni.
