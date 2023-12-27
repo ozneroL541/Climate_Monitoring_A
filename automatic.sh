@@ -188,7 +188,7 @@ help() {
 # Move in a directory different from src
 
 # Check the Path
-if  [ "$(basename "$(pwd)")" = "Climate_Monitoring" ]; then
+if  [ -n "$(echo $PWD | grep 'Climate_Monitoring')" ]; then
     case $1 in
         # Help
         "h" | "-h" | "help" | "-help" | "--help")
