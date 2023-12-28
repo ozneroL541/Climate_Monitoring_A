@@ -369,7 +369,7 @@ public class User {
                     return centre;
             
                 default:
-                    System.out.println("Codice inserito errato!");
+                    System.out.println("Codice inserito errato.\n");
                     return null;
             }
     }
