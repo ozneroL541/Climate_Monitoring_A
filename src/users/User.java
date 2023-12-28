@@ -210,7 +210,6 @@ public class User {
 
             //insert centre             
             case 5:
-                // TODO Error if file doesn't exist
                 MenuCentre mc=new MenuCentre();
                 campo=setCentro(mc);
                 return campo;
@@ -349,7 +348,6 @@ public class User {
 
                 //user choose an existing centre
                 case MenuCentre.IndexOf.existingCentre:
-                    // TODO if file doesn't exist? Do not use errors
                     centre=associaCentro();
                     return centre;
                                    

@@ -187,7 +187,6 @@ public class AutorizedOperator extends User {
      * @return true se i parametri sono stati aggiunti al loro file con successo
      */
     public boolean inserisciParametriClimatici(){
-        // TODO bug fixing
         // Check if the operator is associate with a centre
         if(hasCentre()){
             // Make Parameters
