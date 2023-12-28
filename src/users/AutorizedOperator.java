@@ -187,6 +187,7 @@ public class AutorizedOperator extends User {
      * @return true se i parametri sono stati aggiunti al loro file con successo
      */
     public boolean inserisciParametriClimatici(){
+        // TODO bug fixing
         // Check if the operator is associate with a centre
         if(hasCentre()){
             // Make Parameters
@@ -390,6 +391,8 @@ public class AutorizedOperator extends User {
         short mainmenu_input = 0;
         // Input
         String input = "";
+        // TODO Remove
+        System.out.println(toString());
         // While exit is not selected
         do {
             // Output the menu
