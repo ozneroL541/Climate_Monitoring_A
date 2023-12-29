@@ -57,7 +57,7 @@ public class Header {
             "    This is free software, and you are welcome to redistribute it\r\n" + //
             "    under certain conditions; type `show c' for details.\r\n";
     // Conditions
-    private final static String conditions = "View <http://www.gnu.org/licenses/>.";
+    private final static String conditions = "See <http://www.gnu.org/licenses/> for full conditions.";
     // Warranty
     private final static String warranty =
             "\tDisclaimer of Warranty.\r\n" + //
