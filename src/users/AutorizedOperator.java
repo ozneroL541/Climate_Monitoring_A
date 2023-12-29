@@ -390,8 +390,6 @@ public class AutorizedOperator extends User {
         short mainmenu_input = 0;
         // Input
         String input = "";
-        // TODO Remove
-        System.out.println(toString());
         // While exit is not selected
         do {
             // Output the menu
