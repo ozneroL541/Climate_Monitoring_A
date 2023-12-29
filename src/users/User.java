@@ -346,44 +346,33 @@ public class User {
     private static String centreChoice(short choice){
         String centre;
         switch (choice) {
-
-                //user choose an existing centre
-                case MenuCentre.IndexOf.existingCentre:
-                    if (MonitoringCentre.FileExist()) {
-                        centre=associaCentro();
-                    } else {
-                        System.out.println("Attualmente non sono presenti centri.");
-                        centre = defaultValueOfCentre;
-                    }
+            //user choose an existing centre
+            case MenuCentre.IndexOf.existingCentre:
+                if (MonitoringCentre.FileExist()) {
+                    centre=associaCentro();
+                } else {
+                    System.out.println("Attualmente non sono presenti centri.");
+                    centre = defaultValueOfCentre;
+                }
+                return centre;
+            //user create a new centre
+            case MenuCentre.IndexOf.newCentre:
+                centre=MonitoringCentre.insertCentre();
+                if(centre!=null){
                     return centre;
-                //user create a new centre
-                case MenuCentre.IndexOf.newCentre:
-                    centre=registraCentroAree();
-                    if(centre!=null){
-                        return centre;
-                    }else{
-                        System.err.println("Errore durante la creazione di un nuovo centro");
-                        return null;
-                    }
-                    
-                //user does not choose a centre
-                case MenuCentre.IndexOf.doNothing:
-                    centre=defaultValueOfCentre;
-                    return centre;
-            
-                default:
-                    System.out.println("Codice inserito errato.\n");
+                }else{
+                    System.err.println("Errore durante la creazione del nuovo centro");
                     return null;
-            }
-    }
-
-    //user create a new centre
-    private static String registraCentroAree(){
-        MonitoringCentre centre=MonitoringCentre.createCentre();
-        if(centre!=null){
-            return centre.getNome();
-        }else{
-            return null;
+                }
+                
+            //user does not choose a centre
+            case MenuCentre.IndexOf.doNothing:
+                centre=defaultValueOfCentre;
+                return centre;
+        
+            default:
+                System.out.println("Codice inserito errato.\n");
+                return null;
         }
     }
 

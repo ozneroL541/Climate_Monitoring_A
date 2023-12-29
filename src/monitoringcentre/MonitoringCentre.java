@@ -117,18 +117,19 @@ public class MonitoringCentre {
 
     /**
      * Richiede all'utente di creare un centro, se la creazione ha avuto successo, la salva sul file.
-     * @return true se l'esecuzion ha avuto successo
+     * @return nome del centro se l'esecuzione ha avuto successo
      */
-    public static boolean insertCentre() {
+    public static String insertCentre() {
         // Create Centre
         MonitoringCentre mc = createCentre();
         // Check if center was created
         if ( mc == null || !mc.Exist() ) {
             // Do not insert the centre
-            return false;
+            return null;
         }
         // Save Centre
-        return mc.memorizzaCentro();
+        if (mc.memorizzaCentro())
+            return mc.getNome();
     }
 
     /**
