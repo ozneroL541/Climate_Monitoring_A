@@ -28,7 +28,7 @@ package src.users;
 /**
  * Classe che contiene il menù per le operazioni riguardanti i centri.
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.22.1
  */
 class MenuCentre {
     /**

@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class MonitoringCentre {
     /**
