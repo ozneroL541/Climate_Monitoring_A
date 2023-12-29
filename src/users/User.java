@@ -105,9 +105,11 @@ public class User {
         }catch ( IOException e ){
             // Print Error
             e.printStackTrace();
+            campi[IndexOf.matricola] = null;
         }catch ( Exception e ) {
             // Print Error
-            e.printStackTrace();            
+            e.printStackTrace();  
+            campi[IndexOf.matricola] = null;          
         }
 
         campi[IndexOf.matricola]=setUserId();

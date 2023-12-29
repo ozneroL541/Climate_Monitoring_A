@@ -130,6 +130,8 @@ public class MonitoringCentre {
         // Save Centre
         if (mc.memorizzaCentro())
             return mc.getNome();
+        else
+            return null;
     }
 
     /**
@@ -583,10 +585,6 @@ public class MonitoringCentre {
         record[IndexOf.address + IndexOf.Iadd.prov]   = this.indirizzo[IndexOf.Iadd.prov];
         record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
 
-        /*
-        for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
-        */
-
         return record;
     }
     // Make a cell for Areas for CSV
@@ -594,6 +592,10 @@ public class MonitoringCentre {
         final String delimiter = "-";
         String str = "";
         short i = 0;
+        // Check
+        if (this.areeInteresse == null || this.areeInteresse.length <= 0) {
+            return "";
+        }
         for ( i = 0; i < this.areeInteresse.length - 1; i++) {
             str += this.areeInteresse[i];
             if ( i < this.areeInteresse.length - 1) {
