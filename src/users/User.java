@@ -68,6 +68,10 @@ public class User {
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
      */
     public static void registrazione(){
+        // Max number of operators
+        final int max_operators = 99999;
+        String [] campi=new String[IndexOf.indexes];
+        String campo;
         String [] nomi_campi=header.split(",");
         //swtich password with centre
         //centre comes after password in the file
@@ -75,11 +79,6 @@ public class User {
         String temp=nomi_campi[IndexOf.password];
         nomi_campi[IndexOf.password]=nomi_campi[IndexOf.centro];
         nomi_campi[IndexOf.centro]=temp;
-        // Max number of operators
-        final int max_operators = 99999;
-
-        String [] campi=new String[IndexOf.indexes];
-        String campo;
 
         try{
             if(file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1)){
@@ -88,7 +87,9 @@ public class User {
                 System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
 
                 for(int i=1;i<IndexOf.indexes;i++){
-                    System.out.print(nomi_campi[i] + ": ");
+                    if (IndexOf.password != i) {
+                        System.out.print(nomi_campi[i] + ": ");
+                    }
                     do{
                         campo=campoValido(i);
                     }while(campo==null);
@@ -325,7 +326,7 @@ public class User {
         do{
             System.out.print(mc.getMenu());
 
-            System.out.print("\nInserire codice: ");
+            System.out.print("Inserire codice: ");
 
             try {
                 input = InputScanner.INPUT_SCANNER.nextLine();
@@ -348,9 +349,13 @@ public class User {
 
                 //user choose an existing centre
                 case MenuCentre.IndexOf.existingCentre:
-                    centre=associaCentro();
+                    if (MonitoringCentre.FileExist()) {
+                        centre=associaCentro();
+                    } else {
+                        System.out.println("Attualmente non sono presenti centri.");
+                        centre = defaultValueOfCentre;
+                    }
                     return centre;
-                                   
                 //user create a new centre
                 case MenuCentre.IndexOf.newCentre:
                     centre=registraCentroAree();

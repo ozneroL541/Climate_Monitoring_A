@@ -611,4 +611,11 @@ public class MonitoringCentre {
         str += this.indirizzo[IndexOf.Iadd.CAP] + " " + this.indirizzo[IndexOf.Iadd.comune] + " " + this.indirizzo[IndexOf.Iadd.prov];
         return str;
     }
+    /**
+     * Controlla l'esistenza del file dei Centri di Monitoraggio.
+     * @return true se il file esiste
+     */
+    public static boolean FileExist() {
+        return f.exists();
+    }
 }
