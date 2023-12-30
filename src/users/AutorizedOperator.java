@@ -38,7 +38,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.22.1
+ * @version 0.22.2
  */
 public class AutorizedOperator extends User {
     /**
