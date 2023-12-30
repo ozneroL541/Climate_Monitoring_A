@@ -42,7 +42,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class User {
     // Indexes in CSV file
@@ -68,6 +68,10 @@ public class User {
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
      */
     public static void registrazione(){
+        // Max number of operators
+        final int max_operators = 99999;
+        String [] campi=new String[IndexOf.indexes];
+        String campo;
         String [] nomi_campi=header.split(",");
         //swtich password with centre
         //centre comes after password in the file
@@ -75,11 +79,6 @@ public class User {
         String temp=nomi_campi[IndexOf.password];
         nomi_campi[IndexOf.password]=nomi_campi[IndexOf.centro];
         nomi_campi[IndexOf.centro]=temp;
-        // Max number of operators
-        final int max_operators = 99999;
-
-        String [] campi=new String[IndexOf.indexes];
-        String campo;
 
         try{
             if(file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1)){
@@ -88,7 +87,9 @@ public class User {
                 System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
 
                 for(int i=1;i<IndexOf.indexes;i++){
-                    System.out.print(nomi_campi[i] + ": ");
+                    if (IndexOf.password != i) {
+                        System.out.print(nomi_campi[i] + ": ");
+                    }
                     do{
                         campo=campoValido(i);
                     }while(campo==null);
@@ -104,9 +105,11 @@ public class User {
         }catch ( IOException e ){
             // Print Error
             e.printStackTrace();
+            campi[IndexOf.matricola] = null;
         }catch ( Exception e ) {
             // Print Error
-            e.printStackTrace();            
+            e.printStackTrace();  
+            campi[IndexOf.matricola] = null;          
         }
 
         campi[IndexOf.matricola]=setUserId();
@@ -315,6 +318,7 @@ public class User {
     }
 
     //show a menù with different ways of associate the centre to the operator
+    // TODO inutile passaggio di parametro
     private static String setCentro(MenuCentre mc){
         
         String input="";
@@ -324,7 +328,7 @@ public class User {
         do{
             System.out.print(mc.getMenu());
 
-            System.out.print("\nInserire codice: ");
+            System.out.print("Inserire codice: ");
 
             try {
                 input = InputScanner.INPUT_SCANNER.nextLine();
@@ -344,40 +348,33 @@ public class User {
     private static String centreChoice(short choice){
         String centre;
         switch (choice) {
-
-                //user choose an existing centre
-                case MenuCentre.IndexOf.existingCentre:
+            //user choose an existing centre
+            case MenuCentre.IndexOf.existingCentre:
+                if (MonitoringCentre.FileExist()) {
                     centre=associaCentro();
+                } else {
+                    System.out.println("Attualmente non sono presenti centri.");
+                    centre = defaultValueOfCentre;
+                }
+                return centre;
+            //user create a new centre
+            case MenuCentre.IndexOf.newCentre:
+                centre=MonitoringCentre.insertCentre();
+                if(centre!=null){
                     return centre;
-                                   
-                //user create a new centre
-                case MenuCentre.IndexOf.newCentre:
-                    centre=registraCentroAree();
-                    if(centre!=null){
-                        return centre;
-                    }else{
-                        System.err.println("Errore durante la creazione di un nuovo centro");
-                        return null;
-                    }
-                    
-                //user does not choose a centre
-                case MenuCentre.IndexOf.doNothing:
-                    centre=defaultValueOfCentre;
-                    return centre;
-            
-                default:
-                    System.out.println("Codice inserito errato!");
+                }else{
+                    System.err.println("Errore durante la creazione del nuovo centro");
                     return null;
-            }
-    }
-
-    //user create a new centre
-    private static String registraCentroAree(){
-        MonitoringCentre centre=MonitoringCentre.createCentre();
-        if(centre!=null){
-            return centre.getNome();
-        }else{
-            return null;
+                }
+                
+            //user does not choose a centre
+            case MenuCentre.IndexOf.doNothing:
+                centre=defaultValueOfCentre;
+                return centre;
+        
+            default:
+                System.out.println("Codice inserito errato.\n");
+                return null;
         }
     }
 
@@ -467,34 +464,39 @@ public class User {
     public void visualizzaAreaGeografica(){
         boolean exit=false;
         String id;
-        String aree[]=Parameters.getIDAree();
-        if(aree!=null){
-            // Print Areas
-            System.out.println("Aree disponibili:");
-            System.out.println(GeographicArea.ListIDs(aree));
-            // Ask
-            System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
+        String[] aree = null;
+        if ( Parameters.FileExist() ) {
+            aree = Parameters.getIDAree();
+            if(aree!=null){
+                // Print Areas
+                System.out.println("Aree disponibili:");
+                System.out.println(GeographicArea.ListIDs(aree));
+                // Ask
+                System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
 
-            do{
-                id=InputScanner.INPUT_SCANNER.nextLine();
-                // Set Exit
-                exit = false;
-                //check if user input is a valid id
-                for(String value: aree){
-                    // Area is in options
-                    if(value.equals(id)){
-                        exit=true;
+                do{
+                    id=InputScanner.INPUT_SCANNER.nextLine();
+                    // Set Exit
+                    exit = false;
+                    //check if user input is a valid id
+                    for(String value: aree){
+                        // Area is in options
+                        if(value.equals(id)){
+                            exit=true;
+                        }
                     }
-                }
-                if (!exit) {
-                    System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
-                }
-            }while(!exit);
+                    if (!exit) {
+                        System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
+                    }
+                }while(!exit);
 
-            Parameters.MostraParametri(id);
-            
-        }else{
-            System.out.println("Nessuna area disponibile");
+                Parameters.MostraParametri(id);
+                
+            } else {
+                System.out.println("Nessuna area disponibile.");
+            }
+        } else {
+            System.out.println("Non è presente alcun parametro attualmente.");
         }
     }
 }

@@ -40,7 +40,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class Parameters {
     // Indexes
@@ -74,6 +74,10 @@ public class Parameters {
         Table t = null;
         // Assign Geoname ID
         id = insertID(centre);
+        // Catch Error
+        if (id <= 0) {
+            return null;
+        }
         // Assign Date
         d = insertDate();
         // Check Date
@@ -167,6 +171,11 @@ public class Parameters {
             return -1;
         }
         aree=c.getAreeInteresse();
+        // Error Catcher
+        if ( area == null) {
+            System.err.println("Non ci sono aree disponibili associate al centro.");
+            return -2;
+        }
 
         //show areas to user
         System.out.println("Aree associate al centro " + centre + ":");
@@ -184,7 +193,7 @@ public class Parameters {
                         id = Integer.parseInt(value);
                     } catch (Exception e) {
                         id = -1;
-                        System.err.println("Errore: area inestinte salvata nel file dei Centri di Monitoraggio.");
+                        System.err.println("ERRORE: area inesistente salvata nel file dei Centri di Monitoraggio.");
                         exit = false;
                     }
                 }
@@ -503,5 +512,12 @@ public class Parameters {
             return strings;   
         } else
             return null;
+    }
+    /**
+     * Controlla che il file dei parametri esista e ne ritorna il risultato.
+     * @return true se il file esiste
+     */
+    public static boolean FileExist() {
+        return file.exists();
     }
 }

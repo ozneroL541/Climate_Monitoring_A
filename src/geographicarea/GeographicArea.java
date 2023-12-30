@@ -36,7 +36,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class GeographicArea {
     // Indexes in CSV file
@@ -452,13 +452,6 @@ public class GeographicArea {
         final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-coutries.csv").toFile();
         // Error string
         final String error = "Creazione area geografica terminata: creazione fallita";
-        // Check if file exist
-        if ( ! f_iso.exists() ) {
-            // Print Error
-            System.err.println("ERRORE: il file " + f_iso.getName() + " non si trova nella cartella \'" + f_iso.getParent() + "\'.\n" );
-            // Return null
-            return null;
-        }
         // Geographic Area to be returned
         GeographicArea ga = new GeographicArea();
         // Array of strings of fields
@@ -530,23 +523,50 @@ public class GeographicArea {
                 } else {
                     // To upper case
                     in = in.toUpperCase();
-                    // Record array
-                    String [] cc_array = Research.getRecordByData(f_iso, 1, in);
-                    // If Country code does not exist
-                    if (cc_array == null ) {
-                        // Output
-                        System.out.println("Non è stata trovata alcuna nazione col codice inserito.");
-                        // Stay in loop
-                        exit = false;
+                    // Check if file exist
+                    if ( f_iso.exists() ) {
+                        // Record array
+                        String [] cc_array = Research.getRecordByData(f_iso, 1, in);
+                        // If Country code does not exist
+                        if (cc_array == null ) {
+                            // Output
+                            System.out.println("Non è stata trovata alcuna nazione col codice inserito.");
+                            // Stay in loop
+                            exit = false;
+                        } else {
+                            // Assign Country Code
+                            fieldStrings[IndexOf.country_code] = in;
+                            // Assign Country Name
+                            fieldStrings[IndexOf.country_name] = cc_array[0];
+                            // Output
+                            System.out.println("Nazione selezionata:\t\t" + fieldStrings[IndexOf.country_name] );
+                            // Exit
+                            exit = true;
+                        }
                     } else {
                         // Assign Country Code
                         fieldStrings[IndexOf.country_code] = in;
-                        // Assign Country Name
-                        fieldStrings[IndexOf.country_name] = cc_array[0];
-                        // Output
-                        System.out.println("Nazione selezionata:\t\t" + fieldStrings[IndexOf.country_name] );
-                        // Exit
-                        exit = true;
+                        // Print Error
+                        System.err.println("Il file " + f_iso.getName() + " non si trova nella cartella \'" + f_iso.getParent() + "\'." );
+                        // Ouput
+                        System.out.println("Inserimento manuale dei dati.");
+                        // Manual input
+                        do {
+                            // Request
+                            System.out.print("Inserire nome Nazione:\t");
+                            // Input
+                            in = InputScanner.INPUT_SCANNER.nextLine();
+                            // Check if input is ASCII
+                            if ( (exit = argumentCorrect(in, IndexOf.country_name))) {
+                                // If input is ASCII assign it to real_name
+                                fieldStrings[IndexOf.country_name] = in;
+                                // Exit
+                                exit = true;
+                            } else{
+                                // Do not exit
+                                exit = false;
+                            }
+                        } while (!exit);
                     }
                 }
             } while (!exit);
@@ -629,10 +649,6 @@ public class GeographicArea {
         }
         // Return the correctness of the execution
         return (toList(lines.toArray(new Integer[0])));
-    }
-    // TODO Remove Test Main
-    public static void main(String[] args) {
-        GeographicArea.SearchListTEST(IndexOf.coordinates, "90.0, 90.0" , 1);
     }
     /*
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.

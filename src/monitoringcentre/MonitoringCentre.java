@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class MonitoringCentre {
     /**
@@ -117,18 +117,21 @@ public class MonitoringCentre {
 
     /**
      * Richiede all'utente di creare un centro, se la creazione ha avuto successo, la salva sul file.
-     * @return true se l'esecuzion ha avuto successo
+     * @return nome del centro se l'esecuzione ha avuto successo
      */
-    public static boolean insertCentre() {
+    public static String insertCentre() {
         // Create Centre
         MonitoringCentre mc = createCentre();
         // Check if center was created
         if ( mc == null || !mc.Exist() ) {
             // Do not insert the centre
-            return false;
+            return null;
         }
         // Save Centre
-        return mc.memorizzaCentro();
+        if (mc.memorizzaCentro())
+            return mc.getNome();
+        else
+            return null;
     }
 
     /**
@@ -256,16 +259,18 @@ public class MonitoringCentre {
             //Ask Provice
             do {
                 // Request
-                System.out.print("Inserire codice provincia:\t\t");
+                System.out.print("Inserire Codice Provincia:\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 // Country Code must be made of 2 characters
                 if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
+                    // Error
+                    System.out.println("Codice errato.\n");
                     // Stay in loop
                     exit = false;
                 } else {
                     // If province does not exist
-                    if ( ! Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
+                    if ( listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
                         // Output
                         System.out.println("Non è stata trovata alcuna provincia col codice inserito.");
                         // Stay in loop
@@ -300,7 +305,10 @@ public class MonitoringCentre {
         final short max_areas = 1000;
 
         System.out.println("\nINSERIMENTO AREE GEOGRAFICHE");
-
+        if (!GeographicArea.doesCSVExist()) {
+            System.out.println("\nNon ci sono aree disponibili da associare al centro.\n");
+            return null;
+        }
         do{
             System.out.println("\nAree inserite: " + contAree);
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
@@ -386,6 +394,10 @@ public class MonitoringCentre {
                 // Element is incorrect return false
                 return false;
         }
+        // Check file existance
+        if (! listcomuni.exists()) {
+            return true;
+        }
         // Array of strings
         String [] arr_str = Research.getRecordByTwoDatas(listcomuni, col_comuni.comune, address[IndexOf.Iadd.comune], col_comuni.provincia, address[IndexOf.Iadd.prov]);
         // If there is no city in that province return false
@@ -448,13 +460,13 @@ public class MonitoringCentre {
                 return b;
             // CAP
             case IndexOf.Iadd.CAP:
-                return b && Research.isStringInCol(listcomuni, col_comuni.CAP, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.CAP, elem));
             // City
             case IndexOf.Iadd.comune:
-                return b && Research.isStringInCol(listcomuni, col_comuni.comune, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.comune, elem));
             // Province
             case IndexOf.Iadd.prov:
-                return b && Research.isStringInCol(listcomuni, col_comuni.provincia, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.provincia, elem));
             default:
                 // Error
                 System.err.println("ERRORE: indice elemento array indirizzo inesistente");
@@ -573,10 +585,6 @@ public class MonitoringCentre {
         record[IndexOf.address + IndexOf.Iadd.prov]   = this.indirizzo[IndexOf.Iadd.prov];
         record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
 
-        /*
-        for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
-        */
-
         return record;
     }
     // Make a cell for Areas for CSV
@@ -584,6 +592,10 @@ public class MonitoringCentre {
         final String delimiter = "-";
         String str = "";
         short i = 0;
+        // Check
+        if (this.areeInteresse == null || this.areeInteresse.length <= 0) {
+            return "";
+        }
         for ( i = 0; i < this.areeInteresse.length - 1; i++) {
             str += this.areeInteresse[i];
             if ( i < this.areeInteresse.length - 1) {
@@ -601,5 +613,12 @@ public class MonitoringCentre {
         str += this.indirizzo[IndexOf.Iadd.via] + " " + this.indirizzo[IndexOf.Iadd.civico] + "\n";
         str += this.indirizzo[IndexOf.Iadd.CAP] + " " + this.indirizzo[IndexOf.Iadd.comune] + " " + this.indirizzo[IndexOf.Iadd.prov];
         return str;
+    }
+    /**
+     * Controlla l'esistenza del file dei Centri di Monitoraggio.
+     * @return true se il file esiste
+     */
+    public static boolean FileExist() {
+        return f.exists();
     }
 }

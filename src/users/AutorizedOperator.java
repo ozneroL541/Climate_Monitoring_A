@@ -38,7 +38,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class AutorizedOperator extends User {
     /**
@@ -197,7 +197,7 @@ public class AutorizedOperator extends User {
                 return p.addToCSV();
             } else {
                 // Error message
-                System.err.println("Paramtri non aggiunti.");
+                System.err.println("Parametri non aggiunti.");
                 // Return with error
                 return false;
             }

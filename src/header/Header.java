@@ -29,7 +29,7 @@ import src.common.InputScanner;
 /**
  * Classe contenete informazioni su versione e licenza del software.
  * @author Lorenzo Radice
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class Header {
     /**
@@ -44,7 +44,7 @@ public class Header {
     }
     // TODO: Always remember to Update (remove this TODO only after version 1.0.0)
     // Program version
-    private final static String version = "0.22.0\tAlpha";
+    private final static String version = "0.22.1\tAlpha";
     // Program Name
     private final static String p_name = "Climate Monitoring";
     // Short License Reminder
@@ -52,12 +52,12 @@ public class Header {
             "    Climate Monitoring  Copyright (C) 2023  Galimberti Riccardo\r\n" +//"
             "                                            Paredi Giacomo\r\n" + //
             "                                            Radice Lorenzo\r\n" + //
-            "    License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl-3.0.html>\n" + //
+            "    License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl-3.0.html>\r\n" + //
             "    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
-            "    under certain conditions; type `show c' for details. ";
+            "    under certain conditions; type `show c' for details.\r\n";
     // Conditions
-    private final static String conditions = "View <http://www.gnu.org/licenses/>.";
+    private final static String conditions = "See <http://www.gnu.org/licenses/> for full conditions.";
     // Warranty
     private final static String warranty =
             "\tDisclaimer of Warranty.\r\n" + //
@@ -69,7 +69,7 @@ public class Header {
             "THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\r\n" + //
             "PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM\r\n" + //
             "IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF\r\n" + //
-            "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\n";
+            "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\r\n";
     // Help
     private final static String help = 
             "\nUsage: ClimateMonitor.jar [options]\r\n" + //
@@ -78,7 +78,7 @@ public class Header {
             "\t\t-show c\t\t--show c\t\tShow the License Conditions\r\n" + //
             "\t\t-show w\t\t--show w\t\tShow the License Warranty\r\n" + //
             "\t-v\t-version\t--version\t\tShow the current program version\r\n" + //
-            "\nEnter no command to start the actual program.";
+            "\nEnter no command to start the actual program.\r\n";
     /**
      * Stampa a schermo un breve messaggio con la licenza.
      */
@@ -101,7 +101,6 @@ public class Header {
         // Print License
         print_version();
         print_license();
-        System.out.println();
         System.out.println();
     }
     /**
@@ -139,7 +138,6 @@ public class Header {
     public static void print_warranty() {
         System.out.println();
         System.out.println(warranty);
-        System.out.println();
     }
     /**
      * Controlla se il comando inserito si riferisce ad uno di quelli per la visualizzazione della licenza
@@ -223,7 +221,7 @@ public class Header {
     public static void menu() {
         // Info Menu
         final String menu =
-            "\n\tInfo\r\n" + //
+            "\tInfo\r\n" + //
             "1 - Licenza\r\n" + //
             "2 - Garanzia\r\n" + //
             "3 - Condizioni\r\n" + //

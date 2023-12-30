@@ -28,7 +28,7 @@ package src.users;
 /**
  * Classe che contiene il menù per le operazioni riguardanti i centri.
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.22.1
  */
 class MenuCentre {
     /**
@@ -49,7 +49,7 @@ class MenuCentre {
         // Separator string
         final String separator = " - ";
         // Header
-        final String header = "\n\tMenù associazione centro\n";
+        final String header = "\tMenù associazione centro\n";
         // Options array
         final String[] options = {
             (IndexOf.existingCentre     + separator + "Associazione ad un centro esistente"),
