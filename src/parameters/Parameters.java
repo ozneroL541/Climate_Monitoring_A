@@ -40,7 +40,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.2
+ * @version 0.22.3
  */
 public class Parameters {
     // Indexes
@@ -171,19 +171,18 @@ public class Parameters {
         String area = null;
         String[] aree=null;
         boolean exit=false;
-
         MonitoringCentre c=MonitoringCentre.getCentreByName(centre);
+
         if ( c == null ) {
             System.err.println("Centro inesistente");
             return -1;
         }
         aree=c.getAreeInteresse();
         // Error Catcher
-        if ( area == null) {
+        if ( aree == null) {
             System.err.println("Non ci sono aree disponibili associate al centro.");
             return -2;
         }
-
         //show areas to user
         System.out.println("Aree associate al centro " + centre + ":");
         // Print areas
