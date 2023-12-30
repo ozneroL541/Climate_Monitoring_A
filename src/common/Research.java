@@ -253,8 +253,15 @@ public class Research {
      * restituisce la riga di appartenenza.
      * Il range è costituito dall'errore.
      * L'errore è considerato in km.
+     * <br><br>Complessità
+     * <br>Caso migliore
+     * <br>T = O(n)
+     * <br>S = O(1)
+     * <br>Caso peggiore
+     * <br>T = O(n×k), k = numero di incrementi dell'errore prima trovare un risultato
+     * <br>S = θ(n)
      * @deprecated  Questo metodo è stato sostituito
-     * <p> usa invece {@link Research#CoordinatesAdvancedV2( File file, int col, double[] c )}.
+     * <p> usa invece {@link Research#CoordinatesAdvancedV3( File file, int col, double[] c )}.
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
@@ -328,6 +335,7 @@ public class Research {
     /**
      * Restituisce tutte le linee che contengono le coordinate più vicine a quella passata in argomento.
      * L'array è restituito con le celle in ordine di vicinanza.
+     * @see CoordinatesAdvancedV3
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
