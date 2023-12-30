@@ -27,7 +27,7 @@ package src.common;
 /**
  * Maximum Priority Queue
  * @author Lorenzo Radice
- * @version 0.22.0
+ * @version 0.22.1
  */
 public class MaxPQ<T extends Comparable<T>> {
     // Maximum Priority Queue array
@@ -41,8 +41,9 @@ public class MaxPQ<T extends Comparable<T>> {
      * element with lenght dim
      * @param dim lenght
      */
+    @SuppressWarnings (value = { "unchecked" })
     public MaxPQ ( int dim ){
-        this.pq = new T[dim+1];
+        this.pq = (T[]) new Comparable[dim+1];
         this.max = dim;
     }
     /**
@@ -133,8 +134,9 @@ public class MaxPQ<T extends Comparable<T>> {
      * O(log(n))
      * @return sorted array
      */
+    @SuppressWarnings (value = { "unchecked" })
     public T[] sort() {
-        T[] a = new T[n];
+        T[] a = (T[]) new Comparable[n];
         // For every element of the array from the back
         for( int i = n-1; i >= 0; i-- )
             // Assign the item with maximum priority
@@ -155,7 +157,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * Complexity
      * O(1)
      */
-    private T read(){
+    public T read(){
         // Return the first element of the array
         return pq[1];
     }

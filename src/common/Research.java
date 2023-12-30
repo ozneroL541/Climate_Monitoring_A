@@ -459,7 +459,7 @@ public class Research {
         // Distance Object
         Distance d = null;
         // Heap
-        MaxPQ heap = new MaxPQ(max);
+        MaxPQ<Distance> heap = new MaxPQ<Distance>(max);
         // Copy of coordinates
         double[] c1 = new double[2];
         // Pre-compute coordinates
