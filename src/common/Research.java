@@ -335,6 +335,9 @@ public class Research {
     /**
      * Restituisce tutte le linee che contengono le coordinate più vicine a quella passata in argomento.
      * L'array è restituito con le celle in ordine di vicinanza.
+     * <br><br>Complessità
+     * <br>T = O(n×log(m))
+     * <br>S = O(m)
      * @see CoordinatesAdvancedV3
      * @param file file CSV
      * @param col colonna
@@ -346,7 +349,7 @@ public class Research {
         // Limit of acceptable distance
         final short limit = 3000;
         // Max number to return
-        final short max =  10000;
+        final short max =  10;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -431,6 +434,9 @@ public class Research {
     /**
      * Restituisce tutte le linee che contengono le coordinate più vicine a quella passata in argomento.
      * L'array è restituito con le celle in ordine di vicinanza.
+     * <br><br>Complessità
+     * <br>T = O(n×log(m))
+     * <br>S = O(m)
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
@@ -441,7 +447,7 @@ public class Research {
         // Limit of acceptable distance
         final short limit = 3000;
         // Max number to return
-        final short max =  10000;
+        final short max =  10;
         // Create an array where store the list
         Integer[] out = null;
         // Coordinates
@@ -514,6 +520,8 @@ public class Research {
      * Questo metodo ricerca una stringa in un file CSV
      * in una determinata colonna e
      * restituisce true se è presente, false altrimenti.
+     * <br><br>Complessità
+     * <br>T = O(n)
      * @param file file CSV
      * @param col  colonna
      * @param str  stringa
@@ -559,6 +567,8 @@ public class Research {
     /**
      * Cerca in un file CSV la riga in input.
      * Ritorna un array di stringhe contenente le celle della riga.
+     * <br><br>Complessità
+     * <br>T = O(n)
      * @param file file CSV
      * @param line riga
      * @return array delle celle della riga
@@ -601,6 +611,8 @@ public class Research {
     /**
      * Cerca in un file CSV la stringa in input.
      * Ritorna un array di stringhe delle celle adiacenti alla prima occorrenza.
+     * <br><br>Complessità
+     * <br>T = O(n)
      * @param file file CSV
      * @param col  colonna
      * @param str  stringa
@@ -654,6 +666,8 @@ public class Research {
     /**
      * Cerca in un file CSV le due stringhe in input.
      * Ritorna un array di stringhe delle celle adiacenti alla prima occorrenza.
+     * <br><br>Complessità
+     * <br>T = O(n)
      * @param file file CSV
      * @param col1 colonna della prima stringa
      * @param str1 prima stringa
@@ -713,6 +727,8 @@ public class Research {
     }
     /**
      * Ritorna tutte le celle appartenenti alla colonna selezionata nel file CSV passato come argomento.
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file CSV
      * @param col colonna
      * @return array di stringhe della colonna
@@ -772,6 +788,8 @@ public class Research {
      * Controlla se, in un file CSV, esiste una linea in cui c'è
      * sia la prima stringa che la seconda
      * nelle rispettive colonne.
+     * <br><br>Complessità
+     * <br>T = O(n)
      * @param file file CSv
      * @param col1 colonna della prima stringa
      * @param col2 colonna della seconda stringa
@@ -823,6 +841,9 @@ public class Research {
     }
     /**
      * Ritorna tutte le celle appartenenti alla colonna selezionata nel file CSV passato come argomento.
+     * <br><br>Complessità
+     * <br>T = θ(n)
+     * <br>S = θ(n)
      * @param file file CSV
      * @param col colonna
      * @return array di stringhe della colonna
@@ -883,8 +904,10 @@ public class Research {
             return null;
         } 
     }
-    /**
+    /*
      * Ricerca binaria in lista di double
+     * <br><br>Complessità
+     * <br>T = O(log(n))
      * @param arr lista
      * @param target obiettivo di ricerca
      * @return l'indice dove inserire l'obiettivo
@@ -917,7 +940,14 @@ public class Research {
         // Return the index
         return left;
     }
-    // Calculate distance between coordinates using Haversine
+    /*
+     * Calcola la distanza tra due coordinate usando la formula di Haversine.
+     * @param lat1 latitudine coordinata 1
+     * @param lon1 longitudine coordinata 1
+     * @param lat2 latitudine coordinata 2
+     * @param lon2 longitudine coordinata 2
+     * @return distanza tra le coordinate
+     */
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         // Earth's radius in kilometers
         double R = 6371;
@@ -933,9 +963,9 @@ public class Research {
         double distance = R * c;
         return distance;
     }
-    /**
+    /*
      * Ricerca binaria in lista di Strings.
-     * In caso la lista esista ritorna il valore -1,
+     * <br>In caso la lista esista ritorna il valore -1,
      * @param arr lista
      * @param target obiettivo di ricerca
      * @return l'indice dove inserire l'obiettivo
