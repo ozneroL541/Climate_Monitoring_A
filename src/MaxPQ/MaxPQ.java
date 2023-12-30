@@ -22,12 +22,12 @@
     along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package src.common;
+package src.MaxPQ;
 
 /**
  * Maximum Priority Queue
  * @author Lorenzo Radice
- * @version 0.22.1
+ * @version 0.22.2
  */
 public class MaxPQ<T extends Comparable<T>> {
     // Maximum Priority Queue array

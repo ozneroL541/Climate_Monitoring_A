@@ -24,6 +24,8 @@
 
 package src.common;
 
+import src.MaxPQ.MaxPQ;
+
 /**
  * Classe di appoggio per la ricerca delle coordinate.
  * Memorizza al suo interno la distanza di una coordinata dalla coordinata cercata e la linea di riferimento.

@@ -24,12 +24,8 @@
 
 package src.users;
 
-import src.common.Research;
+import src.common.*;
 import src.geographicarea.GeographicArea;
-import src.common.CSV_Utilities;
-import src.common.CommonMethods;
-import src.common.InputScanner;
-
 import src.monitoringcentre.MonitoringCentre;
 import src.parameters.Parameters;
 

@@ -30,6 +30,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
+
+import src.MaxPQ.MaxPQ;
 import src.geographicarea.Coordinates;
 
 /**
