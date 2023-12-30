@@ -45,51 +45,6 @@ import com.opencsv.CSVWriter;
  */
 public class CSV_Utilities {
     /**
-     * Crea una riga che può essere aggiunta ad un file CSV.
-     * Controlla la presenza di virgole e la gestisce.
-     * @param linecells celle della riga
-     * @return stringa per CSV
-     */
-    public static String toCSVLine(String [] linecells) {
-        // Check if linecells exist
-        if (linecells == null || linecells.length < 1) {
-            // Exit
-            return null;
-        }
-        // To be returned
-        String str = "";
-        // For each field
-        for (String s : linecells) {
-            // Add the formatted String
-            str += CSVFormat(s);
-            // Separator
-            str += ",";
-        }
-        // Remove last comma
-        str = str.substring(0, str.length() - 1 );
-        // Return String
-        return str;
-    }
-    /**
-     * Ritorna la stringa con le virgolette se contiene un carattere separatore.
-     * @param str stringa
-     * @return stringa formattata
-     */
-    public static String CSVFormat( String str ) {
-        // Check if string is null
-        if ( str == null ) {
-            str = "";
-        } else {
-            // Separator
-            final String separator = ",";
-            // If cointains a separator put ""
-            if (str.contains(separator))
-                str = addQuotes(str);
-        }
-        // Return formatted string
-        return str;
-    }
-    /**
      * Aggiunge un array di stringhe ad un file CSV.
      * Se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
      * Ritorna true se l'esecuzione è avvenuta correttamente.
@@ -163,7 +118,52 @@ public class CSV_Utilities {
     public static boolean addCellAtEndOfLine(File file, String string, int line) {
         return addAtEndOfLine(file, CSVFormat(string), line);
     }
-    /**
+    /*
+     * Crea una riga che può essere aggiunta ad un file CSV.
+     * Controlla la presenza di virgole e la gestisce.
+     * @param linecells celle della riga
+     * @return stringa per CSV
+     */
+    private static String toCSVLine(String [] linecells) {
+        // Check if linecells exist
+        if (linecells == null || linecells.length < 1) {
+            // Exit
+            return null;
+        }
+        // To be returned
+        String str = "";
+        // For each field
+        for (String s : linecells) {
+            // Add the formatted String
+            str += CSVFormat(s);
+            // Separator
+            str += ",";
+        }
+        // Remove last comma
+        str = str.substring(0, str.length() - 1 );
+        // Return String
+        return str;
+    }
+    /*
+     * Ritorna la stringa con le virgolette se contiene un carattere separatore.
+     * @param str stringa
+     * @return stringa formattata
+     */
+    private static String CSVFormat( String str ) {
+        // Check if string is null
+        if ( str == null ) {
+            str = "";
+        } else {
+            // Separator
+            final String separator = ",";
+            // If cointains a separator put ""
+            if (str.contains(separator))
+                str = addQuotes(str);
+        }
+        // Return formatted string
+        return str;
+    }
+    /*
      * Aggiunge una stringa alla fine della riga di un file.
      * @param file file
      * @param update stringa da aggiungere
