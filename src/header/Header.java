@@ -29,10 +29,10 @@ import src.common.InputScanner;
 /**
  * Classe contenete informazioni su versione e licenza del software.
  * @author Lorenzo Radice
- * @version 0.22.1
+ * @version 0.22.2
  */
 public class Header {
-    /**
+    /*
      * Indexes
      */
     private static final record IndexOf() {
@@ -260,14 +260,18 @@ public class Header {
         // Check if exit
         } while ( selectedAction(menu_input) );
     }
-    /**
+    /*
      * Stampa a schermo i possibili comandi
      */
     private static void print_help() {
         System.out.println(help);
         System.out.println();
     }
-    // Execute selected action
+    /*
+     * Esegue l'azione richiesta.
+     * @param input azione
+     * @return false se è richiesto di uscire
+     */
     private static boolean selectedAction( short input ) {
         // Select the method choosen by the user
         switch (input) {

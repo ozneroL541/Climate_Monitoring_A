@@ -110,7 +110,7 @@ public class MaxPQ {
      * Complexity
      * Theta(n)
      * Unstable
-     * @param a
+     * @param a array of MaxPQ
      */
     public void buildBU( Comparable[] a){
         // If the lenght of a is smaller than pq

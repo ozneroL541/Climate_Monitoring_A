@@ -45,7 +45,9 @@ import src.parameters.Parameters;
  * @version 0.22.1
  */
 public class User {
-    // Indexes in CSV file
+    /**
+     * Indici dei file CSV
+     */
     protected final static record IndexOf() {
         final static short matricola=0;
         final static short nome=1;
@@ -59,12 +61,16 @@ public class User {
     }
     // File header
     private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
-    // Make the path platform independent
+    /**
+     * File degli Operatori Registrati.
+     */
     protected final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
-    //dafault value for attribute centre if user does not choose a centre during registration
+    /**
+     * Valore di default del centro.
+     */
     protected final static String defaultValueOfCentre="";
     /**
-     * Permette all'utente di registrarsi come Operatore Autorizzato
+     * Permette all'utente di registrarsi come Operatore Autorizzato.
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
      */
     public static void registrazione(){
@@ -122,7 +128,10 @@ public class User {
         }
 
     }
-    //user choose a centre from the existing ones
+    /**
+     * Permette all'utente di associarsi ad un centro.
+     * @return id del centro
+     */
     protected static String associaCentro(){
 
         String [] centri;
@@ -132,7 +141,7 @@ public class User {
         centri=MonitoringCentre.getCentri();
         // Check
         if (centri == null) {
-            System.out.println("Attualmente non sono presente Centri di Monitoraggio.");
+            System.out.println("Attualmente non sono presenti Centri di Monitoraggio.");
             System.out.println("Crea un centro di Monitoraggio per effetturare l'associazione");
             return defaultValueOfCentre;
         }
@@ -152,8 +161,11 @@ public class User {
 
         return nome;
     }
-
-    //check if a field is correct
+    /*
+     * Controlla che il campo sia valido
+     * @param indice_campo campo
+     * @return stringa risultato
+     */
     private static String campoValido(int indice_campo){
         String campo;
         try {
@@ -213,8 +225,7 @@ public class User {
 
             //insert centre             
             case 5:
-                MenuCentre mc=new MenuCentre();
-                campo=setCentro(mc);
+                campo=setCentro();
                 return campo;
              
             //insert password               
@@ -228,7 +239,10 @@ public class User {
             return null;
         }
     }
-    //set the userid
+    /*
+     * Seleziona il nome utente
+     * @return nome utente
+     */
     private static String setUserId(){
 
         long id=0;
@@ -245,7 +259,11 @@ public class User {
         }
         return String.format("%05d", id);
     }
-    // Check Codice Fiscale
+    /*
+     * Controlla la correttezza del codice fiscale
+     * @param cf codice fiscale
+     * @return true se il codice è corretto
+     */
     private static boolean ControlloCodiceFiscale( String cf ) {
         // Check if ASCII
         if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(cf)) {
@@ -310,21 +328,25 @@ public class User {
         }
         return check;
     }
-
-    // Check email
+    /*
+     * Controlla la correttezza dell'indirizzo e-mail.
+     * @param email indirizzo e-mail
+     * @return true se l'indirizzo è corretto
+     */
     private static boolean ControlloEmail(String email){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-
-    //show a menù with different ways of associate the centre to the operator
-    // TODO inutile passaggio di parametro
-    private static String setCentro(MenuCentre mc){
+    /*
+     * Mostra un menù con differenti modalità per associare l'operatore al centro.
+     * @return id centro
+     */
+    private static String setCentro(){
         
         String input="";
         Short choice=0;
         String centre="";
-
+        MenuCentre mc = new MenuCentre();
         do{
             System.out.print(mc.getMenu());
 
@@ -343,8 +365,11 @@ public class User {
 
         return centre;
     }
-
-    //handle different ways of associate the centre to the operator
+    /**
+     * Associa l'operatore al centro
+     * @param choice scelta
+     * @return id del centro
+     */
     private static String centreChoice(short choice){
         String centre;
         switch (choice) {
@@ -377,7 +402,6 @@ public class User {
                 return null;
         }
     }
-
     /**
      * Crea un utente
      */
