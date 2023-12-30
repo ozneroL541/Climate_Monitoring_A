@@ -42,15 +42,8 @@ import src.parameters.Parameters;
  */
 public class AutorizedOperator extends User {
     /**
-     * Ritorna DefaultValueOfCentre come Short
-     * @return DefaultValueOfCentre
-     */
-    public static String getDefaultValueOfCentre(){
-        return defaultValueOfCentre;
-    }
-    /**
-     * Permette all'utente di autenticarsi inserendo il proprio id e la password
-     * Ritorna un oggetto di AutorizedOperator se l'autenticazione avviene con successo, altrimenti ritorna null
+     * Permette all'utente di autenticarsi inserendo il proprio id e la password.
+     * Ritorna un oggetto di AutorizedOperator se l'autenticazione avviene con successo, altrimenti ritorna null.
      * @return oggetto di AutorizedOperator
      */
     public static AutorizedOperator autenticazione(){
@@ -82,7 +75,10 @@ public class AutorizedOperator extends User {
         }
         return u;
     }
-    //evaluate userid and password
+    /**
+     * Effettua il Login dell'Operatore Autorizzato.
+     * @return Operatore Autorizzato
+     */
     private static AutorizedOperator login(){
         AutorizedOperator a = null;
         String userid = null;
@@ -119,13 +115,10 @@ public class AutorizedOperator extends User {
     private String cognome;
     // Fiscal Code
     private String codice_fiscale;
-
     // e-mail address
     private String email_address;
-
     // User Password
     private String passwd;
-
     // Monitoring Centre
     private String centre;
     /**
@@ -160,10 +153,9 @@ public class AutorizedOperator extends User {
     * Costruttore vuoto
     */
     public AutorizedOperator() {}
-
     /**
-     * Costruttore di <code>AutorizedOperator</code>
-     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametri
+     * Costruttore di <code>AutorizedOperator</code>.
+     * Costruisce l'oggetto AutorizedOperator dati i valori passati come parametri.
      * @param id id univoco dell'operatore
      * @param nome nome dell'operatore
      * @param cognome cognome dell'operatore
@@ -182,8 +174,9 @@ public class AutorizedOperator extends User {
         this.centre=centre;
     }
     /**
-     * Permette all'Operatore Autorizzato di inserire i parametri climatici per un'area geografica appartenente
-     * al suo centro di monitoraggio
+     * Permette all'Operatore Autorizzato di inserire
+     * i parametri climatici per un'area geografica appartenente
+     * al suo centro di monitoraggio.
      * @return true se i parametri sono stati aggiunti al loro file con successo
      */
     public boolean inserisciParametriClimatici(){
@@ -223,7 +216,6 @@ public class AutorizedOperator extends User {
         }
         return str;
     }
-
     /**
      * Ritorna il nome dell'operatore autorizzato
      * @return nome
@@ -259,10 +251,25 @@ public class AutorizedOperator extends User {
         }
     }
     /**
+     * Mostra il menù dell'Operatore Autorizzato e ne esegue le opzioni
+     */
+    public void menu() {
+        // Make a menu
+        MenuOperator mo = new MenuOperator();
+        ChooseOption(mo);
+    }
+    /**
+     * Controlla l'esistenza dell'oggetto Operatore
+     * @return true se il centro esiste
+     */
+    public boolean Exist() {
+        return this.nome != null && this.nome.length() > 0;
+    }
+    /**
      * Crea un'area geografica e la salva sul file.
      * @return true se l'esecuzion è avvenuta correttamente.
      */
-    public boolean makeArea() {
+    private boolean makeArea() {
         // Input string
         String in = null;
         // Create Geografica Area
@@ -295,26 +302,11 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    /**
-     * Mostra il menù dell'Operatore Autorizzato e ne esegue le opzioni
-     */
-    public void menu() {
-        // Make a menu
-        MenuOperator mo = new MenuOperator();
-        ChooseOption(mo);
-    }
-    /**
-     * Controlla l'esistenza dell'oggetto Operatore
-     * @return true se il centro esiste
-     */
-    public boolean Exist() {
-        return this.nome != null && this.nome.length() > 0;
-    }
-    /**
+    /*
      * Viene richiesto all'Operatore Autorizzato il centro a cui associarsi tra quelli presenti.
      * @return true se l'associazione ha avuto successo o se l'operatore è già associato ad un centro.
      */
-    public boolean chooseCentre() {
+    private boolean chooseCentre() {
         // Check centre is not null
         if (this.centre != null) {
             // If centre equals default vaulue go on
@@ -332,19 +324,27 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    /**
+    /*
      * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
      * @return true se l'operatore è associato ad un centro
      */
-    public boolean hasCentre() {
+    private boolean hasCentre() {
         return !(this.centre.equals(defaultValueOfCentre));
     }
-    //update file with new value of centre
+    /*
+     * Aggiorna il file con il nuovo valore del centro
+     * @param centre centro
+     * @return true se l'esecuzione è avvenuta con successo
+     */
     private boolean addCentreToFile(String centre){
         int riga=Research.OneStringInCol(file, IndexOf.matricola, String.format("%05d", this.userid));
         return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
-    // Execute selected action
+    /*
+     * Esegue l'azione selezionata
+     * @param input azione
+     * @return false se l'azione è di uscita
+     */
     private boolean selectedAction( short input ) {       
         // Select the method choosen by the user
         switch (input) {
@@ -382,7 +382,7 @@ public class AutorizedOperator extends User {
                 return true;
         }
     }
-    /**
+    /*
      * Mostra il menù e permette di sceglierne le opzioni.
      */
     private void ChooseOption(MenuOperator m) {
