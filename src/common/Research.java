@@ -42,10 +42,12 @@ public class Research {
      * Questo metodo ricerca una stringa in un file CSV
      * in una determinata colonna e
      * restituisce la riga corrispondente alla sua prima occorrenza.
-     * In caso non venga trovata un'occorrenza restituisce: -1
-     * In caso la colonna in argomento sia maggiore delle colonne del file restituisce: -2
-     * In caso il file non esista restituisce -3
-     * Altri errori: -4
+     * <br>In caso non venga trovata un'occorrenza restituisce: -1
+     * <br>In caso la colonna in argomento sia maggiore delle colonne del file restituisce: -2
+     * <br>In caso il file non esista restituisce -3
+     * <br>Altri errori: -4
+     * <br><br>Complessità
+     * <br>T = O(n)
      * @param file file CSV
      * @param col colonna
      * @param str stringa
@@ -113,6 +115,9 @@ public class Research {
      * Questo metodo ricerca una stringa in un file CSV
      * in una determinata colonna e
      * restituisce ogni riga in cui occorre.
+     * Questo metodo è case-sensitive
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file CSV
      * @param col colonna
      * @param str stringa
@@ -178,6 +183,8 @@ public class Research {
      * in una determinata colonna e
      * restituisce ogni riga in cui occorre.
      * Questo metodo non è case-sensitive.
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file CSV
      * @param col colonna
      * @param str stringa
