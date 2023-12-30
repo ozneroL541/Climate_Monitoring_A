@@ -33,7 +33,7 @@ import src.common.InputScanner;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.22.1
+ * @version 0.22.2
  */
 public class Table {
     // Score and note
@@ -45,8 +45,10 @@ public class Table {
         // Costructor
         public Data_SN(){}
     }
-    // Number of categories
-    public final static short n_categories = 7;
+    /**
+     * Numero di categorie
+     */
+    protected final static short n_categories = 7;
     // Max characters number for notes
     private final static short max_char_notes = 256;
     // Min score
@@ -371,9 +373,9 @@ public class Table {
     }
     /**
      * Crea un array di stringhe formato dai dati inseriti.
-     * @return
+     * @return array di stringhe
      */
-    public String[] toStrings() {
+    protected String[] toStrings() {
         // Array to return
         String[] strings = new String[ (n_categories * 2) ];
         // Check parameter existance

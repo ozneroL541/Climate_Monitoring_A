@@ -233,6 +233,7 @@ public class AutorizedOperator extends User {
     /**
      * Assegna un Centro di Monitoraggio all'Operatore autorizzato, se non lo ha già.
      * @param centre centro di monitoraggio
+     * @return true se l'esecuzione ha avuto successo
      */
     public boolean setCentre(String centre) {
         //if user does not have a center
