@@ -32,7 +32,7 @@ import src.common.InputScanner;
  * @version 0.22.2
  */
 public class Header {
-    /**
+    /*
      * Indexes
      */
     private static final record IndexOf() {
