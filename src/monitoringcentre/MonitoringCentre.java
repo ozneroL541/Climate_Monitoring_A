@@ -71,7 +71,7 @@ public class MonitoringCentre {
     // File
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
-    private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
+    private final static File listcomuni = FileSystems.getDefault().getPath("resources", "comuni-localita-cap-italia.csv").toFile();
     // CAP length
     private final static short cap_length = 5;
     /**

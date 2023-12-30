@@ -365,7 +365,7 @@ public class GeographicArea {
      */
     public static GeographicArea createArea() {
         // ISO-3166 fil
-        final File f_iso = FileSystems.getDefault().getPath("data", "iso-3166-coutries.csv").toFile();
+        final File f_iso = FileSystems.getDefault().getPath("resources", "iso-3166-coutries.csv").toFile();
         // Error string
         final String error = "Creazione area geografica terminata: creazione fallita";
         // Geographic Area to be returned
