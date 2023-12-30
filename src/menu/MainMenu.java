@@ -24,9 +24,9 @@
 
 package src.menu;
 
+import src.users.*;
 import src.common.InputScanner;
 import src.header.Header;
-import src.users.*;
 
 /**
  * Classe che contiene il menù principale del programma.
