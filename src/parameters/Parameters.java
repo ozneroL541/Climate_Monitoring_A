@@ -40,7 +40,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.1
+ * @version 0.22.2
  */
 public class Parameters {
     // Indexes
@@ -153,6 +153,13 @@ public class Parameters {
      */
     public static String[] getIDAree(){
         return Research.getColNoRepetition(file, IndexOf.geoname_id);
+    }
+    /**
+     * Controlla che il file dei parametri esista e ne ritorna il risultato.
+     * @return true se il file esiste
+     */
+    public static boolean FileExist() {
+        return file.exists();
     }
     /*
      * Richiede l'inserimento del Geoname ID
@@ -286,7 +293,7 @@ public class Parameters {
             System.out.println("Non sono presenti dati riguardanti l'area selezionata.");
         }
     }
-    /**
+    /*
      * Chiede all'utente di inserire l'indice del parametro che desidera visualizzare.
      * @param max massimo indice
      * @return indice del parametro che si desidera visualizzare
@@ -338,7 +345,7 @@ public class Parameters {
         // Search all Parameters for this area
         return Research.AllStringInCol(file, IndexOf.geoname_id, area);
     }
-    /**
+    /*
      * Rende un array di righe del file CSV una lista
      * @param lines righe
      * @return lista
@@ -352,7 +359,7 @@ public class Parameters {
         }
         return out;
     }
-    /**
+    /*
      * Ritorna una linea per la lista.
      * @param line riga
      * @param index indice
@@ -493,7 +500,6 @@ public class Parameters {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
-
     /*
      * Trasforma i campi della classe in un array di stringhe.
      * @return array di Strings
@@ -512,12 +518,5 @@ public class Parameters {
             return strings;   
         } else
             return null;
-    }
-    /**
-     * Controlla che il file dei parametri esista e ne ritorna il risultato.
-     * @return true se il file esiste
-     */
-    public static boolean FileExist() {
-        return file.exists();
     }
 }
