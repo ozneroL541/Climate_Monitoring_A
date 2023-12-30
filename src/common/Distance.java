@@ -24,6 +24,8 @@
 
 package src.common;
 
+import src.MaxPQ.MaxPQ;
+
 /**
  * Classe di appoggio per la ricerca delle coordinate.
  * Memorizza al suo interno la distanza di una coordinata dalla coordinata cercata e la linea di riferimento.
@@ -54,7 +56,7 @@ class Distance implements Comparable<Distance>{
      * @param a2 array delle distanze
      * @return array delle linee
      */
-    public static Integer[] toLines( MaxPQ a2 ) {
+    public static Integer[] toLines( MaxPQ<Distance> a2 ) {
         // Lines Array
         Integer[] a = new Integer[a2.getN()];
         // For every element of the array from the back
