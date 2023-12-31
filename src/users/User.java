@@ -33,7 +33,6 @@ import java.util.InputMismatchException;
 import java.util.regex.Pattern;
 
 import src.common.*;
-
 import src.geographicarea.GeographicArea;
 import src.monitoringcentre.MonitoringCentre;
 import src.parameters.Parameters;
@@ -42,10 +41,12 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.23.0
  */
 public class User {
-    // Indexes in CSV file
+    /**
+     * Indici dei file CSV
+     */
     protected final static record IndexOf() {
         final static short matricola=0;
         final static short nome=1;
@@ -59,15 +60,23 @@ public class User {
     }
     // File header
     private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
-    // Make the path platform independent
+    /**
+     * File degli Operatori Registrati.
+     */
     protected final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
-    //dafault value for attribute centre if user does not choose a centre during registration
+    /**
+     * Valore di default del centro.
+     */
     protected final static String defaultValueOfCentre="";
     /**
-     * Permette all'utente di registrarsi come Operatore Autorizzato
+     * Permette all'utente di registrarsi come Operatore Autorizzato.
      * I dati del nuovo operatore vengono salvati sul file OperatoriRegistrati.dati.csv
      */
     public static void registrazione(){
+        // Max number of operators
+        final int max_operators = 99999;
+        String [] campi=new String[IndexOf.indexes];
+        String campo;
         String [] nomi_campi=header.split(",");
         //swtich password with centre
         //centre comes after password in the file
@@ -75,11 +84,6 @@ public class User {
         String temp=nomi_campi[IndexOf.password];
         nomi_campi[IndexOf.password]=nomi_campi[IndexOf.centro];
         nomi_campi[IndexOf.centro]=temp;
-        // Max number of operators
-        final int max_operators = 99999;
-
-        String [] campi=new String[IndexOf.indexes];
-        String campo;
 
         try{
             if(file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1)){
@@ -88,7 +92,9 @@ public class User {
                 System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
 
                 for(int i=1;i<IndexOf.indexes;i++){
-                    System.out.print(nomi_campi[i] + ": ");
+                    if (IndexOf.password != i) {
+                        System.out.print(nomi_campi[i] + ": ");
+                    }
                     do{
                         campo=campoValido(i);
                     }while(campo==null);
@@ -104,9 +110,11 @@ public class User {
         }catch ( IOException e ){
             // Print Error
             e.printStackTrace();
+            campi[IndexOf.matricola] = null;
         }catch ( Exception e ) {
             // Print Error
-            e.printStackTrace();            
+            e.printStackTrace();  
+            campi[IndexOf.matricola] = null;          
         }
 
         campi[IndexOf.matricola]=setUserId();
@@ -119,7 +127,10 @@ public class User {
         }
 
     }
-    //user choose a centre from the existing ones
+    /**
+     * Permette all'utente di associarsi ad un centro.
+     * @return id del centro
+     */
     protected static String associaCentro(){
 
         String [] centri;
@@ -129,7 +140,7 @@ public class User {
         centri=MonitoringCentre.getCentri();
         // Check
         if (centri == null) {
-            System.out.println("Attualmente non sono presente Centri di Monitoraggio.");
+            System.out.println("Attualmente non sono presenti Centri di Monitoraggio.");
             System.out.println("Crea un centro di Monitoraggio per effetturare l'associazione");
             return defaultValueOfCentre;
         }
@@ -149,8 +160,11 @@ public class User {
 
         return nome;
     }
-
-    //check if a field is correct
+    /*
+     * Controlla che il campo sia valido
+     * @param indice_campo campo
+     * @return stringa risultato
+     */
     private static String campoValido(int indice_campo){
         String campo;
         try {
@@ -210,8 +224,7 @@ public class User {
 
             //insert centre             
             case 5:
-                MenuCentre mc=new MenuCentre();
-                campo=setCentro(mc);
+                campo=setCentro();
                 return campo;
              
             //insert password               
@@ -225,7 +238,10 @@ public class User {
             return null;
         }
     }
-    //set the userid
+    /*
+     * Seleziona il nome utente
+     * @return nome utente
+     */
     private static String setUserId(){
 
         long id=0;
@@ -242,7 +258,11 @@ public class User {
         }
         return String.format("%05d", id);
     }
-    // Check Codice Fiscale
+    /*
+     * Controlla la correttezza del codice fiscale
+     * @param cf codice fiscale
+     * @return true se il codice è corretto
+     */
     private static boolean ControlloCodiceFiscale( String cf ) {
         // Check if ASCII
         if ( ! Charset.forName("US-ASCII").newEncoder().canEncode(cf)) {
@@ -307,24 +327,29 @@ public class User {
         }
         return check;
     }
-
-    // Check email
+    /*
+     * Controlla la correttezza dell'indirizzo e-mail.
+     * @param email indirizzo e-mail
+     * @return true se l'indirizzo è corretto
+     */
     private static boolean ControlloEmail(String email){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-
-    //show a menù with different ways of associate the centre to the operator
-    private static String setCentro(MenuCentre mc){
+    /*
+     * Mostra un menù con differenti modalità per associare l'operatore al centro.
+     * @return id centro
+     */
+    private static String setCentro(){
         
         String input="";
         Short choice=0;
         String centre="";
-
+        MenuCentre mc = new MenuCentre();
         do{
             System.out.print(mc.getMenu());
 
-            System.out.print("\nInserire codice: ");
+            System.out.print("Inserire codice: ");
 
             try {
                 input = InputScanner.INPUT_SCANNER.nextLine();
@@ -339,48 +364,43 @@ public class User {
 
         return centre;
     }
-
-    //handle different ways of associate the centre to the operator
+    /**
+     * Associa l'operatore al centro
+     * @param choice scelta
+     * @return id del centro
+     */
     private static String centreChoice(short choice){
         String centre;
         switch (choice) {
-
-                //user choose an existing centre
-                case MenuCentre.IndexOf.existingCentre:
+            //user choose an existing centre
+            case MenuCentre.IndexOf.existingCentre:
+                if (MonitoringCentre.FileExist()) {
                     centre=associaCentro();
+                } else {
+                    System.out.println("Attualmente non sono presenti centri.");
+                    centre = defaultValueOfCentre;
+                }
+                return centre;
+            //user create a new centre
+            case MenuCentre.IndexOf.newCentre:
+                centre=MonitoringCentre.insertCentre();
+                if(centre!=null){
                     return centre;
-                                   
-                //user create a new centre
-                case MenuCentre.IndexOf.newCentre:
-                    centre=registraCentroAree();
-                    if(centre!=null){
-                        return centre;
-                    }else{
-                        System.err.println("Errore durante la creazione di un nuovo centro");
-                        return null;
-                    }
-                    
-                //user does not choose a centre
-                case MenuCentre.IndexOf.doNothing:
-                    centre=defaultValueOfCentre;
-                    return centre;
-            
-                default:
-                    System.out.println("Codice inserito errato!");
+                }else{
+                    System.err.println("Errore durante la creazione del nuovo centro");
                     return null;
-            }
-    }
-
-    //user create a new centre
-    private static String registraCentroAree(){
-        MonitoringCentre centre=MonitoringCentre.createCentre();
-        if(centre!=null){
-            return centre.getNome();
-        }else{
-            return null;
+                }
+                
+            //user does not choose a centre
+            case MenuCentre.IndexOf.doNothing:
+                centre=defaultValueOfCentre;
+                return centre;
+        
+            default:
+                System.out.println("Codice inserito errato.\n");
+                return null;
         }
     }
-
     /**
      * Crea un utente
      */
@@ -467,34 +487,39 @@ public class User {
     public void visualizzaAreaGeografica(){
         boolean exit=false;
         String id;
-        String aree[]=Parameters.getIDAree();
-        if(aree!=null){
-            // Print Areas
-            System.out.println("Aree disponibili:");
-            System.out.println(GeographicArea.ListIDs(aree));
-            // Ask
-            System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
+        String[] aree = null;
+        if ( Parameters.FileExist() ) {
+            aree = Parameters.getIDAree();
+            if(aree!=null){
+                // Print Areas
+                System.out.println("Aree disponibili:");
+                System.out.println(GeographicArea.ListIDs(aree));
+                // Ask
+                System.out.print("Inserire l'id dell'area per visualizzarne le informazioni: ");
 
-            do{
-                id=InputScanner.INPUT_SCANNER.nextLine();
-                // Set Exit
-                exit = false;
-                //check if user input is a valid id
-                for(String value: aree){
-                    // Area is in options
-                    if(value.equals(id)){
-                        exit=true;
+                do{
+                    id=InputScanner.INPUT_SCANNER.nextLine();
+                    // Set Exit
+                    exit = false;
+                    //check if user input is a valid id
+                    for(String value: aree){
+                        // Area is in options
+                        if(value.equals(id)){
+                            exit=true;
+                        }
                     }
-                }
-                if (!exit) {
-                    System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
-                }
-            }while(!exit);
+                    if (!exit) {
+                        System.out.print("Geoname ID non valido\nInserire un Geoname ID tra quelli disponibili: ");
+                    }
+                }while(!exit);
 
-            Parameters.MostraParametri(id);
-            
-        }else{
-            System.out.println("Nessuna area disponibile");
+                Parameters.MostraParametri(id);
+                
+            } else {
+                System.out.println("Nessuna area disponibile.");
+            }
+        } else {
+            System.out.println("Non è presente alcun parametro attualmente.");
         }
     }
 }

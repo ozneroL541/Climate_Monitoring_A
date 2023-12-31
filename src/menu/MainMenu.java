@@ -24,17 +24,17 @@
 
 package src.menu;
 
+import src.users.*;
 import src.common.InputScanner;
 import src.header.Header;
-import src.users.*;
 
 /**
  * Classe che contiene il menù principale del programma.
  * @author Lorenzo Radice
- * @version 0.22.0
+ * @version 0.23.0
  */
 public class MainMenu {
-    /**
+    /*
      * Indexes
      */
     private static final record IndexOf() {
@@ -138,16 +138,19 @@ public class MainMenu {
     public short getQuit() {
         return IndexOf.exit;
     }
-    // Return the Number of Options of the Menu
-    // It's the max (which is the last) number displayed by the Menu
     /**
-     * Restituisce il numero di opzioni del menù
+     * Restituisce il numero di opzioni del menù.
+     * È l'indice massimo, che è l'ultimo numero mostrato dal menù.
      * @return il numero delle opzioni
      */
     public short NumberOfOptions() {
         return op_number;
     }
-    // Execute selected action
+    /*
+     * Esegue l'azione selezionata.
+     * @param input azione
+     * @return false se l'azione è di uscita
+     */
     private boolean selectedAction( short input ) {
         // User
         User user = new User();        

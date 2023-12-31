@@ -27,10 +27,8 @@ package src.parameters;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
-import src.common.CSV_Utilities;
-import src.common.CommonMethods;
-import src.common.InputScanner;
-import src.common.Research;
+
+import src.common.*;
 import src.geographicarea.GeographicArea;
 import src.monitoringcentre.MonitoringCentre;
 
@@ -40,7 +38,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.23.0
  */
 public class Parameters {
     // Indexes
@@ -74,6 +72,10 @@ public class Parameters {
         Table t = null;
         // Assign Geoname ID
         id = insertID(centre);
+        // Catch Error
+        if (id <= 0) {
+            return null;
+        }
         // Assign Date
         d = insertDate();
         // Check Date
@@ -106,7 +108,7 @@ public class Parameters {
         // Return Parameters
         return p;
     }
-    /*
+    /**
      * Dato un Geoname ID stampa i parametri riguardanti quell'Area.
      * @param id geoname_id
      */
@@ -150,6 +152,13 @@ public class Parameters {
     public static String[] getIDAree(){
         return Research.getColNoRepetition(file, IndexOf.geoname_id);
     }
+    /**
+     * Controlla che il file dei parametri esista e ne ritorna il risultato.
+     * @return true se il file esiste
+     */
+    public static boolean FileExist() {
+        return file.exists();
+    }
     /*
      * Richiede l'inserimento del Geoname ID
      * @return geoname_id
@@ -160,14 +169,18 @@ public class Parameters {
         String area = null;
         String[] aree=null;
         boolean exit=false;
-
         MonitoringCentre c=MonitoringCentre.getCentreByName(centre);
+
         if ( c == null ) {
             System.err.println("Centro inesistente");
             return -1;
         }
         aree=c.getAreeInteresse();
-
+        // Error Catcher
+        if ( aree == null) {
+            System.err.println("Non ci sono aree disponibili associate al centro.");
+            return -2;
+        }
         //show areas to user
         System.out.println("Aree associate al centro " + centre + ":");
         // Print areas
@@ -184,7 +197,7 @@ public class Parameters {
                         id = Integer.parseInt(value);
                     } catch (Exception e) {
                         id = -1;
-                        System.err.println("Errore: area inestinte salvata nel file dei Centri di Monitoraggio.");
+                        System.err.println("ERRORE: area inesistente salvata nel file dei Centri di Monitoraggio.");
                         exit = false;
                     }
                 }
@@ -277,7 +290,7 @@ public class Parameters {
             System.out.println("Non sono presenti dati riguardanti l'area selezionata.");
         }
     }
-    /**
+    /*
      * Chiede all'utente di inserire l'indice del parametro che desidera visualizzare.
      * @param max massimo indice
      * @return indice del parametro che si desidera visualizzare
@@ -329,7 +342,7 @@ public class Parameters {
         // Search all Parameters for this area
         return Research.AllStringInCol(file, IndexOf.geoname_id, area);
     }
-    /**
+    /*
      * Rende un array di righe del file CSV una lista
      * @param lines righe
      * @return lista
@@ -343,7 +356,7 @@ public class Parameters {
         }
         return out;
     }
-    /**
+    /*
      * Ritorna una linea per la lista.
      * @param line riga
      * @param index indice
@@ -484,7 +497,6 @@ public class Parameters {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
-
     /*
      * Trasforma i campi della classe in un array di stringhe.
      * @return array di Strings

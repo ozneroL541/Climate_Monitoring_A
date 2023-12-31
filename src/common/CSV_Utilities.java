@@ -41,54 +41,9 @@ import com.opencsv.CSVWriter;
  * Raccolta di metodi statici utili per la gestione dei file CSV.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.23.0
  */
 public class CSV_Utilities {
-    /**
-     * Crea una riga che può essere aggiunta ad un file CSV.
-     * Controlla la presenza di virgole e la gestisce.
-     * @param linecells celle della riga
-     * @return stringa per CSV
-     */
-    public static String toCSVLine(String [] linecells) {
-        // Check if linecells exist
-        if (linecells == null || linecells.length < 1) {
-            // Exit
-            return null;
-        }
-        // To be returned
-        String str = "";
-        // For each field
-        for (String s : linecells) {
-            // Add the formatted String
-            str += CSVFormat(s);
-            // Separator
-            str += ",";
-        }
-        // Remove last comma
-        str = str.substring(0, str.length() - 1 );
-        // Return String
-        return str;
-    }
-    /**
-     * Ritorna la stringa con le virgolette se contiene un carattere separatore.
-     * @param str stringa
-     * @return stringa formattata
-     */
-    public static String CSVFormat( String str ) {
-        // Check if string is null
-        if ( str == null ) {
-            str = "";
-        } else {
-            // Separator
-            final String separator = ",";
-            // If cointains a separator put ""
-            if (str.contains(separator))
-                str = addQuotes(str);
-        }
-        // Return formatted string
-        return str;
-    }
     /**
      * Aggiunge un array di stringhe ad un file CSV.
      * Se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
@@ -154,13 +109,68 @@ public class CSV_Utilities {
         return true;
     }
     /**
+     * Aggiunge una stringa alla fine di una riga di un file CSV.
+     * @param file file CSV
+     * @param string stringa da aggiungere
+     * @param line riga
+     * @return true se l'esecuzione ha avuto successo
+     */
+    public static boolean addCellAtEndOfLine(File file, String string, int line) {
+        return addAtEndOfLine(file, CSVFormat(string), line);
+    }
+    /*
+     * Crea una riga che può essere aggiunta ad un file CSV.
+     * Controlla la presenza di virgole e la gestisce.
+     * @param linecells celle della riga
+     * @return stringa per CSV
+     */
+    private static String toCSVLine(String [] linecells) {
+        // Check if linecells exist
+        if (linecells == null || linecells.length < 1) {
+            // Exit
+            return null;
+        }
+        // To be returned
+        String str = "";
+        // For each field
+        for (String s : linecells) {
+            // Add the formatted String
+            str += CSVFormat(s);
+            // Separator
+            str += ",";
+        }
+        // Remove last comma
+        str = str.substring(0, str.length() - 1 );
+        // Return String
+        return str;
+    }
+    /*
+     * Ritorna la stringa con le virgolette se contiene un carattere separatore.
+     * @param str stringa
+     * @return stringa formattata
+     */
+    private static String CSVFormat( String str ) {
+        // Check if string is null
+        if ( str == null ) {
+            str = "";
+        } else {
+            // Separator
+            final String separator = ",";
+            // If cointains a separator put ""
+            if (str.contains(separator))
+                str = addQuotes(str);
+        }
+        // Return formatted string
+        return str;
+    }
+    /*
      * Aggiunge una stringa alla fine della riga di un file.
      * @param file file
      * @param update stringa da aggiungere
      * @param line riga
      * @return true se l'esecuzione è avvenuta correttamente
      */
-    public static boolean addAtEndOfLine(File file, String update, int line){
+    private static boolean addAtEndOfLine(File file, String update, int line){
         
         // Check file existence
         if (! file.exists()) {
@@ -261,16 +271,6 @@ public class CSV_Utilities {
         }
         return true;
     }
-    /**
-     * Aggiunge una stringa alla fine di una riga di un file CSV.
-     * @param file file CSV
-     * @param string stringa da aggiungere
-     * @param line riga
-     * @return true se l'esecuzione ha avuto successo
-     */
-    public static boolean addCellAtEndOfLine(File file, String string, int line) {
-        return addAtEndOfLine(file, CSVFormat(string), line);
-    }
     /*
      * Aggiunge le virgolette all'inizio e alla fine della stringa
      * @param str stringa
@@ -355,6 +355,13 @@ public class CSV_Utilities {
      * @return true se l'esecuzione è avvenuta correttamente
      */
     private static boolean addLinewithCheck( File file, String line, String header ) {
+        // Directory
+        File directory = file.getParentFile();
+        // If it doesn't exist
+        if (!directory.exists()) {
+            // Make the directory
+            directory.mkdirs();
+        }
         // Check if file has at least one line
         if ( ! fileHasLines(file) ) {
             // Check if method execution succeded
@@ -380,7 +387,7 @@ public class CSV_Utilities {
                 return true;
             // If file does not exist or has no line
             else
-                // Retunr false
+                // Return false
                 return false;
         } catch (IOException e) {
             // In case of error return false

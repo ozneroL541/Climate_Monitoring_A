@@ -36,15 +36,20 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.0
+ * @version 0.23.0
  */
 public class MonitoringCentre {
+    /*
+     * File field indexes
+     */
     private final static record col_comuni() {
         private final static short comune = 0;
         private final static short CAP = 2;
         private final static short provincia = 1;        
     }
-    // Indexes in CSV file
+    /*
+     * Indexes in CSV file
+     */
     private final static record IndexOf() {
         private final static short name = 0;
         private final static short address = 1;
@@ -66,12 +71,12 @@ public class MonitoringCentre {
     // File
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
     // Cities List
-    private final static File listcomuni = FileSystems.getDefault().getPath("data", "comuni-localita-cap-italia.csv").toFile();
+    private final static File listcomuni = FileSystems.getDefault().getPath("resources", "comuni-localita-cap-italia.csv").toFile();
     // CAP length
     private final static short cap_length = 5;
     /**
      * Permette di costruire un oggetto MonitoringCentre conoscendo solo il nome.
-     * I restanti attributi verranno letti dal file CentroMonitoraggio.dati.csv 
+     * I restanti attributi verranno letti dal file CentroMonitoraggio.dati.csv.
      * @param nome nome del centro
      * @return centro di monitoraggio
      */
@@ -92,7 +97,6 @@ public class MonitoringCentre {
             areeInteresse=record[IndexOf.Iadd.length - 1 + IndexOf.areas].split("-");
             return new MonitoringCentre(nome, indirizzo, areeInteresse);
         }
-        
     }
     /**
      * Ritorna un array di stringhe dei nomi dei Centri di Monitoraggio.
@@ -100,6 +104,10 @@ public class MonitoringCentre {
      * @return nomi dei centri
      */
     public static String[] getCentri(){
+        // Check file existence
+        if (!f.exists()) {
+            return null;
+        }
         return Research.getColArray(f,IndexOf.name);
     }
     /**
@@ -110,29 +118,37 @@ public class MonitoringCentre {
     public static boolean CenterExistence(String nome) {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
-
     /**
      * Richiede all'utente di creare un centro, se la creazione ha avuto successo, la salva sul file.
-     * @return true se l'esecuzion ha avuto successo
+     * @return nome del centro se l'esecuzione ha avuto successo.
      */
-    public static boolean insertCentre() {
+    public static String insertCentre() {
         // Create Centre
         MonitoringCentre mc = createCentre();
         // Check if center was created
         if ( mc == null || !mc.Exist() ) {
             // Do not insert the centre
-            return false;
+            return null;
         }
         // Save Centre
-        return mc.memorizzaCentro();
+        if (mc.memorizzaCentro())
+            return mc.getNome();
+        else
+            return null;
     }
-
     /**
+     * Controlla l'esistenza del file dei Centri di Monitoraggio.
+     * @return true se il file esiste
+     */
+    public static boolean FileExist() {
+        return f.exists();
+    }
+    /*
      * Permette di creare un Centro di Monitoraggio e lo ritorna.
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
      */
-    public static MonitoringCentre createCentre() {
+    private static MonitoringCentre createCentre() {
         // Error string
         final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
         String nome = null;
@@ -154,8 +170,10 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
-
-    // Ask the name of the Centre to the user
+    /*
+     * Chiede all'utente il nome del centro,
+     * @return nome del centro
+     */
     private static String AskName() {
         boolean exit = true;
         String in = "";
@@ -188,7 +206,10 @@ public class MonitoringCentre {
         // Return the name
         return name;
     }
-    // Ask the address of the centre to the user
+    /*
+     * Chiede all'utente di inserire l'indirizzo del centro.
+     * @return
+     */
     private static String[] AskAddress() {
         // Address
         String[] address = new String[IndexOf.Iadd.length];
@@ -252,16 +273,18 @@ public class MonitoringCentre {
             //Ask Provice
             do {
                 // Request
-                System.out.print("Inserire codice provincia:\t\t");
+                System.out.print("Inserire Codice Provincia:\t\t");
                 // Input
                 in = CommonMethods.toNoAccent( InputScanner.INPUT_SCANNER.nextLine() );
                 // Country Code must be made of 2 characters
                 if ( ! AddElExist(in, IndexOf.Iadd.prov) ) {
+                    // Error
+                    System.out.println("Codice errato.\n");
                     // Stay in loop
                     exit = false;
                 } else {
                     // If province does not exist
-                    if ( ! Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
+                    if ( listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.provincia, in) ) {
                         // Output
                         System.out.println("Non è stata trovata alcuna provincia col codice inserito.");
                         // Stay in loop
@@ -284,7 +307,10 @@ public class MonitoringCentre {
 
         return address;
     }
-    //set the geographic area/areas associated with the center
+    /*
+     * Associa le aree geografiche al centro.
+     * @return id delle aree
+     */
     private static String[] setAreeGeografiche(){
 
         ArrayList<String> aree = new ArrayList<String>();
@@ -296,7 +322,10 @@ public class MonitoringCentre {
         final short max_areas = 1000;
 
         System.out.println("\nINSERIMENTO AREE GEOGRAFICHE");
-
+        if (!GeographicArea.doesCSVExist()) {
+            System.out.println("\nNon ci sono aree disponibili da associare al centro.\n");
+            return null;
+        }
         do{
             System.out.println("\nAree inserite: " + contAree);
             System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
@@ -363,7 +392,7 @@ public class MonitoringCentre {
                 return false;
         }
     }
-    /**
+    /*
      * Questo metodo controlla che esista un indirizzo con i campi inseriti.
      * Non viene controllata l'esistenza della via e del civico, ma solo la sua correttezza sintattica.
      * @param address indirizzo
@@ -381,6 +410,10 @@ public class MonitoringCentre {
             if ( !isAddElCorrect(address[i], i) )
                 // Element is incorrect return false
                 return false;
+        }
+        // Check file existance
+        if (! listcomuni.exists()) {
+            return true;
         }
         // Array of strings
         String [] arr_str = Research.getRecordByTwoDatas(listcomuni, col_comuni.comune, address[IndexOf.Iadd.comune], col_comuni.provincia, address[IndexOf.Iadd.prov]);
@@ -444,20 +477,25 @@ public class MonitoringCentre {
                 return b;
             // CAP
             case IndexOf.Iadd.CAP:
-                return b && Research.isStringInCol(listcomuni, col_comuni.CAP, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.CAP, elem));
             // City
             case IndexOf.Iadd.comune:
-                return b && Research.isStringInCol(listcomuni, col_comuni.comune, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.comune, elem));
             // Province
             case IndexOf.Iadd.prov:
-                return b && Research.isStringInCol(listcomuni, col_comuni.provincia, elem);
+                return b && !(listcomuni.exists() && !Research.isStringInCol(listcomuni, col_comuni.provincia, elem));
             default:
                 // Error
                 System.err.println("ERRORE: indice elemento array indirizzo inesistente");
                 return false;
         }
     }
-    // Check if two CAPs correpond to each other
+    /*
+     * Controlla che i due CAP corrispondano.
+     * @param cap1 CAP 1
+     * @param cap2 CAP 2
+     * @return true se i CAP corrispondono
+     */
     private static boolean equalsCAP( String cap1, String cap2 ) {
         // x character
         final char x = 'x';
@@ -485,11 +523,10 @@ public class MonitoringCentre {
         // Test passed
         return true;
     }
+
     // private String via, civico, cap, comune, provincia;
     private String nome = null;
-
     private String [] indirizzo = new String[IndexOf.Iadd.length];
-
     private String[] areeInteresse = null;
     /**
      * Costruttore dell'oggetto MonitoringCentre.
@@ -523,7 +560,6 @@ public class MonitoringCentre {
     public String[] getIndirizzo() {
         return indirizzo;
     }
-
     @Override
     public String toString() {
         String str = "";
@@ -532,10 +568,17 @@ public class MonitoringCentre {
         str += "Aree di Interesse\n" + ListAreas();
         return str;
     }
-
+    /**
+     * Ritorna la lista delle aree di interesse del centro.
+     * @return lista aree
+     */
     public String ListAreas() {
         return GeographicArea.ListIDs(this.areeInteresse);
     }
+    /**
+     * Memorizza il centro nel file.
+     * @return true se la memorizzazione ha successo
+     */
     public boolean memorizzaCentro(){
         // Check existance
         if ( !Exist() ) {
@@ -550,15 +593,12 @@ public class MonitoringCentre {
     public boolean Exist() {
         return (this.nome != null && this.nome.length() > 0);
     }
-    /**
+    /*
      * Trasforma tutti i campi della classe in un array di stringhe
      * @return array dei campi
      */
     private String[] toStringRecord() {
         // To be returned
-        /*
-        String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length + this.areeInteresse.length];
-        */
         String[] record = new String[IndexOf.indexes + IndexOf.Iadd.length - 1];
 
         record[IndexOf.name] = this.nome;
@@ -569,17 +609,20 @@ public class MonitoringCentre {
         record[IndexOf.address + IndexOf.Iadd.prov]   = this.indirizzo[IndexOf.Iadd.prov];
         record[IndexOf.Iadd.length - 1 + IndexOf.areas] = areasforCSV();
 
-        /*
-        for (short i = 0; i < this.areeInteresse.length; i++) {record[ IndexOf.Iadd.length + i ] = this.areeInteresse[i];}
-        */
-
         return record;
     }
-    // Make a cell for Areas for CSV
+    /*
+     * Crea la cella delle aree per essere inserita nel file CSV.
+     * @return cella
+     */
     private String areasforCSV() {
         final String delimiter = "-";
         String str = "";
         short i = 0;
+        // Check
+        if (this.areeInteresse == null || this.areeInteresse.length <= 0) {
+            return "";
+        }
         for ( i = 0; i < this.areeInteresse.length - 1; i++) {
             str += this.areeInteresse[i];
             if ( i < this.areeInteresse.length - 1) {
@@ -588,7 +631,7 @@ public class MonitoringCentre {
         }
         return str;
     }
-    /**
+    /*
      * Ritorna l'indirisso formattato secondo lo standard di Poste Italiane.
      * @return indirizzo
      */

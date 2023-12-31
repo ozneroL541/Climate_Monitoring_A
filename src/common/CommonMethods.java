@@ -28,7 +28,7 @@ package src.common;
  * Raccolta di metodi statici utilizzati da più classi.
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 0.22.0
+ * @version 0.23.0
  */
 public class CommonMethods {
     /**
@@ -81,23 +81,6 @@ public class CommonMethods {
         for ( Character c : add.toCharArray() ) {
             // Check the validity of the character
             if ( !isASCIILetter(c) && !Character.isDigit(c) && c != ' ' && c != '\'' && c != ',' && c != '/' ) {
-                // Character not valid: Return false
-                return false;
-            }
-        }
-        // Character valid: return true
-        return true;
-    }
-    /**
-     * Controlla che il valore inserito sia una stringa di caratteri accettabili per un indirizzo.
-     * @param add indirizzo da controllare
-     * @return true se l'indirizzo è valido
-     */
-    public static boolean isValidAddress( String add ) {
-        // For every character in string
-        for ( Character c : add.toCharArray() ) {
-            // Check the validity of the character
-            if ( !Character.isLetter(c) && !Character.isDigit(c) && c != ' ' && c != '\'' && c != ',' && c != '/' ) {
                 // Character not valid: Return false
                 return false;
             }

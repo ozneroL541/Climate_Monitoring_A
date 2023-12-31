@@ -33,7 +33,7 @@ import src.common.InputScanner;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.22.0
+ * @version 0.23.0
  */
 public class Table {
     // Score and note
@@ -45,8 +45,10 @@ public class Table {
         // Costructor
         public Data_SN(){}
     }
-    // Number of categories
-    public final static short n_categories = 7;
+    /**
+     * Numero di categorie
+     */
+    protected final static short n_categories = 7;
     // Max characters number for notes
     private final static short max_char_notes = 256;
     // Min score
@@ -76,7 +78,11 @@ public class Table {
         // Return datas
         return t;
     }
-    // Ask about datas
+    /*
+     * Chiede all'utente di inserire i dati.
+     * @param index dato da inserire
+     * @return dati inseriti
+     */
     private static Data_SN askData( short index ) {
         // Input data
         Data_SN data_in = new Data_SN();
@@ -205,12 +211,20 @@ public class Table {
         // Return datas
         return data_in;
     }
-    // Check if the score is in the correct range
+    /*
+     * Controlla che il dato inserito sia corretto
+     * @param i dato
+     * @return true se è corretto
+     */
     private static boolean isScoreCorrect( short i ) {
         // Return true if the score is in the correct range
         return ( i >= min_score && i <= max_score );
     }
-    // Check if the note is shorter than the max
+    /*
+     * Controlla che la nota inserita abbia una lunghezza accettabile
+     * @param str nota
+     * @return true se la nota è corta
+     */
     private static boolean isNoteShort( String str ) {
         // Return true if the length of the string is acceptable
         return (str.length() <= max_char_notes);
@@ -289,7 +303,7 @@ public class Table {
         }
     }
     /*
-     * Crea una tabella utilizzando la classe privata Data_SN
+     * Crea una tabella utilizzando la classe privata Data_SN.
      * @param d datas
      */
     private Table( Data_SN[] d ) {
@@ -322,9 +336,6 @@ public class Table {
             }
         }
     }
-    /**
-     * Restituisce la tabella sotto formato di stringa
-     */
     @Override
     public String toString() {
         // Name of the climate categories
@@ -360,8 +371,11 @@ public class Table {
         }
         return str;
     }
-    // Create an array of strings ad add id at the beginning
-    public String[] toStrings() {
+    /**
+     * Crea un array di stringhe formato dai dati inseriti.
+     * @return array di stringhe
+     */
+    protected String[] toStrings() {
         // Array to return
         String[] strings = new String[ (n_categories * 2) ];
         // Check parameter existance
