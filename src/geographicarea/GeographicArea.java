@@ -36,7 +36,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con id,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.22.3
+ * @version 0.23.0
  */
 public class GeographicArea {
     // Indexes in CSV file

@@ -31,13 +31,13 @@ import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
 
-import src.MaxPQ.MaxPQ;
 import src.geographicarea.Coordinates;
+import src.maxpq.MaxPQ;
 
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.22.1
+ * @version 0.23.0
  */
 public class Research {
     /**
