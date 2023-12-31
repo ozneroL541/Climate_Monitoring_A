@@ -158,7 +158,7 @@ public class Header {
                 case "-show":
                 case "show":
                     // There is a letter after
-                    if (cmd[i + 1] != null) {
+                    if (((i+1) < cmd.length) && (cmd[i + 1] != null)) {
                         // Conditions argument
                         if (cmd[i + 1].toLowerCase().equals("c")) {
                             // Conditions
