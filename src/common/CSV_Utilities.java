@@ -41,7 +41,7 @@ import com.opencsv.CSVWriter;
  * Raccolta di metodi statici utili per la gestione dei file CSV.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.1
+ * @version 0.22.2
  */
 public class CSV_Utilities {
     /**
@@ -355,6 +355,13 @@ public class CSV_Utilities {
      * @return true se l'esecuzione è avvenuta correttamente
      */
     private static boolean addLinewithCheck( File file, String line, String header ) {
+        // Directory
+        File directory = file.getParentFile();
+        // If it doesn't exist
+        if (!directory.exists()) {
+            // Make the directory
+            directory.mkdirs();
+        }
         // Check if file has at least one line
         if ( ! fileHasLines(file) ) {
             // Check if method execution succeded
@@ -380,7 +387,7 @@ public class CSV_Utilities {
                 return true;
             // If file does not exist or has no line
             else
-                // Retunr false
+                // Return false
                 return false;
         } catch (IOException e) {
             // In case of error return false

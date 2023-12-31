@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.22.2
+ * @version 0.22.3
  */
 public class MonitoringCentre {
     /*
@@ -104,6 +104,10 @@ public class MonitoringCentre {
      * @return nomi dei centri
      */
     public static String[] getCentri(){
+        // Check file existence
+        if (!f.exists()) {
+            return null;
+        }
         return Research.getColArray(f,IndexOf.name);
     }
     /**

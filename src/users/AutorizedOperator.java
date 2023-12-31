@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.22.2
+ * @version 0.22.3
  */
 public class AutorizedOperator extends User {
     /**
@@ -235,7 +235,7 @@ public class AutorizedOperator extends User {
         //if user does not have a center
         if(this.centre != null && !hasCentre()){
             this.centre = centre;
-            if(! addCentreToFile(centre) ){
+            if( file.exists() && !addCentreToFile(centre) ){
                 System.err.println("ERRORE: aggiornamento file centri fallito.");
                 this.centre = defaultValueOfCentre;
                 return false;
@@ -334,7 +334,14 @@ public class AutorizedOperator extends User {
      * @return true se l'esecuzione è avvenuta con successo
      */
     private boolean addCentreToFile(String centre){
+        if (!file.exists()) {
+            return false;
+        }
         int riga=Research.OneStringInCol(file, IndexOf.matricola, String.format("%05d", this.userid));
+        // Check
+        if (riga < 0) {
+            return false;
+        }
         return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
     /*
