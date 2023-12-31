@@ -18,7 +18,7 @@ Link per il download in formato compresso:
 <https://github.com/ozneroL541/Climate_Monitoring/tree/main>
 
 ## Compilazione
-Per compilare bisogna trovarsi nella cartella principale della repository.
+Per compilare i file sorgenti bisogna trovarsi nella cartella principale della repository.
 
      cd Climate_Monitoring
 
@@ -28,20 +28,26 @@ Per la compilazione automatizzata è richiesta, come prerequisito, la presenza d
 
 #### GNU/Linux
 Tramite linea di comando.
+##### Compilazione
 
      ./automatic.sh --compile
 
+##### Creazione JAR Eseguibile
+
+     ./automatic.sh --jar
+
 #### Windows
-Siccome Windows non dispone nativamente della shell sh non è disponibile la compilazione automatizzata di default.
-
-È comunque possibile usufruire di questa funzione se si utilizzano applicazioni che utilizzano **sh** come ad esempio **GIT** o **WSL**. In tal caso bisognerà eseguire, *mediante shell sh*, il seguente comando.
-
-     sh automatic.sh --compile
+Non è disponibile la compilazione automatizzata per il sistema operativo Windows, ci scusiamo per il disagio.
 
 #### MacOS
 Tramite linea di comando.
+##### Compilazione
 
      ./automatic.sh --compile
+
+##### Creazione JAR Eseguibile
+
+     ./automatic.sh --jar
 
 
 ### Compilazione Manuale
@@ -75,6 +81,7 @@ Uscire dalla cartella bin
 Rimuovere file manifest temporaneo
 
      rm -r tmp
+
 ## Esecuzione
 Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella *bin*.
 
