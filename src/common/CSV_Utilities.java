@@ -48,6 +48,8 @@ public class CSV_Utilities {
      * Aggiunge un array di stringhe ad un file CSV.
      * Se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
      * Ritorna true se l'esecuzione è avvenuta correttamente.
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file CSV
      * @param linecells celle della linea da aggiungere
      * @param header intestazione
@@ -61,6 +63,8 @@ public class CSV_Utilities {
     }
     /**
      * Aggiorna una cella di un file CSV
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @deprecated  Questo metodo è stato sostituito
      * <p> usa invece {@link CSV_Utilities#addCellAtEndOfLine(File file, String string, int line)}.
      * @param file file CSV
@@ -71,7 +75,6 @@ public class CSV_Utilities {
      */
     @Deprecated
     public static boolean updateCellInCSV(File file, String update, int line, int col){
-        
         // Check file existence
         if (! file.exists()) {
             // File name
@@ -110,6 +113,8 @@ public class CSV_Utilities {
     }
     /**
      * Aggiunge una stringa alla fine di una riga di un file CSV.
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file CSV
      * @param string stringa da aggiungere
      * @param line riga
@@ -165,6 +170,8 @@ public class CSV_Utilities {
     }
     /*
      * Aggiunge una stringa alla fine della riga di un file.
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file
      * @param update stringa da aggiungere
      * @param line riga
@@ -283,6 +290,8 @@ public class CSV_Utilities {
      * Scrive la linea passata come argomento alla fine del file CSV.
      * Si può scegliere se aggiungere una nuova linea alla fine della scrittura.
      * Ritorna true se la scrittura ha avuto esito positivo, false se non è avvenuta.
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file CSV
      * @param line linea
      * @param add_newline aggiunge una nuova linea se true
@@ -347,6 +356,8 @@ public class CSV_Utilities {
     /*
      * Aggiunge una linea al file, se il file è vuoto o non ha linee aggiunge l'intestazione.
      * Ritorna true se l'esecuzione è avvenuta correttamente.
+     * <br><br>Complessità
+     * <br>T = θ(n)
      * @param file file
      * @param line linea
      * @param header intestazione
@@ -374,7 +385,7 @@ public class CSV_Utilities {
         return WriteEOF_CSV(file, line, true);
     }
     /*
-     * Controlla che il file esista e abbia almeno una riga, in caso contrario ritorna false
+     * Controlla che il file esista e abbia almeno una riga, in caso contrario ritorna false.
      * @param file file
      * @return true se ha almeno una linea
      */
