@@ -96,7 +96,9 @@ extract_jar() {
     mkdir $obj 2> /dev/null
     # Go to bin directory
     if cd $obj; then
-        jar -xf ../"$lib"commons-lang3-3.1.jar && jar -xf ../"$lib"opencsv-5.5.2.jar
+        d="jar -xf ../"$lib"commons-lang3-3.1.jar && jar -xf ../"$lib"opencsv-5.5.2.jar"
+        echo "$d" && eval $d
+        result $? "JAR extraction"
         cd $robj
     else
         echo ""
@@ -113,11 +115,13 @@ change_manifest() {
         # Delete MANIFEST.FM
         d="rm "$manifest""
         echo "$d" && eval $d
+        result $? "Manifest file deleting"
         # Check execution
         if result $? "JAR extraction"; then
             # Made the MANIFEST.MF file
             echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
             echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
+            result $? "Manifest file changing"
         fi
         # Exit up
         cd $robj 
@@ -132,7 +136,7 @@ copy() {
     # Copy files
     d="cp "$inc" "$bin""
     echo "$d" && eval $d
-    result $? "Compilation"
+    result $? "Files copy"
 }
 # JAR
 compile_jar() {
