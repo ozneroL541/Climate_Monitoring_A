@@ -91,7 +91,7 @@ compile_jar() {
     # Compile java
     if compile && cd $bin; then
         # Make an executable JAR
-        d="jar cvfm $jar ../$manifest src/*/*.class"
+        d="jar cfm $jar ../$manifest src/*/*.class"
         echo "$d" && eval $d
         res=$?
         cd ..
