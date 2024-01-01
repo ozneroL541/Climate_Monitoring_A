@@ -26,9 +26,11 @@ bin="bin/"
 doc="doc/"
 src="src/"
 lib="lib/"
-tmp="tmp/"
+tmp=""$bin"META-INF/"
 # ClassPath
 cp="-cp $lib"opencsv-5.5.2.jar:"$lib"commons-lang3-3.1.jar:.""
+# Include
+inc="LICENSE README.md autori.txt"
 # Javac Arguments
 args="$src*/*.java -d"
 # Manifest file
@@ -86,19 +88,44 @@ rmtmp() {
         echo ""
     fi
 }
+# Copy files 
+copy() {
+    # Copy files
+    d="cp "$inc" "$bin""
+    echo "$d" && eval $d
+    result $? "Files copy"
+}
+# Copy libraries 
+copy_lib() {
+    # Check dir
+    mkdir $bin$lib 2> /dev/null
+    # Copy files
+    d="cp "$lib"* $bin$lib"
+    echo "$d" && eval $d
+    result $? "Libraries copy"
+}
+# Copy all
+cp_all() {
+    copy
+    copy_lib
+}
 # Compile
 compile_jar() {
     # Compile java
-    if compile && cd $bin; then
+    if compile && cp_all && cd $bin; then
         # Make an executable JAR
-        d="jar cfm $jar ../$manifest src/*/*.class"
+        d="jar cfm $jar ../$manifest src/*/*.class $inc "$lib"*"
         echo "$d" && eval $d
-        res=$?
-        cd ..
-        if result $res "JAR creation"
+        if result $? "JAR creation"
         then
+            # Remove copies
+            d="rm $inc; rm -r $lib"
+            echo "$d" && eval $d
+            result $? "Copies deleting"
             # Remove Compiled files
-            rmobj
+            cd .. && rmobj
+        else
+            cd ..
         fi
     fi
 }
