@@ -115,9 +115,8 @@ change_manifest() {
         # Delete MANIFEST.FM
         d="rm "$manifest""
         echo "$d" && eval $d
-        result $? "Manifest file deleting"
         # Check execution
-        if result $? "JAR extraction"; then
+        if result $? "Manifest file deleting"; then
             # Made the MANIFEST.MF file
             echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
             echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
