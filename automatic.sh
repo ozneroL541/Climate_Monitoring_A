@@ -140,9 +140,9 @@ copy() {
 # JAR
 compile_jar() {
     # Compile java
-    if compile && extract_jar && change_manifest && cd $obj; then
+    if compile && extract_jar && change_manifest && copy && cd $obj; then
         # Make an executable JAR
-        d="jar cfm $robj$bin$jar $manifest * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*"
+        d="jar cfm $robj$bin$jar $manifest $inc * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*"
         echo "$d" && eval $d
         res=$?
         cd $robj
