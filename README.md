@@ -89,10 +89,9 @@ Lanciare il comando:
 
      java -jar bin/ClimateMonitor.jar
 
-In altenativa, nel caso si desideri eseguirlo direttamente nella cartella *bin*:
+Eseguire sempre il programma mentre ci si trova nella cartella dove è presente la cartella **resources** e, qualora fosse presente, la cartella **data**.
 
-     cd bin 
-     java -jar ClimateMonitor.jar
+*Sebbene sconsigliato, è possibile spostare il file in qualsiasi altra cartella, purché venga sempre eseguito dalla cartella dove sono presenti le cartelle sopra citate.*
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
