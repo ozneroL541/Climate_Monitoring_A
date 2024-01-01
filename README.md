@@ -61,26 +61,36 @@ Entrare nella cartella
 
      javac src/*/*.java -d bin/ -cp lib/opencsv-5.5.2.jar:lib/commons-lang3-3.1.jar:.
 
-##### Creazione JAR Eseguibile
-Creare file manifest temporaneo
-
-     mkdir tmp && echo Main-Class: src.climatemonitoring.ClimateMonitor > tmp/MANIFEST.MF && echo Class-Path: ../lib/opencsv-5.5.2.jar ../lib/commons-lang3-3.1.jar >> tmp/MANIFEST.MF
-
+##### Operazioni intermedie
 Entrare nella cartella bin
 
      cd bin
 
-Creare JAR eseguibile
+Estrazione delle librerie.
 
-     jar cvfm ClimateMonitor.jar ../tmp/MANIFEST.MF src/*/*.class
+     jar -xf ../lib/commons-lang3-3.1.jar && jar -xf ../lib/opencsv-5.5.2.jar 
+
+Sostituzione del file MANIFEST.MF
+
+     rm META-INF/MANIFEST.MF
+     echo Main-Class: src.climatemonitoring.ClimateMonitor > META-INF/MANIFEST.MF
+
+Copia di file
+
+     cp LICENSE README.md autori.txt bin/
+
+##### Creazione JAR Eseguibile
+
+     jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF LICENSE README.md autori.txt * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*
+
+Rimuovere gli altri file (opzionale)
+
+     find . ! -name .description.txt ! -name ClimateMonitor.jar -type f -delete
+     find . -type d -empty -delete
 
 Uscire dalla cartella bin
 
      cd ..
-
-Rimuovere file manifest temporaneo
-
-     rm -r tmp
 
 ## Esecuzione
 Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella *bin*.
