@@ -205,7 +205,6 @@ help() {
     echo "  -j      make executable jar and delete object files"
     echo "  -d      make documentation with javadoc"
     echo "  -r      remove"
-    echo "      t   temporary files"
     echo "      o   object files"
     echo "      j   JAR file"
     echo "      d   documentation"
