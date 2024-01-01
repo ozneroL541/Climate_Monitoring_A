@@ -111,9 +111,22 @@ compile() {
 }
 # Remove Objects files
 rmobj() {
-    d="rm -r $bin$src"
-    echo "$d" && $d
-    result $? "Object files removing"
+    if cd $bin; then
+        # Delete all files except description
+        d1="find . ! -name "$description" ! -name "$jar" -type f -delete"
+        # Delete all directories
+        d2="find . -type d -empty -delete"
+        echo "$d1" && eval $d1
+        echo "$d2" && eval $d2
+        res=$?
+        result $res "Documentation removal"
+        cd ..
+        return $res
+    else
+        echo ""
+        echo "No doc found"
+        echo ""
+    fi
 }
 # Remove JAR
 rmjar() {
@@ -133,7 +146,7 @@ rmdoc() {
         # Delete all files except description
         d1="find . ! -name $description -type f -delete"
         # Delete all directories
-        d2="rmdir */*; rmdir *"
+        d2=d2="find . -type d -empty -delete"
         echo "$d1" && eval $d1
         echo "$d2" && eval $d2
         res=$?
