@@ -119,12 +119,12 @@ rmobj() {
         echo "$d1" && eval $d1
         echo "$d2" && eval $d2
         res=$?
-        result $res "Documentation removal"
+        result $res "Object removal"
         cd ..
         return $res
     else
         echo ""
-        echo "No doc found"
+        echo "No bin found"
         echo ""
     fi
 }
@@ -146,7 +146,7 @@ rmdoc() {
         # Delete all files except description
         d1="find . ! -name $description -type f -delete"
         # Delete all directories
-        d2=d2="find . -type d -empty -delete"
+        d2="find . -type d -empty -delete"
         echo "$d1" && eval $d1
         echo "$d2" && eval $d2
         res=$?
