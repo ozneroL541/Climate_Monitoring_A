@@ -1,1 +1,0 @@
-La directory lib contenente le librerie del progretto.
