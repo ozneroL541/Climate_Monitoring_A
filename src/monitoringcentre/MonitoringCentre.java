@@ -623,7 +623,7 @@ public class MonitoringCentre {
         if (this.areeInteresse == null || this.areeInteresse.length <= 0) {
             return "";
         }
-        for ( i = 0; i < this.areeInteresse.length - 1; i++) {
+        for ( i = 0; i < this.areeInteresse.length; i++) {
             str += this.areeInteresse[i];
             if ( i < this.areeInteresse.length - 1) {
                 str += delimiter;
