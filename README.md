@@ -62,6 +62,10 @@ Entrare nella cartella
      javac src/*/*.java -d bin/ -cp lib/opencsv-5.5.2.jar:lib/commons-lang3-3.1.jar:.
 
 ##### Operazioni intermedie
+Copia di file
+
+     cp LICENSE README.md autori.txt bin/
+
 Entrare nella cartella bin
 
      cd bin
@@ -75,13 +79,9 @@ Sostituzione del file MANIFEST.MF
      rm META-INF/MANIFEST.MF
      echo Main-Class: src.climatemonitoring.ClimateMonitor > META-INF/MANIFEST.MF
 
-Copia di file
-
-     cp LICENSE README.md autori.txt bin/
-
 ##### Creazione JAR Eseguibile
 
-     jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF LICENSE README.md autori.txt * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*
+     jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/* */*/*/*/*/*/*
 
 Rimuovere gli altri file (opzionale)
 
