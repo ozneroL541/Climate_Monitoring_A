@@ -168,8 +168,17 @@ rmjar() {
 }
 # Document
 document() {
-    d="javadoc $args $doc $srca"
-    echo "$d" && eval $d
+    # Make dir
+    mkdir $obj 2> /dev/null
+    if extract_jar; then
+        # Compile java
+        d="javadoc $args $doc $srca"
+        echo "$d" && eval $d
+        res=$?
+        rmobj
+    else
+        res=1
+    fi
     result $? "Documentation creation"
 }
 # Remove Documetation
