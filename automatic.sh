@@ -67,10 +67,15 @@ failed() {
 compile() {
     # Make dir
     mkdir $obj 2> /dev/null
-    # Compile java
-    d="javac $args $obj $srca"
-    echo "$d" && eval $d
-    result $? "Compilation"
+    if extract_jar; then
+        # Compile java
+        d="javac $args $obj $srca"
+        echo "$d" && eval $d
+        res=$?
+    else
+        res=1
+    fi
+    result $res "Compilation"
 }
 # Remove Objects files
 rmobj() {
@@ -99,8 +104,9 @@ extract_jar() {
     if cd $obj; then
         d="jar -xf ../"$lib"commons-lang3-3.1.jar && jar -xf ../"$lib"opencsv-5.5.2.jar"
         echo "$d" && eval $d
-        result $? "JAR extraction"
+        res=$?
         cd $robj
+        result $res "JAR extraction"
     else
         echo ""
         echo "ERROR: no bin found"
