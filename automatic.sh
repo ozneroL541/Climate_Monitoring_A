@@ -29,11 +29,12 @@ lib="lib/"
 obj=$bin
 robj="../"
 # ClassPath
-cp="-cp $lib"opencsv-5.5.2.jar:"$lib"commons-lang3-3.1.jar:.""
+cp="-cp "$bin""
 # Include
 inc="LICENSE README.md autori.txt"
 # Javac Arguments
-args="$src*/*.java -d"
+args="-encoding UTF-8 $cp -d"
+srca="$src*/*.java"
 # Manifest file
 manifest="META-INF/MANIFEST.MF"
 # Executable
@@ -67,7 +68,7 @@ compile() {
     # Make dir
     mkdir $obj 2> /dev/null
     # Compile java
-    d="javac $args $obj $cp"
+    d="javac $args $obj $srca"
     echo "$d" && eval $d
     result $? "Compilation"
 }
@@ -161,7 +162,7 @@ rmjar() {
 }
 # Document
 document() {
-    d="javadoc $args $doc $cp"
+    d="javadoc $args $doc $srca"
     echo "$d" && eval $d
     result $? "Documentation creation"
 }
