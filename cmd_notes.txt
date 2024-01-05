@@ -1,0 +1,20 @@
+cd bin
+jar -xf ../lib/commons-lang3-3.1.jar && jar -xf ../lib/opencsv-5.5.2.jar
+cd ..
+
+javac -encoding UTF-8 -cp bin -d bin src\climatemonitoring\*.java src\common\*.java src\geographicarea\*.java src\header\*.java src\maxpq\*.java src\menu\*.java src\monitoringcentre\*.java src\parameters\*.java src\users\*.java
+
+cd bin
+echo Main-Class: src.climatemonitoring.ClimateMonitor > META-INF/MANIFEST.MF
+cd ..
+
+copy LICENSE bin
+copy README.md bin
+copy autori.txt bin
+
+cd bin
+jar cfm ..\bin\ClimateMonitor.jar META-INF\MANIFEST.MF *
+cd ..
+
+cd bin
+delete LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 

@@ -119,16 +119,10 @@ change_manifest() {
     mkdir $obj 2> /dev/null
     # Go to bin directory
     if cd $obj; then
-        # Delete MANIFEST.FM
-        d="rm "$manifest""
-        echo "$d" && eval $d
-        # Check execution
-        if result $? "Manifest file deleting"; then
-            # Made the MANIFEST.MF file
-            echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
-            echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
-            result $? "Manifest file changing"
-        fi
+        # Made the MANIFEST.MF file
+        echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
+        echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
+        result $? "Manifest file changing"
         # Exit up
         cd $robj 
     else
@@ -147,9 +141,9 @@ copy() {
 # JAR
 compile_jar() {
     # Compile java
-    if compile && extract_jar && change_manifest && copy && cd $obj; then
+    if compile && change_manifest && copy && cd $obj; then
         # Make an executable JAR
-        d="jar cfm $robj$bin$jar $manifest $inc * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*"
+        d="jar cfm $robj$bin$jar $manifest * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*"
         echo "$d" && eval $d
         res=$?
         cd $robj
