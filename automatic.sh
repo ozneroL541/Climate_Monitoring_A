@@ -215,14 +215,14 @@ help() {
     echo "Help Menu"
     echo "  -h      print this menu"
     echo "  -c      compile with javac"
-    echo "  -j      make executable jar and delete object files"
-    echo "  -d      make documentation with javadoc"
+    echo "  -j      make executable JAR file and delete object files"
+    echo "  -d      make Documentation with javadoc"
     echo "  -r      remove"
     echo "      o   object files"
     echo "      j   JAR file"
-    echo "      d   documentation"
+    echo "      d   Documentation"
     echo "      *   all"
-    echo "  *       build jar and make documentation without making garbage"
+    echo "  *       build JAR and make Documentation without making garbage"
 }
 
 # Move in a directory different from src
