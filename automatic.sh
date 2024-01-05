@@ -89,12 +89,13 @@ rmobj() {
         res=$?
         result $res "Object removal"
         cd $robj
-        return $res
     else
         echo ""
         echo "No bin found"
         echo ""
+        res=1
     fi
+    result $res "Object removal"
 }
 # Extract libraries
 extract_jar() {
@@ -106,12 +107,13 @@ extract_jar() {
         echo "$d" && eval $d
         res=$?
         cd $robj
-        result $res "JAR extraction"
     else
         echo ""
         echo "ERROR: no bin found"
         echo ""
+        res=1
     fi
+    result $res "JAR extraction"
 }
 # Change Manifest
 change_manifest() {
@@ -122,14 +124,16 @@ change_manifest() {
         # Made the MANIFEST.MF file
         echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
         echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
-        result $? "Manifest file changing"
+        res=$?
         # Exit up
         cd $robj 
     else
         echo ""
         echo "ERROR: no bin found"
         echo ""
+        res=1
     fi
+    result $res "Manifest file changing"
 }
 # Copy files 
 copy() {
