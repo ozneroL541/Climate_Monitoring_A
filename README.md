@@ -106,8 +106,58 @@ Uscire dalla cartella *(opzionale)*
 
      cd bin
 
+#### Windows
+Tramite CMD.
+Entrare nella cartella.
+
+     cd Climate_Monitoring
+
+##### Compilazione
+Estrarre i file JAR della cartella <code>lib</code> nella cartella <code>bin</code>.
+
+     cd bin
+     jar -xf ../lib/commons-lang3-3.1.jar && jar -xf ../lib/opencsv-5.5.2.jar
+     cd ..
+
+Compilare i file sorgente.
+
+     javac -encoding UTF-8 -cp bin -d bin src\climatemonitoring\*.java src\common\*.java src\geographicarea\*.java src\header\*.java src\maxpq\*.java src\menu\*.java src\monitoringcentre\*.java src\parameters\*.java src\users\*.java
+
+##### Creazione JAR Eseguibile
+Successivamente alla compilazione.
+
+Entrare nella cartella <code>bin</code>.
+
+     cd bin
+
+Modificare il file <code>MANIFEST.MF</code>.
+
+     echo Main-Class: src.climatemonitoring.ClimateMonitor > META-INF/MANIFEST.MF
+
+Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
+
+     cd ..
+     copy LICENSE bin
+     copy README.md bin
+     copy autori.txt bin
+     cd bin
+
+Creare JAR eseguibile.
+
+     jar cfm ..\bin\ClimateMonitor.jar META-INF\MANIFEST.MF *
+
+Rimuovere i file e cartelle diversi dal JAR *(opzionale)*
+
+     del LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
+     del /f /s /q src\* com\* templates\* META-INF\* org\*
+     rmdir /s /q src com templates META-INF org
+
+Uscire dalla cartella *(opzionale)*
+
+     cd bin
+
 ## Esecuzione
-Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella *bin*.
+Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella <code>bin</code>.
 
 Lanciare il comando:
 
