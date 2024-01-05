@@ -37,9 +37,10 @@ Tramite linea di comando.
      ./automatic.sh --jar
 
 #### Windows
-> :warning:**Attenzione:** La compilazione automatizzata per il sistema operativo Windows di default.
+> :warning: **Attenzione:** La compilazione automatizzata per il sistema operativo Windows di default.
 È possibile utilizzare la compilazione automatizzata solo attraverso applicazioni che fanno uso di **shell**, come WSL e GIT.
 <br><i>Utilizzando **WSL** è possibile incorrere in errori a causa della differenza tra interruzioni di riga di file su **DOS** e su **Unix**. Si consiglia di utilizzare strumenti come **dos2unix** per convertire il formato del file **automatic.sh**.</i>
+
 ##### Compilazione
 
      ./automatic.sh --compile
