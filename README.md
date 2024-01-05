@@ -24,6 +24,7 @@ Per compilare i file sorgenti bisogna trovarsi nella cartella principale della r
 
 ### Compilazione automatica
 > :bulb: [!Suggerimento]
+>
 > Il file **automatic.sh** ha diverse funzionalità, per visualizzarle digitare: <code>./automatic.sh --help</code>.
 ---
 Per la compilazione automatica è richiesta, come prerequisito, la presenza della shell **sh** o di sue derivate.
@@ -40,6 +41,7 @@ Tramite linea di comando.
 
 #### Windows
 > :warning: [!Attenzione]
+>
 > La compilazione automatica per il sistema operativo Windows non è disponibile di default.
 È possibile utilizzare la compilazione automatica solo attraverso applicazioni che fanno uso di **shell**, come WSL e GIT.<br>
 > <i>Utilizzando **WSL** è possibile incorrere in errori a causa della differenza tra interruzioni di riga di file su **DOS** e su **Unix**. Si consiglia di utilizzare strumenti come **dos2unix** per convertire il formato del file **automatic.sh**.</i>
