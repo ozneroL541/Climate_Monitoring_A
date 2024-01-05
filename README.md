@@ -22,9 +22,10 @@ Per compilare i file sorgenti bisogna trovarsi nella cartella principale della r
 
      cd Climate_Monitoring
 
-### Compilazione automatizzata
+### Compilazione automatica
+> :bulb: **Suggerimento:** Il file **automatic.sh** ha diverse funzionalità, per visualizzarle digita: <code>./automatic.sh --help</code>.
 ---
-Per la compilazione automatizzata è richiesta, come prerequisito, la presenza della shell **sh**.
+Per la compilazione automatica è richiesta, come prerequisito, la presenza della shell **sh**.
 
 #### GNU/Linux
 Tramite linea di comando.
@@ -37,8 +38,8 @@ Tramite linea di comando.
      ./automatic.sh --jar
 
 #### Windows
-> :warning: **Attenzione:** La compilazione automatizzata per il sistema operativo Windows di default.
-È possibile utilizzare la compilazione automatizzata solo attraverso applicazioni che fanno uso di **shell**, come WSL e GIT.
+> :warning: **Attenzione:** La compilazione automatica per il sistema operativo Windows non è disponibile di default.
+È possibile utilizzare la compilazione automatica solo attraverso applicazioni che fanno uso di **shell**, come WSL e GIT.
 <br><i>Utilizzando **WSL** è possibile incorrere in errori a causa della differenza tra interruzioni di riga di file su **DOS** e su **Unix**. Si consiglia di utilizzare strumenti come **dos2unix** per convertire il formato del file **automatic.sh**.</i>
 
 ##### Compilazione
