@@ -23,7 +23,7 @@ Per compilare i file sorgenti bisogna trovarsi nella cartella principale della r
      cd Climate_Monitoring
 
 ### Compilazione automatica
-> :bulb: [!Suggerimento]
+>[!Suggerimento] :bulb:
 >
 > Il file **automatic.sh** ha diverse funzionalità, per visualizzarle digitare: <code>./automatic.sh --help</code>.
 ---
