@@ -146,7 +146,7 @@ compile_jar() {
     # Compile java
     if compile && change_manifest && copy && cd $obj; then
         # Make an executable JAR
-        d="jar cfm $robj$bin$jar $manifest * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*"
+        d="jar cfm $robj$bin$jar $manifest * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/* */*/*/*/*/*/*"
         echo "$d" && eval $d
         res=$?
         cd $robj
