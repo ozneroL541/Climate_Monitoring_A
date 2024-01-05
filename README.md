@@ -63,7 +63,7 @@ Tramite l'applicazione Terminale.
 
 ### Compilazione Manuale
 ---
-#### GNU/Linux e MacOS
+#### GNU/Linux & MacOS
 Entrare nella cartella.
 
      cd Climate_Monitoring
@@ -80,7 +80,7 @@ Compilare i file sorgente.
      javac -encoding UTF-8 -cp bin -d bin src/*/*.java
 
 ##### Creazione JAR Eseguibile
-Successivamente alla compilazione.
+*Successivamente alla compilazione.*
 
 Entrare nella cartella <code>bin</code>.
 
@@ -100,18 +100,18 @@ Creare JAR eseguibile.
 
      jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*
 
-Rimuovere i file e cartelle diversi dal JAR *(opzionale)*
+Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
      find . ! -name .description.txt ! -name ClimateMonitor.jar -type f -delete
      find . -type d -empty -delete
 
-Uscire dalla cartella *(opzionale)*
+Uscire dalla cartella *(opzionale)*.
 
      cd bin
 
 #### Windows
 Tramite CMD.
-Entrare nella cartella.
+<br>Entrare nella cartella.
 
      cd Climate_Monitoring
 
@@ -127,7 +127,7 @@ Compilare i file sorgente.
      javac -encoding UTF-8 -cp bin -d bin src\climatemonitoring\*.java src\common\*.java src\geographicarea\*.java src\header\*.java src\maxpq\*.java src\menu\*.java src\monitoringcentre\*.java src\parameters\*.java src\users\*.java
 
 ##### Creazione JAR Eseguibile
-Successivamente alla compilazione.
+*Successivamente alla compilazione.*
 
 Entrare nella cartella <code>bin</code>.
 
@@ -149,26 +149,26 @@ Creare JAR eseguibile.
 
      jar cfm ..\bin\ClimateMonitor.jar META-INF\MANIFEST.MF *
 
-Rimuovere i file e cartelle diversi dal JAR *(opzionale)*
+Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
      del LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
      del /f /s /q src\* com\* templates\* META-INF\* org\*
      rmdir /s /q src com templates META-INF org
 
-Uscire dalla cartella *(opzionale)*
+Uscire dalla cartella *(opzionale)*.
 
      cd bin
 
 ## Esecuzione
 Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella <code>bin</code>.
 
-Lanciare il comando:
+Dalla cartella principale lanciare il comando:
 
      java -jar bin/ClimateMonitor.jar
 
 Eseguire sempre il programma mentre ci si trova nella cartella dove è presente la cartella **resources** e, qualora fosse presente, la cartella **data**.
 
-*Sebbene sconsigliato, è possibile spostare il file in qualsiasi altra cartella, purché venga sempre eseguito dalla cartella dove sono presenti le cartelle sopra citate.*
+> :bulb: *Sebbene sconsigliato, è possibile spostare il file in qualsiasi altra cartella, purché venga sempre eseguito dalla cartella dove sono presenti le cartelle sopra citate.*
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
