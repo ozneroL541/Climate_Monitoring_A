@@ -17,4 +17,6 @@ jar cfm ..\bin\ClimateMonitor.jar META-INF\MANIFEST.MF *
 cd ..
 
 cd bin
-delete LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
+del LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
+del /f /s /q src\* com\* templates\* META-INF\* org\*
+rmdir /s /q src com templates META-INF org
