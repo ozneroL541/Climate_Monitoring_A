@@ -87,7 +87,6 @@ rmobj() {
         echo "$d1" && eval $d1
         echo "$d2" && eval $d2
         res=$?
-        result $res "Object removal"
         cd $robj
     else
         echo ""

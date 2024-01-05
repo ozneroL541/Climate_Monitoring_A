@@ -37,10 +37,18 @@ Tramite linea di comando.
      ./automatic.sh --jar
 
 #### Windows
-Non è disponibile la compilazione automatizzata per il sistema operativo Windows, ci scusiamo per il disagio.
+Non è disponibile la compilazione automatizzata per il sistema operativo Windows.
+È possibile utilizzare la compilazione automatizzata solo attraverso applicazioni che fanno uso di **shell**, come WSL e GIT.
+##### Compilazione
+
+     ./automatic.sh --compile
+
+##### Creazione JAR Eseguibile
+
+     ./automatic.sh --jar
 
 #### MacOS
-Tramite linea di comando.
+Tramite l'applicazione Terminale.
 ##### Compilazione
 
      ./automatic.sh --compile
@@ -52,35 +60,51 @@ Tramite linea di comando.
 
 ### Compilazione Manuale
 ---
-#### GNU/Linux
-Entrare nella cartella
+#### GNU/Linux e MacOS
+Entrare nella cartella.
 
      cd Climate_Monitoring
 
 ##### Compilazione
+Estrarre i file JAR della cartella <code>lib</code> nella cartella <code>bin</code>.
 
-     javac src/*/*.java -d bin/ -cp lib/opencsv-5.5.2.jar:lib/commons-lang3-3.1.jar:.
+     cd bin
+     jar -xf ../lib/commons-lang3-3.1.jar && jar -xf ../lib/opencsv-5.5.2.jar
+     cd ..
+
+Compilare i file sorgente.
+
+     javac -encoding UTF-8 -cp bin -d bin src/*/*.java
 
 ##### Creazione JAR Eseguibile
-Creare file manifest temporaneo
+Successivamente alla compilazione.
 
-     mkdir tmp && echo Main-Class: src.climatemonitoring.ClimateMonitor > tmp/MANIFEST.MF && echo Class-Path: ../lib/opencsv-5.5.2.jar ../lib/commons-lang3-3.1.jar >> tmp/MANIFEST.MF
-
-Entrare nella cartella bin
+Entrare nella cartella <code>bin</code>.
 
      cd bin
 
-Creare JAR eseguibile
+Modificare il file <code>MANIFEST.MF</code>.
 
-     jar cvfm ClimateMonitor.jar ../tmp/MANIFEST.MF src/*/*.class
+     echo Main-Class: src.climatemonitoring.ClimateMonitor > META-INF/MANIFEST.MF
 
-Uscire dalla cartella bin
+Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
 
      cd ..
+     cp LICENSE README.md autori.txt bin
+     cd bin
 
-Rimuovere file manifest temporaneo
+Creare JAR eseguibile.
 
-     rm -r tmp
+     jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*
+
+Rimuovere i file e cartelle diversi dal JAR *(opzionale)*
+
+     find . ! -name .description.txt ! -name ClimateMonitor.jar -type f -delete
+     find . -type d -empty -delete
+
+Uscire dalla cartella *(opzionale)*
+
+     cd bin
 
 ## Esecuzione
 Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella *bin*.
