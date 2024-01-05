@@ -24,6 +24,7 @@
                 - [Compilazione](#compilazione-5)
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-4)
  - [Esecuzione](#esecuzione)
+ - [Librerie Esterne](#librerie-esterne-utilizzate)
  - [Autori](#autori)
  - [Licenza](#licenza)
 
@@ -197,6 +198,9 @@ Dalla cartella principale lanciare il comando:
 Eseguire sempre il programma mentre ci si trova nella cartella dove è presente la cartella **resources** e, qualora fosse presente, la cartella **data**.
 
 > :bulb: *Sebbene sconsigliato, è possibile spostare il file in qualsiasi altra cartella, purché venga sempre eseguito dalla cartella dove sono presenti le cartelle sopra citate.*
+
+## Librerie Esterne utilizzate
+Il programma fa uso delle librerie OpenCSV 5.5.2 e Commons-Lang3 3.1.
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
