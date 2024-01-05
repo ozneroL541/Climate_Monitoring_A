@@ -1,5 +1,33 @@
 # Climate Monitoring
 
+## Indice
+  - [Introduzione](#introduzione)
+  - [Versione](#versione)
+  - [Requisiti software](#requisiti-software)
+  - [Download](#download)
+  - [Compilazione](#compilazione)
+      - [Compilazione Automatica](#compilazione-automatica)
+          - [GNU/Linux](#gnulinux)
+                - [Compilazione](#compilazione-1)
+                - [Creazione JAR Eseguibile](#creazione-jar-eseguibile)
+          - [Windows](#windows)
+                - [Compilazione](#compilazione-2)
+                - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-1)
+          - [MacOS](#macos)
+                - [Compilazione](#compilazione-3)
+                - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-2)
+      - [Compilazione Manuale](#compilazione-manuale)
+          - [GNU/Linux & MacOS](#gnulinux--macos)
+                - [Compilazione](#compilazione-4)
+                - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-3)
+          - [Windows](#windows-1)
+                - [Compilazione](#compilazione-)
+                - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-4)
+ - [Esecuzione](#esecuzione)
+ - [Autori](#autori)
+ - [Licenza](#licenza)
+
+## Introduzione
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
 
 ## Versione
@@ -22,7 +50,7 @@ Per compilare i file sorgenti bisogna trovarsi nella cartella principale della r
 
      cd Climate_Monitoring
 
-### Compilazione automatica
+### Compilazione Automatica
 > :bulb: **Suggerimento:** Il file **automatic.sh** ha diverse funzionalità, per visualizzarle digitare: <code>./automatic.sh --help</code>.
 ---
 Per la compilazione automatica è richiesta, come prerequisito, la presenza della shell **sh** o di sue derivate.
