@@ -9,7 +9,7 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 Richiede Java 17.
 
 ## Download
-Usando GIT
+Usando GIT.
 
      git clone https://github.com/ozneroL541/Climate_Monitoring.git
 
