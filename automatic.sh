@@ -29,11 +29,12 @@ lib="lib/"
 obj=$bin
 robj="../"
 # ClassPath
-cp="-cp $lib"opencsv-5.5.2.jar:"$lib"commons-lang3-3.1.jar:.""
+cp="-cp "$bin""
 # Include
 inc="LICENSE README.md autori.txt"
 # Javac Arguments
-args="$src*/*.java -d"
+args="-encoding UTF-8 $cp -d"
+srca="$src*/*.java"
 # Manifest file
 manifest="META-INF/MANIFEST.MF"
 # Executable
@@ -66,10 +67,15 @@ failed() {
 compile() {
     # Make dir
     mkdir $obj 2> /dev/null
-    # Compile java
-    d="javac $args $obj $cp"
-    echo "$d" && eval $d
-    result $? "Compilation"
+    if extract_jar; then
+        # Compile java
+        d="javac $args $obj $srca"
+        echo "$d" && eval $d
+        res=$?
+    else
+        res=1
+    fi
+    result $res "Compilation"
 }
 # Remove Objects files
 rmobj() {
@@ -81,14 +87,14 @@ rmobj() {
         echo "$d1" && eval $d1
         echo "$d2" && eval $d2
         res=$?
-        result $res "Object removal"
         cd $robj
-        return $res
     else
         echo ""
         echo "No bin found"
         echo ""
+        res=1
     fi
+    result $res "Object removal"
 }
 # Extract libraries
 extract_jar() {
@@ -98,13 +104,15 @@ extract_jar() {
     if cd $obj; then
         d="jar -xf ../"$lib"commons-lang3-3.1.jar && jar -xf ../"$lib"opencsv-5.5.2.jar"
         echo "$d" && eval $d
-        result $? "JAR extraction"
+        res=$?
         cd $robj
     else
         echo ""
         echo "ERROR: no bin found"
         echo ""
+        res=1
     fi
+    result $res "JAR extraction"
 }
 # Change Manifest
 change_manifest() {
@@ -112,23 +120,19 @@ change_manifest() {
     mkdir $obj 2> /dev/null
     # Go to bin directory
     if cd $obj; then
-        # Delete MANIFEST.FM
-        d="rm "$manifest""
-        echo "$d" && eval $d
-        # Check execution
-        if result $? "Manifest file deleting"; then
-            # Made the MANIFEST.MF file
-            echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
-            echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
-            result $? "Manifest file changing"
-        fi
+        # Made the MANIFEST.MF file
+        echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
+        echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
+        res=$?
         # Exit up
         cd $robj 
     else
         echo ""
         echo "ERROR: no bin found"
         echo ""
+        res=1
     fi
+    result $res "Manifest file changing"
 }
 # Copy files 
 copy() {
@@ -140,7 +144,7 @@ copy() {
 # JAR
 compile_jar() {
     # Compile java
-    if compile && extract_jar && change_manifest && copy && cd $obj; then
+    if compile && change_manifest && copy && cd $obj; then
         # Make an executable JAR
         d="jar cfm $robj$bin$jar $manifest * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/* */*/*/*/*/*/*"
         echo "$d" && eval $d
@@ -161,8 +165,17 @@ rmjar() {
 }
 # Document
 document() {
-    d="javadoc $args $doc $cp"
-    echo "$d" && eval $d
+    # Make dir
+    mkdir $obj 2> /dev/null
+    if extract_jar; then
+        # Compile java
+        d="javadoc $args $doc $srca"
+        echo "$d" && eval $d
+        res=$?
+        rmobj
+    else
+        res=1
+    fi
     result $? "Documentation creation"
 }
 # Remove Documetation
@@ -205,14 +218,14 @@ help() {
     echo "Help Menu"
     echo "  -h      print this menu"
     echo "  -c      compile with javac"
-    echo "  -j      make executable jar and delete object files"
-    echo "  -d      make documentation with javadoc"
+    echo "  -j      make executable JAR file and delete object files"
+    echo "  -d      make Documentation with javadoc"
     echo "  -r      remove"
     echo "      o   object files"
     echo "      j   JAR file"
-    echo "      d   documentation"
+    echo "      d   Documentation"
     echo "      *   all"
-    echo "  *       build jar and make documentation without making garbage"
+    echo "  *       build JAR and make Documentation without making garbage"
 }
 
 # Move in a directory different from src

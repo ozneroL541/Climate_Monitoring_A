@@ -9,7 +9,7 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 Richiede Java 17.
 
 ## Download
-Usando GIT
+Usando GIT.
 
      git clone https://github.com/ozneroL541/Climate_Monitoring.git
 
@@ -22,9 +22,10 @@ Per compilare i file sorgenti bisogna trovarsi nella cartella principale della r
 
      cd Climate_Monitoring
 
-### Compilazione automatizzata
+### Compilazione automatica
+> :bulb: **Suggerimento:** Il file **automatic.sh** ha diverse funzionalità, per visualizzarle digitare: <code>./automatic.sh --help</code>.
 ---
-Per la compilazione automatizzata è richiesta, come prerequisito, la presenza della shell **sh**.
+Per la compilazione automatica è richiesta, come prerequisito, la presenza della shell **sh** o di sue derivate.
 
 #### GNU/Linux
 Tramite linea di comando.
@@ -37,10 +38,20 @@ Tramite linea di comando.
      ./automatic.sh --jar
 
 #### Windows
-Non è disponibile la compilazione automatizzata per il sistema operativo Windows, ci scusiamo per il disagio.
+> :warning: **Attenzione:** La compilazione automatica per il sistema operativo Windows non è disponibile di default.
+È possibile utilizzare la compilazione automatica solo attraverso applicazioni che fanno uso di **shell**, come WSL e GIT.
+<br><i>Utilizzando **WSL** è possibile incorrere in errori a causa della differenza tra interruzioni di riga di file su **DOS** e su **Unix**. Si consiglia di utilizzare strumenti come **dos2unix** per convertire il formato del file **automatic.sh**.</i>
+
+##### Compilazione
+
+     ./automatic.sh --compile
+
+##### Creazione JAR Eseguibile
+
+     ./automatic.sh --jar
 
 #### MacOS
-Tramite linea di comando.
+Tramite l'applicazione Terminale.
 ##### Compilazione
 
      ./automatic.sh --compile
@@ -52,56 +63,112 @@ Tramite linea di comando.
 
 ### Compilazione Manuale
 ---
-#### GNU/Linux
-Entrare nella cartella
+#### GNU/Linux & MacOS
+Entrare nella cartella.
 
      cd Climate_Monitoring
 
 ##### Compilazione
+Estrarre i file JAR della cartella <code>lib</code> nella cartella <code>bin</code>.
 
-     javac src/*/*.java -d bin/ -cp lib/opencsv-5.5.2.jar:lib/commons-lang3-3.1.jar:.
+     cd bin
+     jar -xf ../lib/commons-lang3-3.1.jar && jar -xf ../lib/opencsv-5.5.2.jar
+     cd ..
 
-##### Operazioni intermedie
-Copia di file
+Compilare i file sorgente.
 
-     cp LICENSE README.md autori.txt bin/
+     javac -encoding UTF-8 -cp bin -d bin src/*/*.java
 
-Entrare nella cartella bin
+##### Creazione JAR Eseguibile
+*Successivamente alla compilazione.*
+
+Entrare nella cartella <code>bin</code>.
 
      cd bin
 
-Estrazione delle librerie.
+Modificare il file <code>MANIFEST.MF</code>.
 
-     jar -xf ../lib/commons-lang3-3.1.jar && jar -xf ../lib/opencsv-5.5.2.jar 
-
-Sostituzione del file MANIFEST.MF
-
-     rm META-INF/MANIFEST.MF
      echo Main-Class: src.climatemonitoring.ClimateMonitor > META-INF/MANIFEST.MF
 
-##### Creazione JAR Eseguibile
+Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
 
-     jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/* */*/*/*/*/*/*
+     cd ..
+     cp LICENSE README.md autori.txt bin
+     cd bin
 
-Rimuovere gli altri file (opzionale)
+Creare JAR eseguibile.
+
+     jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*
+
+Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
      find . ! -name .description.txt ! -name ClimateMonitor.jar -type f -delete
      find . -type d -empty -delete
 
-Uscire dalla cartella bin
+Uscire dalla cartella *(opzionale)*.
 
+     cd bin
+
+#### Windows
+Tramite CMD.
+<br>Entrare nella cartella.
+
+     cd Climate_Monitoring
+
+##### Compilazione
+Estrarre i file JAR della cartella <code>lib</code> nella cartella <code>bin</code>.
+
+     cd bin
+     jar -xf ../lib/commons-lang3-3.1.jar && jar -xf ../lib/opencsv-5.5.2.jar
      cd ..
 
-## Esecuzione
-Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella *bin*.
+Compilare i file sorgente.
 
-Lanciare il comando:
+     javac -encoding UTF-8 -cp bin -d bin src\climatemonitoring\*.java src\common\*.java src\geographicarea\*.java src\header\*.java src\maxpq\*.java src\menu\*.java src\monitoringcentre\*.java src\parameters\*.java src\users\*.java
+
+##### Creazione JAR Eseguibile
+*Successivamente alla compilazione.*
+
+Entrare nella cartella <code>bin</code>.
+
+     cd bin
+
+Modificare il file <code>MANIFEST.MF</code>.
+
+     echo Main-Class: src.climatemonitoring.ClimateMonitor > META-INF/MANIFEST.MF
+
+Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
+
+     cd ..
+     copy LICENSE bin
+     copy README.md bin
+     copy autori.txt bin
+     cd bin
+
+Creare JAR eseguibile.
+
+     jar cfm ..\bin\ClimateMonitor.jar META-INF\MANIFEST.MF *
+
+Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
+
+     del LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
+     del /f /s /q src\* com\* templates\* META-INF\* org\*
+     rmdir /s /q src com templates META-INF org
+
+Uscire dalla cartella *(opzionale)*.
+
+     cd bin
+
+## Esecuzione
+Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella <code>bin</code>.
+
+Dalla cartella principale lanciare il comando:
 
      java -jar bin/ClimateMonitor.jar
 
 Eseguire sempre il programma mentre ci si trova nella cartella dove è presente la cartella **resources** e, qualora fosse presente, la cartella **data**.
 
-*Sebbene sconsigliato, è possibile spostare il file in qualsiasi altra cartella, purché venga sempre eseguito dalla cartella dove sono presenti le cartelle sopra citate.*
+> :bulb: *Sebbene sconsigliato, è possibile spostare il file in qualsiasi altra cartella, purché venga sempre eseguito dalla cartella dove sono presenti le cartelle sopra citate.*
 
 ## Autori
 - Galimberti Riccardo   @BiskoBerty
