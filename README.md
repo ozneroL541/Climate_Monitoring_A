@@ -37,7 +37,7 @@ Tramite linea di comando.
      ./automatic.sh --jar
 
 #### Windows
-Non è disponibile la compilazione automatizzata per il sistema operativo Windows.
+La compilazione automatizzata per il sistema operativo Windows di default.
 È possibile utilizzare la compilazione automatizzata solo attraverso applicazioni che fanno uso di **shell**, come WSL e GIT.
 ##### Compilazione
 
