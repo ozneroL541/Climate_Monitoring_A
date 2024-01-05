@@ -21,7 +21,7 @@
                 - [Compilazione](#compilazione-4)
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-3)
           - [Windows](#windows-1)
-                - [Compilazione](#compilazione-)
+                - [Compilazione](#compilazione-5)
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-4)
  - [Esecuzione](#esecuzione)
  - [Autori](#autori)
