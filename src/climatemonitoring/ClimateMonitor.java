@@ -29,6 +29,8 @@ import src.menu.MainMenu;
 
 /**
  * Classe che contiene il Main del programma
+ * @author Riccardo Galimberti
+ * @author Giacomo Paredi
  * @author Lorenzo Radice
  * @version 0.23.0 Alpha
  */
