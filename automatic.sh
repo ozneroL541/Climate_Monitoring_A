@@ -26,13 +26,17 @@ bin="bin/"
 doc="doc/"
 src="src/"
 lib="lib/"
-tmp="tmp/"
+obj=$bin
+robj="../"
 # ClassPath
-cp="-cp $lib"opencsv-5.5.2.jar:"$lib"commons-lang3-3.1.jar:.""
+cp="-cp "$bin""
+# Include
+inc="LICENSE README.md autori.txt"
 # Javac Arguments
-args="$src*/*.java -d"
+args="-encoding UTF-8 $cp -d"
+srca="$src*/*.java"
 # Manifest file
-manifest="$tmp"MANIFEST.MF""
+manifest="META-INF/MANIFEST.MF"
 # Executable
 jar="ClimateMonitor.jar"
 # Do not remove
@@ -59,61 +63,99 @@ failed() {
     echo ""
     return 1
 }
-# Make Temporary File
-maketmp() {
-    # Make tmp dir
-    rmtmp
-    mkdir $tmp
-    res=$?
-    if result $res "Temporary directory making"; then
-        # Create the MANIFEST.MF file
-        echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest" && echo "Class-Path: ../"$lib"opencsv-5.5.2.jar ../"$lib"commons-lang3-3.1.jar" >> "$manifest""
-        echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest" && echo "Class-Path: ../"$lib"opencsv-5.5.2.jar ../"$lib"commons-lang3-3.1.jar" >> "$manifest"
-        res=$?
-        result $res "Manifest file creation" 
-    fi
-    return $res
-}
-# Remove Temporary
-rmtmp() {
-    if test -d $tmp; then
-        d="rm -r $tmp"
+# Compile to Objects
+compile() {
+    # Make dir
+    mkdir $obj 2> /dev/null
+    if extract_jar; then
+        # Compile java
+        d="javac $args $obj $srca"
         echo "$d" && eval $d
-        result $? "Temporary directory removal"
+        res=$?
+    else
+        res=1
+    fi
+    result $res "Compilation"
+}
+# Remove Objects files
+rmobj() {
+    if cd $obj; then
+        # Delete all files except description
+        d1="find . ! -name "$description" ! -name "$jar" -type f -delete"
+        # Delete all directories
+        d2="find . -type d -empty -delete"
+        echo "$d1" && eval $d1
+        echo "$d2" && eval $d2
+        res=$?
+        cd $robj
     else
         echo ""
-        echo "Temporary directory does not exist"
+        echo "No bin found"
         echo ""
+        res=1
     fi
+    result $res "Object removal"
 }
-# Compile
-compile_jar() {
-    # Compile java
-    if compile && cd $bin; then
-        # Make an executable JAR
-        d="jar cvfm $jar ../$manifest src/*/*.class"
+# Extract libraries
+extract_jar() {
+    # Make dir
+    mkdir $obj 2> /dev/null
+    # Go to bin directory
+    if cd $obj; then
+        d="jar -xf ../"$lib"commons-lang3-3.1.jar && jar -xf ../"$lib"opencsv-5.5.2.jar"
         echo "$d" && eval $d
         res=$?
-        cd ..
+        cd $robj
+    else
+        echo ""
+        echo "ERROR: no bin found"
+        echo ""
+        res=1
+    fi
+    result $res "JAR extraction"
+}
+# Change Manifest
+change_manifest() {
+    # Make dir
+    mkdir $obj 2> /dev/null
+    # Go to bin directory
+    if cd $obj; then
+        # Made the MANIFEST.MF file
+        echo "echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest""
+        echo "Main-Class: src.climatemonitoring.ClimateMonitor" > "$manifest"
+        res=$?
+        # Exit up
+        cd $robj 
+    else
+        echo ""
+        echo "ERROR: no bin found"
+        echo ""
+        res=1
+    fi
+    result $res "Manifest file changing"
+}
+# Copy files 
+copy() {
+    # Copy files
+    d="cp "$inc" "$bin""
+    echo "$d" && eval $d
+    result $? "Files copy"
+}
+# JAR
+compile_jar() {
+    # Compile java
+    if compile && change_manifest && copy && cd $obj; then
+        # Make an executable JAR
+        d="jar cfm $robj$bin$jar $manifest * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/* */*/*/*/*/*/*"
+        echo "$d" && eval $d
+        res=$?
+        cd $robj
         if result $res "JAR creation"
         then
             # Remove Compiled files
             rmobj
         fi
     fi
-}
-# Compile to Objects
-compile() {
-    # Compile java
-    d="javac $args $bin $cp"
-    echo "$d" && eval $d
-    result $? "Compilation"
-}
-# Remove Objects files
-rmobj() {
-    d="rm -r $bin$src"
-    echo "$d" && $d
-    result $? "Object files removing"
 }
 # Remove JAR
 rmjar() {
@@ -123,8 +165,17 @@ rmjar() {
 }
 # Document
 document() {
-    d="javadoc $args $doc $cp"
-    echo "$d" && eval $d
+    # Make dir
+    mkdir $obj 2> /dev/null
+    if extract_jar; then
+        # Compile java
+        d="javadoc $args $doc $srca"
+        echo "$d" && eval $d
+        res=$?
+        rmobj
+    else
+        res=1
+    fi
     result $? "Documentation creation"
 }
 # Remove Documetation
@@ -133,7 +184,7 @@ rmdoc() {
         # Delete all files except description
         d1="find . ! -name $description -type f -delete"
         # Delete all directories
-        d2="rmdir */*; rmdir *"
+        d2="find . -type d -empty -delete"
         echo "$d1" && eval $d1
         echo "$d2" && eval $d2
         res=$?
@@ -148,19 +199,13 @@ rmdoc() {
 }
 # Compile and Document
 comp_doc() {
-    # Create tmp directory
-    maketmp
     # Compile Java and Make JAR
     compile_jar
     # Make JavaDoc
     document
-    # Remove Temporary Directory
-    rmtmp
 }
 # Remove all
 rmall() {
-    # Remove Temporary directory
-    rmtmp
     # Remove JAR
     rmjar
     # Remove Object files
@@ -172,17 +217,15 @@ rmall() {
 help() {
     echo "Help Menu"
     echo "  -h      print this menu"
-    echo "  -t      create temporary files"
     echo "  -c      compile with javac"
-    echo "  -j      make executable jar and delete object files"
-    echo "  -d      make documentation with javadoc"
+    echo "  -j      make executable JAR file and delete object files"
+    echo "  -d      make Documentation with javadoc"
     echo "  -r      remove"
-    echo "      t   temporary files"
     echo "      o   object files"
     echo "      j   JAR file"
-    echo "      d   documentation"
+    echo "      d   Documentation"
     echo "      *   all"
-    echo "  *       build jar and make documentation without making garbage"
+    echo "  *       build JAR and make Documentation without making garbage"
 }
 
 # Move in a directory different from src
@@ -194,17 +237,13 @@ if  [ -n "$(echo $PWD | grep 'Climate_Monitoring')" ]; then
         "h" | "-h" | "help" | "-help" | "--help")
             help
         ;;
-        # Temporary
-        "t" | "-t" | "tmp" | "temporary" | "--tmp" | "--temporary")
-            maketmp
-        ;;
         # Compile
         "c" | "-c" | "compile" | "javac" | "-compile" | "--javac" | "--compile")
             compile
         ;;
         # JAR
         "j" | "-j" | "-jar" | "jar" | "--jar")
-            maketmp && (compile_jar; rmtmp)
+            compile_jar
         ;;
         # Doument
         "d" | "-d" | "document" | "javadoc" | "-document" | "--document" | "--javadoc")
@@ -213,10 +252,6 @@ if  [ -n "$(echo $PWD | grep 'Climate_Monitoring')" ]; then
         # Remove
         "r" | "-r" | "rm" | "-rm" | "remove" | "-remove"  | "--remove")
         case $2 in
-            # Remove tmp
-            "t" | "tmp" | "temporary")
-                rmtmp
-            ;;
             # Remove Object files
             "o" | "obj" | "object" | "javac")
                 rmobj
