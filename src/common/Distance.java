@@ -30,7 +30,7 @@ import src.maxpq.MaxPQ;
  * Classe di appoggio per la ricerca delle coordinate.
  * Memorizza al suo interno la distanza di una coordinata dalla coordinata cercata e la linea di riferimento.
  * @author Lorenzo Radice
- * @version 0.23.0
+ * @version 0.24.0
  */
 class Distance implements Comparable<Distance>{
     /**
