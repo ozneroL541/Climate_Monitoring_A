@@ -340,7 +340,7 @@ public class Research {
      * <br><br>Complessità
      * <br>T = O(n×log(m))
      * <br>S = O(m)
-     * @see CoordinatesAdvancedV3
+     * @see {@link Research#CoordinatesAdvancedV3}
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
