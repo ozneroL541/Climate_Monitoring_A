@@ -37,7 +37,7 @@ import src.maxpq.MaxPQ;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.23.0
+ * @version 0.24.0
  */
 public class Research {
     /**
@@ -340,7 +340,7 @@ public class Research {
      * <br><br>Complessità
      * <br>T = O(n×log(m))
      * <br>S = O(m)
-     * @see CoordinatesAdvancedV3
+     * @see {@link Research#CoordinatesAdvancedV3}
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita

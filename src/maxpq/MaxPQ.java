@@ -26,8 +26,9 @@ package src.maxpq;
 
 /**
  * Maximum Priority Queue
+ * <br>Coda a priorità massima
  * @author Lorenzo Radice
- * @version 0.23.0
+ * @version 0.24.0
  */
 public class MaxPQ<T extends Comparable<T>> {
     // Maximum Priority Queue array
@@ -37,9 +38,8 @@ public class MaxPQ<T extends Comparable<T>> {
     // Lenght of the array
     private int n = 0;
     /**
-     * Constructor of Maximum Priority Queue
-     * element with lenght dim
-     * @param dim lenght
+     * Costruttore della coda a priorità massima.
+     * @param dim lunghezza coda
      */
     @SuppressWarnings (value = { "unchecked" })
     public MaxPQ ( int dim ){
@@ -47,25 +47,29 @@ public class MaxPQ<T extends Comparable<T>> {
         this.max = dim;
     }
     /**
-     * Check if the heap is empty
-     * @return true if heap is empty
+     * Controlla se la coda è vuota
+     * @return true se la coda è vuota
      */
     public boolean isEmpty(){
         return n == 0;
     }
     /**
-     * Return the size of the array
-     * @return lenght of heap
+     * Ritorna la dimensione della coda
+     * @return lunghezza della coda
      */
     public int size(){
         return n;
     }
     /**
-     * Insert v at the first void space in the array
-     * Complexity
-     * O(1) best
-     * O(log(n)) worst
-     * @param v item to insert
+     * Inserisce l'oggetto nello primo spazio vuoto della coda e la riordina.
+     * <br><br>Complessità
+     * <br>Caso migliore
+     * <br>T = O(1)
+     * <br>S = O(1)
+     * <br>Caso peggiore
+     * <br>T = O(log(n))
+     * <br>S = O(n)
+     * @param v oggetto da inserire
      */
     public void insert(T v) {
         // If the current elemets reached the maximum
@@ -87,12 +91,14 @@ public class MaxPQ<T extends Comparable<T>> {
         }
     }
     /**
-     * Delete the element of the heap with more priority
-     * and return it.
-     * Complexity
-     * O(1) best
-     * O(log(n)) worst
-     * @return first element
+     * Elimina l'elemento della coda con la priorità
+     * più alta e lo ritorna.
+     * <br><br>Complessità
+     * <br>Caso migliore
+     * <br>T = O(1)
+     * <br>Caso peggiore
+     * <br>T = O(log(n))
+     * @return primo elemento della coda
      */
     public T delete(){
         // Copy the first element of the heap
@@ -102,16 +108,17 @@ public class MaxPQ<T extends Comparable<T>> {
         exch(1,n--);
         // Delete the last element of the array
         pq[n+1] = null;
-        //
+        // Sink first element
         sink(1);
+        // Return first element
         return max;
     }
     /**
-     * Bottom Up build.
-     * Complexity
-     * Theta(n)
-     * Unstable
-     * @param a array of MaxPQ
+     * Costruzione Bottom Up.
+     * <br><br>Complessità
+     * <br>T = θ(n)
+     * Non stabile
+     * @param a array da riordinare
      */
     public void buildBU( T[] a){
         // If the lenght of a is smaller than pq
@@ -129,10 +136,10 @@ public class MaxPQ<T extends Comparable<T>> {
         }
     }
     /**
-     * Return the array of the sorted heap
-     * Complexity
-     * O(log(n))
-     * @return sorted array
+     * Ritorna l'array della coda riordinata e svuotandola.
+     * <br>Complessità
+     * <br>T = O(log(n))
+     * @return array ordinato
      */
     @SuppressWarnings (value = { "unchecked" })
     public T[] sort() {
@@ -145,23 +152,16 @@ public class MaxPQ<T extends Comparable<T>> {
         return a;
     }
     /**
-     * Return Heap Lenght
-     * @return n
-     */
-    public int getN() {
-        return n;
-    }
-    /**
-     * Read the element of the heap with more priority
-     * @return first element
-     * Complexity
-     * O(1)
+     * Legge l'elemento della coda con maggiore priorità.
+     * <br>Complessità
+     * <br>T = O(1)
+     * @return primo elemento
      */
     public T read(){
         // Return the first element of the array
         return pq[1];
     }
-    /**
+    /*
      * Check if pq[i] is less than pq[j]
      * @param i first index
      * @param j second index
@@ -170,7 +170,7 @@ public class MaxPQ<T extends Comparable<T>> {
     private boolean less(int i,int j){
         return pq[i].compareTo(pq[j]) < 0;
     }
-    /**
+    /*
      * Exchange pq[i] with pq[j]
      * @param i first index
      * @param j second index
@@ -181,7 +181,7 @@ public class MaxPQ<T extends Comparable<T>> {
         pq[i] = pq[j];
         pq[j] = t;
     }
-    /**
+    /*
      * Sort the priority of the array.
      * Complexity
      * O(1) best
@@ -198,7 +198,7 @@ public class MaxPQ<T extends Comparable<T>> {
             k = k/2;
         }
     }
-    /**
+    /*
      * Sort the array starting with k
      * Complexity
      * O(1) best
