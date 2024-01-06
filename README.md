@@ -9,21 +9,21 @@
   - [Download](#download)
   - [Compilazione](#compilazione)
       - [Compilazione Automatica](#compilazione-automatica)
-          - [GNU/Linux](#gnulinux)
-                - [Compilazione](#compilazione-1)
+          - [GNU/Linux](#gnulinux)<br>
+                - [Compilazione](#compilazione-1)<br>
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile)
-          - [Windows](#windows)
-                - [Compilazione](#compilazione-2)
+          - [Windows](#windows)<br>
+                - [Compilazione](#compilazione-2)<br>
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-1)
-          - [MacOS](#macos)
-                - [Compilazione](#compilazione-3)
+          - [MacOS](#macos)<br>
+                - [Compilazione](#compilazione-3)<br>
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-2)
       - [Compilazione Manuale](#compilazione-manuale)
-          - [GNU/Linux & MacOS](#gnulinux--macos)
-                - [Compilazione](#compilazione-4)
+          - [GNU/Linux & MacOS](#gnulinux--macos)<br>
+                - [Compilazione](#compilazione-4)<br>
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-3)
-          - [Windows](#windows-1)
-                - [Compilazione](#compilazione-5)
+          - [Windows](#windows-1)<br>
+                - [Compilazione](#compilazione-5)<br>
                 - [Creazione JAR Eseguibile](#creazione-jar-eseguibile-4)
  - [Esecuzione](#esecuzione)
  - [Librerie Esterne](#librerie-esterne-utilizzate)
