@@ -46,7 +46,7 @@ Usando GIT.
 
 Link per il download in formato compresso:
 
-<https://github.com/ozneroL541/Climate_Monitoring/tree/main>
+<https://codeload.github.com/ozneroL541/Climate_Monitoring/zip/refs/heads/master>
 
 ## Compilazione
 Per compilare i file sorgenti bisogna trovarsi nella cartella principale della repository.
