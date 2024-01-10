@@ -49,7 +49,10 @@ Link per il download in formato compresso:
 <https://codeload.github.com/ozneroL541/Climate_Monitoring/zip/refs/heads/master>
 
 ## Compilazione
-Per compilare i file sorgenti bisogna trovarsi nella cartella principale della repository.
+> :warning: **Attenzione:** La compilazione richiede JDK 17 e che il comando <code>jar</code> sia correttamente funzionante.
+> <br>Verificare il funzionamento del comando <code>jar</code> tramite l'apposita istruzione <code>jar --version</code>.
+
+Per compilare i file sorgente bisogna trovarsi nella cartella principale della repository.
 
      cd Climate_Monitoring
 
@@ -131,7 +134,7 @@ Creare JAR eseguibile.
 
      jar cfm ../bin/ClimateMonitor.jar META-INF/MANIFEST.MF * */* */*/* */*/*/* */*/*/*/* */*/*/*/*/*
 
-Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
+Rimuovere file e cartelle diversi dal JAR *(opzionale)*.
 
      find . ! -name .description.txt ! -name ClimateMonitor.jar -type f -delete
      find . -type d -empty -delete
@@ -199,7 +202,7 @@ Dalla cartella principale lanciare il comando:
 
 Eseguire sempre il programma mentre ci si trova nella cartella dove è presente la cartella **resources** e, qualora fosse presente, la cartella **data**.
 
-> :bulb: *Sebbene sconsigliato, è possibile spostare il file in qualsiasi altra cartella, purché venga sempre eseguito dalla cartella dove sono presenti le cartelle sopra citate.*
+> :bulb: *Sebbene sconsigliato, è possibile spostare il file ClimateMonitor.jar in qualsiasi altra cartella, purché venga sempre eseguito, utilizzando il corretto path, dalla cartella dove sono presenti le cartelle sopra citate.*
 
 ## Librerie Esterne utilizzate
 Il programma fa uso delle librerie OpenCSV 5.5.2 e Commons-Lang3 3.1.
