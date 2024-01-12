@@ -4,7 +4,7 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 
 
 Versione
-0.24.0 Beta
+0.25.0 Beta
 
 
 Requisiti software

@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.24.0
+ * @version 0.25.0
  */
 public class AutorizedOperator extends User {
     /**
@@ -374,7 +374,7 @@ public class AutorizedOperator extends User {
                 return true;
             case MenuOperator.IndexOf.make_centre:
                 // Make Centre
-                MonitoringCentre.insertCentre();
+                MonitoringCentre.registraCentroAree();
                 return true;
             case MenuOperator.IndexOf.exit:
                 // Logout

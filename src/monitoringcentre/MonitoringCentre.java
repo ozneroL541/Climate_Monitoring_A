@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.24.0
+ * @version 0.25.0
  */
 public class MonitoringCentre {
     /*
@@ -119,10 +119,10 @@ public class MonitoringCentre {
         return (f.exists() && Research.isStringInCol(f,IndexOf.name,nome));
     }
     /**
-     * Richiede all'utente di creare un centro, se la creazione ha avuto successo, la salva sul file.
+     * Richiede di creare un centro, se la creazione ha avuto successo, la salva sul file.
      * @return nome del centro se l'esecuzione ha avuto successo.
      */
-    public static String insertCentre() {
+    public static String registraCentroAree() {
         // Create Centre
         MonitoringCentre mc = createCentre();
         // Check if center was created
