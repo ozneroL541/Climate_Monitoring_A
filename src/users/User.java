@@ -41,7 +41,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.24.0
+ * @version 0.25.0
  */
 public class User {
     /**
@@ -383,7 +383,7 @@ public class User {
                 return centre;
             //user create a new centre
             case MenuCentre.IndexOf.newCentre:
-                centre=MonitoringCentre.insertCentre();
+                centre=MonitoringCentre.registraCentroAree();
                 if(centre!=null){
                     return centre;
                 }else{

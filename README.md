@@ -1,4 +1,4 @@
-<a href="https://github.com/ozneroL541/Climate_Monitoring/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ozneroL541/Climate_Monitoring?color=2b9348" alt="License"/></a>
+<a href="https://github.com/ozneroL541/Climate_Monitoring/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/ozneroL541/Climate_Monitoring?color=2b9348" alt="License"/></a>
 
 # Climate Monitoring
 
@@ -34,7 +34,7 @@
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
 
 ## Versione
-0.24.0 Beta
+0.25.0 Beta
 
 ## Requisiti software
 Richiede Java 17.
