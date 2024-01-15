@@ -29,9 +29,9 @@ import src.common.InputScanner;
 import src.header.Header;
 
 /**
- * Classe che contiene il menù principale del programma.
+ * Classe che contiene il menu principale del programma.
  * @author Lorenzo Radice
- * @version 0.25.0
+ * @version 0.26.0
  */
 public class MainMenu {
     /*
@@ -46,7 +46,7 @@ public class MainMenu {
         private static final short exit = 6;
     }
     /**
-     * Mostra il menù e permette di sceglierne le opzioni.
+     * Mostra il menu e permette di sceglierne le opzioni.
      */
     public static void ChooseOption() {
         // Menu Object creation
@@ -86,13 +86,13 @@ public class MainMenu {
     // Exit Option
     private final String exit = "Esci";
     /**
-     * Costruisce un oggetto menù
+     * Costruisce un oggetto menu
      */
     public MainMenu(){
         // Separator string
         final String separator = " - ";
         // Header
-        final String header = "\n\tMenù principale\n";
+        final String header = "\n\tMenu principale\n";
         // Options array
         final String[] options = {
             (IndexOf.research       + separator + "Ricerca aree"),
@@ -115,8 +115,8 @@ public class MainMenu {
     }
     // This method returns the menu string
     /**
-     * Restituisce la stringa che rappresenta il menù
-     * @return menù
+     * Restituisce la stringa che rappresenta il menu
+     * @return menu
      */
     public String getMenu() {
         return this.menu;
@@ -139,8 +139,8 @@ public class MainMenu {
         return IndexOf.exit;
     }
     /**
-     * Restituisce il numero di opzioni del menù.
-     * È l'indice massimo, che è l'ultimo numero mostrato dal menù.
+     * Restituisce il numero di opzioni del menu.
+     * È l'indice massimo, che è l'ultimo numero mostrato dal menu.
      * @return il numero delle opzioni
      */
     public short NumberOfOptions() {

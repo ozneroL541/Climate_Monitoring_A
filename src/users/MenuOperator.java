@@ -25,9 +25,9 @@
 package src.users;
 
 /**
- * Classe che contiene il menù operatore.
+ * Classe che contiene il menu operatore.
  * @author Lorenzo Radice
- * @version 0.25.0
+ * @version 0.26.0
  */
 class MenuOperator {
     /**
@@ -47,13 +47,13 @@ class MenuOperator {
     // Exit Option
     private final String exit = "Logout";
     /**
-     * Costruisce un oggetto menù
+     * Costruisce un oggetto menu
      */
     protected MenuOperator(){
         // Separator string
         final String separator = " - ";
         // Header
-        final String header = "\n\tMenù Operatore Autorizzato\n";
+        final String header = "\n\tMenu Operatore Autorizzato\n";
         // Options array
         final String[] options = {
             (IndexOf.research       + separator + "Ricerca aree"),
@@ -74,8 +74,8 @@ class MenuOperator {
         }
     }
     /**
-     * Restituisce la stringa che rappresenta il menù
-     * @return menù
+     * Restituisce la stringa che rappresenta il menu
+     * @return menu
      */
     protected String getMenu() {
         return this.menu;
