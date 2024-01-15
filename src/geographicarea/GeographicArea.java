@@ -33,7 +33,7 @@ import src.common.*;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
- * rappresenta un area geografica identificata con id,
+ * rappresenta un area geografica identificata con ID,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
  * @version 0.26.0
