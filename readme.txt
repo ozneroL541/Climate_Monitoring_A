@@ -101,7 +101,7 @@ Modificare il file MANIFEST.MF.
 Copiare alcuni file nella cartella bin (opzionale).
 
  cd ..
- cp LICENSE README.md autori.txt bin
+ cp LICENSE.txt README.md readme.txt autori.txt bin
  cd bin
 
 Creare JAR eseguibile.
@@ -148,8 +148,9 @@ Modificare il file MANIFEST.MF.
 Copiare alcuni file nella cartella bin (opzionale).
 
  cd ..
- copy LICENSE bin
+ copy LICENSE.txt bin
  copy README.md bin
+ copy readme.txt bin
  copy autori.txt bin
  cd bin
 
@@ -159,7 +160,7 @@ Creare JAR eseguibile.
 
 Rimuovere i file e cartelle diversi dal JAR (opzionale).
 
- del LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
+ del LICENSE.txt bin README.md readme.txt bin autori.txt convertLanguageToBoolean* m* o* 
  del /f /s /q src\* com\* templates\* META-INF\* org\*
  rmdir /s /q src com templates META-INF org
 

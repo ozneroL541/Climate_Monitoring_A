@@ -1,4 +1,4 @@
-<a href="https://github.com/ozneroL541/Climate_Monitoring/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/ozneroL541/Climate_Monitoring?color=2b9348" alt="License"/></a>
+<a href="https://github.com/ozneroL541/Climate_Monitoring/blob/master/LICENSE.txt.txt"><img src="https://img.shields.io/github/license/ozneroL541/Climate_Monitoring?color=2b9348" alt="License"/></a>
 
 # Climate Monitoring
 
@@ -127,7 +127,7 @@ Modificare il file <code>MANIFEST.MF</code>.
 Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
 
      cd ..
-     cp LICENSE README.md autori.txt bin
+     cp LICENSE.txt README.md readme.txt autori.txt bin
      cd bin
 
 Creare JAR eseguibile.
@@ -174,8 +174,9 @@ Modificare il file <code>MANIFEST.MF</code>.
 Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
 
      cd ..
-     copy LICENSE bin
+     copy LICENSE.txt bin
      copy README.md bin
+     copy readme.txt bin
      copy autori.txt bin
      cd bin
 
@@ -185,7 +186,7 @@ Creare JAR eseguibile.
 
 Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
-     del LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
+     del LICENSE.txt bin README.md readme.txt bin autori.txt convertLanguageToBoolean* m* o* 
      del /f /s /q src\* com\* templates\* META-INF\* org\*
      rmdir /s /q src com templates META-INF org
 

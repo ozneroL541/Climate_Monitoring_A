@@ -31,7 +31,7 @@ robj="../"
 # ClassPath
 cp="-cp "$bin""
 # Include
-inc="LICENSE README.md autori.txt"
+inc="LICENSE.txt README.md readme.txt autori.txt"
 # Javac Arguments
 args="-encoding UTF-8 $cp -d"
 srca="$src*/*.java"

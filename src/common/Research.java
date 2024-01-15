@@ -340,12 +340,12 @@ public class Research {
      * <br><br>Complessità
      * <br>T = O(n×log(m))
      * <br>S = O(m)
-     * @see {@link Research#CoordinatesAdvancedV3}
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
      * @return array di Integer contenente le righe
      * @version 2
+     * @see Research#CoordinatesAdvancedV3
      */
     public static Integer[] CoordinatesAdvancedV2( File file, int col, double[] c ) {
         // Limit of acceptable distance
