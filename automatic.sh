@@ -143,6 +143,8 @@ copy() {
 }
 # JAR
 compile_jar() {
+    # Make dir
+    mkdir $bin 2> /dev/null
     # Compile java
     if compile && change_manifest && copy && cd $obj; then
         # Make an executable JAR
