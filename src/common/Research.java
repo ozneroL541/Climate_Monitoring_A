@@ -37,7 +37,7 @@ import src.maxpq.MaxPQ;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.26.0
+ * @version 0.27.0
  */
 public class Research {
     /**
