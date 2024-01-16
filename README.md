@@ -34,7 +34,7 @@
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
 
 ## Versione
-0.26.0 Beta
+0.27.0 Beta
 
 ## Requisiti software
 Richiede Java 17.
@@ -141,7 +141,7 @@ Rimuovere file e cartelle diversi dal JAR *(opzionale)*.
 
 Uscire dalla cartella *(opzionale)*.
 
-     cd bin
+     cd ..
 
 #### Windows
 Tramite CMD.
@@ -192,7 +192,7 @@ Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
 Uscire dalla cartella *(opzionale)*.
 
-     cd bin
+     cd ..
 
 ## Esecuzione
 Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella <code>bin</code>.

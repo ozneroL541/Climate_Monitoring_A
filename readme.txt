@@ -6,7 +6,7 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 
 
 Versione
-0.26.0 Beta
+0.27.0 Beta
 
 
 Requisiti software
@@ -115,7 +115,7 @@ Rimuovere file e cartelle diversi dal JAR (opzionale).
 
 Uscire dalla cartella (opzionale).
 
- cd bin
+ cd ..
 
 Windows
 Tramite CMD.
@@ -166,7 +166,7 @@ Rimuovere i file e cartelle diversi dal JAR (opzionale).
 
 Uscire dalla cartella (opzionale).
 
- cd bin
+ cd ..
 
 
 Esecuzione
