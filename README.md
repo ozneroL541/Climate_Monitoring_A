@@ -186,7 +186,7 @@ Creare JAR eseguibile.
 
 Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
-     del LICENSE.txt bin README.md readme.txt bin autori.txt convertLanguageToBoolean* m* o* 
+     del LICENSE.txt README.md readme.txt autori.txt convertLanguageToBoolean* m* o* 
      del /f /s /q src\* com\* templates\* META-INF\* org\*
      rmdir /s /q src com templates META-INF org
 
