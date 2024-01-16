@@ -143,7 +143,7 @@ public class GeographicArea {
                         // Output for Scanner
                         System.out.print("Continuare l'elenco(S/N)? ");
                         // Input
-                        ans = InputScanner.INPUT_SCANNER.next();
+                        ans = InputScanner.INPUT_SCANNER.nextLine();
                         // Up all the letters
                         ans = ans.toUpperCase();
                         // If quit, exit
