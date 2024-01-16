@@ -31,7 +31,7 @@ robj="../"
 # ClassPath
 cp="-cp "$bin""
 # Include
-inc="LICENSE README.md autori.txt"
+inc="LICENSE.txt README.md readme.txt autori.txt"
 # Javac Arguments
 args="-encoding UTF-8 $cp -d"
 srca="$src*/*.java"
@@ -143,6 +143,8 @@ copy() {
 }
 # JAR
 compile_jar() {
+    # Make dir
+    mkdir $bin 2> /dev/null
     # Compile java
     if compile && change_manifest && copy && cd $obj; then
         # Make an executable JAR

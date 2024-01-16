@@ -34,7 +34,7 @@
 Un sistema di monitoraggio di parametri climatici fornito da centri di monitoraggio sul territorio italiano, in grado di rendere disponibili, ad operatori ambientali e comuni cittadini, i dati relativi alla propria zona di interesse.
 
 ## Versione
-0.25.0 Beta
+0.26.0 Beta
 
 ## Requisiti software
 Richiede Java 17.
@@ -127,7 +127,7 @@ Modificare il file <code>MANIFEST.MF</code>.
 Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
 
      cd ..
-     cp LICENSE README.md autori.txt bin
+     cp LICENSE.txt README.md readme.txt autori.txt bin
      cd bin
 
 Creare JAR eseguibile.
@@ -174,8 +174,9 @@ Modificare il file <code>MANIFEST.MF</code>.
 Copiare alcuni file nella cartella <code>bin</code> *(opzionale)*.
 
      cd ..
-     copy LICENSE bin
+     copy LICENSE.txt bin
      copy README.md bin
+     copy readme.txt bin
      copy autori.txt bin
      cd bin
 
@@ -185,7 +186,7 @@ Creare JAR eseguibile.
 
 Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
-     del LICENSE bin README.md bin autori.txt convertLanguageToBoolean* m* o* 
+     del LICENSE.txt README.md readme.txt autori.txt convertLanguageToBoolean* m* o* 
      del /f /s /q src\* com\* templates\* META-INF\* org\*
      rmdir /s /q src com templates META-INF org
 

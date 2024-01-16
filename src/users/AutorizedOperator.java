@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.25.0
+ * @version 0.26.0
  */
 public class AutorizedOperator extends User {
     /**
@@ -248,7 +248,7 @@ public class AutorizedOperator extends User {
         }
     }
     /**
-     * Mostra il menù dell'Operatore Autorizzato e ne esegue le opzioni
+     * Mostra il menu dell'Operatore Autorizzato e ne esegue le opzioni
      */
     public void menu() {
         // Make a menu
@@ -387,7 +387,7 @@ public class AutorizedOperator extends User {
         }
     }
     /*
-     * Mostra il menù e permette di sceglierne le opzioni.
+     * Mostra il menu e permette di sceglierne le opzioni.
      */
     private void ChooseOption(MenuOperator m) {
         // Short integer for the menu options

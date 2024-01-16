@@ -33,10 +33,10 @@ import src.common.*;
 
 /**
  * Un oggetto della classe <code>GeographicArea</code>
- * rappresenta un area geografica identificata con id,
+ * rappresenta un area geografica identificata con ID,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.25.0
+ * @version 0.26.0
  */
 public class GeographicArea {
     // Indexes in CSV file
@@ -143,7 +143,7 @@ public class GeographicArea {
                         // Output for Scanner
                         System.out.print("Continuare l'elenco(S/N)? ");
                         // Input
-                        ans = InputScanner.INPUT_SCANNER.next();
+                        ans = InputScanner.INPUT_SCANNER.nextLine();
                         // Up all the letters
                         ans = ans.toUpperCase();
                         // If quit, exit

@@ -32,7 +32,7 @@ import src.menu.MainMenu;
  * @author Riccardo Galimberti
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 0.25.0 Beta
+ * @version 0.26.0 Beta
  */
 public class ClimateMonitor {
     /**
