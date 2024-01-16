@@ -141,7 +141,7 @@ Rimuovere file e cartelle diversi dal JAR *(opzionale)*.
 
 Uscire dalla cartella *(opzionale)*.
 
-     cd bin
+     cd ..
 
 #### Windows
 Tramite CMD.
@@ -192,7 +192,7 @@ Rimuovere i file e cartelle diversi dal JAR *(opzionale)*.
 
 Uscire dalla cartella *(opzionale)*.
 
-     cd bin
+     cd ..
 
 ## Esecuzione
 Per eseguire il programma il JAR eseguibile deve essere all'interno della cartella <code>bin</code>.
