@@ -1,4 +1,4 @@
-<a href="https://github.com/ozneroL541/Climate_Monitoring/blob/master/LICENSE.txt.txt"><img src="https://img.shields.io/github/license/ozneroL541/Climate_Monitoring?color=2b9348" alt="License"/></a>
+<a href="https://github.com/ozneroL541/Climate_Monitoring/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/ozneroL541/Climate_Monitoring?color=2b9348" alt="License"/></a>
 
 # Climate Monitoring
 
