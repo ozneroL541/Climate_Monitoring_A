@@ -171,7 +171,7 @@ document() {
     mkdir $obj 2> /dev/null
     if extract_jar; then
         # Compile java
-        d="javadoc -header \"<h1>Licenza</h1><p>Copyright (c) 2023 Galimberti Riccardo, Paredi Giacomo, Radice Lorenzo</p><p>Licensed under the GPLv3 license, Version 0.26.0. See <a href='https://www.gnu.org/licenses/gpl-3.0.html'>qui</a> per informazioni sulla licenza.</p>\" $args $doc $srca"
+        d="javadoc $args $doc $srca"
         echo "$d" && eval $d
         res=$?
         rmobj
