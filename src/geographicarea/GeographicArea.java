@@ -172,12 +172,12 @@ public class GeographicArea {
         // Name of the possible researches
         final String [] col_names = {
             "Geoname ID",
-            "Name",
-            "ASCII Name",
-            "Country Code",
-            "Country Name",
-            "Coordinates",
-            "Generic Name"
+            "Nome Unicode",
+            "Nome ASCII",
+            "Codice Nazione",
+            "Nome Nazione",
+            "Coordinate",
+            "Nome Generico"
         };
         // Counter
         int i = 0;
