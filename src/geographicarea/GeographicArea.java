@@ -469,7 +469,7 @@ public class GeographicArea {
                         // Manual input
                         do {
                             // Request
-                            System.out.print("Inserire nome Nazione:\t");
+                            System.out.print("Inserire nome nazione:\t");
                             // Input
                             in = InputScanner.INPUT_SCANNER.nextLine();
                             // Check if input is ASCII
