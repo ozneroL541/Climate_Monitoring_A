@@ -35,7 +35,7 @@ import src.common.InputScanner;
  * @author Lorenzo Radice
  * @version 0.27.0
  */
-public class Table {
+class Table {
     // Score and note
     private static class Data_SN {
         // Score
