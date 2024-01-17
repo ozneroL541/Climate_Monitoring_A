@@ -328,7 +328,7 @@ public class MonitoringCentre {
         }
         do{
             System.out.println("\nAree inserite: " + contAree);
-            System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
+            System.out.print("Inserire il codice delle aree geografiche relative al centro.\nInserire " + endInput + " per confermare le aree inserite: ");
 
             input = InputScanner.INPUT_SCANNER.nextLine();
 
