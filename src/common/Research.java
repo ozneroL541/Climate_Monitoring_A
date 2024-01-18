@@ -37,7 +37,7 @@ import src.maxpq.MaxPQ;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 0.27.0
+ * @version 0.28.0
  */
 public class Research {
     /**
@@ -262,8 +262,8 @@ public class Research {
      * <br>Caso peggiore
      * <br>T = O(n×k), k = numero di incrementi dell'errore prima trovare un risultato
      * <br>S = θ(n)
-     * @deprecated  Questo metodo è stato sostituito
-     * <p> usa invece {@link Research#CoordinatesAdvancedV3( File file, int col, double[] c )}.
+     * @deprecated Questo metodo è stato sostituito.
+     * <p> Usare invece {@link Research#CoordinatesAdvancedV3( File file, int col, double[] c )}.
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita
@@ -792,7 +792,7 @@ public class Research {
      * nelle rispettive colonne.
      * <br><br>Complessità
      * <br>T = O(n)
-     * @param file file CSv
+     * @param file file CSV
      * @param col1 colonna della prima stringa
      * @param col2 colonna della seconda stringa
      * @param str1 prima stringa
@@ -845,7 +845,6 @@ public class Research {
      * Ritorna tutte le celle appartenenti alla colonna selezionata nel file CSV passato come argomento.
      * <br><br>Complessità
      * <br>T = θ(n)
-     * <br>S = θ(n)
      * @param file file CSV
      * @param col colonna
      * @return array di stringhe della colonna

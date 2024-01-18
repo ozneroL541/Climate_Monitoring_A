@@ -36,7 +36,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con ID,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.27.0
+ * @version 0.28.0
  */
 public class GeographicArea {
     // Indexes in CSV file
@@ -172,12 +172,12 @@ public class GeographicArea {
         // Name of the possible researches
         final String [] col_names = {
             "Geoname ID",
-            "Name",
-            "ASCII Name",
-            "Country Code",
-            "Country Name",
-            "Coordinates",
-            "Generic Name"
+            "Nome Unicode",
+            "Nome ASCII",
+            "Codice Nazione",
+            "Nome Nazione",
+            "Coordinate",
+            "Nome Generico"
         };
         // Counter
         int i = 0;
@@ -469,7 +469,7 @@ public class GeographicArea {
                         // Manual input
                         do {
                             // Request
-                            System.out.print("Inserire nome Nazione:\t");
+                            System.out.print("Inserire nome nazione:\t");
                             // Input
                             in = InputScanner.INPUT_SCANNER.nextLine();
                             // Check if input is ASCII

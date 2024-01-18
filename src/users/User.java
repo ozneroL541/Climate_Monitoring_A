@@ -41,7 +41,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.27.0
+ * @version 0.28.0
  */
 public class User {
     /**
@@ -59,7 +59,7 @@ public class User {
         final static short indexes = 7;
     }
     // File header
-    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
+    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo e-mail,Password,Centro di Monitoraggio";
     /**
      * File degli Operatori Registrati.
      */

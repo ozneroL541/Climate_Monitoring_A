@@ -36,7 +36,7 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.27.0
+ * @version 0.28.0
  */
 public class MonitoringCentre {
     /*
@@ -328,7 +328,7 @@ public class MonitoringCentre {
         }
         do{
             System.out.println("\nAree inserite: " + contAree);
-            System.out.print("Inserire il codice delle aree geografiche relative al centro\nInserire " + endInput + " per confermare le aree inserite: ");
+            System.out.print("Inserire il codice delle aree geografiche relative al centro.\nInserire " + endInput + " per confermare le aree inserite: ");
 
             input = InputScanner.INPUT_SCANNER.nextLine();
 
