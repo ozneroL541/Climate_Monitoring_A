@@ -845,7 +845,6 @@ public class Research {
      * Ritorna tutte le celle appartenenti alla colonna selezionata nel file CSV passato come argomento.
      * <br><br>Complessità
      * <br>T = θ(n)
-     * <br>S = θ(n)
      * @param file file CSV
      * @param col colonna
      * @return array di stringhe della colonna
