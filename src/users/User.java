@@ -59,7 +59,7 @@ public class User {
         final static short indexes = 7;
     }
     // File header
-    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo Email,Password,Centro di Monitoraggio";
+    private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo e-mail,Password,Centro di Monitoraggio";
     /**
      * File degli Operatori Registrati.
      */

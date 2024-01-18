@@ -203,7 +203,7 @@ public class AutorizedOperator extends User {
         str += "Nome:\t\t\t"            + this.nome + "\n";
         str += "Cognome:\t\t"           + this.cognome + "\n";
         str += "Codice Fiscale:\t\t"    + this.codice_fiscale + "\n";
-        str += "Indirizzo Email:\t"     + this.email_address + "\n";
+        str += "Indirizzo e-mail:\t"     + this.email_address + "\n";
         str += "Password:\t\t"          + this.passwd + "\n" ;
         if(hasCentre()){
             str += "Centro di appartenenza:\t" + this.centre;
