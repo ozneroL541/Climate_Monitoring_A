@@ -262,8 +262,8 @@ public class Research {
      * <br>Caso peggiore
      * <br>T = O(n×k), k = numero di incrementi dell'errore prima trovare un risultato
      * <br>S = θ(n)
-     * @deprecated  Questo metodo è stato sostituito
-     * <p> usa invece {@link Research#CoordinatesAdvancedV3( File file, int col, double[] c )}.
+     * @deprecated Questo metodo è stato sostituito.
+     * <p> Usare invece {@link Research#CoordinatesAdvancedV3( File file, int col, double[] c )}.
      * @param file file CSV
      * @param col colonna
      * @param c coordinata fornita

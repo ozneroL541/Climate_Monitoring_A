@@ -65,8 +65,8 @@ public class CSV_Utilities {
      * Aggiorna una cella di un file CSV
      * <br><br>Complessità
      * <br>T = θ(n)
-     * @deprecated  Questo metodo è stato sostituito
-     * <p> usa invece {@link CSV_Utilities#addCellAtEndOfLine(File file, String string, int line)}.
+     * @deprecated Questo metodo è stato sostituito.
+     * <p> Usare invece {@link CSV_Utilities#addCellAtEndOfLine(File file, String string, int line)}.
      * @param file file CSV
      * @param update nuovo valore che la cella assumerà
      * @param line linea della cella escludendo l'intestazione del file
@@ -361,8 +361,8 @@ public class CSV_Utilities {
      * @param file file
      * @param line linea
      * @param header intestazione
-     * @deprecated  Questo metodo non controlla la correttezza della stringa
-     * <p> usa invece {@link CSV_Utilities#addArraytoCSV( File file, String[] linecells, String header )}.
+     * @deprecated Questo metodo non controlla la correttezza della stringa.
+     * <p> Usare invece {@link CSV_Utilities#addArraytoCSV( File file, String[] linecells, String header )}.
      * @return true se l'esecuzione è avvenuta correttamente
      */
     private static boolean addLinewithCheck( File file, String line, String header ) {
