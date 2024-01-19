@@ -48,14 +48,37 @@ public class User {
      * Indici dei file CSV
      */
     protected final static record IndexOf() {
+        /**
+         * Matricola
+         */
         final static short matricola=0;
+        /**
+         * Nome
+         */
         final static short nome=1;
+        /**
+         * Cognome
+         */
         final static short cognome=2;
+        /**
+         * Codice Fiscale
+         */
         final static short codice_fiscale=3;
+        /**
+         * Indirizzo e-mail
+         */
         final static short email=4;
+        /**
+         * Password
+         */
         final static short password=5;
+        /**
+         * Centro di monitoraggio associato
+         */
         final static short centro=6;
-        //number of indexes
+        /**
+         * Numero di indici
+         */
         final static short indexes = 7;
     }
     // File header

@@ -31,15 +31,36 @@ package src.users;
  */
 class MenuOperator {
     /**
-     * Indexes
+     * Opzioni menu
      */
     protected static final record IndexOf() {
+        /**
+         * Ricerca aree
+         */
         protected static final short research = 1;
+        /**
+         * Visualizza informazioni aree
+         */
         protected static final short view_areas = 2;
+        /**
+         * Crea area
+         */
         protected static final short make_area = 3;
+        /**
+         * Aggiungi parametri
+         */
         protected static final short add_parameters = 4;
+        /**
+         * Seleziona centro
+         */
         protected static final short set_centre = 5;
+        /**
+         * Crea centro di monitoraggio
+         */
         protected static final short make_centre = 6;
+        /**
+         * Esci
+         */
         protected static final short exit = 7;
     }
     // Menu string

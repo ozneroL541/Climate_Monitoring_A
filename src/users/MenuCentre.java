@@ -31,16 +31,24 @@ package src.users;
  */
 class MenuCentre {
     /**
-     * Indexes
+     * Opzioni Menu
      */
     protected static final record IndexOf() {
+        /**
+         * Seleziona centro esistente
+         */
         protected static final short existingCentre = 1;
+        /**
+         * Crea un nuovo centro e associa
+         */
         protected static final short newCentre = 2;
+        /**
+         * Non associare centro
+         */
         protected static final short doNothing = 3;
     }
     // Menu string
     private String menu = null;
-    
     /**
      * Costruisce un oggetto menu
      */
