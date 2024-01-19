@@ -235,12 +235,19 @@ public class AutorizedOperator extends User {
         //if user does not have a center
         if(this.centre != null && !hasCentre()){
             this.centre = centre;
-            if( file.exists() && !addCentreToFile(centre) ){
-                System.err.println("ERRORE: aggiornamento file centri fallito.");
-                this.centre = defaultValueOfCentre;
-                return false;
+            if (file.exists()) {
+                if( !addCentreToFile(centre) ){
+                    System.err.println("ERRORE: aggiornamento file centri fallito.");
+                    this.centre = defaultValueOfCentre;
+                    return false;
+                } else {
+                    return true;
+                }   
             } else {
-                return true;
+                // Error output
+                System.err.println("\nERRORE: il file " + file.getName() + " è stato rimosso dalla cartella \'" + file.getParent() + "\'.");
+                System.err.println("Aggiornamento del file fallito.");
+                return false;
             }
         }else{
             System.err.println("ERRORE: il centro non è al valore di default.");
