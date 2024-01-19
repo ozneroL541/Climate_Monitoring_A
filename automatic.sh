@@ -171,7 +171,7 @@ document() {
     mkdir $obj 2> /dev/null
     if extract_jar; then
         # Compile java
-        d="javadoc -quiet --release v0.28.0-beta -locale  it_IT -doctitle \"Climate Monitor\" -author -version -package -use $args $doc -sourcepath $srca"
+        d="javadoc -quiet -locale  it_IT -doctitle \"Climate Monitor\" -author -version -private -use $args $doc -sourcepath $srca"
         echo "$d" && eval $d
         res=$?
         echo ""
