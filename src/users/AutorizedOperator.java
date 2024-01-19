@@ -237,7 +237,7 @@ public class AutorizedOperator extends User {
             this.centre = centre;
             if (file.exists()) {
                 if( !addCentreToFile(centre) ){
-                    System.err.println("ERRORE: aggiornamento file centri fallito.");
+                    System.err.println("ERRORE: aggiornamento file" + file.getName() + "fallito.");
                     this.centre = defaultValueOfCentre;
                     return false;
                 } else {
