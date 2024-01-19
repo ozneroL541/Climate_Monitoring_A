@@ -502,7 +502,6 @@ public class GeographicArea {
                     if ( file.exists() && Research.OneStringInCol(file, IndexOf.coordinates, in) >= 0 ) {
                         // Output
                         System.out.println("Esiste già un'area geografica con le stesse coordinate.");
-                        System.out.println(error);
                         // Exit
                         return null;
                     } else {
