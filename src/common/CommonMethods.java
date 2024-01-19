@@ -89,7 +89,8 @@ public class CommonMethods {
         return true;
     }
     /**
-     * Controlla che la stringa inserita come arogmento sia formata solo da cifre e che sia un numero intero positivo.
+     * Controlla che la stringa inserita come arogmento sia formata
+     * solo da cifre e che sia un numero intero positivo.
      * @param str stringa
      * @return true se il valore in argomento è valido
      */
@@ -175,7 +176,7 @@ public class CommonMethods {
         return s;
     }
     /**
-     * Controlla che la stringa in argomento sia una una stringa contenente caratteri per uscire da un loop
+     * Controlla che la stringa in argomento sia una una stringa contenente caratteri per uscire da un loop.
      * @param input input
      * @return true se esce dal loop
      */
@@ -184,7 +185,11 @@ public class CommonMethods {
         input = input.toUpperCase();
         return input.contains("N") || input.contains("Q") || input.contains("ESC") || input.contains("EXIT");
     }
-    // Check if the character is an ASCII letter
+    /**
+     * Controlla che un carattere sia una lettera ASCII.
+     * @param c carattere da controllare
+     * @return true se la lettere è un carattere
+     */
     private static boolean isASCIILetter( char c ) {
         // Return if it is an ASCII Letter
         return ( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) );

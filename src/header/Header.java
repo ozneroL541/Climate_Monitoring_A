@@ -32,22 +32,27 @@ import src.common.InputScanner;
  * @version 0.28.0
  */
 public class Header {
-    /*
-     * Indexes
+    /**
+     * Indici delle opzioni
      */
     private static final record IndexOf() {
+        /** Opzione Licenza */
         private static final short license = 1;
+        /** Opzione Garanzia */
         private static final short warranty = 2;
+        /** Opzione Condizioni */
         private static final short conditions = 3;
+        /** Opzione Versione */
         private static final short version = 4;
+        /** Opzione Esci */
         private static final short exit = 5;
     }
     /* TODO: Always remember to Update (remove this TODO only after version 1.0.0) */
-    // Program version
+    /** Versione Programma */
     private final static String version = "0.28.0\tBeta";
-    // Program Name
+    /** Nome Programma */
     private final static String p_name = "Climate Monitoring";
-    // Short License Reminder
+    /** Breve riassunto della licenza */
     private final static String license_h =
             "    Climate Monitoring  Copyright (C) 2023  Galimberti Riccardo\r\n" +//"
             "                                            Paredi Giacomo\r\n" + //
@@ -56,9 +61,9 @@ public class Header {
             "    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\r\n" + //
             "    This is free software, and you are welcome to redistribute it\r\n" + //
             "    under certain conditions; type `show c' for details.\r\n";
-    // Conditions
+    /** Condizioni */
     private final static String conditions = "See <http://www.gnu.org/licenses/> for full conditions.";
-    // Warranty
+    /** Garanzia */
     private final static String warranty =
             "\tDisclaimer of Warranty.\r\n" + //
             "\r\n" + //
@@ -70,7 +75,7 @@ public class Header {
             "PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM\r\n" + //
             "IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF\r\n" + //
             "ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\r\n";
-    // Help
+    /** Menu di aiuto */
     private final static String help = 
             "\nUsage: ClimateMonitor.jar [options]\r\n" + //
             "Options:\r\n" + //
@@ -260,14 +265,14 @@ public class Header {
         // Check if exit
         } while ( selectedAction(menu_input) );
     }
-    /*
+    /**
      * Stampa a schermo i possibili comandi
      */
     private static void print_help() {
         System.out.println(help);
         System.out.println();
     }
-    /*
+    /**
      * Esegue l'azione richiesta.
      * @param input azione
      * @return false se è richiesto di uscire

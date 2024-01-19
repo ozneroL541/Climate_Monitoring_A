@@ -123,7 +123,7 @@ public class CSV_Utilities {
     public static boolean addCellAtEndOfLine(File file, String string, int line) {
         return addAtEndOfLine(file, CSVFormat(string), line);
     }
-    /*
+    /**
      * Crea una riga che può essere aggiunta ad un file CSV.
      * Controlla la presenza di virgole e la gestisce.
      * @param linecells celle della riga
@@ -149,7 +149,7 @@ public class CSV_Utilities {
         // Return String
         return str;
     }
-    /*
+    /**
      * Ritorna la stringa con le virgolette se contiene un carattere separatore.
      * @param str stringa
      * @return stringa formattata
@@ -168,7 +168,7 @@ public class CSV_Utilities {
         // Return formatted string
         return str;
     }
-    /*
+    /**
      * Aggiunge una stringa alla fine della riga di un file.
      * <br><br>Complessità
      * <br>T = θ(n)
@@ -278,7 +278,7 @@ public class CSV_Utilities {
         }
         return true;
     }
-    /*
+    /**
      * Aggiunge le virgolette all'inizio e alla fine della stringa
      * @param str stringa
      * @return stringa formattata
@@ -286,7 +286,7 @@ public class CSV_Utilities {
     private static String addQuotes(String str) {
         return ("\"" + str + "\"");
     }
-    /*
+    /**
      * Scrive la linea passata come argomento alla fine del file CSV.
      * Si può scegliere se aggiungere una nuova linea alla fine della scrittura.
      * Ritorna true se la scrittura ha avuto esito positivo, false se non è avvenuta.
@@ -332,7 +332,7 @@ public class CSV_Utilities {
         }
         return true;
     }
-    /*
+    /**
      * Aggiunge la prima linea ad un file.
      * @param file file
      * @param header prima linea
@@ -353,7 +353,7 @@ public class CSV_Utilities {
             return false;
         }
     }
-    /*
+    /**
      * Aggiunge una linea al file, se il file è vuoto o non ha linee aggiunge l'intestazione.
      * Ritorna true se l'esecuzione è avvenuta correttamente.
      * <br><br>Complessità
@@ -384,7 +384,7 @@ public class CSV_Utilities {
         // Write the line on file and return the result of method execution
         return WriteEOF_CSV(file, line, true);
     }
-    /*
+    /**
      * Controlla che il file esista e abbia almeno una riga, in caso contrario ritorna false.
      * @param file file
      * @return true se ha almeno una linea

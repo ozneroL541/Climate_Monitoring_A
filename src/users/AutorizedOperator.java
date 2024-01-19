@@ -103,19 +103,19 @@ public class AutorizedOperator extends User {
         // Return
         return a;
     }
-    // User Identity Code
+    /** Codice Utente */
     private short userid;
-    // Name
+    /** Nome */
     private String nome;
-    // Surname
+    /** Cognome */
     private String cognome;
-    // Fiscal Code
+    /** Codice fiscale */
     private String codice_fiscale;
-    // e-mail address
+    /** Indirizzo e-mail */
     private String email_address;
-    // User Password
+    /** Password dell'utente */
     private String passwd;
-    // Monitoring Centre
+    /** Centro di monitoraggio */
     private String centre;
     /**
      * Costruisce un Operatore Autorizzato usando userid e password.
@@ -299,7 +299,7 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    /*
+    /**
      * Viene richiesto all'Operatore Autorizzato il centro a cui associarsi tra quelli presenti.
      * @return true se l'associazione ha avuto successo o se l'operatore è già associato ad un centro.
      */
@@ -321,14 +321,14 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    /*
+    /**
      * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
      * @return true se l'operatore è associato ad un centro
      */
     private boolean hasCentre() {
         return !(this.centre.equals(defaultValueOfCentre));
     }
-    /*
+    /**
      * Aggiorna il file con il nuovo valore del centro
      * @param centre centro
      * @return true se l'esecuzione è avvenuta con successo
@@ -344,7 +344,7 @@ public class AutorizedOperator extends User {
         }
         return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
-    /*
+    /**
      * Esegue l'azione selezionata
      * @param input azione
      * @return false se l'azione è di uscita
@@ -386,8 +386,9 @@ public class AutorizedOperator extends User {
                 return true;
         }
     }
-    /*
+    /**
      * Mostra il menu e permette di sceglierne le opzioni.
+     * @param m menu dell'Operatore Autorizzato
      */
     private void ChooseOption(MenuOperator m) {
         // Short integer for the menu options

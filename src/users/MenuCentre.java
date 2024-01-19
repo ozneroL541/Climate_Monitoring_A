@@ -25,7 +25,7 @@
 package src.users;
 
 /**
- * Classe che contiene il menu per le operazioni riguardanti i centri.
+ * Classe che contiene il menu per associare l'Operatore Autorizzato ad un Centro di Monitoraggio.
  * @author Giacomo Paredi
  * @version 0.28.0
  */
@@ -47,7 +47,7 @@ class MenuCentre {
          */
         protected static final short doNothing = 3;
     }
-    // Menu string
+    /** Stringa del menu */
     private String menu = null;
     /**
      * Costruisce un oggetto menu

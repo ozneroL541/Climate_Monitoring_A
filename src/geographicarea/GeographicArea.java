@@ -39,23 +39,32 @@ import src.common.*;
  * @version 0.28.0
  */
 public class GeographicArea {
-    // Indexes in CSV file
+    /**
+     * Indici del file CSV
+     */
     private final static record IndexOf() {
+        /** Geoname ID */
         private final static short geoname_id = 0;
+        /** Nome in formato Unicode */
         private final static short real_name = 1;
+        /** Nome in formato ASCII */
         private final static short ascii_name = 2;
+        /** Nome Generico */
         private final static short generic_name = 10;
+        /** Codice Nazione */
         private final static short country_code = 3;
+        /** Nome Nazione */
         private final static short country_name = 4;
+        /** Coordinate geografiche */
         private final static short coordinates = 5;
-        // Number of indexes
+        /** Numero totale indici */
         private final static short indexes = 7;
-        // Max index value
+        /** Valore massimo degli indici */
         private final static short max_index = 5;
     }
-    // Areas File
+    /** File delle aree geografiche */
     private final static File file = FileSystems.getDefault().getPath("data", "CoordinateMonitoraggio.dati.csv").toFile();
-    // Header
+    /** Header del file */
     private final static String header = "Geoname ID,Name,ASCII Name,Country Code,Country Name,Coordinates";
     /**
      * Cerca delle area geografiche e ne stampa la lista.
@@ -566,7 +575,7 @@ public class GeographicArea {
         // Return the correctness of the execution
         return (toList(lines.toArray(new Integer[0])));
     }
-    /*
+    /**
      * Metodo di test che non ammette input per calcolare la velocità di esecuzione pura.
      * Cerca delle area geografiche e ne stampa la lista.
      * Il primo parametro si riferisce al tipo di ricerca.
@@ -651,7 +660,7 @@ public class GeographicArea {
             System.out.println("Non è stata trovata alcuna Area Geografica coi parametri di ricerca selezionati.");
         }
     }
-    /*
+    /**
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna la riga in cui è contenuto.
      * @param id Geoname ID
      * @return Numero della riga
@@ -662,7 +671,7 @@ public class GeographicArea {
         // Search the id
         return Research.OneStringInCol(file, IndexOf.geoname_id, is_str);
     }
-    /*
+    /**
      * Ricerca un Geoname ID nelle aree di ricerca e ritorna le righe in cui è contenuto
      * in un array di Integer di un elemento.
      * Se non viene trovato nulla ritorna null.
@@ -697,7 +706,7 @@ public class GeographicArea {
             return null;
         }
     }
-    /*
+    /**
      * Ricerca un Nome nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param nome Nome
      * @return Numeri elle righe
@@ -706,7 +715,7 @@ public class GeographicArea {
         // Search all possibles names
         return Research.AllStringInCol(file, IndexOf.real_name, nome);
     }
-    /*
+    /**
      * Ricerca un Nome in formato ASCII nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param ascii_n Nome in formato ASCII
      * @return Numeri delle righe
@@ -715,7 +724,7 @@ public class GeographicArea {
         // Search all possibles names
         return Research.AllStringInCol_notCaseS(file, IndexOf.ascii_name, ascii_n);
     }
-    /*
+    /**
      * Ricerca un nome in qualsiasi formato nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param n Nome
      * @return Numeri delle righe
@@ -735,7 +744,7 @@ public class GeographicArea {
         // Search all possibles names
         return Research.AllStringInCol_notCaseS(file, index, n);
     }
-    /*
+    /**
      * Ricerca un Country Code nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param c_c Country Code
      * @return Numeri delle righe
@@ -744,7 +753,7 @@ public class GeographicArea {
         // Search all areas in the nation
         return Research.AllStringInCol(file, IndexOf.country_code, c_c.toUpperCase());
     }
-    /*
+    /**
      * Ricerca un Country Name nelle aree di ricerca e ritorna le righe in cui è contenuto
      * @param c_n Country Name
      * @return Numeri delle righe
@@ -753,7 +762,7 @@ public class GeographicArea {
         // Search all areas in the nation
         return Research.AllStringInCol_notCaseS(file, IndexOf.country_name, c_n);
     }
-    /*
+    /**
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
      * Se le coordinate sono inesatte si restituiranno le righe delle coordinate contenute in un range vicino a quelle fornite.
      * @param c Coordinates
@@ -773,7 +782,7 @@ public class GeographicArea {
             return null;
         }
     }
-    /*
+    /**
      * Ricerca le coordinate di un'area di ricerca e ritorna le righe dove sono contenute.
      * Se le coordinate sono inesatte si restituiranno le x righe delle coordinate più vicine a quelle fornite.
      * @param coo Coordinates
@@ -820,7 +829,7 @@ public class GeographicArea {
             return out;
         }
     }
-    /*
+    /**
      * Ritorna la lista di tutte le aree geografiche presenti nelle righe in argomento.
      * @param lines righe
      * @return list
@@ -833,7 +842,7 @@ public class GeographicArea {
         }
         return out;
     }
-    /*
+    /**
      * Passando come argomento la riga corrispondente ad un'area geografica e un indice
      * restituisce la riga di una tabella di aree geografiche.
      * @param line riga
@@ -863,17 +872,17 @@ public class GeographicArea {
         out += String.format("\t%-10s\t%-10s\t%-10s\t%-10s\t%-11s\t%s", ga.getGeoname_id(), nam[0], nam[1], ga.getCountry_code(), nam[2], ga.getCoordinatestoString());
         return out;
     }
-    // Geoname ID
+    /** Geoname ID */
     private int geoname_id = 0;
-    // Name
+    /** Nome Unicode */
     private String name = "";
-    // ASCII name
+    /** Nome ASCII */
     private String ascii_name = "";
-    // Country Code
+    /** Codice Nazione */
     private String country_code = "";
-    // Country Name
+    /** Nome Nazione */
     private String country_name = "";
-    // Coordinates
+    /** Coordinate geografiche */
     private double [] coordinates = null;
     /**
      * Costruttore di Area Geografica.
@@ -1072,7 +1081,7 @@ public class GeographicArea {
         // If the id is positive, then exist
         return this.geoname_id > 0;
     }
-    /*
+    /**
      * Crea un array di stringhe formato dai campi dell'area geografica.
      * @return array dei campi dell'area
      */

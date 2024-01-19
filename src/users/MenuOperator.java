@@ -25,7 +25,7 @@
 package src.users;
 
 /**
- * Classe che contiene il menu operatore.
+ * Classe che contiene il menu Operatore Autorizzato.
  * @author Lorenzo Radice
  * @version 0.28.0
  */
@@ -63,9 +63,9 @@ class MenuOperator {
          */
         protected static final short exit = 7;
     }
-    // Menu string
+    /** Stringa del menu */
     private String menu = null;
-    // Exit Option
+    /** Uscita */
     private final String exit = "Logout";
     /**
      * Costruisce un oggetto menu

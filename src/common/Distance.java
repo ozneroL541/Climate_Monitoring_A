@@ -66,9 +66,13 @@ class Distance implements Comparable<Distance>{
             a[i] = ((Distance) a2.delete()).getLine();
         return a;
     }
-    // Distance
+    /**
+     * Distanza delle coordinate dal punto cercato.
+     */
     private Double dist = 0.0;
-    // Line
+    /**
+     * Linea dove si trova l'elemento di cui si è calcolata la distanza.
+     */
     private int line = 0;
     /**
      * Costruttore dell'oggetto Distance.

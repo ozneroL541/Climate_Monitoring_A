@@ -41,18 +41,24 @@ import src.monitoringcentre.MonitoringCentre;
  * @version 0.28.0
  */
 public class Parameters {
-    // Indexes
+    /** Indici del file dei parametri */
     private static final record IndexOf() {
+        /** Geoname ID */
         private static final short geoname_id = 0;
+        /** Data */
         private static final short date = 1;
+        /** Nome Centro */
         private static final short centre = 2;
+        /** Tabella */
         private static final short table = 3;
+        /** Lunghezza tabella */
         private static final short table_length = Table.n_categories;
+        /** Indice massimo delle colonne */
         private static final short max_cols = (table + (table_length*2));
     }
-    // Parameters File
+    /** File dei Parametri */
     private final static File file = FileSystems.getDefault().getPath("data", "ParametriClimatici.dati.csv").toFile();
-    // Header
+    /** Intestazione file dei parametri */
     private final static String header = "Geoname ID,Data,Centro,Vento,Umidità,Pressione,Temperatura,Precipitazioni,Altitudine dei ghiacciai,Massa dei ghiacciai,Note Vento,Note Umidità,Note Pressione,Note Temperatura,Note Precipitazioni,Note Altitudine dei ghiacciai,Note Massa dei ghiacciai";
     /**
      * Crea un oggetto Parameters e lo ritorna.
@@ -86,7 +92,7 @@ public class Parameters {
             return null;
         }
         // Assign Centre
-        c = insertCentre(centre);
+        c = centre;
         // Check Centre
         if ( c == null || c.length() <= 0) {
             // Error output
@@ -159,8 +165,9 @@ public class Parameters {
     public static boolean FileExist() {
         return file.exists();
     }
-    /*
-     * Richiede l'inserimento del Geoname ID
+    /**
+     * Richiede l'inserimento del Geoname ID.
+     * @param centre id centro di monitoraggio
      * @return geoname_id
      */
     private static int insertID(String centre) {
@@ -209,7 +216,7 @@ public class Parameters {
 
         return id;
     }
-    /*
+    /**
      * Richiede o assegna la data.
      * @return date
      */
@@ -218,19 +225,9 @@ public class Parameters {
         String today = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date());
         return today;
     }
-    /*
-     * Richiede l'inserimento del centro di monitoraggio
-     * @return centre
-     */
-    private static String insertCentre(String centre) {
-        // Centre
-        String c = centre;
-        return c;
-    }
-    /*
+    /**
      * Stampa una lista di parametri.
-     * @param area righe dei parametri
-     * @param runtime_print 
+     * @param lines linee
      */
     private static void getList( Integer[] lines ) {
         // Number of lines to print
@@ -290,7 +287,7 @@ public class Parameters {
             System.out.println("Non sono presenti dati riguardanti l'area selezionata.");
         }
     }
-    /*
+    /**
      * Chiede all'utente di inserire l'indice del parametro che desidera visualizzare.
      * @param max massimo indice
      * @return indice del parametro che si desidera visualizzare
@@ -333,7 +330,7 @@ public class Parameters {
         // Return value
         return r;
     }
-    /*
+    /**
      * Ricerca tutti i Parameters inseriti di un'Area Geografica.
      * @param area Area Geografica
      * @return l'array delle righe dove sono presenti i parametri
@@ -342,7 +339,7 @@ public class Parameters {
         // Search all Parameters for this area
         return Research.AllStringInCol(file, IndexOf.geoname_id, area);
     }
-    /*
+    /**
      * Rende un array di righe del file CSV una lista
      * @param lines righe
      * @return lista
@@ -356,7 +353,7 @@ public class Parameters {
         }
         return out;
     }
-    /*
+    /**
      * Ritorna una linea per la lista.
      * @param line riga
      * @param index indice
@@ -378,13 +375,13 @@ public class Parameters {
         // Return String
         return out;
     }
-    // Geoname ID
+    /** Geoname Id */
     private int geoname_id = 0;
-    // Date
+    /** Data */
     private String date = null;
-    // Monitoring Centre
+    /** Nome Centro */
     private String centre = "";
-    // Table
+    /** Tabella */
     private Table table = null;
     /**
      * Costruttore dell'oggetto Parameters
@@ -497,7 +494,7 @@ public class Parameters {
         // Add to CSV File
         return CSV_Utilities.addArraytoCSV(file, fields_arr, header);
     }
-    /*
+    /**
      * Trasforma i campi della classe in un array di stringhe.
      * @return array di Strings
      */

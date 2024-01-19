@@ -905,7 +905,7 @@ public class Research {
             return null;
         } 
     }
-    /*
+    /**
      * Ricerca binaria in lista di double
      * <br><br>Complessità
      * <br>T = O(log(n))
@@ -941,7 +941,7 @@ public class Research {
         // Return the index
         return left;
     }
-    /*
+    /**
      * Calcola la distanza tra due coordinate usando la formula di Haversine.
      * @param lat1 latitudine coordinata 1
      * @param lon1 longitudine coordinata 1
@@ -964,7 +964,7 @@ public class Research {
         double distance = R * c;
         return distance;
     }
-    /*
+    /**
      * Ricerca binaria in lista di Strings.
      * <br>In caso la lista esista ritorna il valore -1,
      * @param arr lista
