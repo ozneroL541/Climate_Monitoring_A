@@ -36,8 +36,8 @@ import src.monitoringcentre.MonitoringCentre;
  * Un oggetto della classe <code>Parameters</code> rappresenta i parametri
  * rilevati di un'area geografica in una determinata area per un determinato
  * centro di monitoraggio sotto forma di una tabella.
- * @author Lorenzo Radice
  * @author Giacomo Paredi
+ * @author Lorenzo Radice
  * @version 0.29.0
  */
 public class Parameters {
