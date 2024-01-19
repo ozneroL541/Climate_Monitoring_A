@@ -162,7 +162,7 @@ public class MonitoringCentre {
      */
     private static MonitoringCentre createCentre() {
         // Error string
-        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
+        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita.";
         String nome = null;
         String [] indirizzo = new String [IndexOf.Iadd.length];
 

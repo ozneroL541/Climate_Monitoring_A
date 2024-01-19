@@ -302,7 +302,7 @@ public class AutorizedOperator extends User {
                 // End correctly
                 return true;
         } else {
-            System.out.println("Creazione area Geografica fallita");
+            System.out.println("Creazione area Geografica fallita.");
             return false;
         }
     }
