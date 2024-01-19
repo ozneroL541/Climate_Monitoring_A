@@ -31,18 +31,24 @@ import src.header.Header;
 /**
  * Classe che contiene il menu principale del programma.
  * @author Lorenzo Radice
- * @version 0.28.0
+ * @version 0.29.0
  */
 public class MainMenu {
-    /*
-     * Indexes
+    /**
+     * Opzioni del menu principale
      */
     private static final record IndexOf() {
+        /** Ricerca aree */
         private static final short research = 1;
+        /** Visualizza informazioni aree */
         private static final short view_areas = 2;
+        /** Login */
         private static final short login = 3;
+        /** Registrazione */
         private static final short registration = 4;
+        /** Info */
         private static final short info = 5;
+        /** Esci */
         private static final short exit = 6;
     }
     /**
@@ -79,11 +85,11 @@ public class MainMenu {
         // Check if exit
         } while ( menu.selectedAction(mainmenu_input) );
     }
-    // Menu string
+    /** Stringa del menu */
     private String menu = null;
-    // Number of options
+    /** Numero di opzioni */
     private short op_number = 0;
-    // Exit Option
+    /** Opzione di uscita */
     private final String exit = "Esci";
     /**
      * Costruisce un oggetto menu
@@ -113,7 +119,6 @@ public class MainMenu {
         // Number of options is the number of elements of the array
         this.op_number = (short) options.length;
     }
-    // This method returns the menu string
     /**
      * Restituisce la stringa che rappresenta il menu
      * @return menu
@@ -121,7 +126,6 @@ public class MainMenu {
     public String getMenu() {
         return this.menu;
     }
-    // Check if the integer number corrisponds to the Exit command
     /**
      * Controlla che l'intero inserito abbia lo stesso indice del comando di uscita
      * @param n input
@@ -130,7 +134,6 @@ public class MainMenu {
     public boolean isQuit( short n ) {
         return (n == IndexOf.exit);
     }
-    // Return the Number of the Exit Option
     /**
      * Restituisce l'indice del comando di uscita
      * @return l'intero dell'uscita
@@ -146,7 +149,7 @@ public class MainMenu {
     public short NumberOfOptions() {
         return op_number;
     }
-    /*
+    /**
      * Esegue l'azione selezionata.
      * @param input azione
      * @return false se l'azione è di uscita

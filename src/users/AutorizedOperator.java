@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.28.0
+ * @version 0.29.0
  */
 public class AutorizedOperator extends User {
     /**
@@ -103,19 +103,19 @@ public class AutorizedOperator extends User {
         // Return
         return a;
     }
-    // User Identity Code
+    /** Codice Utente */
     private short userid;
-    // Name
+    /** Nome */
     private String nome;
-    // Surname
+    /** Cognome */
     private String cognome;
-    // Fiscal Code
+    /** Codice fiscale */
     private String codice_fiscale;
-    // e-mail address
+    /** Indirizzo e-mail */
     private String email_address;
-    // User Password
+    /** Password dell'utente */
     private String passwd;
-    // Monitoring Centre
+    /** Centro di monitoraggio */
     private String centre;
     /**
      * Costruisce un Operatore Autorizzato usando userid e password.
@@ -235,12 +235,19 @@ public class AutorizedOperator extends User {
         //if user does not have a center
         if(this.centre != null && !hasCentre()){
             this.centre = centre;
-            if( file.exists() && !addCentreToFile(centre) ){
-                System.err.println("ERRORE: aggiornamento file centri fallito.");
-                this.centre = defaultValueOfCentre;
-                return false;
+            if (file.exists()) {
+                if( !addCentreToFile(centre) ){
+                    System.err.println("ERRORE: aggiornamento file centri fallito.");
+                    this.centre = defaultValueOfCentre;
+                    return false;
+                } else {
+                    return true;
+                }   
             } else {
-                return true;
+                // Error output
+                System.err.println("\nERRORE: il file " + file.getName() + " è stato rimosso dalla cartella \'" + file.getParent() + "\'.");
+                System.err.println("Aggiornamento del file fallito.");
+                return false;
             }
         }else{
             System.err.println("ERRORE: il centro non è al valore di default.");
@@ -299,7 +306,7 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    /*
+    /**
      * Viene richiesto all'Operatore Autorizzato il centro a cui associarsi tra quelli presenti.
      * @return true se l'associazione ha avuto successo o se l'operatore è già associato ad un centro.
      */
@@ -321,14 +328,14 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-    /*
+    /**
      * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
      * @return true se l'operatore è associato ad un centro
      */
     private boolean hasCentre() {
         return !(this.centre.equals(defaultValueOfCentre));
     }
-    /*
+    /**
      * Aggiorna il file con il nuovo valore del centro
      * @param centre centro
      * @return true se l'esecuzione è avvenuta con successo
@@ -344,7 +351,7 @@ public class AutorizedOperator extends User {
         }
         return CSV_Utilities.addCellAtEndOfLine(file, centre, riga);
     }
-    /*
+    /**
      * Esegue l'azione selezionata
      * @param input azione
      * @return false se l'azione è di uscita
@@ -386,8 +393,9 @@ public class AutorizedOperator extends User {
                 return true;
         }
     }
-    /*
+    /**
      * Mostra il menu e permette di sceglierne le opzioni.
+     * @param m menu dell'Operatore Autorizzato
      */
     private void ChooseOption(MenuOperator m) {
         // Short integer for the menu options

@@ -33,27 +33,27 @@ import src.common.InputScanner;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 0.28.0
+ * @version 0.29.0
  */
 class Table {
-    // Score and note
+    /** Valore e nota */
     private static class Data_SN {
-        // Score
+        /** Valore */
         public short score = 0;
-        // Note
+        /** Note */
         public String note = "";
-        // Costructor
+        /** Costruttore vuoto */
         public Data_SN(){}
     }
     /**
      * Numero di categorie
      */
     protected final static short n_categories = 7;
-    // Max characters number for notes
+    /** Numero massimo caratteri per le note */
     private final static short max_char_notes = 256;
-    // Min score
+    /** Valore minimo */
     private final static short min_score = 1;
-    // Max score
+    /** Valore massimo */
     private final static short max_score = 5;
     /**
      * Chiede all'utente di inserire i parametri della ricerca e ritorna la tabella che li contiene.
@@ -78,7 +78,7 @@ class Table {
         // Return datas
         return t;
     }
-    /*
+    /**
      * Chiede all'utente di inserire i dati.
      * @param index dato da inserire
      * @return dati inseriti
@@ -211,7 +211,7 @@ class Table {
         // Return datas
         return data_in;
     }
-    /*
+    /**
      * Controlla che il dato inserito sia corretto
      * @param i dato
      * @return true se è corretto
@@ -220,7 +220,7 @@ class Table {
         // Return true if the score is in the correct range
         return ( i >= min_score && i <= max_score );
     }
-    /*
+    /**
      * Controlla che la nota inserita abbia una lunghezza accettabile
      * @param str nota
      * @return true se la nota è corta
@@ -229,9 +229,9 @@ class Table {
         // Return true if the length of the string is acceptable
         return (str.length() <= max_char_notes);
     }
-    // Category's scores
+    /** Array dei valori */
     private short[] scores = { 0, 0, 0, 0, 0, 0, 0 }; 
-    // Category's notes
+    /** Array delle note */
     private String[] notes = { "", "", "", "", "", "", "" };
     /**
      * Costruttore vuoto
@@ -302,7 +302,7 @@ class Table {
             }
         }
     }
-    /*
+    /**
      * Crea una tabella utilizzando la classe privata Data_SN.
      * @param d datas
      */

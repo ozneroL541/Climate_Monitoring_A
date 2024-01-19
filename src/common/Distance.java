@@ -30,7 +30,7 @@ import src.maxpq.MaxPQ;
  * Classe di appoggio per la ricerca delle coordinate.
  * Memorizza al suo interno la distanza di una coordinata dalla coordinata cercata e la linea di riferimento.
  * @author Lorenzo Radice
- * @version 0.28.0
+ * @version 0.29.0
  */
 class Distance implements Comparable<Distance>{
     /**
@@ -66,9 +66,13 @@ class Distance implements Comparable<Distance>{
             a[i] = ((Distance) a2.delete()).getLine();
         return a;
     }
-    // Distance
+    /**
+     * Distanza delle coordinate dal punto cercato.
+     */
     private Double dist = 0.0;
-    // Line
+    /**
+     * Linea dove si trova l'elemento di cui si è calcolata la distanza.
+     */
     private int line = 0;
     /**
      * Costruttore dell'oggetto Distance.

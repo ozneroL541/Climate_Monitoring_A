@@ -36,43 +36,55 @@ import src.geographicarea.GeographicArea;
  * @author Riccardo Galimberti
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.28.0
+ * @version 0.29.0
  */
 public class MonitoringCentre {
-    /*
-     * File field indexes
+    /**
+     * Indici del file dei comuni
      */
     private final static record col_comuni() {
+        /** Comune */
         private final static short comune = 0;
+        /** Codice di Avviamento Postale */
         private final static short CAP = 2;
+        /** Provincia */
         private final static short provincia = 1;        
     }
-    /*
-     * Indexes in CSV file
+    /**
+     * Indici del file dei centri di monitoraggio
      */
     private final static record IndexOf() {
+        /** Nome Centro */
         private final static short name = 0;
+        /** Indirizzo */
         private final static short address = 1;
+        /** Aree di interesse associate */
         private final static short areas = 2;
+        /** Indici dell'indirizzo */
         private final static record Iadd() {
+            /** Via */
             private final static short via = 0;
+            /** Numero Civico */
             private final static short civico = 1;
+            /** Codice di Avviamento Postale */
             private final static short CAP = 2;
+            /** Comune */
             private final static short comune = 3;
+            /** Provincia */
             private final static short prov = 4;
-            // Length of address array
+            /** Lunghezza array degli indirizzi */
             private final static short length = 5;
         }
-        // Number of indexes
+        /** Numero di indirizzi */
         private final static short indexes = 3;
     }
-    // Header
+    /** Intestazione del file dei Centri di Monitoraggio */
     private final static String header = "Nome,Via,Civico,CAP,Comune,Provincia,Aree";
-    // File
+    /** File dei Centri di Monitoraggio */
     private final static File f = FileSystems.getDefault().getPath("data", "CentroMonitoraggio.dati.csv").toFile();
-    // Cities List
+    /** File dei comuni */
     private final static File listcomuni = FileSystems.getDefault().getPath("resources", "comuni-localita-cap-italia.csv").toFile();
-    // CAP length
+    /** Lunghezza CAP */
     private final static short cap_length = 5;
     /**
      * Permette di costruire un oggetto MonitoringCentre conoscendo solo il nome.
@@ -143,7 +155,7 @@ public class MonitoringCentre {
     public static boolean FileExist() {
         return f.exists();
     }
-    /*
+    /**
      * Permette di creare un Centro di Monitoraggio e lo ritorna.
      * Se la creazione fallisce ritorna null.
      * @return Centro di Monitoraggio creato
@@ -170,7 +182,7 @@ public class MonitoringCentre {
         //return Monitoring Centre
         return new MonitoringCentre(nome, indirizzo, aree);        
     }
-    /*
+    /**
      * Chiede all'utente il nome del centro,
      * @return nome del centro
      */
@@ -206,9 +218,9 @@ public class MonitoringCentre {
         // Return the name
         return name;
     }
-    /*
+    /**
      * Chiede all'utente di inserire l'indirizzo del centro.
-     * @return
+     * @return indirizzo
      */
     private static String[] AskAddress() {
         // Address
@@ -307,7 +319,7 @@ public class MonitoringCentre {
 
         return address;
     }
-    /*
+    /**
      * Associa le aree geografiche al centro.
      * @return id delle aree
      */
@@ -364,7 +376,7 @@ public class MonitoringCentre {
 
         return out;
     }
-    /*
+    /**
      * Controlla che la stringa inserita sia valida.
      * @param str stringa
      * @param index tipo di controllo
@@ -392,7 +404,7 @@ public class MonitoringCentre {
                 return false;
         }
     }
-    /*
+    /**
      * Questo metodo controlla che esista un indirizzo con i campi inseriti.
      * Non viene controllata l'esistenza della via e del civico, ma solo la sua correttezza sintattica.
      * @param address indirizzo
@@ -457,7 +469,7 @@ public class MonitoringCentre {
                 return false;
         }
     }
-    /*
+    /**
      * Controlla l'esistenza dell'elemento selezionato.
      * @param elem elemento
      * @param index indice
@@ -490,7 +502,7 @@ public class MonitoringCentre {
                 return false;
         }
     }
-    /*
+    /**
      * Controlla che i due CAP corrispondano.
      * @param cap1 CAP 1
      * @param cap2 CAP 2
@@ -523,10 +535,11 @@ public class MonitoringCentre {
         // Test passed
         return true;
     }
-
-    // private String via, civico, cap, comune, provincia;
+    /** Nome Centro */
     private String nome = null;
+    /** Indirizzo */
     private String [] indirizzo = new String[IndexOf.Iadd.length];
+    /** Aree di interesse associate al centro */
     private String[] areeInteresse = null;
     /**
      * Costruttore dell'oggetto MonitoringCentre.
@@ -593,7 +606,7 @@ public class MonitoringCentre {
     public boolean Exist() {
         return (this.nome != null && this.nome.length() > 0);
     }
-    /*
+    /**
      * Trasforma tutti i campi della classe in un array di stringhe
      * @return array dei campi
      */
@@ -611,7 +624,7 @@ public class MonitoringCentre {
 
         return record;
     }
-    /*
+    /**
      * Crea la cella delle aree per essere inserita nel file CSV.
      * @return cella
      */
@@ -631,7 +644,7 @@ public class MonitoringCentre {
         }
         return str;
     }
-    /*
+    /**
      * Ritorna l'indirisso formattato secondo lo standard di Poste Italiane.
      * @return indirizzo
      */

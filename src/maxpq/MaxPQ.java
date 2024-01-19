@@ -28,14 +28,14 @@ package src.maxpq;
  * Maximum Priority Queue
  * <br>Coda a priorità massima
  * @author Lorenzo Radice
- * @version 0.28.0
+ * @version 0.29.0
  */
 public class MaxPQ<T extends Comparable<T>> {
-    // Maximum Priority Queue array
+    /** Maximum Priority Queue array */
     private T[] pq; 
-    // Mac lenght
+    /** Lunghezza Massima */
     private int max = 0;
-    // Lenght of the array
+    /** Lunghezza corrente array */
     private int n = 0;
     /**
      * Costruttore della coda a priorità massima.
@@ -161,7 +161,7 @@ public class MaxPQ<T extends Comparable<T>> {
         // Return the first element of the array
         return pq[1];
     }
-    /*
+    /**
      * Check if pq[i] is less than pq[j]
      * @param i first index
      * @param j second index
@@ -170,7 +170,7 @@ public class MaxPQ<T extends Comparable<T>> {
     private boolean less(int i,int j){
         return pq[i].compareTo(pq[j]) < 0;
     }
-    /*
+    /**
      * Exchange pq[i] with pq[j]
      * @param i first index
      * @param j second index
@@ -181,12 +181,12 @@ public class MaxPQ<T extends Comparable<T>> {
         pq[i] = pq[j];
         pq[j] = t;
     }
-    /*
+    /**
      * Sort the priority of the array.
-     * Complexity
-     * O(1) best
-     * O(log(n)) worst
-     * @param k
+     * <br>Complexity
+     * <br>O(1) best
+     * <br>O(log(n)) worst
+     * @param k starting point
      */
     private void swim(int k){
         // While k is more than 1
@@ -198,7 +198,7 @@ public class MaxPQ<T extends Comparable<T>> {
             k = k/2;
         }
     }
-    /*
+    /**
      * Sort the array starting with k
      * Complexity
      * O(1) best

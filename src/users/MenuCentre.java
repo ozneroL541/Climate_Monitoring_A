@@ -25,22 +25,30 @@
 package src.users;
 
 /**
- * Classe che contiene il menu per le operazioni riguardanti i centri.
+ * Classe che contiene il menu per associare l'Operatore Autorizzato ad un Centro di Monitoraggio.
  * @author Giacomo Paredi
- * @version 0.28.0
+ * @version 0.29.0
  */
 class MenuCentre {
     /**
-     * Indexes
+     * Opzioni Menu
      */
     protected static final record IndexOf() {
+        /**
+         * Seleziona centro esistente
+         */
         protected static final short existingCentre = 1;
+        /**
+         * Crea un nuovo centro e associa
+         */
         protected static final short newCentre = 2;
+        /**
+         * Non associare centro
+         */
         protected static final short doNothing = 3;
     }
-    // Menu string
+    /** Stringa del menu */
     private String menu = null;
-    
     /**
      * Costruisce un oggetto menu
      */

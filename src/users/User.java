@@ -41,32 +41,35 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.28.0
+ * @version 0.29.0
  */
 public class User {
     /**
      * Indici dei file CSV
      */
     protected final static record IndexOf() {
+        /** Matricola */
         final static short matricola=0;
+        /** Nome */
         final static short nome=1;
+        /** Cognome */
         final static short cognome=2;
+        /** Codice Fiscale */
         final static short codice_fiscale=3;
+        /** Indirizzo e-mail */
         final static short email=4;
+        /** Password */
         final static short password=5;
+        /** Centro di monitoraggio associato */
         final static short centro=6;
-        //number of indexes
+        /** Numero di indici */
         final static short indexes = 7;
     }
-    // File header
+    /** Intestazione del file degli Operatori Autorizzati */
     private final static String header = "Matricola,Nome,Cognome,Codice Fiscale,Indirizzo e-mail,Password,Centro di Monitoraggio";
-    /**
-     * File degli Operatori Registrati.
-     */
+    /** File degli Operatori Registrati */
     protected final static File file = FileSystems.getDefault().getPath("data", "OperatoriRegistrati.dati.csv").toFile();
-    /**
-     * Valore di default del centro.
-     */
+    /** Valore di default del centro. */
     protected final static String defaultValueOfCentre="";
     /**
      * Permette all'utente di registrarsi come Operatore Autorizzato.
@@ -160,7 +163,7 @@ public class User {
 
         return nome;
     }
-    /*
+    /**
      * Controlla che il campo sia valido
      * @param indice_campo campo
      * @return stringa risultato
@@ -238,7 +241,7 @@ public class User {
             return null;
         }
     }
-    /*
+    /**
      * Seleziona il nome utente
      * @return nome utente
      */
@@ -258,7 +261,7 @@ public class User {
         }
         return String.format("%05d", id);
     }
-    /*
+    /**
      * Controlla la correttezza del codice fiscale
      * @param cf codice fiscale
      * @return true se il codice è corretto
@@ -327,7 +330,7 @@ public class User {
         }
         return check;
     }
-    /*
+    /**
      * Controlla la correttezza dell'indirizzo e-mail.
      * @param email indirizzo e-mail
      * @return true se l'indirizzo è corretto
@@ -336,7 +339,7 @@ public class User {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
-    /*
+    /**
      * Mostra un menu con differenti modalità per associare l'operatore al centro.
      * @return id centro
      */
