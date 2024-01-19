@@ -28,7 +28,7 @@ package src.maxpq;
  * Maximum Priority Queue
  * <br>Coda a priorità massima
  * @author Lorenzo Radice
- * @version 0.28.0
+ * @version 0.29.0
  */
 public class MaxPQ<T extends Comparable<T>> {
     /** Maximum Priority Queue array */

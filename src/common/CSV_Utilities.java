@@ -41,7 +41,7 @@ import com.opencsv.CSVWriter;
  * Raccolta di metodi statici utili per la gestione dei file CSV.
  * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.28.0
+ * @version 0.29.0
  */
 public class CSV_Utilities {
     /**
@@ -365,6 +365,7 @@ public class CSV_Utilities {
      * <p> Usare invece {@link CSV_Utilities#addArraytoCSV( File file, String[] linecells, String header )}.
      * @return true se l'esecuzione è avvenuta correttamente
      */
+    @Deprecated
     private static boolean addLinewithCheck( File file, String line, String header ) {
         // Directory
         File directory = file.getParentFile();
