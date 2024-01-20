@@ -34,7 +34,7 @@ import src.parameters.Parameters;
  * un utente con privilegi speciali.
  * Ciò che l'operatore autorizzato può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 0.29.0
+ * @version 0.30.0
  */
 public class AutorizedOperator extends User {
     /**
@@ -237,7 +237,7 @@ public class AutorizedOperator extends User {
             this.centre = centre;
             if (file.exists()) {
                 if( !addCentreToFile(centre) ){
-                    System.err.println("ERRORE: aggiornamento file centri fallito.");
+                    System.err.println("ERRORE: aggiornamento file " + file.getName() + " fallito.");
                     this.centre = defaultValueOfCentre;
                     return false;
                 } else {
@@ -302,7 +302,7 @@ public class AutorizedOperator extends User {
                 // End correctly
                 return true;
         } else {
-            System.out.println("Creazione area Geografica fallita");
+            System.out.println("Creazione area Geografica fallita.");
             return false;
         }
     }

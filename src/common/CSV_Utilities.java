@@ -39,9 +39,9 @@ import com.opencsv.CSVWriter;
 
 /**
  * Raccolta di metodi statici utili per la gestione dei file CSV.
- * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.29.0
+ * @author Lorenzo Radice
+ * @version 0.30.0
  */
 public class CSV_Utilities {
     /**
@@ -49,7 +49,7 @@ public class CSV_Utilities {
      * Se il file CSV è vuoto o non ha linee aggiunge l'intestazione.
      * Ritorna true se l'esecuzione è avvenuta correttamente.
      * <br><br>Complessità
-     * <br>T = θ(n)
+     * <br>T = O(n)
      * @param file file CSV
      * @param linecells celle della linea da aggiungere
      * @param header intestazione
@@ -291,7 +291,7 @@ public class CSV_Utilities {
      * Si può scegliere se aggiungere una nuova linea alla fine della scrittura.
      * Ritorna true se la scrittura ha avuto esito positivo, false se non è avvenuta.
      * <br><br>Complessità
-     * <br>T = θ(n)
+     * <br>T = O(1)
      * @param file file CSV
      * @param line linea
      * @param add_newline aggiunge una nuova linea se true

@@ -34,9 +34,9 @@ import src.geographicarea.GeographicArea;
 /**
  * Classe che contiene il centro di monitoraggio.
  * @author Riccardo Galimberti
- * @author Lorenzo Radice
  * @author Giacomo Paredi
- * @version 0.29.0
+ * @author Lorenzo Radice
+ * @version 0.30.0
  */
 public class MonitoringCentre {
     /**
@@ -162,7 +162,7 @@ public class MonitoringCentre {
      */
     private static MonitoringCentre createCentre() {
         // Error string
-        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita";
+        final String error = "Creazione del centro di monitoraggio terminata: creazione fallita.";
         String nome = null;
         String [] indirizzo = new String [IndexOf.Iadd.length];
 

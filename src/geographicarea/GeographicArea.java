@@ -36,7 +36,7 @@ import src.common.*;
  * rappresenta un area geografica identificata con ID,
  * nome, nome ASCII, stato e coordinate.
  * @author Lorenzo Radice
- * @version 0.29.0
+ * @version 0.30.0
  */
 public class GeographicArea {
     /**
@@ -375,8 +375,6 @@ public class GeographicArea {
     public static GeographicArea createArea() {
         // ISO-3166 fil
         final File f_iso = FileSystems.getDefault().getPath("resources", "iso-3166-coutries.csv").toFile();
-        // Error string
-        final String error = "Creazione area geografica terminata: creazione fallita";
         // Geographic Area to be returned
         GeographicArea ga = new GeographicArea();
         // Array of strings of fields
@@ -398,7 +396,6 @@ public class GeographicArea {
                     if ( file.exists() && Research.OneStringInCol(file, IndexOf.geoname_id, in) >= 0 ) {
                         // Output
                         System.out.println("Esiste già un'area geografica con lo stesso ID.");
-                        System.out.println(error);
                         // Exit
                         return null;
                     } else {
@@ -505,7 +502,6 @@ public class GeographicArea {
                     if ( file.exists() && Research.OneStringInCol(file, IndexOf.coordinates, in) >= 0 ) {
                         // Output
                         System.out.println("Esiste già un'area geografica con le stesse coordinate.");
-                        System.out.println(error);
                         // Exit
                         return null;
                     } else {
