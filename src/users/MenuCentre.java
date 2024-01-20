@@ -27,7 +27,7 @@ package src.users;
 /**
  * Classe che contiene il menu per associare l'Operatore Autorizzato ad un Centro di Monitoraggio.
  * @author Giacomo Paredi
- * @version 0.29.0
+ * @version 0.30.0
  */
 class MenuCentre {
     /**
