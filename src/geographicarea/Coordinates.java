@@ -27,7 +27,7 @@ package src.geographicarea;
 /**
  * Classe che contiene metodi per la gestione delle coordinate geografiche.
  * @author Lorenzo Radice
- * @version 0.30.0
+ * @version 1.0.0
  */
 public class Coordinates {
     /**
