@@ -6,7 +6,7 @@ Un sistema di monitoraggio di parametri climatici fornito da centri di monitorag
 
 
 Versione
-0.30.0 Beta
+1.0.0
 
 
 Requisiti software
