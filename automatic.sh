@@ -23,7 +23,7 @@
 
 # Paths
 bin="bin/"
-doc="doc/"
+doc="doc/javadoc/"
 src="src/"
 lib="lib/"
 obj=$bin
@@ -167,8 +167,6 @@ rmjar() {
 }
 # Document
 document() {
-    # Make dir
-    mkdir $obj 2> /dev/null
     if extract_jar; then
         # Compile java
         d="javadoc -quiet -locale  it_IT -doctitle \"Climate Monitor\" -author -version -package -use $args $doc -sourcepath $srca"
@@ -192,7 +190,7 @@ rmdoc() {
         echo "$d2" && eval $d2
         res=$?
         result $res "Documentation removal"
-        cd ..
+        cd ../..
         return $res
     else
         echo ""
