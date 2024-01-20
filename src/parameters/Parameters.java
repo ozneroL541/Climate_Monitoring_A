@@ -38,7 +38,7 @@ import src.monitoringcentre.MonitoringCentre;
  * centro di monitoraggio sotto forma di una tabella.
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 0.30.0
+ * @version 1.0.0
  */
 public class Parameters {
     /** Indici del file dei parametri */
