@@ -1,1 +1,0 @@
-La directory bin contenente il codice eseguibile del progetto.

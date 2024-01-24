@@ -1,1 +1,0 @@
-La directory resources contenente le risorse esterne del progetto.

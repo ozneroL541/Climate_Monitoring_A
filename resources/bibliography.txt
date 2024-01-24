@@ -1,8 +1,0 @@
-Links
-CSV Writer-Reader
-https://www.baeldung.com/opencsv
-Calcolo distanza coordinate
-https://www.matematicamente.it/forum/viewtopic.php?t=186924#:~:text=distanza%20%3D%20sqrt((x2%20%2D%20x1,z2%20%2D%20z1)%5E2)%3B
-Singleton
-https://stackoverflow.com/questions/13042008/java-util-nosuchelementexception-scanner-reading-user-input
-https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://stackoverflow.com/questions/29323116/how-to-use-the-same-scanner-across-multiple-classes-in-java&ved=2ahUKEwjm7PbP24SCAxUvg_0HHTSlAboQFnoECBwQAQ&usg=AOvVaw0jgGQd92SRvOAiFWqfR0Yf
