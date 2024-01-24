@@ -112,7 +112,7 @@ public class EE {
             }
             // Funny Phrase
             System.out.println("Metti una buona parola su di noi con tuo padre.");
-            System.out.println("Finanziamenti, proposte di lavoro o collaborazione sono ben accette.");
+            System.out.println("Finanziamenti, proposte di lavoro o collaborazioni sono ben accette.");
             // TODO Easter Egg
             // It is Musk's son
             return true;
