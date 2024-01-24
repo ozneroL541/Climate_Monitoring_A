@@ -103,9 +103,9 @@ public class User {
                     }while(campo==null);
                     campi[i]=campo;
                 }
-                //swtich password with centre
+                //switch password with centre
                 //centre comes after password in the file
-                //but is asked first during registration
+                //but it is asked first during registration
                 temp=campi[IndexOf.password];
                 campi[IndexOf.password]=campi[IndexOf.centro];
                 campi[IndexOf.centro]=temp;
