@@ -22,7 +22,7 @@
     along with Climate Monitoring.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- package src.ee;
+package src.ee;
 
 import src.common.CommonMethods;
 import src.common.InputScanner;
