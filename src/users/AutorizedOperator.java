@@ -23,16 +23,9 @@
  */
 
 package src.users;
-<<<<<<< HEAD
-//TODO remove unused import
-import src.Input.InputScanner;
-import src.cryptography.AES;
-import src.cryptography.Chiper_DeChiper;
-=======
 
 import src.common.*;
 import src.geographicarea.GeographicArea;
->>>>>>> Development
 import src.monitoringcentre.MonitoringCentre;
 import src.parameters.Parameters;
 
@@ -45,173 +38,6 @@ import src.parameters.Parameters;
  */
 public class AutorizedOperator extends User {
     /**
-<<<<<<< HEAD
-    * Costruisce un operatore autorizzato
-    */
-    public AutorizedOperator() {}
-
-    //TODO
-    //java doc
-    public static void registrazione() {
-        // Datas
-        String nome = "", cognome = "", codFisc = "", email = "", centre = "", passwd = "";
-        // Exit loop
-        boolean exit = false;
-        // Max number of operators
-        final int max_operators = 99999;
-        try {
-            // Check if number of operators exceded
-            if ( file.exists() && Files.lines(file.toPath()).count() > (max_operators + 1) ) {
-                // Error Output
-                System.err.println("Numero massimo di operatori raggiunto.\nNon è possibile effettuare la registrazione");
-            } else {
-                //TODO
-                //migliorare la grafica
-                System.out.println("Benvenuto nel form per la registrazione!\nPrego, inserisca le informazioni richieste\n");
-                
-                // Insert name
-                System.out.print("Inserire il nome: ");
-                do{
-                    nome=InputScanner.INPUT_SCANNER.nextLine();
-                    //check if name contains only letters
-                    if(!onlyLettersInString(nome)){
-                        System.out.print("Nome non valido.\nReinserire: ");
-                    }else{
-                        //exit loop
-                        exit=true;
-                    }
-                }while(!exit);  //loop if name is wrong
-                exit = false;
-                // Insert last name
-                System.out.print("Inserire il cognome: ");
-                do{
-                    cognome=InputScanner.INPUT_SCANNER.nextLine();
-                    //check if last name contains only letters
-                    if(!onlyLettersInString(cognome)){
-                        System.out.print("Cognome non valido.\nReinserire: ");
-                    }else{
-                        //exit loop
-                        exit=true;
-                    }
-                }while(!exit);  //loop if last name is wrong
-                exit = false;
-                // Insert codice fiscale
-                System.out.print("Inserire il codice fiscale: ");
-                codFisc="";
-                do{
-                    // Input Fiscal Code
-                    codFisc=InputScanner.INPUT_SCANNER.nextLine();
-                    // Upper case Fiscal Code
-                    codFisc = codFisc.toUpperCase();
-                    //check if fiscal code is correct
-                    if(!ControlloCodiceFiscale(codFisc)){
-                        System.out.print("Codice fiscale non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 3, codFisc)){ //check if fiscal code is unique in the file
-                        //TODO: Criptare il codice fiscale con password universale per effettuare questo controllo
-                        System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
-                    } else {
-                        // Exit the loop
-                        exit = true;
-                    }
-                }while( ! exit );   //loop if fiscal code is wrong or if it is not unique in the file
-                // Insert email
-                System.out.print("Inserire l'indirizzo e-mail: ");
-                email="";
-                exit = false;
-                do{
-                    email=InputScanner.INPUT_SCANNER.nextLine();
-                    //check if email is correct
-                    if(!ControlloEmail(email)){
-                        System.out.print("Indirizzo non valido.\nReinserire: ");
-                    }else if( file.exists() && Research.isStringInCol(file, 4, email)){
-                        //TODO: Criptare la mail con password universale per effettuare questo controllo
-                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); //check if email is unique in the file
-                    } else {
-                        // Exit loop
-                        exit = true;
-                    }
-                } while( ! exit );   //loop if email is wrong and if it is not unique in the file
-
-                //insert monitoring centre
-                //TODO
-                centre=null;
-
-                // Insert password
-                System.out.print("Inserire la password: ");
-                passwd=InputScanner.INPUT_SCANNER.nextLine();
-            }
-        } catch ( IOException e ){
-            // Print Error
-            e.printStackTrace();
-        } catch (InputMismatchException e) {
-            // Print Error
-            e.printStackTrace();
-        } catch ( NoSuchElementException e ){
-            // Print Error
-            e.printStackTrace();
-            System.err.println(e.toString());
-        } catch ( Exception e ) {
-            // Print Error
-            e.printStackTrace();
-        }
-        // Set the userid
-        short userid=setUserId();
-
-        // Add the operator to the file
-        String[] record = data_toRecord(userid, nome, cognome, codFisc, email, passwd, centre);
-        scriviOperatore_cifrato(record);
-        
-        System.out.println("\n\nRegistrazione completata!\nPer accedere usare il seguente User-ID: " + String.format("%05d", userid) + " e la password scelta");
-    }
-
-    //TODO
-    //java doc
-    //return true if authentication is successful
-    //TODO
-    /*cambiare il tipo del ritorno in int per avere più codici di errore(?)
-     * Ritornare vari numeri negativi a seconda dell'errore.
-     * 0 se è avvenuta l'autenticazione
-    */
-    public boolean autenticazione() {
-        // If file doesn't exist exit
-        if ( ! file.exists() ){
-            // Error Output
-            System.err.println("ERRORE: il file " + file.getName() + " non si trova nella cartella \'" + file.getParent() + "\'.\n" );
-            // Error return
-            return false;
-        }
-        // Attempt limit
-        final int limit = 3;
-        // Counter 
-        int c = 0;
-        //TODO
-        //migliorare la grafica
-        System.out.println("LOGIN\n");
-        System.out.print("Inserire lo User-ID: ");
-        try {
-            String userid = InputScanner.INPUT_SCANNER.nextLine();
-            System.out.print("Inserire la password: ");
-            String password=InputScanner.INPUT_SCANNER.nextLine();
-            // Encrypt userid to search
-            userid = AES.encrypt(userid, password);
-            // Search encrypted userid
-            //return the column where UserId is
-            String[] record = Research.getRecordByData(file, 0, userid);
-            // If the result is valis
-            if(record!=null){
-                record = Chiper_DeChiper.deCipher_Record(record, password);
-                this.userid=Short.valueOf(record[0]);
-                this.nome=record[1];
-                this.cognome=record[2];
-                this.codice_fiscale=record[3];
-                this.email_address=record[4];
-                this.passwd=password;
-                return true;
-            }else{
-                //TODO
-                //migliorare?
-                System.err.println("Errore aaaa");
-=======
      * Permette all'utente di autenticarsi inserendo il proprio id e la password.
      * Ritorna un oggetto di AutorizedOperator se l'autenticazione avviene con successo, altrimenti ritorna null.
      * @return oggetto di AutorizedOperator
@@ -362,7 +188,6 @@ public class AutorizedOperator extends User {
                 // Error message
                 System.err.println("Parametri non aggiunti.");
                 // Return with error
->>>>>>> Development
                 return false;
             }
         }else{
@@ -503,7 +328,6 @@ public class AutorizedOperator extends User {
             return false;
         }
     }
-<<<<<<< HEAD
     //Update the file OperatoriRegistrati with a new record
     private static String[] data_toRecord(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
         String[] record = new String[7];
@@ -549,7 +373,6 @@ public class AutorizedOperator extends User {
         }
     }
 }
-=======
     /**
      * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
      * @return true se l'operatore è associato ad un centro
@@ -649,4 +472,3 @@ public class AutorizedOperator extends User {
         } while ( selectedAction(mainmenu_input) );
     }
 }
->>>>>>> Development
