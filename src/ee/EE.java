@@ -102,7 +102,7 @@ public class EE {
         // If it is Musk's son
         if (isMuskSon(name)) {
             // Question
-            System.out.print("Sei il figlio di Elon Musk(S/N)?");
+            System.out.print("Sei il figlio di Elon Musk(S/N)?\t");
             // Input answer
             ans = InputScanner.INPUT_SCANNER.nextLine();
             // UpperCase answer

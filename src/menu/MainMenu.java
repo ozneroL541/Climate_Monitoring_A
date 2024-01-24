@@ -26,6 +26,7 @@ package src.menu;
 
 import src.users.*;
 import src.common.InputScanner;
+import src.ee.EE;
 import src.header.Header;
 
 /**
@@ -83,7 +84,7 @@ public class MainMenu {
             // New line
             System.out.println();
         // Check if exit
-        } while ( menu.selectedAction(mainmenu_input) );
+        } while ( EE.EE_switch(input, 2) || menu.selectedAction(mainmenu_input) );
     }
     /** Stringa del menu */
     private String menu = null;

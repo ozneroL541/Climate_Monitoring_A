@@ -178,7 +178,7 @@ public class User {
                 case IndexOf.nome:
                     campo=InputScanner.INPUT_SCANNER.nextLine();
                     //check if name contains only letters
-                    if( !EE.EE_switch(campo, 1) || !CommonMethods.isValidName(campo) ){
+                    if( !EE.EE_switch(campo, 1) && !CommonMethods.isValidName(campo) ){
                         System.out.print("Nome non valido.\nReinserire: ");
                         return null;
                     }else{
@@ -444,7 +444,7 @@ public class User {
                             // Input string
                             arg = InputScanner.INPUT_SCANNER.nextLine();
                             // If the argument is correct
-                            if (GeographicArea.argumentCorrect(arg, in) || EE.EE_switch(arg, 2)) {
+                            if (GeographicArea.argumentCorrect(arg, in)) {
                                 // New Line
                                 System.out.println();
                                 // Search
