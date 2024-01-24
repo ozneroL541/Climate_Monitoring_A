@@ -174,68 +174,68 @@ public class User {
         try {
             switch(indice_campo){
 
-            //insert name
-            case IndexOf.nome:
-                campo=InputScanner.INPUT_SCANNER.nextLine();
-                //check if name contains only letters
-                if( !EE.EE_switch(campo, 1) || !CommonMethods.isValidName(campo) ){
-                    System.out.print("Nome non valido.\nReinserire: ");
-                    return null;
-                }else{
-                    return campo;
-                }
+                //insert name
+                case IndexOf.nome:
+                    campo=InputScanner.INPUT_SCANNER.nextLine();
+                    //check if name contains only letters
+                    if( !EE.EE_switch(campo, 1) || !CommonMethods.isValidName(campo) ){
+                        System.out.print("Nome non valido.\nReinserire: ");
+                        return null;
+                    }else{
+                        return campo;
+                    }
 
-            //insert last name                
-            case IndexOf.cognome:
-                campo=InputScanner.INPUT_SCANNER.nextLine();
-                //check if last name contains only letters
-                if(!CommonMethods.isValidName(campo)){
-                    System.out.print("Cognome non valido.\nReinserire: ");
-                    return null;
-                }else{
-                    return campo;
-                }
+                //insert last name                
+                case IndexOf.cognome:
+                    campo=InputScanner.INPUT_SCANNER.nextLine();
+                    //check if last name contains only letters
+                    if(!CommonMethods.isValidName(campo)){
+                        System.out.print("Cognome non valido.\nReinserire: ");
+                        return null;
+                    }else{
+                        return campo;
+                    }
 
-            //insert codice fiscale                
-            case IndexOf.codice_fiscale:
-                campo=InputScanner.INPUT_SCANNER.nextLine();
-                //upper case codice fiscale
-                campo=campo.toUpperCase();
-                //check if fiscal code is correct
-                if(!ControlloCodiceFiscale(campo)){
-                    System.out.print("Codice fiscale non valido.\nReinserire: ");
-                    return null;
-                }else if( file.exists() && Research.isStringInCol(file, IndexOf.codice_fiscale, campo)){ //check if fiscal code is unique in the file
-                    System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
-                    return null;
-                } else {
+                //insert codice fiscale                
+                case IndexOf.codice_fiscale:
+                    campo=InputScanner.INPUT_SCANNER.nextLine();
+                    //upper case codice fiscale
+                    campo=campo.toUpperCase();
+                    //check if fiscal code is correct
+                    if(!ControlloCodiceFiscale(campo)){
+                        System.out.print("Codice fiscale non valido.\nReinserire: ");
+                        return null;
+                    }else if( file.exists() && Research.isStringInCol(file, IndexOf.codice_fiscale, campo)){ //check if fiscal code is unique in the file
+                        System.out.print("Codice fiscale già utilizzato.\nReinserire: ");
+                        return null;
+                    } else {
+                        return campo;
+                    }
+                    
+                //insert email                
+                case IndexOf.email:
+                    campo=InputScanner.INPUT_SCANNER.nextLine();
+                    //check if email is correct
+                    if(!ControlloEmail(campo)){
+                        System.out.print("Indirizzo non valido.\nReinserire: ");
+                        return null;
+                    }else if( file.exists() && Research.isStringInCol(file, IndexOf.email, campo)){ //check if email is unique in the file
+                        System.out.print("Indirizzo già utilizzato.\nReinserire: "); 
+                        return null;
+                    } else {
+                        return campo;
+                    }
+
+                //insert centre             
+                case (IndexOf.password + 1):
+                    campo=setCentro();
                     return campo;
-                }
                 
-            //insert email                
-            case IndexOf.email:
-                campo=InputScanner.INPUT_SCANNER.nextLine();
-                //check if email is correct
-                if(!ControlloEmail(campo)){
-                    System.out.print("Indirizzo non valido.\nReinserire: ");
+                //insert password               
+                case (IndexOf.centro - 1):                
+                    return campo=InputScanner.INPUT_SCANNER.nextLine();
+                default:
                     return null;
-                }else if( file.exists() && Research.isStringInCol(file, IndexOf.email, campo)){ //check if email is unique in the file
-                    System.out.print("Indirizzo già utilizzato.\nReinserire: "); 
-                    return null;
-                } else {
-                    return campo;
-                }
-
-            //insert centre             
-            case (IndexOf.password + 1):
-                campo=setCentro();
-                return campo;
-             
-            //insert password               
-            case (IndexOf.centro - 1):                
-                return campo=InputScanner.INPUT_SCANNER.nextLine();
-            default:
-                return null;
             }  
         } catch (InputMismatchException e) {
             System.err.print("Errore nell'inserimento dei dati.\nReinserire: ");
@@ -444,7 +444,7 @@ public class User {
                             // Input string
                             arg = InputScanner.INPUT_SCANNER.nextLine();
                             // If the argument is correct
-                            if (GeographicArea.argumentCorrect(arg, in)) {
+                            if (GeographicArea.argumentCorrect(arg, in) || EE.EE_switch(arg, 2)) {
                                 // New Line
                                 System.out.println();
                                 // Search
