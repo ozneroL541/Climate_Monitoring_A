@@ -25,6 +25,7 @@
 package src.users;
 
 import src.common.*;
+import src.cryptography.Chiper_DeChiper;
 import src.geographicarea.GeographicArea;
 import src.monitoringcentre.MonitoringCentre;
 import src.parameters.Parameters;
@@ -341,38 +342,6 @@ public class AutorizedOperator extends User {
         return record;
 
     }
-    //Update the file OperatoriRegistrati with a new record
-    private static void scriviOperatore_cifrato(String[] record ){
-
-        String[] c = Chiper_DeChiper.recordCipher_pw(record, 5);
-        String o = "";
-
-        for (String string : c) {
-            o += string + ",";
-        }
-        o = o.substring(0,o.length()-1);
-        BufferedWriter scrivi;
-
-        try {
-            scrivi=new BufferedWriter(new FileWriter(file, true));
-            scrivi.append(o);
-            scrivi.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    //TODO Remove TestMain
-    public static void main(String[] args) {
-        AutorizedOperator.registrazione();
-        AutorizedOperator a = new AutorizedOperator();
-        if (a.autenticazione()) {
-            System.err.println("Autenticato");
-            System.out.println(a.toString());
-        }
-    }
-}
     /**
      * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
      * @return true se l'operatore è associato ad un centro
