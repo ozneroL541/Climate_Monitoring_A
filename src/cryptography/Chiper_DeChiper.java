@@ -4,7 +4,7 @@ package src.cryptography;
  * Classe per cifrare.
  * @see src.cryptography.AES
  * @author Lorenzo Radice
- * @version 0.0.1
+ * @version 0.1.0
  */
 public class Chiper_DeChiper {
     /**

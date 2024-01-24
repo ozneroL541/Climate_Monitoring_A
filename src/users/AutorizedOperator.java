@@ -104,6 +104,19 @@ public class AutorizedOperator extends User {
         // Return
         return a;
     }
+    //Update the file OperatoriRegistrati with a new record
+    private static String[] data_toRecord(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
+        String[] record = new String[7];
+        record[0] = String.format("%05d", userid);
+        record[1] = nome;
+        record[2] = cognome;
+        record[3] = codice_fiscale;
+        record[4] = email_address;
+        record[5] = passwd;
+        record[6] = centre;
+        return record;
+
+    }
     /** Codice Utente */
     private short userid;
     /** Nome */
@@ -328,19 +341,6 @@ public class AutorizedOperator extends User {
             System.err.println("ERRORE: oggetto Operatore Autorizzato corrotto.");
             return false;
         }
-    }
-    //Update the file OperatoriRegistrati with a new record
-    private static String[] data_toRecord(short userid, String nome, String cognome, String codice_fiscale, String email_address, String passwd, String centre){
-        String[] record = new String[7];
-        record[0] = String.format("%05d", userid);
-        record[1] = nome;
-        record[2] = cognome;
-        record[3] = codice_fiscale;
-        record[4] = email_address;
-        record[5] = passwd;
-        record[6] = centre;
-        return record;
-
     }
     /**
      * Controlla se l'Operatore Autorizzato è associato ad un centro di monitoraggio.
