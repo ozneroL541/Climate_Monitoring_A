@@ -1,6 +1,6 @@
 package src.ee;
 
-import src.input.InputScanner;
+import src.common.InputScanner;
 
 /**
  * Controlla che i valori siano accettabili
