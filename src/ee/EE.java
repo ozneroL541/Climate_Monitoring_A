@@ -9,7 +9,9 @@ import src.common.InputScanner;
  * @version 0.10.2
  */
 public class EE {
-    // Choose if enable the EasterEgg
+    /**
+     * Easter Egg attivo
+     */
     final private static boolean eg_enable = true;
     /**
      * Controlla che i valori inseriti siano validi
@@ -67,7 +69,7 @@ public class EE {
         // Print output
         return out + "\n";
     }
-    /*
+    /**
      * Controlla se il nome inserito è il figlio di Elon Musk.
      * @param n nome
      * @return true se è il figlio di Musk
@@ -89,7 +91,7 @@ public class EE {
         // Return false if it is not Musk's son
         return false;
     }
-    /*
+    /**
      * Se il nome inserito è quello del figlio di Elon Musk attiva un Easter Egg e ritorna true.
      * @param name nome
      * @return true se il nome è accettabile
@@ -113,7 +115,6 @@ public class EE {
             // Funny Phrase
             System.out.println("Metti una buona parola su di noi con tuo padre.");
             System.out.println("Finanziamenti, proposte di lavoro o collaborazioni sono ben accette.");
-            // TODO Easter Egg
             // It is Musk's son
             return true;
         } else
