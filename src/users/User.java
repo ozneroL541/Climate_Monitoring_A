@@ -41,7 +41,7 @@ import src.parameters.Parameters;
  * Un oggetto della classe <code>User</code> rappresenta un utente.
  * Ciò che l'utente può fare è descritto nei metodi che gli appartengono.
  * @author Giacomo Paredi
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class User {
     /**
@@ -174,7 +174,7 @@ public class User {
             switch(indice_campo){
 
             //insert name
-            case 1:
+            case IndexOf.nome:
                 campo=InputScanner.INPUT_SCANNER.nextLine();
                 //check if name contains only letters
                 if(!CommonMethods.isValidName(campo)){
@@ -185,7 +185,7 @@ public class User {
                 }
 
             //insert last name                
-            case 2:
+            case IndexOf.cognome:
                 campo=InputScanner.INPUT_SCANNER.nextLine();
                 //check if last name contains only letters
                 if(!CommonMethods.isValidName(campo)){
@@ -196,7 +196,7 @@ public class User {
                 }
 
             //insert codice fiscale                
-            case 3:
+            case IndexOf.codice_fiscale:
                 campo=InputScanner.INPUT_SCANNER.nextLine();
                 //upper case codice fiscale
                 campo=campo.toUpperCase();
@@ -212,7 +212,7 @@ public class User {
                 }
                 
             //insert email                
-            case 4:
+            case IndexOf.email:
                 campo=InputScanner.INPUT_SCANNER.nextLine();
                 //check if email is correct
                 if(!ControlloEmail(campo)){
@@ -226,12 +226,12 @@ public class User {
                 }
 
             //insert centre             
-            case 5:
+            case (IndexOf.centro - 1):
                 campo=setCentro();
                 return campo;
              
-            //insert password               
-            case 6:                
+            //insert password          
+            case (IndexOf.password + 1):                
                 return campo=InputScanner.INPUT_SCANNER.nextLine();
             default:
                 return null;
