@@ -33,6 +33,7 @@ import java.util.InputMismatchException;
 import java.util.regex.Pattern;
 
 import src.common.*;
+import src.ee.EE;
 import src.geographicarea.GeographicArea;
 import src.monitoringcentre.MonitoringCentre;
 import src.parameters.Parameters;
@@ -177,7 +178,7 @@ public class User {
             case IndexOf.nome:
                 campo=InputScanner.INPUT_SCANNER.nextLine();
                 //check if name contains only letters
-                if(!CommonMethods.isValidName(campo)){
+                if( !EE.EE_switch(campo, 1) || !CommonMethods.isValidName(campo) ){
                     System.out.print("Nome non valido.\nReinserire: ");
                     return null;
                 }else{
