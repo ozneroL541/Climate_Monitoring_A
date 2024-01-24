@@ -30,7 +30,7 @@ import java.util.Scanner;
  * Standard Input Scanner
  * Permette di usare Scanner del stdin.
  * @author Lorenzo Radice
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class InputScanner {
     /**

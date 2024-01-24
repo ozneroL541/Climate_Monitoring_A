@@ -27,7 +27,7 @@ package src.users;
 /**
  * Classe che contiene il menu Operatore Autorizzato.
  * @author Lorenzo Radice
- * @version 1.0.0
+ * @version 1.0.1
  */
 class MenuOperator {
     /**

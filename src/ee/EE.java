@@ -6,7 +6,7 @@ import src.common.InputScanner;
 /**
  * Controlla che i valori siano accettabili
  * @author Lorenzo Radice
- * @version 0.10.2
+ * @version 1.0.1
  */
 public class EE {
     /**

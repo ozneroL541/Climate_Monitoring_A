@@ -41,7 +41,7 @@ import com.opencsv.CSVWriter;
  * Raccolta di metodi statici utili per la gestione dei file CSV.
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class CSV_Utilities {
     /**

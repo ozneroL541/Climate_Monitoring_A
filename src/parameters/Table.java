@@ -33,7 +33,7 @@ import src.common.InputScanner;
  * che contiene i valori dei prametri rilevati da una zona geografica.
  * La tabella ha 7 categorie per i valori inseriti.
  * @author Lorenzo Radice
- * @version 1.0.0
+ * @version 1.0.1
  */
 class Table {
     /** Valore e nota */
