@@ -1,5 +1,6 @@
 package src.ee;
 
+import src.common.CommonMethods;
 import src.common.InputScanner;
 
 /**
@@ -105,7 +106,7 @@ public class EE {
             // UpperCase answer
             ans = ans.toUpperCase();
             // If Negative answer
-            if (ans.contains("N") || ans.contains("Q") || ans.contains("ESC") || ans.contains("EXIT") ) {
+            if ( CommonMethods.ExitLoop(ans) ) {
                 // Return false because it is not Musk's son
                 return false;
             }
