@@ -1,0 +1,1 @@
+La directory resources contenente le risorse interne del progetto.
