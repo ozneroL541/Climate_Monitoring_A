@@ -351,7 +351,7 @@ public class Research {
         // Limit of acceptable distance
         final short limit = 3000;
         // Max number to return
-        final short max =  10;
+        final short max = 10;
         // Coordinates
         double[] c2 = new double[2];
         // Distance
@@ -449,7 +449,7 @@ public class Research {
         // Limit of acceptable distance
         final short limit = 3000;
         // Max number to return
-        final short max =  10;
+        final short max = 10;
         // Create an array where store the list
         Integer[] out = null;
         // Coordinates
