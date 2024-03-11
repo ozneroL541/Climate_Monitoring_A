@@ -28,7 +28,7 @@ package src.maxpq;
  * Maximum Priority Queue
  * <br>Coda a priorità massima
  * @author Lorenzo Radice
- * @version 1.0.1
+ * @version 1.1.0
  */
 public class MaxPQ<T extends Comparable<T>> {
     /** Maximum Priority Queue array */
@@ -54,6 +54,13 @@ public class MaxPQ<T extends Comparable<T>> {
         return n == 0;
     }
     /**
+     * Cntrolla che la coda sia piena
+     * @return true se la coda è piena
+     */
+    public boolean isFull() {
+        return (this.max - 1) < this.n;
+    }
+    /**
      * Ritorna la dimensione della coda
      * @return lunghezza della coda
      */
@@ -72,22 +79,23 @@ public class MaxPQ<T extends Comparable<T>> {
      * @param v oggetto da inserire
      */
     public void insert(T v) {
-        // If the current elemets reached the maximum
-        if ( (this.max - 1) < n) {
-            if ( pq[1].compareTo(v) >= 0 ) {
+        // If the current element reached the maximum
+        if ( this.isFull() ) {
+            // If the element to insert is smaller then the bigger
+            if ( this.pq[1].compareTo(v) >= 0 ) {
                 delete();
                 // Increment the size of heap
                 // Assign v to the first void space of the array
-                pq[++n] = v;
+                this.pq[++this.n] = v;
                 // Reorder the array
-                swim(n);
+                swim(this.n);
             }
         } else {
             // Increment the size of heap
             // Assign v to the first void space of the array
-            pq[++n] = v;
+            this.pq[++this.n] = v;
             // Reorder the array
-            swim(n);
+            swim(this.n);
         }
     }
     /**
@@ -102,12 +110,12 @@ public class MaxPQ<T extends Comparable<T>> {
      */
     public T delete(){
         // Copy the first element of the heap
-        T max = pq[1];
+        T max = this.pq[1];
         // Exchange the first element with the last one
         // and decrease the lenght of heap
         exch(1,n--);
         // Delete the last element of the array
-        pq[n+1] = null;
+        this.pq[n+1] = null;
         // Sink first element
         sink(1);
         // Return first element

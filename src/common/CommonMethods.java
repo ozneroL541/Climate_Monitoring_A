@@ -28,7 +28,7 @@ package src.common;
  * Raccolta di metodi statici utilizzati da più classi.
  * @author Giacomo Paredi
  * @author Lorenzo Radice
- * @version 1.0.1
+ * @version 1.1.0
  */
 public class CommonMethods {
     /**

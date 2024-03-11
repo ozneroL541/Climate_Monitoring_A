@@ -37,7 +37,7 @@ import src.maxpq.MaxPQ;
 /**
  * Classe che contiene algoritmi statici di ricerca.
  * @author Lorenzo Radice
- * @version 1.0.1
+ * @version 1.1.0
  */
 public class Research {
     /**
@@ -69,6 +69,8 @@ public class Research {
             nextRecord = creader.readNext();
             // If columns are less than col exit code -2
             if ( nextRecord.length <= col ) {
+                // Close Reader
+                creader.close();
                 // Error Output
                 System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\n");
                 // Error
@@ -139,8 +141,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
+            if ( nextRecord.length <= col ) {
+                // Close Reader
+                creader.close();
+                // Exit
                 return null;
+            }
             // First line will not contain any researched element so, increment and go on
             // Line increment
             line++;
@@ -208,8 +214,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
+            if ( nextRecord.length <= col ) {
+                // Close reader
+                creader.close();
+                // Exit
                 return null;
+            }
             // First line will not contain any researched element so, increment and go on
             // Line increment
             line++;
@@ -269,7 +279,7 @@ public class Research {
      * @param c coordinata fornita
      * @param err errore/range
      * @return array di Integer contenente le righe
-     * @version 1
+     * @version 1.1.0
      */
     @Deprecated
     public static Integer[] CoordinatesAdvancedV1(File file, int col, double[] c, double err ) {
@@ -294,8 +304,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
+            if ( nextRecord.length <= col ) {
+                // Close reader
+                creader.close();
+                // Exit
                 return null;
+            }
             // First line will not contain any researched element so, increment and go on
             // Line increment
             line++;
@@ -378,9 +392,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit
-            if ( nextRecord.length <= col )
+            if ( nextRecord.length <= col ) {
+                // Close reader
+                creader.close();
                 // Exit
                 return null;
+            }
             // First line will not contain any researched element so increment and go on
             // Line increment
             line++;
@@ -476,9 +493,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit
-            if ( nextRecord.length <= col )
+            if ( nextRecord.length <= col ) {
+                // Close file
+                creader.close();
                 // Exit
                 return null;
+            }
             // First line will not contain any researched element so increment and go on
             // Line increment
             line++;
@@ -488,7 +508,8 @@ public class Research {
                 c2 = Coordinates.parseCoordinates(nextRecord[col]);
                 // Calculate distance between coordinates
                 dist = calculateDistance(c1[0], c1[1], c2[0], c2[1]);
-                // Accept only distances in the limit
+                // Accept only distances in the limit end not bigger then max
+                // If ( dist < limit ) {
                 if ( dist < limit ) {
                     // Create a Distance Object
                     d = new Distance(dist, line);
@@ -540,9 +561,12 @@ public class Research {
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null){
                 // When the cell equals the string return true
-                if ( nextRecord[col].equals(str) )
+                if ( nextRecord[col].equals(str) ) {
+                    // Close reader
+                    creader.close();
                     // Return true
                     return true;
+                }
             }
             creader.close();
         } catch (FileNotFoundException e ) {
@@ -633,8 +657,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit code -2
-            if ( nextRecord.length <= col )
+            if ( nextRecord.length <= col ) {
+                // Close reader
+                creader.close();
+                // Exit
                 return null;
+            }
             // First line will not contain any researched element so, increment and go on
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null && !found ){
@@ -690,8 +718,12 @@ public class Research {
             // Read first line
             nextRecord = creader.readNext();
             // If columns are less than col exit code -2
-            if ( nextRecord.length <= col1 || nextRecord.length <= col2 )
+            if ( nextRecord.length <= col1 || nextRecord.length <= col2 ) {
+                // Close reader
+                creader.close();
+                // Exit
                 return null;
+            }
             // First line will not contain any researched element so, increment and go on
             // Read data line by line
             while( (nextRecord = creader.readNext()) != null && !found ){
@@ -749,6 +781,8 @@ public class Research {
             nextRecord = creader.readNext();
             // If columns are less than col
             if ( nextRecord.length <= col ) {
+                // Close Reader
+                creader.close();
                 // Error Output
                 System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\n");
                 // Error
@@ -813,6 +847,8 @@ public class Research {
                 if ( nextRecord[col1].equals(str1) ) {
                     // Check if also the second cell equals the second string
                     if ( nextRecord[col2].equals(str2) ) {
+                        // Close Reader
+                        creader.close();
                         // Return true
                         return true;
                     }
@@ -865,6 +901,8 @@ public class Research {
             nextRecord = creader.readNext();
             // If columns are less than col
             if ( nextRecord.length <= col ) {
+                // Close Reader
+                creader.close();
                 // Error Output
                 System.err.println("ERRORE: Le colonne nel file sono meno di quelle passate in argomento.\n");
                 // Error
